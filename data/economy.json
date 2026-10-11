@@ -1,0 +1,122 @@
+{
+  "start": {"gold": 200, "grain": 300, "prestige": 20, "tax_rate": 15, "ration": 3, "satisfaction": 55},
+  "tax_rates": [5, 10, 15, 20, 25, 30, 40],
+  "rations": [2, 3, 4],
+  "normal_ration": 3,
+  "tax": {"factor": 3.0, "base": 0.5, "satisfaction_divisor": 200.0},
+  "market": {"factor": 0.3, "autumn_multiplier": 1.25, "unrest_threshold": 30, "unrest_multiplier": 0.5},
+  "harvest": {"disrupted_multiplier": 0.5},
+  "weather": {"values": [0.6, 0.85, 1.0, 1.15, 1.3], "weights": [10, 20, 40, 20, 10]},
+  "grain": {
+    "winter_abroad_multiplier": 1.5,
+    "shortage_satisfaction": 30,
+    "shortage_population": 0.1,
+    "shortage_morale": 20,
+    "shortage_prestige": 3,
+    "spoilage_base": 0.1,
+    "spoilage_min": 0.02
+  },
+  "grain_market": {
+    "base_price": 0.5,
+    "noise_min": 0.9,
+    "noise_max": 1.1,
+    "rise_per_round": 0.1,
+    "spread": 0.2,
+    "impact_per_100": 0.02,
+    "price_min": 0.2,
+    "price_max": 2.0
+  },
+  "satisfaction": {
+    "adjust_rate": 0.25,
+    "base": 60,
+    "tax_pivot": 10,
+    "tax_weight": 1.5,
+    "ration_weight": 10,
+    "prestige_divisor": 10,
+    "home_castle_bonus": 5,
+    "occupation_penalty": 15,
+    "ban_penalty": 15,
+    "revolt_threshold": 25,
+    "revolt_chance_per_point": 0.03,
+    "revolt_prestige": 2,
+    "max": 100
+  },
+  "population": {
+    "growth_base": 0.03,
+    "growth_pivot": 40,
+    "growth_span": 60,
+    "ration_growth": 0.02,
+    "capacity_start_factor": 1.5,
+    "capacity_per_castle_level": 5,
+    "capacity_per_market_level": 10
+  },
+  "prestige": {"decay": 0.95, "max": 100, "ban_per_round": 2, "battle_won": 3, "battle_lost": 3},
+  "treasury": {"desertion_share": 0.1, "satisfaction_penalty": 5},
+  "recruitment": {"population_per_unit": 20, "satisfaction_cost": 2},
+  "slots": {"province": 2, "home_per_castle_level": 1, "max": 6},
+  "ransom": {"base": 150, "per_home_castle_level": 50},
+  "siege": {"starve_loss": 0.15, "upkeep_multiplier": 1.25},
+  "decoration_limit": 5,
+  "houses": {
+    "welfen": {"market_multiplier": 1.5, "grain_spread": 0.1},
+    "wettiner": {"building_income": {"mine": 1.5}, "building_cost": {"mine": 0.7}},
+    "staufer": {"unit_cost": {"knights": 0.75}},
+    "wittelsbacher": {}
+  },
+  "units": {
+    "levy": {"cost": 20, "population": 0.5, "upkeep_gold": 1, "upkeep_grain": 3, "home_castle": 1},
+    "spearmen": {"cost": 40, "population": 0.5, "upkeep_gold": 2, "upkeep_grain": 3, "home_castle": 1},
+    "crossbowmen": {"cost": 50, "population": 0.5, "upkeep_gold": 3, "upkeep_grain": 3, "home_castle": 2},
+    "knights": {"cost": 120, "population": 0.3, "upkeep_gold": 8, "upkeep_grain": 6, "home_castle": 3},
+    "brabanters": {
+      "cost": 90, "population": 0, "upkeep_gold": 10, "upkeep_grain": 3, "home_castle": 1,
+      "requires": "market_2", "mercenary": true
+    },
+    "trebuchet": {
+      "cost": 150, "population": 0.2, "upkeep_gold": 6, "upkeep_grain": 2, "home_castle": 1,
+      "requires": "workshop"
+    }
+  },
+  "buildings": {
+    "mill": {"cost": 80, "build_rounds": 1, "upkeep": 2, "harvest_bonus": 0.25},
+    "market_1": {"cost": 100, "build_rounds": 1, "upkeep": 2, "market_level": 1, "satisfaction": 5},
+    "market_2": {
+      "cost": 250, "build_rounds": 2, "upkeep": 5, "market_level": 2, "satisfaction": 10,
+      "upgrade_of": "market_1", "home_castle": 2
+    },
+    "granary": {
+      "cost": 70, "build_rounds": 1, "upkeep": 1, "spoilage_reduction": 0.02,
+      "siege_starve_multiplier": 0.5
+    },
+    "monastery": {"cost": 150, "build_rounds": 2, "upkeep": 3, "satisfaction": 10, "growth": 0.01, "prestige": 0.5},
+    "mine": {"cost": 200, "build_rounds": 2, "upkeep": 5, "income": 30, "features": ["ore"]},
+    "toll": {
+      "cost": 60, "build_rounds": 1, "upkeep": 1, "income_river": 8, "income_pass": 15,
+      "features": ["river", "pass"]
+    },
+    "workshop": {
+      "cost": 150, "build_rounds": 2, "upkeep": 3, "home_only": true, "home_castle": 4,
+      "castle_cost_multiplier": 0.85
+    }
+  },
+  "home_castle": [
+    {"level": 1, "cost": 0, "build_rounds": 0, "upkeep": 0, "wall": 1, "garrison": 1, "prestige": 0.5},
+    {"level": 2, "cost": 300, "build_rounds": 2, "upkeep": 5, "wall": 2, "garrison": 2, "prestige": 1.0},
+    {"level": 3, "cost": 600, "build_rounds": 3, "upkeep": 10, "wall": 3, "garrison": 3, "prestige": 1.5},
+    {"level": 4, "cost": 1000, "build_rounds": 3, "upkeep": 15, "wall": 3, "garrison": 3, "prestige": 2.5},
+    {"level": 5, "cost": 1800, "build_rounds": 4, "upkeep": 25, "wall": 4, "garrison": 4, "prestige": 4.0}
+  ],
+  "province_castle": [
+    {"level": 0, "cost": 0, "build_rounds": 0, "upkeep": 0, "wall": 0, "garrison": 0},
+    {"level": 1, "cost": 80, "build_rounds": 1, "upkeep": 2, "wall": 1, "garrison": 1},
+    {"level": 2, "cost": 250, "build_rounds": 2, "upkeep": 5, "wall": 2, "garrison": 2},
+    {"level": 3, "cost": 500, "build_rounds": 3, "upkeep": 10, "wall": 3, "garrison": 3, "home_castle": 3}
+  ],
+  "decorations": {
+    "banners": {"cost": 50, "prestige": 0.2},
+    "fountain": {"cost": 100, "satisfaction": 3},
+    "rose_garden": {"cost": 120, "prestige": 0.4},
+    "tapestries": {"cost": 150, "prestige": 0.5},
+    "stained_glass": {"cost": 200, "prestige": 0.6, "home_castle": 4}
+  }
+}

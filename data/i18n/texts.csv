@@ -1,0 +1,107 @@
+keys,de,en
+PROVINCE_FRS,Friesland,Frisia
+PROVINCE_BRM,Bremen,Bremen
+PROVINCE_HOL,Holstein & Lübeck,Holstein & Lübeck
+PROVINCE_MUN,Münster,Münster
+PROVINCE_OSN,Osnabrück,Osnabrück
+PROVINCE_BSW,Braunschweig,Brunswick
+PROVINCE_MAG,Magdeburg,Magdeburg
+PROVINCE_BRB,Brandenburg,Brandenburg
+PROVINCE_SXW,Sachsen-Wittenberg,Saxe-Wittenberg
+PROVINCE_GOS,Goslar & Harz,Goslar & Harz
+PROVINCE_HES,Hessen,Hesse
+PROVINCE_THU,Thüringen,Thuringia
+PROVINCE_MEI,Meißen,Meissen
+PROVINCE_BOH,Böhmen,Bohemia
+PROVINCE_BBT,Brabant,Brabant
+PROVINCE_AAC,Aachen,Aachen
+PROVINCE_KOE,Köln,Cologne
+PROVINCE_TRI,Trier,Trier
+PROVINCE_LOT,Lothringen,Lorraine
+PROVINCE_MAI,Mainz,Mainz
+PROVINCE_PFA,Pfalz am Rhein,Palatinate of the Rhine
+PROVINCE_FRA,Franken,Franconia
+PROVINCE_SPT,Speyer & Trifels,Speyer & Trifels
+PROVINCE_ELS,Elsass,Alsace
+PROVINCE_BRG,Breisgau,Breisgau
+PROVINCE_SWB,Schwaben,Swabia
+PROVINCE_NUE,Nürnberg,Nuremberg
+PROVINCE_BAY,Bayern,Bavaria
+PROVINCE_SAL,Salzburg,Salzburg
+PROVINCE_OST,Österreich,Austria
+PROVINCE_TIR,Tirol,Tyrol
+ERROR_UNKNOWN_HOUSE,Unbekanntes Haus.,Unknown house.
+ERROR_INVALID_TAX_RATE,Dieser Steuersatz ist nicht erlaubt.,This tax rate is not allowed.
+ERROR_INVALID_RATION,Diese Ration ist nicht erlaubt.,This ration is not allowed.
+TURN_GAME_OVER,Die Partie ist beendet.,The game is over.
+TURN_NOT_ACTIVE_HOUSE,Dieses Haus ist nicht am Zug.,It is not this house's turn.
+TURN_WRONG_PHASE,Das geht in dieser Phase nicht.,That is not possible in this phase.
+TURN_UNKNOWN_PROVINCE,Unbekannte Provinz.,Unknown province.
+TURN_NOT_YOUR_PROVINCE,Diese Provinz gehört dir nicht.,You do not hold this province.
+TURN_NOT_ENOUGH_GOLD,Nicht genug Taler.,Not enough taler.
+TURN_NOT_ENOUGH_GRAIN,Nicht genug Korn.,Not enough grain.
+TURN_INVALID_AMOUNT,Diese Menge ist nicht erlaubt.,This amount is not allowed.
+TURN_UNKNOWN_BUILDING,Unbekanntes Gebäude.,Unknown building.
+TURN_ALREADY_BUILT,Dieses Gebäude steht hier schon oder ist im Bau.,This building already stands here or is under construction.
+TURN_NO_FREE_SLOT,Kein freier Bauplatz.,No free building slot.
+TURN_PREREQUISITE_MISSING,Die Voraussetzung fehlt.,A prerequisite is missing.
+TURN_CASTLE_MAX_LEVEL,Die Burg hat schon die höchste Stufe.,The castle is already at its highest level.
+TURN_CASTLE_UNDER_CONSTRUCTION,Die Burg wird schon ausgebaut.,The castle is already being upgraded.
+TURN_UNKNOWN_DECORATION,Unbekannte Zierde.,Unknown decoration.
+TURN_DECORATION_OWNED,Diese Zierde schmückt die Stammburg schon.,This decoration already adorns the home castle.
+TURN_DECORATION_LIMIT,Die Stammburg trägt schon so viele Zierden wie möglich.,The home castle already holds as many decorations as it can.
+TURN_UNKNOWN_UNIT,Unbekannte Einheit.,Unknown unit.
+TURN_NO_CASTLE,Rekrutieren geht nur in Provinzen mit Burg.,You can only recruit in provinces with a castle.
+TURN_UNIT_LOCKED,Diese Einheit ist hier noch nicht verfügbar.,This unit is not available here yet.
+TURN_RECRUIT_LIMIT,Diese Provinz stellt in diesem Jahr keine weiteren Rotten.,This province provides no more companies this year.
+TURN_ENEMY_PRESENT,Feindliche Truppen stehen in der Provinz.,Enemy troops stand in the province.
+TURN_NO_ARMY_ROOM,Keine Armee hat Platz und eine weitere ist nicht erlaubt.,No army has room and no further army is allowed.
+TURN_UNKNOWN_ARMY,Unbekannte Armee.,Unknown army.
+TURN_NOT_NEIGHBOR,Diese Provinz grenzt nicht an.,This province is not adjacent.
+TURN_NO_MOVES_LEFT,Diese Armee kann in dieser Runde nicht weiterziehen.,This army cannot move any further this round.
+TURN_NOT_BESIEGING,Diese Armee belagert keine Burg.,This army is not besieging a castle.
+TURN_LEADER_NOT_CAPTURED,Der Anführer ist nicht in Gefangenschaft.,The leader is not held captive.
+TURN_LEADER_UNAVAILABLE,Der Anführer kann diese Armee jetzt nicht übernehmen.,The leader cannot take command of this army now.
+TURN_ARMY_FULL,Die Armee ist zu groß.,The army is too large.
+BATTLE_SHOUT_CHARGE,Zum Angriff!,Charge!
+BATTLE_SHOUT_HOLD,Haltet die Linie!,Hold the line!
+BATTLE_SHOUT_RETREAT,Rückzug!,Retreat!
+BATTLE_SHOUT_RALLY,Sammelt euch!,Rally!
+BATTLE_SHOUT_LEADER_CAPTURED,Anführer gefangen!,Leader captured!
+BATTLE_HOUSE_WELFEN,Welfen,Welfs
+BATTLE_HOUSE_WETTINER,Wettiner,Wettins
+BATTLE_HOUSE_STAUFER,Staufer,Staufers
+BATTLE_HOUSE_WITTELSBACHER,Wittelsbacher,Wittelsbachs
+BATTLE_CRY_WELFEN,Hie Welf!,Hie Welf!
+BATTLE_CRY_WETTINER,Hie Wettin!,Hie Wettin!
+BATTLE_CRY_STAUFER,Hie Waiblingen!,Hie Waiblingen!
+BATTLE_CRY_WITTELSBACHER,Hie Wittelsbach!,Hie Wittelsbach!
+BATTLE_UNIT_LEVY,Aufgebot,Levy
+BATTLE_UNIT_SPEARMEN,Spießträger,Spearmen
+BATTLE_UNIT_CROSSBOWMEN,Armbrustschützen,Crossbowmen
+BATTLE_UNIT_KNIGHTS,Ritter,Knights
+BATTLE_UNIT_BRABANTERS,Brabanzonen,Brabanters
+BATTLE_UNIT_TREBUCHET,Blide,Trebuchet
+BATTLE_UNIT_LEADER,Anführer,Leader
+BATTLE_ROLE_ATTACKER,Angreifer,Attacker
+BATTLE_ROLE_DEFENDER,Verteidiger,Defender
+BATTLE_PHASE_DEPLOY,Aufstellung %s,Deployment %s
+BATTLE_MENU_TITLE,Schlacht-Prototyp,Battle prototype
+BATTLE_MENU_START,Schlacht beginnen,Start battle
+BATTLE_MENU_CONFLICT,Beide Seiten nutzen dasselbe Eingabegerät.,Both sides use the same input device.
+BATTLE_CONTROL_AI,Computer,Computer
+BATTLE_CONTROL_KEYBOARD,Tastatur & Maus,Keyboard & mouse
+BATTLE_CONTROL_PAD,Controller %d,Controller %d
+BATTLE_HINT_KEYBOARD,Q/E oder 1–4: Gruppe · WASD oder Rechtsklick: Bewegen · Leertaste oder Rechtsklick auf Gegner: Angriff · F: Formation · R: Sammeln · Mausrad: Zoom · Esc: Menü,Q/E or 1–4: group · WASD or right-click: move · Space or right-click an enemy: attack · F: formation · R: rally · wheel: zoom · Esc: menu
+BATTLE_HINT_PAD,LT/RT: Gruppe · Linker Stick: Bewegen · A: Angriff · B: Formation · Y: Sammeln · Rechter Stick: Zoom · Start: Menü,LT/RT: group · left stick: move · A: attack · B: formation · Y: rally · right stick: zoom · Start: menu
+BATTLE_RESULT_VICTORY,Sieg: %s,Victory: %s
+BATTLE_RESULT_ROUT,Der Gegner ist geflohen oder vernichtet.,The enemy fled or was destroyed.
+BATTLE_RESULT_TIMEOUT,Die Zeit ist um: Die stärkere Seite behauptet das Feld.,Time is up: the stronger side holds the field.
+BATTLE_RESULT_DURATION,Dauer: %s,Duration: %s
+BATTLE_RESULT_LOSSES,Verluste,Losses
+BATTLE_RESULT_CAPTURED,Gefangen: Anführer der %s,Captured: leader of the %s
+BATTLE_RESULT_NO_CAPTIVES,Kein Anführer gefangen,No leader captured
+BATTLE_RESULT_PLAY_AGAIN,Nochmal spielen,Play again
+BATTLE_RESULT_SETUP,Zur Aufstellung,Back to setup
+BATTLE_STATUS_DESTROYED,vernichtet,destroyed
+BATTLE_STATUS_FLED,geflohen,fled
