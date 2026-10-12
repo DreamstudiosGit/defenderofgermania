@@ -2,7 +2,8 @@ class_name CampaignSession
 extends RefCounted
 ## A running campaign for the map scene: human houses issue commands, the others stay passive
 ## (they end their phases at once until the AI of milestone M7 plays them). A move into a
-## battle can be fought live first; its result then decides that battle.
+## battle can be fought live first; its result then decides that battle. Adventures work the
+## same way: the minigame is played first, its result decides the command.
 
 var state: GameState
 var rules: GameRules
@@ -17,6 +18,13 @@ var _live := LiveBattle.new()
 
 class LiveBattle:
 	var result: BattleResult = null
+	var adventure: RefCounted = null
+
+	## The live result of the command's adventure, once; without one the computer plays.
+	func resolve_adventure(_setup: RefCounted) -> RefCounted:
+		var live := adventure
+		adventure = null
+		return live
 
 	## The live result for the first battle of a move, once; other battles auto-resolve.
 	func resolve(setup: BattleSetup) -> BattleResult:
@@ -37,6 +45,7 @@ static func create(
 	session.humans = human_houses.duplicate()
 	session.state = GameSetup.create(game_rules.map, game_rules.economy, seed_value)
 	session.rules.resolver = session._live.resolve
+	session.rules.adventure_resolver = session._live.resolve_adventure
 	session.advance_passive()
 	return session
 
@@ -74,6 +83,14 @@ func move_after_battle(army_id: int, target: String, result: BattleResult) -> St
 	_live.result = result
 	var error := execute(MoveArmyCommand.new(rules, active_house(), army_id, target))
 	_live.result = null
+	return error
+
+
+## Executes a command whose adventure was played live and ended with `result`.
+func execute_after_adventure(command: Command, result: RefCounted) -> String:
+	_live.adventure = result
+	var error := execute(command)
+	_live.adventure = null
 	return error
 
 

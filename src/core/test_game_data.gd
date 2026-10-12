@@ -214,6 +214,8 @@ func test_campaign_error_keys_have_texts() -> void:
 		EventEffects.ERROR_TARGET_GONE,
 		EventEffects.ERROR_NO_UNITS,
 		EventBattles.ERROR_NO_ARMY,
+		Adventures.ERROR_DONE,
+		Adventures.ERROR_LEADER_CAPTURED,
 		"ECONOMY_TERM_EVENT_GRAIN",
 	]:
 		assert_string_contains(texts, "\n%s," % key)

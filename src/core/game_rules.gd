@@ -6,9 +6,13 @@ var map: MapData
 var economy: EconomyConfig
 var combat: CombatConfig
 var events: EventData
+var merchant: MerchantConfig
 ## Takes a BattleSetup and returns a BattleResult; the real-time battle plugs in here.
 ## While empty, or when it returns null, battles are auto-resolved with state.rng.
 var resolver: Callable = Callable()
+## Takes an adventure setup (e.g. MerchantSetup) and returns the result the player achieved
+## in its minigame; while empty, or when it returns null, the computer plays the house's side.
+var adventure_resolver: Callable = Callable()
 
 
 static func load_files() -> GameRules:
@@ -17,8 +21,10 @@ static func load_files() -> GameRules:
 	rules.economy = EconomyConfig.load_file()
 	rules.combat = CombatConfig.load_file()
 	rules.events = EventData.load_file()
-	if rules.map == null or rules.economy == null or rules.combat == null or rules.events == null:
-		return null
+	rules.merchant = MerchantConfig.load_file()
+	for part: Variant in [rules.map, rules.economy, rules.combat, rules.events, rules.merchant]:
+		if part == null:
+			return null
 	return rules
 
 

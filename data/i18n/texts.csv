@@ -677,3 +677,9 @@ MERCHANT_RESULT_NOTE_CAPTURED,"Die Beute bleibt beim Zug, der Anführer beim Gel
 MERCHANT_RESULT_RETRY,Nochmal,Again
 MERCHANT_RESULT_QUIT,Beenden,Quit
 MERCHANT_RESULT_CONTINUE,Weiter,Continue
+ADVENTURE_DONE_THIS_ROUND,Ein Abenteuer pro Runde – Euer Anführer braucht auch Schlaf.,One adventure a round – your leader needs sleep too.
+ADVENTURE_LEADER_CAPTURED,Euer Anführer sitzt gefangen; Abenteuer erst nach dem Lösegeld.,Your leader is a prisoner; adventures only after the ransom.
+CAMPAIGN_ADVENTURE_LIVE,Selbst spielen,Play it yourself
+CAMPAIGN_ADVENTURE_AUTO,Automatisch,Let it resolve
+CAMPAIGN_ADVENTURE_AUTO_HINT,Der Rechner führt Euren Anführer – mit durchschnittlichem Geschick und ohne Ehrgeiz.,The computer leads your leader – with average skill and no ambition.
+CAMPAIGN_ADVENTURE_MERCHANT_TRAIN_HINT,"Fünf Wagen, 90 Sekunden bis zum Stadttor. Kutscher vom Bock holen, Zugstränge zerschießen, Geleitsoldaten parieren.","Five wagons, 90 seconds to the town gate. Pull drivers off the box, shoot the traces, parry the escorts."

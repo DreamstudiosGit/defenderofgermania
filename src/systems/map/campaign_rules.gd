@@ -4,6 +4,8 @@ extends RefCounted
 ## with the formulas that only need these values (docs/design/map.md, "Armies").
 
 const SKILLS: Array[String] = ["leadership", "lance", "blade"]
+## Computer skill levels of the adventure minigames (0 sloppy … 3 veteran).
+const ADVENTURE_SKILLS := 4
 
 var max_rounds: int
 var army_size_captain: int
@@ -32,11 +34,19 @@ var legitimacy_forged_regalia: float
 var legitimacy_per_vote: float
 var legitimacy_per_province: float
 var legitimacy_prestige_divisor: float
+## Skill 0–3 of the computer playing a house's own side of an adventure it lets resolve itself,
+## and of the computer opponents in adventures (escorts, guards, jousters) until the AI's
+## difficulty levels exist (M7).
+var adventure_auto_skill: int
+var adventure_opponent_skill: int
 
 
 static func read(r: DataReader, data: Dictionary) -> CampaignRules:
 	var rules := CampaignRules.new()
 	rules.max_rounds = r.integer(data, "max_rounds")
+	var adventures := r.object(data, "adventures")
+	rules.adventure_auto_skill = r.integer(adventures, "auto_skill")
+	rules.adventure_opponent_skill = r.integer(adventures, "opponent_skill")
 	rules.army_size_captain = r.integer(data, "army_size_captain")
 	rules.army_size_leader_base = r.integer(data, "army_size_leader_base")
 	rules.army_count_base = r.integer(data, "army_count_base")
@@ -135,6 +145,9 @@ func legitimacy(
 
 
 func _check(r: DataReader) -> void:
+	for skill: int in [adventure_auto_skill, adventure_opponent_skill]:
+		if skill < 0 or skill >= ADVENTURE_SKILLS:
+			r.errors.append("campaign.adventures: skill %d outside 0–3" % skill)
 	for house: String in leader_bonus:
 		var skill := leader_bonus[house]
 		if not skill.is_empty() and skill not in SKILLS:

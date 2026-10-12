@@ -29,6 +29,7 @@ var _report := SettlementReport.new()
 var _choice := BattleChoice.new()
 var _victory := VictoryScreen.new()
 var _events := EventCardDialog.new()
+var _adventures := AdventureStage.new()
 var _battle: Node = null
 var _castle := CastleView.new()
 var _province := ""
@@ -112,6 +113,35 @@ func _wants_events(house: String) -> bool:
 
 func _turn_key(house: String) -> String:
 	return "%d:%s" % [session.state.turn, house]
+
+
+## An event choice that starts an adventure first asks whether to play its minigame live.
+func _choose_event(choice: String) -> void:
+	var command := ChooseEventCommand.new(session.rules, session.active_house(), choice)
+	var setup := command.adventure_setup(session.state)
+	if setup == null:
+		execute(command)
+		return
+	_events.visible = false
+	_adventures.ask(command, setup, session.state.turn * 1000 + session.state.active_index)
+
+
+func _on_adventure_opened() -> void:
+	_table.visible = false
+	_ui.visible = false
+
+
+func _on_adventure_decided(command: Command, result: RefCounted) -> void:
+	_table.visible = true
+	_ui.visible = true
+	_table.camera.current = true
+	var error := (
+		session.execute(command) if result == null
+		else session.execute_after_adventure(command, result)
+	)
+	if not error.is_empty():
+		_toast.show_error(error)
+	_after_change()
 
 
 func _on_events_closed() -> void:
@@ -264,7 +294,7 @@ func _blocked() -> bool:
 	for screen: Control in [_setup, _handover, _report, _choice, _victory, _events]:
 		if screen.visible:
 			return true
-	return _battle != null or _castle.visible
+	return _battle != null or _castle.visible or _adventures.is_running()
 
 
 func _build_ui() -> void:
@@ -303,15 +333,15 @@ func _build_ui() -> void:
 	_castle.closed.connect(_close_castle)
 	add_child(_castle)
 	for screen: Control in [
-		_toast, _setup, _handover, _report, _events, _choice, _victory, _tooltip
+		_toast, _setup, _handover, _report, _events, _adventures.choice, _choice, _victory, _tooltip
 	]:
 		_root.add_child(screen)
 	_setup.start_requested.connect(start)
 	_handover.confirmed.connect(_after_change)
-	_events.choice_requested.connect(
-		func(choice: String) -> void:
-			execute(ChooseEventCommand.new(session.rules, session.active_house(), choice))
-	)
+	_events.choice_requested.connect(_choose_event)
+	add_child(_adventures)
+	_adventures.opened.connect(_on_adventure_opened)
+	_adventures.decided.connect(_on_adventure_decided)
 	_events.closed.connect(_on_events_closed)
 	_report.closed.connect(_after_change)
 	_choice.chosen.connect(_on_battle_chosen)

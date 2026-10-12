@@ -42,7 +42,26 @@ static func choice_error(
 	if def == null:
 		return ERROR_UNKNOWN_CHOICE
 	var error := EventEffects.choice_error(state, card, def)
-	return error if not error.is_empty() else EventBattles.error(state, rules, card, def)
+	if not error.is_empty():
+		return error
+	var adventure := EventEffects.adventure_of(def)
+	if not adventure.is_empty():
+		if not Adventures.supports(adventure):
+			return EventEffects.ERROR_ADVENTURE_LATER
+		error = Adventures.error(state, card.house)
+		if not error.is_empty():
+			return error
+	return EventBattles.error(state, rules, card, def)
+
+
+## The minigame setup this choice starts on the next card, or null; lets the player play it
+## live before the command runs (GameRules.adventure_resolver).
+func adventure_setup(state: GameState) -> RefCounted:
+	var card := state.events.next_pending()
+	if card == null or not validate(state).is_empty():
+		return null
+	var def := _rules.events.events[card.event].choice(choice)
+	return Adventures.event_setup(state, _rules, card, EventEffects.adventure_of(def))
 
 
 ## Takes a valid choice on the next pending card: cost, effects, the battle and its reward.
@@ -52,10 +71,13 @@ static func resolve(state: GameState, rules: GameRules, choice_id: String) -> vo
 	state.houses[card.house].gold -= def.cost
 	card.choice = choice_id
 	EventEffects.apply(state, rules.events, rules.map, rules.economy, card, def.effects)
+	var adventure := EventEffects.adventure_of(def)
 	if EventBattles.battle_of(def) != null:
 		card.won = EventBattles.fight(state, rules, card, def)
-		if card.won:
-			EventEffects.apply(state, rules.events, rules.map, rules.economy, card, def.victory)
+	elif not adventure.is_empty():
+		card.won = Adventures.play_event(state, rules, card, adventure)
+	if card.won:
+		EventEffects.apply(state, rules.events, rules.map, rules.economy, card, def.victory)
 	_next(state)
 
 

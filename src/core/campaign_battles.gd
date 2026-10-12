@@ -132,7 +132,7 @@ static func _apply(
 	if earns_prestige:
 		_add_prestige(state, rules, army.owner, won)
 	if captured and house.leader_army == army.id:
-		_capture(house, enemy)
+		capture(house, enemy)
 	# Patron mercenaries fight behind the army's own companies and leave after one battle.
 	var health := result.attacker_health if is_attacker else result.defender_health
 	army.health = health.slice(0, army.company_count())
@@ -145,7 +145,7 @@ static func _apply(
 		var target := Movement.retreat_target(state, rules.map, army, preferred_retreat)
 		if target.is_empty() or army.company_count() == 0:
 			if house.leader_army == army.id:
-				_capture(house, enemy)
+				capture(house, enemy)
 			state.remove_army(army)
 			return
 		army.province = target
@@ -153,7 +153,8 @@ static func _apply(
 		state.remove_army(army)
 
 
-static func _capture(house: HouseState, captor: String) -> void:
+## The leader is held by the captor until the house pays the ransom.
+static func capture(house: HouseState, captor: String) -> void:
 	house.leader_captor = captor
 	house.leader_army = HouseState.NO_ARMY
 

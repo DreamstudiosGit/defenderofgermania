@@ -1,8 +1,8 @@
 class_name EventEffects
 extends RefCounted
 ## What an event card does (GDD "Ereignisse"): one function per effect type of
-## data/events.json. Battles are fought by the core (EventBattles); adventures come with
-## milestone M6 and marriages are out of scope, so choices that need them are refused.
+## data/events.json. Battles (EventBattles) and adventures (Adventures) are played by the
+## core; marriages are out of scope, so choices that need one are refused.
 
 const HALVED := 0.5
 const ERROR_ADVENTURE_LATER := "EVENT_ADVENTURE_LATER"
@@ -14,7 +14,8 @@ const LOWEST_CHURCH := "lowest_church_favour"
 const CHURCH_GROUP := "church_electors"
 
 
-## Why the house cannot take this choice now; "" if it can (battles are checked by the core).
+## Why the house cannot take this choice now; "" if it can (battles and adventures are
+## checked by the core).
 static func choice_error(
 	state: GameState, card: EventState.EventCard, choice: EventData.ChoiceDef
 ) -> String:
@@ -22,8 +23,6 @@ static func choice_error(
 		return Command.ERROR_NOT_ENOUGH_GOLD
 	for effect: EventData.EffectDef in choice.effects:
 		match effect.type:
-			"adventure":
-				return ERROR_ADVENTURE_LATER
 			"marriage":
 				return ERROR_UNAVAILABLE
 			"homage":
@@ -83,6 +82,14 @@ static func apply(
 				_send(state, card.house, effect)
 			"patron_strength":
 				state.crown.patron_strength[effect.target] = effect.amount
+
+
+## The adventure a choice starts, or "".
+static func adventure_of(choice: EventData.ChoiceDef) -> String:
+	for effect: EventData.EffectDef in choice.effects:
+		if effect.type == "adventure":
+			return effect.target
+	return ""
 
 
 ## Provinces an effect reaches: the card's province (and its neighbours), the home province

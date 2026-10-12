@@ -92,14 +92,12 @@ func test_escorting_merchants_pleases_the_trade_cities() -> void:
 	assert_eq(_state.crown.favour_of("BBT", "staufer"), 35.0)
 
 
-func test_adventures_wait_for_their_milestone() -> void:
-	for pair: Array in [["tournament_invitation", "attend"], ["hostage", "raid"]]:
-		var choice := _events.events[pair[0]].choice(pair[1])
-		var card := EventState.EventCard.create(pair[0], "welfen", "")
-		assert_eq(EventEffects.choice_error(_state, card, choice), EventEffects.ERROR_ADVENTURE_LATER)
-	var raid := _events.events["merchant_train"].choice("raid")
-	var card := EventState.EventCard.create("merchant_train", "staufer", "SPT")
-	assert_eq(EventEffects.choice_error(_state, card, raid), EventEffects.ERROR_ADVENTURE_LATER)
+func test_choices_name_the_adventure_they_start() -> void:
+	var events := _events.events
+	assert_eq(EventEffects.adventure_of(events["tournament_invitation"].choice("attend")), "joust")
+	assert_eq(EventEffects.adventure_of(events["hostage"].choice("raid")), "castle_raid")
+	assert_eq(EventEffects.adventure_of(events["merchant_train"].choice("raid")), "merchant_train")
+	assert_eq(EventEffects.adventure_of(events["merchant_train"].choice("escort")), "")
 
 
 func test_bohemia_promises_its_vote_for_prestige() -> void:
