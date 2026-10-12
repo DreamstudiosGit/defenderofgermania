@@ -16,6 +16,8 @@ var _sim: BattleSim
 var _field := BattleField.new()
 var _figures := BattleFigures.new()
 var _volleys := BattleVolleys.new()
+var _dust := BattleDust.new()
+var _tumblers := BattleTumblers.new()
 var _markers := BattleMarkers.new()
 var _camera := BattleCamera.new()
 var _hud := BattleHud.new()
@@ -48,9 +50,13 @@ func _ready() -> void:
 	add_child(_field)
 	add_child(_figures)
 	add_child(_volleys)
+	add_child(_dust)
+	add_child(_tumblers)
 	add_child(_markers)
 	add_child(_camera)
 	_camera.current = true
+	if not _headless:
+		add_child(BattleInk.new())
 	_camera.setup(_cfg.battle.field_size, _cfg.battle.field_size * 0.5)
 	add_child(_hud)
 	var overlay := CanvasLayer.new()
@@ -89,6 +95,8 @@ func _process(delta: float) -> void:
 	var alpha := 1.0 if _headless else clampf(_accumulator / tick, 0.0, 1.0)
 	var positions := _interpolated(_previous_positions, _sim.state.pos, alpha)
 	_figures.update_view(_sim.state, _previous_figures, alpha)
+	_dust.update_view(_sim.state, positions, delta)
+	_tumblers.update_view(_sim.state, delta)
 	_markers.update_view(
 		_sim.state, _sim.rules, positions, _selection_sides(), _marker_colors(), _humans()
 	)
@@ -142,7 +150,10 @@ func _tick() -> void:
 				var engine := event.company
 				var flight := _sim.rules.siege_flight_seconds
 				_volleys.launch_stone(state.pos[engine], state.shot_point[engine], flight)
+			BattleEvent.Kind.BLAST:
+				_dust.burst(state.shot_point[event.company], 16, 6.0)
 			BattleEvent.Kind.IMPACT:
+				_dust.burst(state.pos[event.target], 10, state.radius[event.target])
 				if _slowmo_cooldown <= 0.0:
 					_slowmo_left = SLOWMO_SECONDS
 					_slowmo_cooldown = SLOWMO_GAP
@@ -164,6 +175,8 @@ func _start() -> void:
 	_figures.set_selection_sides(_selection_sides())
 	_hud.setup(_sim.state, _cfg.battle.armies, _devices, _camera)
 	_volleys.clear()
+	_dust.clear()
+	_tumblers.setup(_sim.state)
 	_field.show_zones(true)
 	_menu.visible = false
 	_result_panel.visible = false

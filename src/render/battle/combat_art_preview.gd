@@ -87,6 +87,7 @@ func show_landscape(variant: String) -> void:
 	_content.add_child(_camera)
 	_camera.setup(cfg.battle.field_size, cfg.battle.field_size * 0.5)
 	_camera.current = true
+	_content.add_child(BattleInk.new())
 	var art := BattleModels.settings()
 	var styles: Dictionary = art.get("landscapes", {})
 	var style: Dictionary = styles[variant]

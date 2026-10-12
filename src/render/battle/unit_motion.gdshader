@@ -1,25 +1,28 @@
 shader_type spatial;
-render_mode cull_back;
+render_mode cull_back, diffuse_toon, specular_disabled;
+
+#include "res://src/render/battle/unit_motion.gdshaderinc"
 
 uniform vec4 albedo : source_color = vec4(1.0);
 uniform float metallic = 0.0;
 uniform float roughness = 0.8;
-uniform float stride_rate = 9.0;
-uniform float stride_length = 0.22;
-uniform float body_bob = 0.035;
+// 0: the surface's own albedo; 1: house field colour; 2: house charge colour.
+uniform int house_slot = 0;
+instance uniform vec4 house_primary : source_color = vec4(1.0);
+instance uniform vec4 house_secondary : source_color = vec4(1.0);
 
 void vertex() {
-	float cycle = INSTANCE_CUSTOM.x + INSTANCE_CUSTOM.w * stride_rate;
-	float stride = sin(cycle + UV2.y * 3.14159265);
-	VERTEX.z += stride * UV2.x * INSTANCE_CUSTOM.y * stride_length;
-	VERTEX.y += max(0.0, cos(cycle + UV2.y * 3.14159265))
-		* UV2.x * INSTANCE_CUSTOM.y * body_bob * 2.0;
-	VERTEX.y += abs(sin(cycle)) * INSTANCE_CUSTOM.y * body_bob;
-	VERTEX.z += sin(cycle * 0.65) * INSTANCE_CUSTOM.z * 0.025 * VERTEX.y;
+	VERTEX = unit_motion(VERTEX, UV2, INSTANCE_CUSTOM);
 }
 
 void fragment() {
-	ALBEDO = albedo.rgb;
+	vec3 color = albedo.rgb;
+	if (house_slot == 1) {
+		color *= house_primary.rgb;
+	} else if (house_slot == 2) {
+		color *= house_secondary.rgb;
+	}
+	ALBEDO = color;
 	METALLIC = metallic;
 	ROUGHNESS = roughness;
 }

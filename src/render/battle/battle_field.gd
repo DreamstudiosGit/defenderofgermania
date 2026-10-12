@@ -74,13 +74,19 @@ func _add_environment(style: Dictionary) -> void:
 	var world := WorldEnvironment.new()
 	world.environment = environment
 	add_child(world)
+	# A low, warm sun for long shadows; the camera stands far back, so shadows reach far.
+	var light: Dictionary = BattleModels.settings().get("sun", {})
 	var sun := DirectionalLight3D.new()
-	sun.rotation = Vector3(deg_to_rad(-48.0), deg_to_rad(-28.0), 0.0)
-	sun.light_color = Color(1.0, 0.90, 0.72)
+	sun.rotation = Vector3(
+		deg_to_rad(-float(light.get("elevation_deg", 30.0))),
+		deg_to_rad(float(light.get("azimuth_deg", -28.0))),
+		0.0
+	)
+	sun.light_color = Color.from_string(str(light.get("color", "#ffe2b0")), Color.WHITE)
 	sun.light_energy = float(style.get("sun_energy", 1.0))
 	sun.shadow_enabled = true
 	sun.light_angular_distance = 0.9
-	sun.directional_shadow_max_distance = 150.0
+	sun.directional_shadow_max_distance = float(light.get("shadow_distance", 600.0))
 	sun.shadow_bias = 0.03
 	add_child(sun)
 

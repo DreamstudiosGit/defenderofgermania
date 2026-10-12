@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode depth_draw_never;
+render_mode depth_draw_never, diffuse_toon, specular_disabled;
 
 uniform vec4 albedo : source_color = vec4(0.66, 0.49, 0.27, 1.0);
 uniform float roughness = 1.0;

@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode diffuse_toon, specular_disabled;
 
 uniform vec4 albedo : source_color = vec4(1.0);
 uniform float metallic = 0.0;

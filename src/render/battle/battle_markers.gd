@@ -20,6 +20,7 @@ func _ready() -> void:
 	material.vertex_color_use_as_albedo = true
 	material.vertex_color_is_srgb = true
 	material.no_depth_test = true
+	material.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
 	material_override = material
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 

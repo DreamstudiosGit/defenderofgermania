@@ -28,6 +28,8 @@ func _ready() -> void:
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.vertex_color_use_as_albedo = true
 	material.vertex_color_is_srgb = true
+	# Streaks must not write depth, or the ink pass would outline every bolt.
+	material.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
 	material_override = material
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 

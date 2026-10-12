@@ -12,8 +12,10 @@ func build(rules: BattleRules, style: Dictionary = {}) -> void:
 	var settings: Dictionary = BattleModels.settings().get("scenery", {})
 	var rng := RandomNumberGenerator.new()
 	rng.seed = int(settings.get("seed", 1198))
-	if style.get("tree_palette", "summer") == "autumn":
-		_trees = ["tree_oak_autumn", "tree_birch", "tree_pine", "tree_oak_autumn"]
+	var palettes: Dictionary = BattleModels.settings().get("tree_palettes", {})
+	var palette: Array = palettes.get(str(style.get("tree_palette", "summer")), [])
+	if not palette.is_empty():
+		_trees.assign(palette)
 	var size := rules.field_size
 	# Grove extents and counts were laid out for a field `layout_width` meters wide.
 	var stretch := size.x / float(settings.get("layout_width", size.x))

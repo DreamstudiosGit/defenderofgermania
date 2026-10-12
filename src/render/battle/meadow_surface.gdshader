@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode cull_back;
+render_mode cull_back, diffuse_toon, specular_disabled;
 
 uniform vec4 meadow : source_color = vec4(0.56, 0.62, 0.30, 1.0);
 uniform vec4 sand : source_color = vec4(0.63, 0.53, 0.32, 1.0);

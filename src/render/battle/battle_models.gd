@@ -3,12 +3,16 @@ extends RefCounted
 
 const DIRECTORY := "res://assets/combat/"
 const MOTION := preload("res://src/render/battle/unit_motion.gdshader")
+const OUTLINE := preload("res://src/render/battle/unit_outline.gdshader")
+## Blender material names whose surfaces take the house colours (unit_motion house_slot).
+const HOUSE_SLOTS: Dictionary[String, int] = {"house_primary": 1, "house_secondary": 2}
 const WIND := preload("res://src/render/battle/foliage_wind.gdshader")
 const WATER := preload("res://src/render/battle/river_water.gdshader")
 const PATH := preload("res://src/render/battle/path_surface.gdshader")
 
 static var _meshes: Dictionary[String, ArrayMesh] = {}
 static var _art: Dictionary = {}
+static var _outline: ShaderMaterial
 
 
 static func settings() -> Dictionary:
@@ -68,7 +72,10 @@ static func _collect(
 				builder.commit(result)
 				var material := instance.get_active_material(surface)
 				if animated:
+					var slot: int = HOUSE_SLOTS.get(material.resource_name if material else "", 0)
 					material = _shader_material(material, MOTION, "animation")
+					material.set_shader_parameter("house_slot", slot)
+					material.next_pass = outline()
 				elif material != null and material.resource_name == "water":
 					material = _shader_material(material, WATER, "water")
 				elif filename == "terrain_path":
@@ -77,9 +84,30 @@ static func _collect(
 					filename.begins_with("foliage_") and filename != "foliage_stump"
 				):
 					material = _shader_material(material, WIND, "wind")
+				elif material is BaseMaterial3D:
+					material = _toon(material as BaseMaterial3D)
 				result.surface_set_material(result.get_surface_count() - 1, material)
 	for child: Node in node.get_children():
 		_collect(child, transform, result, animated, filename)
+
+
+## Ink outline pass shared by every figure surface, moving like the figure itself.
+static func outline() -> ShaderMaterial:
+	if _outline == null:
+		_outline = _shader_material(null, OUTLINE, "animation")
+		var ink: Dictionary = settings().get("ink", {})
+		var color := Color.from_string(str(ink.get("color", "#211710")), Color.BLACK)
+		_outline.set_shader_parameter("width", float(ink.get("outline_width", 0.035)))
+		_outline.set_shader_parameter("ink", color)
+	return _outline
+
+
+## Scenery from Blender keeps its colours but takes two-step toon light.
+static func _toon(source: BaseMaterial3D) -> BaseMaterial3D:
+	var material := source.duplicate() as BaseMaterial3D
+	material.diffuse_mode = BaseMaterial3D.DIFFUSE_TOON
+	material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+	return material
 
 
 static func _shader_material(source: Material, shader: Shader, section: String) -> ShaderMaterial:
