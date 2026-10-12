@@ -71,5 +71,8 @@ Camera: orthographic, tilted down 60°, not rotatable. Zoom level 0 frames every
 
 Every figure stands on a ring in its house colour. Larger, lighter rings and a golden group-shield border identify only the human player's active group against the computer. The shared view hides the selection rings, directional markers and active shield borders when both sides are human or both are computer-controlled (owner request, ADR 0004).
 
-### Not in P1
-Terrain effects beyond farmland, walls (×4 damage of trebuchets), light by season, dust and tumbling figures (only a 0.5 s slow motion on charge impacts), the illuminated end banner and prestige.
+### Look (M2)
+Toon light with two steps (`diffuse_toon`) on figures and scenery; figures carry an ink outline (inverted hull, `unit_outline.gdshader`), the scenery gets ink edges from a full-screen pass that also adds parchment grain and a light vignette (`battle_ink.gdshader`). A low warm sun (30°) casts long shadows. Charging riders trail dust, charge impacts and stones throw up dust bursts (`BattleDust`); lost figures are thrown up, somersault, lie on the grass and vanish, some losing their helmet (`BattleTumblers`) — no blood. A charge impact slows time to 30 % for 0.5 s; the winners jump for joy at the end. All of it is presentation only; values live in `data/combat_art.json` (`ink`, `sun`, `tree_palettes`, `camera`).
+
+### Not yet
+Terrain effects beyond farmland, walls (×4 damage of trebuchets), light by season, the illuminated end banner and prestige.
