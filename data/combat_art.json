@@ -38,7 +38,30 @@
     "roughness": 1.0
   },
   "default_landscape": "summer_meadow",
+  "season_landscapes": ["spring_meadow", "summer_meadow", "autumn_woodland", "winter_field"],
   "landscapes": {
+    "spring_meadow": {
+      "title_key": "COMBAT_ART_SPRING",
+      "meadow_color": "#5f8f2c",
+      "sand_color": "#b8955a",
+      "sun_energy": 1.0,
+      "ambient_energy": 0.8,
+      "sun_color": "#fff2d0",
+      "sun_elevation_deg": 38.0,
+      "tree_density": 1.0,
+      "tree_palette": "summer"
+    },
+    "winter_field": {
+      "title_key": "COMBAT_ART_WINTER",
+      "meadow_color": "#d6dbe0",
+      "sand_color": "#a9a49a",
+      "sun_energy": 0.75,
+      "ambient_energy": 0.9,
+      "sun_color": "#e6eefa",
+      "sun_elevation_deg": 18.0,
+      "tree_density": 1.0,
+      "tree_palette": "winter"
+    },
     "summer_meadow": {
       "title_key": "COMBAT_ART_SUMMER",
       "meadow_color": "#556b29",
@@ -59,6 +82,7 @@
     },
     "autumn_woodland": {
       "title_key": "COMBAT_ART_AUTUMN",
+      "sun_color": "#ffcf8a",
       "meadow_color": "#75702e",
       "sand_color": "#b88b47",
       "sun_energy": 0.95,
@@ -69,7 +93,8 @@
   },
   "tree_palettes": {
     "summer": ["tree_pine", "tree_pine", "tree_oak", "tree_pine", "tree_birch"],
-    "autumn": ["tree_pine", "tree_oak_autumn", "tree_pine", "tree_birch", "tree_oak_autumn"]
+    "autumn": ["tree_pine", "tree_oak_autumn", "tree_pine", "tree_birch", "tree_oak_autumn"],
+    "winter": ["tree_pine", "tree_pine", "tree_pine", "tree_birch"]
   },
   "scenery": {
     "seed": 1198,

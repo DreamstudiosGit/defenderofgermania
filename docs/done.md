@@ -15,3 +15,4 @@
 - 2026-10-12 feat(map): M3 step 1 — province centres and realm outline, checked against the adjacency list
 - 2026-10-12 feat(core): M3 campaign session — passive houses, battle preview and live battle results
 - 2026-10-12 feat(combat): M3 — the battle scene plays campaign battles; colours and shields for neutral, church and elector troops
+- 2026-10-12 feat(combat): campaign battles take the light and landscape of their season

@@ -74,5 +74,7 @@ Every figure stands on a ring in its house colour. Larger, lighter rings and a g
 ### Look (M2)
 Toon light with two steps (`diffuse_toon`) on figures and scenery; figures carry an ink outline (inverted hull, `unit_outline.gdshader`), the scenery gets ink edges from a full-screen pass that also adds parchment grain and a light vignette (`battle_ink.gdshader`). A low warm sun (30°) casts long shadows. Charging riders trail dust, charge impacts and stones throw up dust bursts (`BattleDust`); lost figures are thrown up, somersault, lie on the grass and vanish, some losing their helmet (`BattleTumblers`) — no blood. A charge impact slows time to 30 % for 0.5 s; the winners jump for joy at the end. All of it is presentation only; values live in `data/combat_art.json` (`ink`, `sun`, `tree_palettes`, `camera`).
 
+Campaign battles take the light and landscape of their season (`BattleSetup.season`, `season_landscapes`): a fresh spring meadow, the summer meadow, a golden autumn wood, a snowy winter field under a low sun.
+
 ### Not yet
-Terrain effects beyond farmland, walls (×4 damage of trebuchets), light by season, the illuminated end banner and prestige.
+Terrain effects beyond farmland, walls (×4 damage of trebuchets), the illuminated end banner and prestige.

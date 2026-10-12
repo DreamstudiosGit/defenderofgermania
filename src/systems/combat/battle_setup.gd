@@ -10,3 +10,5 @@ var terrain: String = "farmland"
 ## Wall level the defender fights behind; 0 is an open-field battle.
 var defender_wall: int = 0
 var is_winter: bool = false
+## GameState.Season (0 spring … 3 winter); the battlefield takes its light and landscape.
+var season: int = 1

@@ -52,7 +52,7 @@ func _ready() -> void:
 	_headless = DisplayServer.get_name() == "headless"
 	if not _headless:
 		get_viewport().msaa_3d = Viewport.MSAA_4X
-	_field.build(_cfg.battle, _cfg.battle.armies)
+	_field.build(_cfg.battle, _cfg.battle.armies, _landscape())
 	add_child(_field)
 	add_child(_figures)
 	add_child(_volleys)
@@ -226,6 +226,14 @@ func _open_menu() -> void:
 func _on_start_requested(devices: PackedInt32Array) -> void:
 	_devices = devices
 	_start()
+
+
+## A campaign battle takes the landscape of its season; the prototype the default one.
+func _landscape() -> String:
+	var seasons: Array = BattleModels.settings().get("season_landscapes", [])
+	if _campaign == null or _campaign.season < 0 or _campaign.season >= seasons.size():
+		return ""
+	return str(seasons[_campaign.season])
 
 
 static func _preset(side: BattleSide) -> BattleRules.ArmyPreset:

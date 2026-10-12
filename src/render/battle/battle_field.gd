@@ -78,11 +78,12 @@ func _add_environment(style: Dictionary) -> void:
 	var light: Dictionary = BattleModels.settings().get("sun", {})
 	var sun := DirectionalLight3D.new()
 	sun.rotation = Vector3(
-		deg_to_rad(-float(light.get("elevation_deg", 30.0))),
+		deg_to_rad(-float(style.get("sun_elevation_deg", light.get("elevation_deg", 30.0)))),
 		deg_to_rad(float(light.get("azimuth_deg", -28.0))),
 		0.0
 	)
-	sun.light_color = Color.from_string(str(light.get("color", "#ffe2b0")), Color.WHITE)
+	var sun_color := str(style.get("sun_color", light.get("color", "#ffe2b0")))
+	sun.light_color = Color.from_string(sun_color, Color.WHITE)
 	sun.light_energy = float(style.get("sun_energy", 1.0))
 	sun.shadow_enabled = true
 	sun.light_angular_distance = 0.9

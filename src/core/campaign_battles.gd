@@ -68,6 +68,7 @@ static func _setup(state: GameState, rules: GameRules, province_id: String) -> B
 	var setup := BattleSetup.new()
 	setup.terrain = rules.map.provinces[province_id].terrain
 	setup.is_winter = state.season() == GameState.Season.WINTER
+	setup.season = state.season()
 	return setup
 
 
