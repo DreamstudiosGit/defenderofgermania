@@ -354,6 +354,77 @@ CAMPAIGN_EFFECT_GROWTH,Volk +%s %% je Jahr,Population +%s %% per year
 CAMPAIGN_EFFECT_PRESTIGE,Ansehen +%s je Runde,Prestige +%s per round
 CAMPAIGN_EFFECT_SPOILAGE,Schwund −%s Prozentpunkte,Spoilage −%s percentage points
 CAMPAIGN_EFFECT_SIEGE,Aushungern der Garnison ×%s,Garrison starvation ×%s
+RAID_PRACTICE_TITLE,Burgüberfall – Übung,Castle Raid – Practice
+RAID_TARGET_TREASURY,Schatzkammer,Treasury
+RAID_TARGET_DUNGEON,Kerker,Dungeon
+RAID_TARGET_GRANARY,Kornspeicher,Granary
+RAID_TARGET_REGALIA,Reichsinsignien,Imperial regalia
+RAID_OWNER_WELFEN,der Welfen,the Welfs
+RAID_OWNER_WETTINER,der Wettiner,the Wettins
+RAID_OWNER_STAUFER,der Staufer,the Staufers
+RAID_OWNER_WITTELSBACHER,der Wittelsbacher,the Wittelsbachs
+RAID_OWNER_NEUTRAL,eines Landesherrn,a local lord
+RAID_OWNER_CHURCH,der Kirche,the Church
+RAID_OWNER_ELECTOR,eines Kurfürsten,an elector
+RAID_INTRO,"Nachts, in der Burg %s. Leise jetzt.","Night, in the castle of %s. Quietly now."
+RAID_HUD_HEALTH,Leben,Health
+RAID_HUD_STAMINA,Ausdauer,Stamina
+RAID_HUD_ALARM,Alarm! Verstärkung rückt an.,Alarm! Reinforcements are coming.
+RAID_HUD_ALARM_SOON,Alarm in %d s,Alarm in %d s
+RAID_HUD_GUARDS,Wachen: %d besiegt · %d umgangen · %d übrig,Guards: %d beaten · %d dodged · %d left
+RAID_SHOUT_ALARM,Alarm!,Alarm!
+RAID_KEY_ACT_KB,E,E
+RAID_KEY_ACT_PAD,A,A
+RAID_PROMPT_SNEAK,%s: Schleichweg,%s: sneak path
+RAID_PROMPT_HOLD,%s halten: %s,Hold %s: %s
+RAID_DEED_TREASURY,Truhe leeren,empty the strongbox
+RAID_DEED_DUNGEON,Schloss knacken,pick the lock
+RAID_DEED_GRANARY,Feuer legen,start the fire
+RAID_DEED_REGALIA,Krone einpacken,pack the crown
+RAID_POP_HIT,Treffer!,Hit!
+RAID_POP_HURT,Autsch.,Ouch.
+RAID_POP_BLOCKED,Abgeblockt,Blocked
+RAID_POP_PARRIED,Pariert!,Parried!
+RAID_POP_DOWN,Der schläft jetzt.,Out cold.
+RAID_POP_TIRED,Puste weg,Out of breath
+RAID_POP_SNEAK,Leise jetzt …,Quietly now …
+RAID_MENU_RESUME,Weiter,Resume
+RAID_MENU_FLEE,Fliehen (mit Wunde),Flee (wounded)
+RAID_MENU_QUIT,Übung beenden,Quit practice
+RAID_SETUP_TARGET,Ziel,Target
+RAID_SETUP_GUARDS,Wachen,Guards
+RAID_SETUP_CASTLE,Burg,Castle
+RAID_SETUP_BLADE,Klinge,Blade
+RAID_SETUP_CONTROL,Anführer,Leader
+RAID_SKILL_0,Verschlafen,Drowsy
+RAID_SKILL_1,Wachsam,Alert
+RAID_SKILL_2,Gedrillt,Drilled
+RAID_SKILL_3,Meisterhaft,Masterly
+RAID_CASTLE_PROVINCE,"Provinzburg, Stufe %d","Province castle, level %d"
+RAID_CASTLE_HOME,"Stammburg, Stufe %d","Home castle, level %d"
+RAID_SETUP_START,Hinein!,In we go!
+RAID_SETUP_QUIT,Beenden,Quit
+RAID_HOWTO,"Jede Wache deckt eine Höhe (Schildzeichen): Schlag oben, mittig oder unten dorthin, wo sie nicht deckt. Holt sie aus (rote Warnung), pariere in derselben Höhe kurz vor dem Treffer – das Fenster ist %d + %d × Klinge ms lang. Danach steht sie offen: zurückschlagen! Hiebe kosten Ausdauer. Schleichwege umgehen eine Wache, kosten aber Zeit. Nach %d Sekunden schlägt Alarm, nach %d ist Schluss.","Every guard covers one height (shield mark): strike high, middle or low where it does not. When it winds up (red warning), parry at the same height just before the blow lands – the window is %d + %d × blade ms. Then it stands open: strike back! Blows cost stamina. Sneak paths get round a guard but cost time. After %d seconds the alarm sounds; after %d it is over."
+RAID_HINT_KEYBOARD,"A/D: gehen · W/S halten: hoch/tief · J, Leertaste oder Linksklick: Hieb · K, Umschalt oder Rechtsklick: Parade (die Maus zielt mit ihrer Höhe) · E: Schleichweg und Tat · Esc: Menü","A/D: walk · hold W/S: high/low · J, Space or left click: strike · K, Shift or right click: parry (the mouse aims by its height) · E: sneak path and deed · Esc: menu"
+RAID_HINT_PAD,Linker Stick: gehen · Stick hoch/runter: hoch/tief · X oder RB: Hieb · B oder LB: Parade · A: Schleichweg und Tat · Start: Menü,Left stick: walk · stick up/down: high/low · X or RB: strike · B or LB: parry · A: sneak path and deed · Start: menu
+RAID_RESULT_SUCCESS,Geglückt!,Done!
+RAID_RESULT_CAPTURED,Gefangen.,Captured.
+RAID_RESULT_ESCAPED,Entkommen – mit einer Wunde.,Escaped – with a wound.
+RAID_RESULT_DONE_TREASURY,Die Truhe ist leer. Deine Taschen sind es nicht.,The strongbox is empty. Your pockets are not.
+RAID_RESULT_DONE_DUNGEON,Der Gefangene ist frei und hört nicht mehr auf zu reden.,The prisoner is free and will not stop talking.
+RAID_RESULT_DONE_GRANARY,Das Korn brennt. Riecht ein bisschen nach Brot.,The grain is burning. Smells a bit like bread.
+RAID_RESULT_DONE_REGALIA,Die Krone gehört dir. Vorerst.,The crown is yours. For now.
+RAID_RESULT_CAPTURED_TEXT,"Bis das Lösegeld bezahlt ist, gibt es keine Abenteuer.",No adventures until the ransom is paid.
+RAID_RESULT_ESCAPED_TEXT,Nächste Runde keine Aura. Der Stolz heilt langsamer.,No aura next round. Pride heals slower.
+RAID_RESULT_PRESTIGE,Ansehen +%d,Prestige +%d
+RAID_RESULT_TIME,Zeit: %s,Time: %s
+RAID_RESULT_GUARDS,Wachen besiegt: %d · umgangen: %d,Guards beaten: %d · dodged: %d
+RAID_RESULT_ALARM,Alarm geschlagen,The alarm was raised
+RAID_RESULT_QUIET,Kein Alarm,No alarm
+RAID_RESULT_RETRY,Nochmal,Again
+RAID_RESULT_SETUP,Zur Auswahl,Back to setup
+RAID_RESULT_QUIT,Beenden,Quit
+RAID_PRACTICE_NOTE,Übung – zählt nicht.,Practice – does not count.
 CAMPAIGN_EFFECT_INCOME,+%s T je Runde,+%s T per round
 CAMPAIGN_EFFECT_TOLL,"+%s T je Runde an einem Fluss, +%s T an einem Pass","+%s T per round at a river, +%s T at a pass"
 CAMPAIGN_EFFECT_CASTLE_COST,Burgausbau −%s %%,Castle upgrades −%s %%
