@@ -1,6 +1,6 @@
 extends GutTest
 ## Adventures in the campaign: one a round with a free leader, played live through the
-## resolver or by the computer, and their results in the game (merchant train so far).
+## resolver or by the computer, and their results in the game.
 
 var _rules: GameRules
 var _state: GameState
@@ -68,6 +68,72 @@ func test_the_dialog_learns_the_setup_before_the_choice_runs() -> void:
 	var raid := ChooseEventCommand.new(_rules, "staufer", "raid")
 	assert_true(raid.adventure_setup(_state) is MerchantSetup)
 	assert_null(ChooseEventCommand.new(_rules, "staufer", "escort").adventure_setup(_state))
+
+
+func test_a_hosted_tournament_won_pays_prize_and_prestige() -> void:
+	var welfen := _state.houses["welfen"]
+	_state.provinces[welfen.home_province].buildings.append(_rules.economy.tournament_building)
+	_state.active_index = _state.turn_order.find("welfen")
+	_rules.adventure_resolver = func(setup: RefCounted) -> RefCounted:
+		assert_eq((setup as JoustSetup).opponent, Adventures.VISITING_CHAMPION)
+		return _joust(true)
+	var host := HostTournamentCommand.new(_rules, "welfen")
+	assert_true(host.adventure_setup(_state) is JoustSetup)
+	assert_eq(host.execute(_state), "")
+	assert_eq(welfen.gold, 200.0 - 80.0 + 100.0)
+	assert_eq(welfen.pending_prestige, 10.0, "hosted +5, won +5")
+	assert_eq(welfen.wins["lance"], 1)
+	assert_eq(welfen.adventure_turn, _state.turn)
+
+
+func test_an_invitation_takes_the_leader_to_his_favourite_elector() -> void:
+	_deal("welfen", "tournament_invitation", "")
+	_rules.adventure_resolver = func(setup: RefCounted) -> RefCounted:
+		var joust := setup as JoustSetup
+		assert_eq(joust.host_province, "KOE", "Cologne likes the Welfen best")
+		assert_eq(joust.opponent, Adventures.ELECTOR_CHAMPION)
+		return _joust(true)
+	assert_eq(_choose("welfen", "attend"), "")
+	assert_eq(_state.crown.favour_of("KOE", "welfen"), 60.0, "55 + 5")
+	assert_eq(_state.houses["welfen"].gold, 300.0)
+	assert_true(_state.events.drawn[0].won)
+
+
+func test_three_wins_raise_a_skill() -> void:
+	var welfen := _state.houses["welfen"]
+	var lance := welfen.lance
+	assert_false(welfen.add_win("lance", 3, 5))
+	assert_false(welfen.add_win("lance", 3, 5))
+	assert_true(welfen.add_win("lance", 3, 5))
+	assert_eq(welfen.lance, lance + 1)
+	assert_eq(welfen.wins["lance"], 0)
+	welfen.blade = 5
+	for i: int in 4:
+		assert_false(welfen.add_win("blade", 3, 5), "no skill above the maximum")
+	assert_eq(welfen.blade, 5)
+
+
+func test_a_battle_won_with_the_leader_counts_for_leadership() -> void:
+	var welfen := _state.armies_of("welfen")[0]
+	var raiders := _state.add_army("staufer", welfen.province)
+	raiders.add_company("levy")
+	_rules.resolver = func(setup: BattleSetup) -> BattleResult:
+		var result := BattleResult.new()
+		result.attacker_won = false
+		for i: int in setup.attacker.company_count():
+			result.attacker_health.append(0.5)
+		for i: int in setup.defender.company_count():
+			result.defender_health.append(1.0)
+		return result
+	CampaignBattles.fight_army(_state, _rules, raiders, welfen, "")
+	assert_eq(_state.houses["welfen"].wins.get("leadership", 0), 1)
+	assert_eq(_state.houses["staufer"].wins.get("leadership", 0), 0)
+
+
+func _joust(won: bool) -> JoustResult:
+	var result := JoustResult.new()
+	result.won = won
+	return result
 
 
 func _deal(house: String, event_id: String, province: String) -> void:

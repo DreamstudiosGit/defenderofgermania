@@ -39,6 +39,8 @@ var legitimacy_prestige_divisor: float
 ## difficulty levels exist (M7).
 var adventure_auto_skill: int
 var adventure_opponent_skill: int
+## Lance of the champions a house meets at tournaments.
+var adventure_opponent_lance: int
 
 
 static func read(r: DataReader, data: Dictionary) -> CampaignRules:
@@ -47,6 +49,7 @@ static func read(r: DataReader, data: Dictionary) -> CampaignRules:
 	var adventures := r.object(data, "adventures")
 	rules.adventure_auto_skill = r.integer(adventures, "auto_skill")
 	rules.adventure_opponent_skill = r.integer(adventures, "opponent_skill")
+	rules.adventure_opponent_lance = r.integer(adventures, "opponent_lance")
 	rules.army_size_captain = r.integer(data, "army_size_captain")
 	rules.army_size_leader_base = r.integer(data, "army_size_leader_base")
 	rules.army_count_base = r.integer(data, "army_count_base")

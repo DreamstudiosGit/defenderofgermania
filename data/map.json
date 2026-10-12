@@ -14,7 +14,7 @@
   "start_army": ["levy", "levy", "spearmen", "spearmen"],
   "campaign": {
     "max_rounds": 48,
-    "adventures": {"auto_skill": 1, "opponent_skill": 1},
+    "adventures": {"auto_skill": 1, "opponent_skill": 1, "opponent_lance": 3},
     "army_size_captain": 6,
     "army_size_leader_base": 6,
     "army_count_base": 1,

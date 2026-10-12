@@ -29,3 +29,4 @@
 - 2026-10-12 feat(core): M6 prep — one adventure a round, wounded leader without aura, trebuchet wall damage (save version 5)
 - 2026-10-12 chore(combat): M6 practice-mode launch flags and status
 - 2026-10-12 feat(core): M6 adventures in the campaign — merchant train raid from its event, live or computer-played
+- 2026-10-12 feat(core): M6 joust in the campaign — hosted tournaments and invitations, three wins raise a skill (save version 6)

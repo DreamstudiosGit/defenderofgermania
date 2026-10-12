@@ -117,6 +117,7 @@ func _add_campaign_details(state: GameState) -> void:
 	house.exile_rounds = 2
 	house.adventure_turn = 4
 	house.wounded_until = 6
+	house.wins["lance"] = 2
 	var army := state.add_army("welfen", "HOL")
 	army.add_company("knights", 0.42)
 	army.moves_left = 1

@@ -130,7 +130,8 @@ func test_forged_regalia_need_castle_three_and_two_rounds() -> void:
 
 
 func test_a_tournament_brings_prestige_and_every_electors_favour() -> void:
-	var host := HostTournamentCommand.new(_rules.economy, _map, "wittelsbacher")
+	_rules.adventure_resolver = func(_setup: RefCounted) -> RefCounted: return JoustResult.new()
+	var host := HostTournamentCommand.new(_rules, "wittelsbacher")
 	assert_eq(_run(host), HostTournamentCommand.ERROR_NO_GROUND)
 	var home := _state.provinces[_state.houses["wittelsbacher"].home_province]
 	home.buildings.append(_rules.economy.tournament_building)
@@ -143,6 +144,7 @@ func test_a_tournament_brings_prestige_and_every_electors_favour() -> void:
 	assert_eq(_run(host), HostTournamentCommand.ERROR_HOSTED)
 	_state.turn = 2
 	assert_eq(_run(host), HostTournamentCommand.ERROR_SEASON, "no tournaments in autumn")
+	_rules.adventure_resolver = Callable()
 
 
 func _run(command: Command) -> String:

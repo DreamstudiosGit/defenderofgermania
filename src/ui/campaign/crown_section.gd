@@ -137,7 +137,7 @@ func _show_court(state: GameState, rules: GameRules, house: String) -> void:
 	offer(
 		button(_court, "tournament"),
 		tr("CAMPAIGN_CROWN_TOURNAMENT") % CrownFormat.amount(cfg.tournament_cost),
-		HostTournamentCommand.new(cfg, map, house),
+		HostTournamentCommand.new(rules, house),
 		state,
 		tournament_hint
 	)

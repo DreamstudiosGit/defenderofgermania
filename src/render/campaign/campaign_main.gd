@@ -117,13 +117,7 @@ func _turn_key(house: String) -> String:
 
 ## An event choice that starts an adventure first asks whether to play its minigame live.
 func _choose_event(choice: String) -> void:
-	var command := ChooseEventCommand.new(session.rules, session.active_house(), choice)
-	var setup := command.adventure_setup(session.state)
-	if setup == null:
-		execute(command)
-		return
-	_events.visible = false
-	_adventures.ask(command, setup, session.state.turn * 1000 + session.state.active_index)
+	_run(ChooseEventCommand.new(session.rules, session.active_house(), choice))
 
 
 func _on_adventure_opened() -> void:
@@ -348,5 +342,17 @@ func _build_ui() -> void:
 	_victory.new_game_requested.connect(func() -> void: _setup.open(_map, FIRST_SEED))
 
 
+## Commands from the panels; one that starts an adventure first asks how to play it.
 func _on_command(command: Command) -> void:
-	execute(command)
+	_run(command)
+
+
+func _run(command: Command) -> void:
+	var setup: RefCounted = null
+	if command.has_method("adventure_setup"):
+		setup = command.call("adventure_setup", session.state)
+	if setup == null:
+		execute(command)
+		return
+	_events.visible = false
+	_adventures.ask(command, setup, session.state.turn * 1000 + session.state.active_index)

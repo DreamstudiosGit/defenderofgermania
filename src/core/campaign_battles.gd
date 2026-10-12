@@ -131,6 +131,9 @@ static func _apply(
 	)
 	if earns_prestige:
 		_add_prestige(state, rules, army.owner, won)
+	if won and house.leader_army == army.id:
+		var campaign := rules.map.campaign
+		house.add_win("leadership", campaign.leader_wins_per_point, campaign.leader_max)
 	if captured and house.leader_army == army.id:
 		capture(house, enemy)
 	# Patron mercenaries fight behind the army's own companies and leave after one battle.

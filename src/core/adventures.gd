@@ -6,6 +6,10 @@ extends RefCounted
 ## result changes the game.
 
 const MERCHANT_TRAIN := "merchant_train"
+const JOUST := "joust"
+## Owner id of the champions at a tournament: an elector's court, or knights visiting the host.
+const ELECTOR_CHAMPION := "elector"
+const VISITING_CHAMPION := "neutral"
 const ERROR_DONE := "ADVENTURE_DONE_THIS_ROUND"
 const ERROR_LEADER_CAPTURED := "ADVENTURE_LEADER_CAPTURED"
 ## Captor of a leader whom a merchant train's escort took.
@@ -22,7 +26,7 @@ static func error(state: GameState, house: String) -> String:
 
 ## True for the adventures the campaign can start already.
 static func supports(adventure: String) -> bool:
-	return adventure == MERCHANT_TRAIN
+	return adventure in [MERCHANT_TRAIN, JOUST]
 
 
 ## The minigame setup an event card's adventure starts, or null.
@@ -32,6 +36,9 @@ static func event_setup(
 	match adventure:
 		MERCHANT_TRAIN:
 			return merchant_setup(state, rules, card.house, card.province)
+		JOUST:
+			var host := favourite_elector(state, rules, card.house)
+			return joust_setup(state, rules, card.house, host)
 	return null
 
 
@@ -45,7 +52,67 @@ static func play_event(
 			var result := play_merchant(state, rules, setup)
 			apply_merchant(state, card.house, result)
 			return not result.leader_captured and result.wagons_stopped > 0
+		JOUST:
+			var invitation := event_setup(state, rules, card, adventure) as JoustSetup
+			var joust := play_joust(state, rules, invitation)
+			apply_joust(state, rules, invitation, joust)
+			return joust.won
 	return false
+
+
+## A joust at the host's tournament against a champion of the host's court.
+static func joust_setup(
+	state: GameState, rules: GameRules, house: String, host_province: String
+) -> JoustSetup:
+	var rider := state.houses[house]
+	var setup := JoustSetup.new()
+	setup.house = house
+	setup.lance = rider.lance
+	var is_elector := rules.map.provinces[host_province].owner == CrownRules.ELECTOR
+	setup.opponent = ELECTOR_CHAMPION if is_elector else VISITING_CHAMPION
+	setup.opponent_lance = rules.map.campaign.adventure_opponent_lance
+	setup.opponent_skill = rules.map.campaign.adventure_opponent_skill
+	setup.host_province = host_province
+	return setup
+
+
+## The elector who invites the house to his tournament: the one who likes it most (the first
+## in data order on a tie).
+static func favourite_elector(state: GameState, rules: GameRules, house: String) -> String:
+	var best := ""
+	var best_favour := -1.0
+	for id: String in rules.map.electors():
+		var value := state.crown.favour_of(id, house)
+		if value > best_favour:
+			best = id
+			best_favour = value
+	return best
+
+
+## What the player achieved live, else the computer's ride at the campaign's auto skill.
+static func play_joust(state: GameState, rules: GameRules, setup: JoustSetup) -> JoustResult:
+	var live := _live(rules, setup)
+	if live is JoustResult:
+		return live
+	var skill := rules.map.campaign.adventure_auto_skill
+	return JoustSim.play_out(rules.joust, setup, state.rng.randi(), skill)
+
+
+## A tournament win brings prestige, the prize and the host's favour, and counts towards the
+## leader's lance.
+static func apply_joust(
+	state: GameState, rules: GameRules, setup: JoustSetup, result: JoustResult
+) -> void:
+	var rider := state.houses[setup.house]
+	rider.adventure_turn = state.turn
+	if not result.won:
+		return
+	rider.pending_prestige += rules.economy.tournament_won_prestige
+	rider.gold += rules.joust.prize_gold
+	var favour: float = rules.map.crown.favour_changes["tournament_won"]
+	CrownRules.change_favour(state, rules.map, setup.host_province, setup.house, favour)
+	var campaign := rules.map.campaign
+	rider.add_win("lance", campaign.leader_wins_per_point, campaign.leader_max)
 
 
 ## The leader and up to the allowed number of the strongest melee companies of the army he

@@ -29,6 +29,9 @@ var is_eliminated: bool = false
 var adventure_turn: int = -1
 ## First round in which a leader wounded on a castle raid gives his aura again.
 var wounded_until: int = 0
+## Wins of the leader per skill since its last raise (battles: leadership, joust: lance,
+## castle raid: blade).
+var wins: Dictionary[String, int] = {}
 
 
 static func from_dict(r: DataReader, data: Dictionary) -> HouseState:
@@ -53,11 +56,27 @@ static func from_dict(r: DataReader, data: Dictionary) -> HouseState:
 	house.is_eliminated = r.flag(data, "eliminated")
 	house.adventure_turn = r.integer(data, "adventure_turn")
 	house.wounded_until = r.integer(data, "wounded_until")
+	var win_data := r.object(data, "wins")
+	for skill: String in win_data:
+		house.wins[skill] = r.integer(win_data, skill)
 	return house
 
 
 func is_leader_captured() -> bool:
 	return not leader_captor.is_empty()
+
+
+## Counts a win of the leader in a discipline; enough wins raise the skill by one up to the
+## maximum (GDD: three wins a point). True if the skill rose.
+func add_win(skill: String, wins_per_point: int, maximum: int) -> bool:
+	var count: int = wins.get(skill, 0) + 1
+	var value: int = get(skill)
+	if count < wins_per_point or value >= maximum:
+		wins[skill] = mini(count, wins_per_point)
+		return false
+	wins[skill] = 0
+	set(skill, value + 1)
+	return true
 
 
 func to_dict() -> Dictionary:
@@ -84,4 +103,5 @@ func to_dict() -> Dictionary:
 		"eliminated": is_eliminated,
 		"adventure_turn": adventure_turn,
 		"wounded_until": wounded_until,
+		"wins": wins,
 	}
