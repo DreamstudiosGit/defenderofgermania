@@ -1,5 +1,312 @@
 [
   {
+    "file": "unit_levy.glb",
+    "triangles": 1764,
+    "dimensions_blender": [
+      0.903,
+      0.571,
+      1.908
+    ],
+    "materials": [
+      "house_primary",
+      "house_secondary",
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_linen",
+      "unit_skin",
+      "unit_wood",
+      "unit_wool"
+    ],
+    "budget": 3000,
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "hit",
+      "death",
+      "cheer"
+    ],
+    "rigs": [
+      "rig_human"
+    ],
+    "crest_anchor_height": null
+  },
+  {
+    "file": "unit_spearman.glb",
+    "triangles": 1860,
+    "dimensions_blender": [
+      1.139,
+      0.666,
+      3.175
+    ],
+    "materials": [
+      "house_primary",
+      "house_secondary",
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_skin",
+      "unit_wood",
+      "unit_wool"
+    ],
+    "budget": 3000,
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "hit",
+      "death",
+      "cheer"
+    ],
+    "rigs": [
+      "rig_human"
+    ],
+    "crest_anchor_height": 1.905
+  },
+  {
+    "file": "unit_crossbowman.glb",
+    "triangles": 1778,
+    "dimensions_blender": [
+      0.826,
+      1.146,
+      1.91
+    ],
+    "materials": [
+      "house_primary",
+      "house_secondary",
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_linen",
+      "unit_mail",
+      "unit_skin",
+      "unit_wood",
+      "unit_wool"
+    ],
+    "budget": 3000,
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "hit",
+      "death",
+      "cheer"
+    ],
+    "rigs": [
+      "rig_human"
+    ],
+    "crest_anchor_height": 1.905
+  },
+  {
+    "file": "unit_brabanter.glb",
+    "triangles": 1840,
+    "dimensions_blender": [
+      1.298,
+      0.48,
+      2.015
+    ],
+    "materials": [
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_mail",
+      "unit_skin",
+      "unit_wood",
+      "unit_wool"
+    ],
+    "budget": 3000,
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "hit",
+      "death",
+      "cheer"
+    ],
+    "rigs": [
+      "rig_human"
+    ],
+    "crest_anchor_height": null
+  },
+  {
+    "file": "unit_knight.glb",
+    "triangles": 2698,
+    "dimensions_blender": [
+      1.002,
+      2.2,
+      4.253
+    ],
+    "materials": [
+      "house_primary",
+      "house_secondary",
+      "unit_chestnut",
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_mail",
+      "unit_skin",
+      "unit_wood"
+    ],
+    "budget": 3000,
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "hit",
+      "death",
+      "cheer",
+      "horse_trot",
+      "horse_gallop",
+      "horse_charge"
+    ],
+    "rigs": [
+      "rig_horse",
+      "rig_human"
+    ],
+    "crest_anchor_height": 2.62
+  },
+  {
+    "file": "unit_leader.glb",
+    "triangles": 3796,
+    "dimensions_blender": [
+      1.005,
+      2.486,
+      3.582
+    ],
+    "materials": [
+      "house_primary",
+      "house_secondary",
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_linen",
+      "unit_mail",
+      "unit_skin",
+      "unit_wood",
+      "unit_wool"
+    ],
+    "budget": 6000,
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "hit",
+      "death",
+      "cheer",
+      "horse_trot",
+      "horse_gallop",
+      "horse_charge"
+    ],
+    "rigs": [
+      "rig_horse",
+      "rig_human"
+    ],
+    "crest_anchor_height": 2.62
+  },
+  {
+    "file": "unit_trebuchet.glb",
+    "triangles": 2698,
+    "dimensions_blender": [
+      2.829,
+      3.46,
+      2.55
+    ],
+    "materials": [
+      "house_primary",
+      "unit_iron",
+      "unit_leather",
+      "unit_linen",
+      "unit_skin",
+      "unit_stone",
+      "unit_wood",
+      "unit_wool"
+    ],
+    "budget": 3000,
+    "animations": [
+      "idle",
+      "walk",
+      "attack",
+      "hit",
+      "death",
+      "cheer"
+    ],
+    "rigs": [
+      "rig_crew_1",
+      "rig_crew_2",
+      "rig_crew_3",
+      "rig_crew_4",
+      "rig_trebuchet"
+    ],
+    "crest_anchor_height": null
+  },
+  {
+    "file": "crest_lion.glb",
+    "triangles": 292,
+    "dimensions_blender": [
+      0.575,
+      0.402,
+      0.6
+    ],
+    "materials": [
+      "unit_dark",
+      "unit_gold"
+    ],
+    "budget": 300,
+    "animations": []
+  },
+  {
+    "file": "crest_eagle.glb",
+    "triangles": 254,
+    "dimensions_blender": [
+      0.82,
+      0.226,
+      0.663
+    ],
+    "materials": [
+      "unit_dark",
+      "unit_gold"
+    ],
+    "budget": 300,
+    "animations": []
+  },
+  {
+    "file": "crest_antlers.glb",
+    "triangles": 240,
+    "dimensions_blender": [
+      0.852,
+      0.18,
+      0.693
+    ],
+    "materials": [
+      "unit_gold",
+      "unit_linen"
+    ],
+    "budget": 300,
+    "animations": []
+  },
+  {
+    "file": "crest_wings.glb",
+    "triangles": 204,
+    "dimensions_blender": [
+      0.829,
+      0.261,
+      0.67
+    ],
+    "materials": [
+      "unit_blue",
+      "unit_gold"
+    ],
+    "budget": 300,
+    "animations": []
+  },
+  {
     "file": "unit_levy_blue.glb",
     "triangles": 2824,
     "dimensions_blender": [
