@@ -29,6 +29,21 @@ func test_new_game_starts_every_house_with_gdd_values() -> void:
 		assert_eq(house.leadership + house.lance + house.blade, 9)
 
 
+func test_new_game_sets_the_road_to_the_crown_from_the_gdd() -> void:
+	var crown := GameSetup.create(_map, _cfg, 1).crown
+	assert_eq(crown.regalia_province, "SPT", "the true regalia lie on Trifels")
+	assert_eq(crown.favour_of("KOE", "welfen"), 55.0, "Cologne favours the Welfen")
+	assert_eq(crown.favour_of("KOE", "staufer"), 30.0)
+	assert_eq(crown.favour_of("ELS", "staufer"), 50.0, "Alsace leans to the Staufer")
+	assert_eq(crown.favour_of("FRS", "wettiner"), 30.0, "every neutral lord keeps a list")
+	assert_false(crown.favour.has(CrownState.key("SPT", "welfen")), "house provinces keep none")
+	assert_eq(crown.patron_cards, {
+		"welfen": 3, "wettiner": 3, "staufer": 3, "wittelsbacher": 3
+	} as Dictionary[String, int])
+	assert_eq(crown.patron_strength, {"england": 1.0, "france": 1.0} as Dictionary[String, float])
+	assert_true(crown.forged_regalia.is_empty())
+
+
 func test_seasons_cycle_from_spring() -> void:
 	var state := GameState.new()
 	assert_eq(state.season(), GameState.Season.SPRING)
@@ -111,6 +126,16 @@ func _add_campaign_details(state: GameState) -> void:
 	state.grain_traded = -150.0
 	state.phase = GameState.Phase.CAMPAIGN
 	state.active_index = 2
+	var crown := state.crown
+	crown.regalia_province = house.home_province
+	crown.forged_regalia.append("wettiner")
+	crown.set_favour("KOE", "welfen", 72.5, 100.0)
+	crown.patron_cards["welfen"] = 1
+	crown.patron_played["welfen"] = 4
+	crown.patron_strength["england"] = 0.75
+	crown.gifts[CrownState.key("BOH", "wettiner")] = 2
+	crown.penance_turn["staufer"] = 5
+	crown.bohemia_promised = "wittelsbacher"
 
 
 func _end_phase(state: GameState) -> void:

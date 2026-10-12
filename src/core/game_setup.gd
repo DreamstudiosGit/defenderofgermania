@@ -36,5 +36,21 @@ static func create(map: MapData, economy: EconomyConfig, seed_value: int) -> Gam
 		for unit: String in map.start_army:
 			army.add_company(unit)
 		house.leader_army = army.id
+	_setup_crown(state, map)
 	TurnLoop.start_round(state)
 	return state
+
+
+static func _setup_crown(state: GameState, map: MapData) -> void:
+	var crown := state.crown
+	for def: MapData.ProvinceDef in map.provinces.values():
+		if "imperial_regalia" in def.tags:
+			crown.regalia_province = def.id
+		if def.owner not in ["elector", "neutral"]:
+			continue
+		for house: String in map.houses:
+			crown.set_favour(def.id, house, map.start_favour(def.id, house), map.crown.favour_max)
+	for house: String in map.houses:
+		crown.patron_cards[house] = map.crown.patron_cards
+	for patron: String in map.crown.camp_patrons.values():
+		crown.patron_strength[patron] = 1.0

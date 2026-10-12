@@ -6,7 +6,7 @@ extends RefCounted
 enum Season { SPRING, SUMMER, AUTUMN, WINTER }
 enum Phase { EVENT, ADMINISTRATION, CAMPAIGN, SETTLEMENT, GAME_OVER }
 
-const SAVE_VERSION := 2
+const SAVE_VERSION := 3
 const ROUNDS_PER_YEAR := 4
 
 var turn: int = 0
@@ -24,6 +24,8 @@ var weather: Dictionary[String, float] = {}
 var houses: Dictionary[String, HouseState] = {}
 var provinces: Dictionary[String, ProvinceState] = {}
 var armies: Array[ArmyState] = []
+var crown := CrownState.new()
+var events := EventState.new()
 
 
 static func from_dict(data: Dictionary) -> GameState:
@@ -58,6 +60,8 @@ static func from_dict(data: Dictionary) -> GameState:
 		state.provinces[province.id] = province
 	for entry: Variant in r.list(data, "armies"):
 		state.armies.append(ArmyState.from_dict(r, _as_object(r, entry)))
+	state.crown = CrownState.from_dict(r, r.object(data, "crown"))
+	state.events = EventState.from_dict(r, r.object(data, "events"))
 	for error: String in r.errors:
 		push_error("save data: %s" % error)
 	return null if r.errors else state
@@ -198,4 +202,6 @@ func to_dict() -> Dictionary:
 		"houses": house_data,
 		"provinces": province_data,
 		"armies": army_data,
+		"crown": crown.to_dict(),
+		"events": events.to_dict(),
 	}
