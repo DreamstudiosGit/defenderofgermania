@@ -5,10 +5,6 @@ extends Node
 ## changed; each turn opens with the house's event cards. F3 or Back+Y shows the computer
 ## opponents' utilities (AiDebugOverlay).
 
-const MARGIN := 8.0
-const TOP := 80.0
-const SIDE_WIDTH := 340.0
-const ADMIN_WIDTH := 450.0
 const FIRST_SEED := 1198
 
 var session: CampaignSession = null
@@ -38,6 +34,8 @@ var _army := MapTable.NO_ARMY
 var _seen_house := ""
 ## Round and house whose event dialog was closed ("<turn>:<house>").
 var _events_seen := ""
+## Round whose autosave was written.
+var _autosaved_turn := -1
 var _seen_settlement: GameState = null
 
 
@@ -66,10 +64,32 @@ func start(
 	if computers.is_empty():
 		computers = AiPlayer.opponents(config, rules.map.houses, humans)
 	session = CampaignSession.create(rules, humans, seed_value, computers, ai.play_phase)
+	_begin()
+
+
+## Continues a saved campaign (SaveGames.read).
+func resume(saved: GameState) -> void:
+	_setup.visible = false
+	_victory.visible = false
+	var rules := GameRules.load_files()
+	ai = AiPlayer.new(rules, AiConfig.load_file())
+	session = CampaignSession.resume(rules, saved, ai.play_phase)
+	_begin()
+
+
+## Saves the campaign into a slot while a human house is to move; OK or the error.
+func save_to(slot: String) -> Error:
+	if session == null or not session.is_human_turn():
+		return ERR_UNAVAILABLE
+	return SaveGames.write(session.state, slot)
+
+
+func _begin() -> void:
 	_actions.session = session
 	_seen_house = ""
 	_events_seen = ""
 	_seen_settlement = null
+	_autosaved_turn = -1
 	_select_home()
 	_after_change()
 
@@ -103,8 +123,19 @@ func _after_change() -> void:
 			_handover.open(session.state, session.rules, house)
 			return
 	_refresh()
+	_autosave()
 	if _wants_events(house):
 		_events.open(session.state, session.rules, house)
+
+
+## Once a round, when the first human house is to move (GDD: autosave every round).
+func _autosave() -> void:
+	if not session.is_human_turn() or session.state.turn == _autosaved_turn:
+		return
+	_autosaved_turn = session.state.turn
+	var error := SaveGames.write(session.state, SaveGames.AUTOSAVE)
+	if error != OK:
+		push_warning("autosave failed: %s" % error_string(error))
 
 
 ## A human house in its event phase must answer its cards; afterwards the dialog shows once a
@@ -243,34 +274,12 @@ func _blocked() -> bool:
 
 func _build_ui() -> void:
 	add_child(_ui)
-	_ui.add_child(_root)
-	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_root.theme = CampaignStyle.theme()
-	_root.add_child(_hud)
-	_hud.set_anchors_and_offsets_preset(
-		Control.PRESET_TOP_WIDE, Control.PRESET_MODE_MINSIZE, MARGIN
-	)
+	CampaignLayout.root(_ui, _root)
+	CampaignLayout.top(_root, _hud)
 	_hud.command_requested.connect(_on_command)
-	_root.add_child(_admin)
-	_admin.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE)
-	_admin.offset_left = MARGIN
-	_admin.offset_top = TOP
-	_admin.offset_right = MARGIN + ADMIN_WIDTH
-	_admin.offset_bottom = -MARGIN
+	CampaignLayout.left(_root, _admin)
 	_admin.command_requested.connect(_on_command)
-	var side := VBoxContainer.new()
-	side.add_theme_constant_override("separation", MARGIN)
-	side.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_root.add_child(side)
-	side.set_anchors_and_offsets_preset(Control.PRESET_RIGHT_WIDE)
-	side.offset_left = -MARGIN - SIDE_WIDTH
-	side.offset_top = TOP
-	side.offset_right = -MARGIN
-	side.offset_bottom = -MARGIN
-	side.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	side.add_child(_province_panel)
-	side.add_child(_army_panel)
+	CampaignLayout.right(_root, [_province_panel, _army_panel] as Array[Control])
 	_province_panel.army_selected.connect(_on_army_clicked)
 	_province_panel.castle_requested.connect(_open_castle)
 	_castle.closed.connect(_close_castle)
@@ -278,7 +287,7 @@ func _build_ui() -> void:
 	# Hidden only once built: CastleView hides its screen layer on the visibility change.
 	_castle.visible = false
 	_root.add_child(_ai_overlay)
-	_ai_overlay.place(SIDE_WIDTH + 2.0 * MARGIN)
+	_ai_overlay.place(CampaignLayout.SIDE_WIDTH + 2.0 * CampaignLayout.MARGIN)
 	for screen: Control in [
 		_toast, _setup, _handover, _report, _events, _actions.adventures.choice,
 		_actions.battles.choice, _victory, _tooltip,

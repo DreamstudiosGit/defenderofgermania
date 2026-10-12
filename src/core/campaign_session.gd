@@ -65,6 +65,23 @@ static func create(
 	return session
 
 
+## Continues a saved campaign: its computer houses play through `player` again.
+static func resume(
+	game_rules: GameRules, saved: GameState, player: Callable = Callable()
+) -> CampaignSession:
+	var session := CampaignSession.new()
+	session.rules = game_rules
+	session.state = saved
+	for house: HouseState in saved.houses.values():
+		if not house.is_computer():
+			session.humans.append(house.id)
+	session.computer = player
+	session.rules.resolver = session._live.resolve
+	session.rules.adventure_resolver = session._live.resolve_adventure
+	session.advance_passive()
+	return session
+
+
 func active_house() -> String:
 	return state.active_house()
 
