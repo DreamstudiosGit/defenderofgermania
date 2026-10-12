@@ -21,3 +21,4 @@
 - 2026-10-12 feat(map): M3 campaign scene — war table, panels, hot-seat handover, settlement report and live battles
 - 2026-10-12 test(economy): pin the GDD building, castle, decoration and unit tables (M4 acceptance)
 - 2026-10-12 feat(economy): province panel offers a view-castle button
+- 2026-10-12 feat(economy): M4 — merge the castle kit and view, open it from the province panel

@@ -116,3 +116,16 @@ func _dismiss_screens() -> void:
 
 func _session() -> CampaignSession:
 	return _scene.get("session")
+
+
+func test_the_province_panel_opens_the_castle_and_closing_returns_to_the_table() -> void:
+	_dismiss_screens()
+	var panel: ProvincePanel = _scene.get("_province_panel")
+	var castle: CastleView = _scene.get("_castle")
+	var table: MapTable = _scene.get("_table")
+	panel.castle_requested.emit(_session().state.houses["welfen"].home_province)
+	assert_true(castle.visible, "the castle view opens")
+	assert_eq(table.process_mode, Node.PROCESS_MODE_DISABLED, "the war table rests meanwhile")
+	castle.closed.emit()
+	assert_false(castle.visible)
+	assert_eq(table.process_mode, Node.PROCESS_MODE_INHERIT, "back on the war table")

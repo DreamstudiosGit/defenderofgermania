@@ -8,7 +8,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M1 Battle graybox | done; needs an owner playtest with two controllers (`docs/screenshots/m1_battle_*.png`) | 2–4 min match with two controllers; same seed and inputs give the same result; scenario tests: knight charge beats crossbows, hedgehog stops knights, crossbows beat a spear line at range |
 | M2 Blender figures and battle look | done; Steam Deck frame rate not measured (`docs/screenshots/m2_*.png`, `scripts/benchmark_battle.gd`: 412 figures, 140 fps at 1280 × 800 on an RTX 5060 Ti) | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
 | M3 Imperial map and round flow | done; needs a hot-seat playtest (`node scripts/run.mjs --campaign`, `docs/screenshots/m3_*.png`) | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
-| M4 Home castle and buildings | rules and data exist; no castle view | every level looks clearly different; costs, upkeep and unlocks match the tables |
+| M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
 | M5 Electors, coronation, events | data exists (M0) | test scenarios trigger the coronation along all four rows of the table |
 | M6 Adventures | open | each minigame takes 1–3 min and has a practice mode |
 | M7 AI | open | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
@@ -92,3 +92,9 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - The settlement report's income and upkeep lines come from the breakdown of the state before the settlement; if starving garrisons change a province first, these lines can differ slightly (the before → after totals are exact).
 - The Kornvogt forecast ignores census growth, recruiting and desertion; the prestige projection leaves out hunger and revolts (its tooltip says so).
 - Controller support on the map covers panning and zooming; picking provinces needs a cursor or province cycling (M8 "controller everywhere").
+
+## Design questions (M4 castle; current choice)
+- The village shows round(0.6 × population) houses, 3 to 60; the GDD only says it follows the home province's people.
+- During an upgrade the old pieces (wooden tower, wood hall, palas) stand until it finishes and overlap the rising new ones; market I stands inside a market II under construction.
+- Buildings stand on the same plots in every province; rivers and terrain of the province are not shown yet; the mill wheel and banners do not move and there are no people.
+- "Time-lapse while the round goes on": the view replays what is new since the province was last shown (per session) whenever it opens; the round does not wait for it.

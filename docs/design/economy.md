@@ -74,3 +74,6 @@ Every economy number on screen shows its calculation (GDD "UI/UX", "Rechen-Toolt
 
 ## Not implemented yet
 Morale effects (no morale state yet); rebel spawning and revolt endings; plague and other events; AI difficulty income modifiers; patron cards ("Gönner").
+
+## Castle view (M4)
+The province panel's "View castle" opens `CastleView` (`src/render/castle/`, own 3D world, orbit camera): the home castle at level 1–5 with the owner's decorations (stained glass from level 4) or a province castle at level 0–3, every building of the province, and a village of round(0.6 × population) houses (3–60) in the owner's colours. Castle levels and buildings under construction stand in scaffolding, raised by their progress (1 − rounds left / build rounds); whatever is new since the province was last shown rises in a 3.5 s time-lapse with dust. Kit and placements: `art-src/economy/`, `assets/economy/`, `data/castle_art.json` (presentation only). `test_gdd_tables.gd` pins costs, build times, upkeep, effects and unlocks to the GDD tables.

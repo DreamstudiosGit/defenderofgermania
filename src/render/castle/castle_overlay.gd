@@ -53,7 +53,7 @@ func _init() -> void:
 	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(spacer)
 	_close.name = "Close"
-	_close.text = tr("CAMPAIGN_CONTINUE")
+	_close.text = tr("CASTLE_CLOSE")
 	_close.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	_close.custom_minimum_size = Vector2(140, CampaignStyle.BUTTON_HEIGHT)
 	_close.pressed.connect(close_pressed.emit)

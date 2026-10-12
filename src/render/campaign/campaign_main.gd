@@ -28,6 +28,7 @@ var _report := SettlementReport.new()
 var _choice := BattleChoice.new()
 var _victory := VictoryScreen.new()
 var _battle: Node = null
+var _castle := CastleView.new()
 var _province := ""
 var _army := MapTable.NO_ARMY
 var _move_army := MapTable.NO_ARMY
@@ -212,11 +213,29 @@ func _select_home() -> void:
 		_province = armies[0].province
 
 
+## The castle view covers the war table; the table and its camera rest meanwhile so WASD only
+## orbits the castle.
+func _open_castle(province_id: String) -> void:
+	if session == null or _blocked():
+		return
+	_castle.show_province(session.state, session.rules, province_id)
+	_castle.visible = true
+	_ui.visible = false
+	_table.process_mode = Node.PROCESS_MODE_DISABLED
+
+
+func _close_castle() -> void:
+	_castle.visible = false
+	_ui.visible = true
+	_table.process_mode = Node.PROCESS_MODE_INHERIT
+	_table.camera.current = true
+
+
 func _blocked() -> bool:
 	for screen: Control in [_setup, _handover, _report, _choice, _victory]:
 		if screen.visible:
 			return true
-	return _battle != null
+	return _battle != null or _castle.visible
 
 
 func _build_ui() -> void:
@@ -250,6 +269,10 @@ func _build_ui() -> void:
 	side.add_child(_province_panel)
 	side.add_child(_army_panel)
 	_province_panel.army_selected.connect(_on_army_clicked)
+	_province_panel.castle_requested.connect(_open_castle)
+	_castle.visible = false
+	_castle.closed.connect(_close_castle)
+	add_child(_castle)
 	for screen: Control in [_toast, _setup, _handover, _report, _choice, _victory, _tooltip]:
 		_root.add_child(screen)
 	_setup.start_requested.connect(start)
