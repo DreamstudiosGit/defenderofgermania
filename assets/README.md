@@ -13,7 +13,7 @@
 
 ## Style
 - Stylized low-poly 3D, faceted scenery and softly shaded characters, warm daylight, three-quarter camera.
-- Combat units are stocky, rounded and house-neutral: house colours sit only on the white mask materials `house_primary` and `house_secondary`, which the game tints per house, and an oversized helmet crest per house (`crest_lion`, `crest_eagle`, `crest_antlers`, `crest_wings`) mounts on each unit's `crest_anchor`. Everything else uses one muted twelve-colour unit palette (`art-src/combat/README.md`). The blue/red `unit_<role>_<team>` files and camp props still carry the prototype team markings.
+- Combat units are stocky, rounded and house-neutral: house colours sit only on the white mask materials `house_primary` and `house_secondary`, which the game tints per house, and an oversized helmet crest per house (`crest_lion`, `crest_eagle`, `crest_antlers`, `crest_wings`) mounts on each unit's `crest_anchor`. Everything else uses one muted twelve-colour unit palette (`art-src/combat/README.md`). Camp props (banner, tent, watchtower) still come in the blue/red prototype markings.
 - AI base prompt: "low-poly 3D game asset, flat shading, limited muted color palette, historical Germanic setting, three-quarter top-down view, soft daylight, plain neutral background"
 
 ## Sources & licenses

@@ -6,7 +6,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 |---|---|---|
 | M0 Foundation | done | tests green; worked example "Welfen im ersten Herbst" exact (20.925 / 15.694 / 25.3125 T, 300 + 180 bushels, demand 363, surplus 117, sale 52.65 T) |
 | M1 Battle graybox | done; needs an owner playtest with two controllers (`docs/screenshots/m1_battle_*.png`) | 2–4 min match with two controllers; same seed and inputs give the same result; scenario tests: knight charge beats crossbows, hedgehog stops knights, crossbows beat a spear line at range |
-| M2 Blender figures and battle look | Blender sources, glTF models, scenery and shaders exist (ADR 0004), not yet checked against M2 | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
+| M2 Blender figures and battle look | done; Steam Deck frame rate not measured (`docs/screenshots/m2_*.png`, `scripts/benchmark_battle.gd`: 412 figures, 140 fps at 1280 × 800 on an RTX 5060 Ti) | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
 | M3 Imperial map and round flow | rules exist (map, economy, turn loop); no map view | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | rules and data exist; no castle view | every level looks clearly different; costs, upkeep and unlocks match the tables |
 | M5 Electors, coronation, events | data exists (M0) | test scenarios trigger the coronation along all four rows of the table |
@@ -75,3 +75,11 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Trebuchets: stones fly 3 s, the target circle moves at 30 m/s, they hit enemies only (no friendly fire), one stone per 20 s; no walls on the open field yet.
 - Deployment lasts 20 s (was 15 s) so computer battles fight 2–4 minutes; measured 143–205 s over 12 seeds, each side won 6.
 - The default battle is Wittelsbacher against Welfen, so the models’ blue and red team markings match the house colours until M2 brings colour masks.
+
+## Design questions (M2 look; current choice)
+- Figures follow the GDD (stocky, head 1/5 of the height, oversized crests) rather than the rounder cartoon look of `docs/reference/figur_*.png`; the references set mood and colour only.
+- The near zoom shows 45 m so figures stand about 30 px tall (GDD readability target); the wide zoom shows the whole fight with tiny figures and looks emptier than `schlacht.png`, which is a close view of a river crossing.
+- Levy, brabanters and trebuchet crews wear no crest (no helmet in the GDD); they are recognised by colour alone, brabanters (mercenaries) not even by that.
+- Death is a comic throw and somersault drawn on the CPU, cheering a hop; the skeletal clips in the exports (`hit`, `death`, `cheer`, horse gaits) are not played at runtime yet — the batched figures animate through UV2 limb masks.
+- Camp props (banner, tent, watchtower) still carry the blue/red prototype markings instead of house colours.
+- Ink: figures get an inverted-hull outline, scenery gets edges from depth jumps over 3 m and normal jumps; grass tufts and figures are kept out of the post-effect edges so the field does not turn into dark specks.

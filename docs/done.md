@@ -11,3 +11,4 @@
 - 2026-10-12 feat(combat): M2 — winners cheer, 400-figure frame-rate benchmark
 - 2026-10-12 docs(combat): describe the M2 battle look
 - 2026-10-12 feat(combat): M2 — house colour masks, crests per house and house shields; drop blue/red units
+- 2026-10-12 docs(combat): M2 done — screenshots, ADR 0006 house colour masks, status and design questions
