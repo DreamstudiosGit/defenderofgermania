@@ -38,18 +38,16 @@ static func km_per_unit() -> float:
 	return float(settings().get("km_per_unit", 10.0))
 
 
-## Field colour of an owner: the house's heraldic field, or the colour of a lord without house.
+## Field colour of an owner: the heraldic field of the house or other lord (MapData.heraldry).
 static func owner_color(map: MapData, owner: String) -> Color:
-	if map.house_colors.has(owner) and not map.house_colors[owner].is_empty():
-		return map.house_colors[owner][0]
-	return color("owners", owner, Color(0.6, 0.56, 0.45))
+	var colors: PackedColorArray = map.heraldry().get(owner, PackedColorArray())
+	return colors[0] if not colors.is_empty() else Color(0.6, 0.56, 0.45)
 
 
-## Charge colour of an owner; lords without a house carry gold.
+## Charge colour of an owner; gold when the owner has none.
 static func charge_color(map: MapData, owner: String) -> Color:
-	if map.house_colors.has(owner) and map.house_colors[owner].size() > 1:
-		return map.house_colors[owner][1]
-	return color("pieces", "gold", Color(0.85, 0.66, 0.24))
+	var colors: PackedColorArray = map.heraldry().get(owner, PackedColorArray())
+	return colors[1] if colors.size() > 1 else color("pieces", "gold", Color(0.85, 0.66, 0.24))
 
 
 ## Painted wood: two-step toon light with the ink outline pass, cached per colour.

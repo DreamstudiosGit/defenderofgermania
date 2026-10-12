@@ -7,9 +7,9 @@
     "wittelsbacher": {"camp": "south", "colors": ["#2457a8", "#d9dee4"]}
   },
   "lords": {
-    "neutral": {"colors": ["#7a5a32", "#d6c49a"]},
-    "church": {"colors": ["#ece6d8", "#6b2d7b"]},
-    "elector": {"colors": ["#4a3a6b", "#e0b040"]}
+    "neutral": {"colors": ["#8f8866", "#d6c49a"]},
+    "church": {"colors": ["#ddd6e6", "#6b2d7b"]},
+    "elector": {"colors": ["#7a4b88", "#e0b040"]}
   },
   "start_army": ["levy", "levy", "spearmen", "spearmen"],
   "campaign": {

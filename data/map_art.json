@@ -154,11 +154,6 @@
     "grain": 0.06,
     "vignette": 1.1
   },
-  "owners": {
-    "neutral": "#8f8866",
-    "church": "#ddd6e6",
-    "elector": "#7a4b88"
-  },
   "field": {
     "base_height": 0.6,
     "paint_mix": 0.12,

@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="288" viewBox="0 0 256 288">
 <defs>
   <linearGradient id="face" x1="0" y1="0" x2="0.65" y2="1">
-    <stop stop-color="#957b5b"/><stop offset=".4" stop-color="#7a5a32"/><stop offset="1" stop-color="#43321c"/>
+    <stop stop-color="#a5a085"/><stop offset=".4" stop-color="#8f8866"/><stop offset="1" stop-color="#4f4b38"/>
   </linearGradient>
   <linearGradient id="silk" x1="0" y1="0" x2="0" y2="1">
-    <stop stop-color="#af9c84"/><stop offset=".48" stop-color="#7a5a32"/><stop offset="1" stop-color="#553f23"/>
+    <stop stop-color="#bcb8a3"/><stop offset=".48" stop-color="#8f8866"/><stop offset="1" stop-color="#645f47"/>
   </linearGradient>
   <linearGradient id="rim" x1=".12" y1="0" x2=".8" y2="1">
     <stop stop-color="#fff3b4"/><stop offset=".13" stop-color="#e5b864"/>
