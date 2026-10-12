@@ -51,6 +51,16 @@ func test_target_satisfaction_is_clamped() -> void:
 	assert_eq(PopulationRules.target_satisfaction(_cfg, 5, 4, 50.0, 100.0, 5, false, false), 100.0)
 
 
+func test_target_satisfaction_parts_name_every_summand() -> void:
+	var parts := PopulationRules.target_satisfaction_parts(_cfg, 15, 4, 10.0, 20.0, 3, true, true)
+	assert_eq(parts.keys(), [
+		"base", "tax", "ration", "bonus", "prestige", "home_castle", "occupation", "ban"
+	])
+	assert_eq(parts.values(), [60.0, -7.5, 10.0, 10.0, 2.0, 10.0, -15.0, -15.0])
+	var target := PopulationRules.target_satisfaction(_cfg, 15, 4, 10.0, 20.0, 3, true, true)
+	assert_almost_eq(target, 54.5, EPSILON)
+
+
 func test_satisfaction_moves_a_quarter_towards_target() -> void:
 	assert_almost_eq(PopulationRules.next_satisfaction(_cfg, 40.0, 60.0), 45.0, EPSILON)
 	assert_almost_eq(PopulationRules.next_satisfaction(_cfg, 60.0, 40.0), 55.0, EPSILON)

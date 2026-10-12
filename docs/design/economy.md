@@ -66,5 +66,11 @@ Autumn first rolls the regional weather and the new grain price. Then per house:
 ## Worked example (golden test)
 "Welfen im ersten Herbst": Brunswick (V 60, farmland, Z 55, mill) and Holstein (V 45, farmland, Z 55, market 1), tax 15 %, weather 1.0 → tax 20.925 T and 15.694 T, Holstein market 25.3125 T, army upkeep 6 T, harvest 300 + 180, yearly demand 363, surplus 117 sells at 0.45 T for 52.65 T; a bad harvest (0.6) leaves 75 bushels missing. See `src/systems/economy/test_welfen_first_autumn.gd`.
 
+## Tooltips and forecast
+Every economy number on screen shows its calculation (GDD "UI/UX", "Rechen-Tooltips"). `EconomyBreakdown` (taler, Z*, prestige, capacity, growth) and `GrainBreakdown` (harvest, demand, spoilage, prices) return the summands as `EconomyTerm`s: text key, value and the formula with its numbers, e.g. "Tax Brunswick 20.9 = 60 × 15 % × 3 × (0.5 + 55/200)".
+- Values come from the rule functions with the inputs `EconomySettlement` uses; the taler terms add up to the next settlement's change. Prestige leaves out hunger and new revolts, which only the settlement decides. Tax and ration previews pass other levers without touching the state.
+- Harvest previews use normal weather 1.0: the year's weather is rolled at the autumn settlement, after every administration phase.
+- Kornvogt (`EconomyForecast`): from today's stock, people and armies it runs the settlements up to the next autumn harvest (none before it in autumn) — meal, then spoilage; the harvest comes in before the harvest round's meal — and reports the stock before and after the harvest and the first settlement whose meal the stock cannot cover. The campaign HUD shows it at all times and warns two rounds ahead. Census growth and new recruits are not projected.
+
 ## Not implemented yet
 Morale effects (no morale state yet); rebel spawning and revolt endings; plague and other events; AI difficulty income modifiers; patron cards ("Gönner").

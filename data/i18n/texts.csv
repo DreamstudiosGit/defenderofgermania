@@ -195,3 +195,289 @@ BATTLE_CRY_ELECTOR,Für den Kurfürsten!,For the Elector!
 BATTLE_RESULT_CONTINUE,Weiter,Continue
 COMBAT_ART_SPRING,Frühlingswiese,Spring meadow
 COMBAT_ART_WINTER,Winterfeld,Winter field
+SEASON_SPRING,Frühling,Spring
+SEASON_SUMMER,Sommer,Summer
+SEASON_AUTUMN,Herbst,Autumn
+SEASON_WINTER,Winter,Winter
+CAMPAIGN_PHASE_EVENT,Ereignis,Event
+CAMPAIGN_PHASE_ADMINISTRATION,Verwaltung,Administration
+CAMPAIGN_PHASE_CAMPAIGN,Feldzug,Campaign
+CAMPAIGN_PHASE_SETTLEMENT,Abrechnung,Settlement
+CAMPAIGN_PHASE_GAME_OVER,Partie beendet,Game over
+CAMPAIGN_DECIMAL_SEPARATOR,",",.
+CAMPAIGN_ROUND,Runde %d/%d,Round %d/%d
+CAMPAIGN_THIS_ROUND,diese Runde,this round
+CAMPAIGN_NEXT_ROUND,nächste Runde,next round
+CAMPAIGN_IN_ROUNDS,in %d Runden,in %d rounds
+CAMPAIGN_GOLD,Taler,Taler
+CAMPAIGN_GRAIN,Korn,Grain
+CAMPAIGN_PRESTIGE,Ansehen,Prestige
+CAMPAIGN_GOLD_CHANGE,Taler bei der nächsten Abrechnung,Taler at the next settlement
+CAMPAIGN_PRESTIGE_CHANGE,Ansehen bei der nächsten Abrechnung,Prestige at the next settlement
+CAMPAIGN_PRESTIGE_NOTE,"Hunger (−%s) und neue Aufstände (−%s) kommen hinzu, falls sie eintreten.",Hunger (−%s) and new revolts (−%s) come on top if they happen.
+CAMPAIGN_END_ADMINISTRATION,Verwaltung beenden,End administration
+CAMPAIGN_END_CAMPAIGN,Feldzug beenden,End campaign
+CAMPAIGN_END_PHASE_HINT,Beendet diese Phase. Nach dem Feldzug ist das nächste Haus am Zug.,Ends this phase. After the campaign the next house moves.
+CAMPAIGN_FORECAST_OK,"Kornvogt: Ernte %s, bis dahin bleiben %s Scheffel","Granary reeve: harvest %s, %s bushels left by then"
+CAMPAIGN_FORECAST_SHORT,"Kornvogt: Hunger %s, es fehlen %s Scheffel!","Granary reeve: hunger %s, %s bushels short!"
+CAMPAIGN_GRAIN_MEAL,Verbrauch bei dieser Abrechnung,Eaten at this settlement
+CAMPAIGN_GRAIN_SPOILAGE,Danach verdirbt: %s = %s,Then spoils: %s = %s
+CAMPAIGN_KORNVOGT,Kornvogt – nächste Ernte %s:,Granary reeve – next harvest %s:
+CAMPAIGN_KORNVOGT_BEFORE,"Vorrat, wenn die Ernte kommt",Stock when the harvest comes in
+CAMPAIGN_KORNVOGT_HARVEST,Erwartete Ernte bei normalem Wetter,Expected harvest in normal weather
+CAMPAIGN_KORNVOGT_AFTER,Vorrat nach der Ernte-Abrechnung,Stock after the harvest settlement
+CAMPAIGN_KORNVOGT_YEARLY,Jahresbedarf,Yearly demand
+CAMPAIGN_TAB_LEVERS,Steuern,Taxes
+CAMPAIGN_TAB_GRAIN,Kornmarkt,Grain
+CAMPAIGN_TAB_BUILD,Bauen,Build
+CAMPAIGN_TAB_RECRUIT,Werben,Recruit
+CAMPAIGN_TAB_COURT,Hof,Court
+CAMPAIGN_TAX_RATE,Steuersatz,Tax rate
+CAMPAIGN_RATION,Ration (Scheffel je Volk und Jahr),Ration (bushels per people and year)
+CAMPAIGN_RATION_2,Hunger,Hungry
+CAMPAIGN_RATION_3,Normal,Normal
+CAMPAIGN_RATION_4,Üppig,Rich
+CAMPAIGN_TAX_INCOME,Steuern: %s T je Runde,Taxes: %s T per round
+CAMPAIGN_TAX_PREVIEW,Steuern bei %d %% (jetzt %s T),Taxes at %d %% (now %s T)
+CAMPAIGN_GRAIN_PER_ROUND,Kornbedarf: %s Scheffel je Runde,Grain: %s bushels per round
+CAMPAIGN_RATION_PREVIEW,Kornbedarf bei Ration %d (%s),Grain at ration %d (%s)
+CAMPAIGN_RATION_GROWTH,Wachstum des Volks: %s %% je Jahr gegenüber normal,Population growth: %s %% per year against normal
+CAMPAIGN_TARGETS,Ziel-Zufriedenheit: %s,Target satisfaction: %s
+CAMPAIGN_GRAIN_MARKET,Kornmarkt,Grain market
+CAMPAIGN_PRICES,Preis %s T · Kauf %s · Verkauf %s,Price %s T · buy %s · sell %s
+CAMPAIGN_STOCK,Vorrat %s Scheffel · Kasse %s T,Stock %s bushels · treasury %s T
+CAMPAIGN_AMOUNT,Menge,Amount
+CAMPAIGN_BUSHELS,%d Scheffel,%d bushels
+CAMPAIGN_BUY,Kaufen: %d Scheffel für %s T,Buy %d bushels for %s T
+CAMPAIGN_SELL,Verkaufen: %d Scheffel für %s T,Sell %d bushels for %s T
+CAMPAIGN_BUY_HINT,"Du zahlst den Preis, bevor dein eigener Kauf ihn verschiebt.",You pay the price before your own purchase moves it.
+CAMPAIGN_SELL_HINT,"Du erhältst den Preis, bevor dein eigener Verkauf ihn verschiebt.",You get the price before your own sale moves it.
+CAMPAIGN_TRADE_IMPACT,Je 100 gehandelte Scheffel verschiebt sich der Preis dieser Runde um %s.,Every 100 bushels traded move this round's price by %s.
+CAMPAIGN_BUILD,Bauen,Build
+CAMPAIGN_BUILD_IN,Bauen in %s,Build in %s
+CAMPAIGN_SELECT_OWN_PROVINCE,Wähle eine eigene Provinz auf der Karte.,Select one of your provinces on the map.
+CAMPAIGN_SLOTS,Bauplätze: %d von %d belegt,Building slots: %d of %d used
+CAMPAIGN_BUILDINGS,Gebäude: %s,Buildings: %s
+CAMPAIGN_UNDER_CONSTRUCTION,"%s (im Bau, %d Rd.)","%s (building, %d rd.)"
+CAMPAIGN_PRESENT,vorhanden,built
+CAMPAIGN_CASTLE,Burg,Castle
+CAMPAIGN_LEVEL,Stufe %d,level %d
+CAMPAIGN_CASTLE_UPGRADE,Ausbauen: %s · %s T,Upgrade: %s · %s T
+CAMPAIGN_CASTLE_BUILDING,%s wird gebaut,%s under construction
+CAMPAIGN_CASTLE_MAX,Höchste Stufe erreicht,Highest level reached
+CAMPAIGN_CASTLE_DEFENCE,Mauer %d · Garnison %d Rotten,Wall %d · garrison %d companies
+CAMPAIGN_COST_LINE,Kosten %s T · Bauzeit %d Rd. · Unterhalt %s T je Runde,Cost %s T · %d rd. to build · upkeep %s T per round
+CAMPAIGN_COST,Kosten %s T,Cost %s T
+CAMPAIGN_EFFECT_HARVEST,Ernte der Provinz +%s %%,Province harvest +%s %%
+CAMPAIGN_EFFECT_MARKET,Markt der Stufe %d: Marktertrag je Runde,Market level %d: market income per round
+CAMPAIGN_EFFECT_SATISFACTION,Ziel-Zufriedenheit +%s,Target satisfaction +%s
+CAMPAIGN_EFFECT_HOME_SATISFACTION,Ziel-Zufriedenheit der Stammprovinz +%s,Home province target satisfaction +%s
+CAMPAIGN_EFFECT_GROWTH,Volk +%s %% je Jahr,Population +%s %% per year
+CAMPAIGN_EFFECT_PRESTIGE,Ansehen +%s je Runde,Prestige +%s per round
+CAMPAIGN_EFFECT_SPOILAGE,Schwund −%s Prozentpunkte,Spoilage −%s percentage points
+CAMPAIGN_EFFECT_SIEGE,Aushungern der Garnison ×%s,Garrison starvation ×%s
+CAMPAIGN_EFFECT_INCOME,+%s T je Runde,+%s T per round
+CAMPAIGN_EFFECT_TOLL,"+%s T je Runde an einem Fluss, +%s T an einem Pass","+%s T per round at a river, +%s T at a pass"
+CAMPAIGN_EFFECT_CASTLE_COST,Burgausbau −%s %%,Castle upgrades −%s %%
+CAMPAIGN_EFFECT_UNLOCKS,Schaltet frei: %s,Unlocks: %s
+CAMPAIGN_REQUIRES,Voraussetzung: %s,Requires: %s
+CAMPAIGN_MISSING,fehlt,missing
+CAMPAIGN_REQ_HOME_ONLY,nur in der Stammprovinz,home province only
+CAMPAIGN_REQ_HOME_CASTLE,Stammburg Stufe %d,home castle level %d
+CAMPAIGN_REQ_BUILDING,%s in der Provinz,%s in the province
+CAMPAIGN_REQ_FEATURE,%s in der Provinz,%s in the province
+CAMPAIGN_FEATURE_ORE,Erz,Ore
+CAMPAIGN_FEATURE_RIVER,Fluss,River
+CAMPAIGN_FEATURE_PASS,Pass,Pass
+CAMPAIGN_FEATURE_PORT,Hafen,Port
+ECONOMY_BUILDING_MILL,Mühle,Mill
+ECONOMY_BUILDING_MARKET_1,Markt I,Market I
+ECONOMY_BUILDING_MARKET_2,Markt II,Market II
+ECONOMY_BUILDING_GRANARY,Kornspeicher,Granary
+ECONOMY_BUILDING_MONASTERY,Kloster,Monastery
+ECONOMY_BUILDING_MINE,Bergwerk,Mine
+ECONOMY_BUILDING_TOLL,Zollstation,Toll station
+ECONOMY_BUILDING_TOURNEY_GROUND,Turnierplatz,Tourney ground
+ECONOMY_BUILDING_TOURNEY_GROUND_NOTE,Hier richtest du später Turniere aus (noch nicht im Spiel).,Hosts tournaments later (not in the game yet).
+ECONOMY_BUILDING_WORKSHOP,Bauhütte,Workshop
+ECONOMY_DECORATION_BANNERS,Banner und Wimpel,Banners and pennants
+ECONOMY_DECORATION_FOUNTAIN,Brunnen,Fountain
+ECONOMY_DECORATION_ROSE_GARDEN,Rosengarten,Rose garden
+ECONOMY_DECORATION_TAPESTRIES,Wandteppiche,Tapestries
+ECONOMY_DECORATION_STAINED_GLASS,Bleiglasfenster,Stained glass windows
+ECONOMY_HOME_CASTLE_1,Motte,Motte
+ECONOMY_HOME_CASTLE_2,Steinerner Bergfried,Stone keep
+ECONOMY_HOME_CASTLE_3,Ringmauer & Torhaus,Curtain wall & gatehouse
+ECONOMY_HOME_CASTLE_4,Palas & Kapelle,Great hall & chapel
+ECONOMY_HOME_CASTLE_5,Kaiserpfalz,Imperial palace
+ECONOMY_PROVINCE_CASTLE_0,offen,open
+ECONOMY_PROVINCE_CASTLE_1,Holzburg,Wooden castle
+ECONOMY_PROVINCE_CASTLE_2,Steinburg,Stone castle
+ECONOMY_PROVINCE_CASTLE_3,Festung,Fortress
+CAMPAIGN_RECRUIT,Werben,Recruit
+CAMPAIGN_RECRUIT_IN,Werben in %s,Recruit in %s
+CAMPAIGN_RECRUIT_BUDGET,Dieses Jahr noch %d Rotten · Volk %s · Zufriedenheit %s,%d more companies this year · population %s · satisfaction %s
+CAMPAIGN_RECRUIT_AUTO,Neue Rotten: erste Armee mit Platz,New companies: first army with room
+CAMPAIGN_ARMY_LEADER,Armee des Anführers (%d Rotten),Leader's army (%d companies)
+CAMPAIGN_ARMY_CAPTAIN,Armee unter Hauptmann (%d Rotten),Army under a captain (%d companies)
+CAMPAIGN_UNIT_COST,Kosten %s T · Volk −%s · Zufriedenheit −%s,Cost %s T · population −%s · satisfaction −%s
+CAMPAIGN_UNIT_UPKEEP,Sold %s T und %s Scheffel je Runde,Upkeep %s T and %s bushels per round
+CAMPAIGN_UNIT_MERCENARY,Söldner: desertieren bei leerer Kasse zuerst,Mercenaries: first to desert when the treasury is empty
+CAMPAIGN_DECORATIONS,Zierde der Stammburg (%d von %d),Home castle decorations (%d of %d)
+CAMPAIGN_LEADER,Anführer,Leader
+CAMPAIGN_LEADER_SKILLS,Führung %d · Lanze %d · Klinge %d,Leadership %d · lance %d · blade %d
+CAMPAIGN_LEADER_AT_COURT,Am Hof der Stammburg,At the home castle's court
+CAMPAIGN_LEADER_CAPTURED,Gefangen bei: %s,Held captive by %s
+CAMPAIGN_LEADER_WITH_ARMY,Führt die Armee in %s,Leads the army in %s
+CAMPAIGN_LEADER_ROOM,Mit ihm fasst eine Armee bis zu %d Rotten.,With the leader an army holds up to %d companies.
+CAMPAIGN_LEADER_TAKE,Übernimmt die Armee in %s (%d Rotten),Take command in %s (%d companies)
+CAMPAIGN_LEADER_TAKE_HINT,"Vom Hof aus nur eine Armee in der Stammprovinz, sonst eine Armee in derselben Provinz.","From court only an army in the home province, otherwise an army in the same province."
+CAMPAIGN_RANSOM,Lösegeld zahlen · %s T,Pay ransom · %s T
+CAMPAIGN_RANSOM_HINT,Der Anführer kehrt an den Hof zurück; ein gegnerisches Haus erhält das Lösegeld.,The leader returns to court; a captor house receives the ransom.
+CAMPAIGN_NO_PROVINCE,Keine Provinz gewählt,No province selected
+CAMPAIGN_REGION_NORTH,Norden,North
+CAMPAIGN_REGION_MIDDLE,Mitte,Middle
+CAMPAIGN_REGION_SOUTH,Süden,South
+CAMPAIGN_TERRAIN_FARMLAND,Ackerland,Farmland
+CAMPAIGN_TERRAIN_MARSH,Marsch,Marsh
+CAMPAIGN_TERRAIN_HILLS,Hügelland,Hills
+CAMPAIGN_TERRAIN_FOREST,Wald,Forest
+CAMPAIGN_TERRAIN_HEATH,Heide,Heath
+CAMPAIGN_TERRAIN_MOUNTAINS,Gebirge,Mountains
+CAMPAIGN_TERRAIN_CITY,Stadt,City
+CAMPAIGN_OWNER_NEUTRAL,Neutraler Herr,Neutral lord
+CAMPAIGN_OWNER_CHURCH,Kirche,Church
+CAMPAIGN_OWNER_ELECTOR,Kurfürst,Elector
+CAMPAIGN_POPULATION,Volk %s von höchstens %s,Population %s of at most %s
+CAMPAIGN_CAPACITY,Höchstes Volk,Population limit
+CAMPAIGN_RECRUITS_LEFT,Dieses Jahr noch %d Rotten werbbar,%d more companies can be recruited this year
+CAMPAIGN_SATISFACTION,Zufriedenheit %s,Satisfaction %s
+CAMPAIGN_SATISFACTION_TARGET,Zufriedenheit %s → Ziel %s,Satisfaction %s → target %s
+CAMPAIGN_TARGET,Ziel-Zufriedenheit Z*,Target satisfaction Z*
+CAMPAIGN_SATISFACTION_STEP,Je Abrechnung rückt die Zufriedenheit %s des Abstands zum Ziel vor.,Each settlement moves satisfaction %s of the way to its target.
+CAMPAIGN_REVOLT_CHANCE,Aufstandsgefahr je Runde: %s,Revolt risk per round: %s
+CAMPAIGN_IN_REVOLT,Aufstand!,Revolt!
+CAMPAIGN_OCCUPIED,"besetzt, noch %d Rd.","occupied, %d rd. left"
+CAMPAIGN_YIELD,Ertrag %s T je Runde · Ernte %s Scheffel,Yield %s T per round · harvest %s bushels
+CAMPAIGN_INCOME_ROUND,Einnahmen je Runde,Income per round
+CAMPAIGN_HARVEST_NORMAL,Herbsternte bei normalem Wetter,Autumn harvest in normal weather
+CAMPAIGN_CASTLE_LINE,%s · Mauer %d · Garnison %d (%s),%s · wall %d · garrison %d (%s)
+CAMPAIGN_CASTLE_HINT,Die Garnison verteidigt ohne Unterhalt; unter %s ihrer Stärke ist sie gebrochen.,The garrison defends without upkeep; below %s of its strength it is broken.
+CAMPAIGN_FEATURES,Besonderheiten: %s,Features: %s
+CAMPAIGN_RIVER,Fluss %s,River %s
+CAMPAIGN_RIVER_DANUBE,Donau,Danube
+CAMPAIGN_RIVER_ELBE,Elbe,Elbe
+CAMPAIGN_RIVER_MAIN,Main,Main
+CAMPAIGN_RIVER_MOSELLE,Mosel,Moselle
+CAMPAIGN_RIVER_RHINE,Rhein,Rhine
+CAMPAIGN_CHURCH_LAND,Kirchenland,Church land
+CAMPAIGN_TAG_CLOTH_TRADE,Tuchhandel,Cloth trade
+CAMPAIGN_TAG_CORONATION_SITE,Krönungsort,Coronation site
+CAMPAIGN_TAG_EMERGENCY_CORONATION_SITE,Notkrönungsort,Emergency coronation site
+CAMPAIGN_TAG_FRENCH_BORDER,Grenze zu Frankreich,French border
+CAMPAIGN_TAG_FRISIAN_FREEDOM,Friesische Freiheit,Frisian freedom
+CAMPAIGN_TAG_IMPERIAL_CASTLE,Kaiserburg,Imperial castle
+CAMPAIGN_TAG_IMPERIAL_REGALIA,Reichsinsignien,Imperial regalia
+CAMPAIGN_TAG_PEACE_CONGRESS,Friedenskongress,Peace congress
+CAMPAIGN_TAG_SALT_TRADE,Salzhandel,Salt trade
+CAMPAIGN_TAG_WARTBURG,Wartburg,Wartburg
+CAMPAIGN_TAG_ZAEHRINGER,Zähringer,Zähringer
+CAMPAIGN_ARMY_ENTRY,%s · %d Rotten %s,%s · %d companies %s
+CAMPAIGN_WITH_LEADER,· Anführer,· leader
+CAMPAIGN_NO_ARMY,Keine Armee gewählt,No army selected
+CAMPAIGN_ARMY_IN,Armee in %s,Army in %s
+CAMPAIGN_BESIEGING,belagert die Burg,besieging the castle
+CAMPAIGN_LED_BY_LEADER,Anführer: Führung %d · Lanze %d · Klinge %d,Leader: leadership %d · lance %d · blade %d
+CAMPAIGN_LED_BY_CAPTAIN,Unter einem Hauptmann,Under a captain
+CAMPAIGN_ARMY_ROOM,%d von höchstens %d Rotten,%d of at most %d companies
+CAMPAIGN_MOVES_LEFT,Züge übrig: %d,Moves left: %d
+CAMPAIGN_MOVES_HINT,"Je Feldzug %d Provinz, im Sommer %d, wenn der erste Schritt in eigenes Land führt.","Per campaign %d province, in summer %d if the first step stays in own land."
+CAMPAIGN_ARMY_UPKEEP,Sold %s T · Korn %s Scheffel je Runde,Pay %s T · grain %s bushels per round
+CAMPAIGN_GOLD_UPKEEP,Sold,Pay
+CAMPAIGN_GRAIN_UPKEEP,Korn,Grain
+CAMPAIGN_HANDOVER_TITLE,Am Zug: %s,%s to move
+CAMPAIGN_HANDOVER_HINT,"Gib den Controller weiter. Alle anderen schauen weg, bis du bereit bist.",Pass the controller on. Everyone else looks away until you are ready.
+CAMPAIGN_HANDOVER_READY,Bereit,Ready
+CAMPAIGN_SETUP_TITLE,Neue Partie,New game
+CAMPAIGN_SETUP_HINT,"Wähle die Häuser, die Menschen spielen (%d bis %d). Die übrigen bleiben passiv, bis die Computergegner kommen.",Choose the houses humans play (%d to %d). The others stay passive until computer opponents arrive.
+CAMPAIGN_SEED,Seed,Seed
+CAMPAIGN_SEED_REROLL,Neu würfeln,Reroll
+CAMPAIGN_SETUP_START,Partie beginnen,Start game
+CAMPAIGN_SETUP_TOO_FEW,Wähle mindestens %d Häuser.,Choose at least %d houses.
+CAMPAIGN_SETUP_BAD_SEED,Der Seed muss eine ganze Zahl sein.,The seed must be a whole number.
+CAMPAIGN_REPORT_TITLE,Abrechnung: %s,Settlement: %s
+CAMPAIGN_REPORT_WEATHER,Wetter der Ernte: %s,Harvest weather: %s
+CAMPAIGN_CONTINUE,Weiter,Continue
+CAMPAIGN_REPORT_INCOME,Einnahmen %s,Income %s
+CAMPAIGN_REPORT_UPKEEP,Unterhalt %s,Upkeep %s
+CAMPAIGN_REPORT_DEBT,"Schulden: Rotten desertieren, Provinzen murren!","In debt: companies desert, provinces grumble!"
+CAMPAIGN_REPORT_HARVEST,Ernte %s,Harvest %s
+CAMPAIGN_REPORT_EATEN,Gegessen %s,Eaten %s
+CAMPAIGN_REPORT_SPOILED,Verdorben %s,Spoiled %s
+CAMPAIGN_REPORT_HUNGER,Hunger: es fehlten %s Scheffel!,Hunger: %s bushels were missing!
+CAMPAIGN_REPORT_PROVINCES,Provinzen,Provinces
+CAMPAIGN_REPORT_SATISFACTION,%s: Zufriedenheit %s → %s,%s: satisfaction %s → %s
+CAMPAIGN_REPORT_PEOPLE,Volk %s → %s,population %s → %s
+CAMPAIGN_REPORT_FINISHED,Fertig: %s in %s,Finished: %s in %s
+CAMPAIGN_REPORT_CASTLE,%s: Burg auf %s ausgebaut,%s: castle raised to %s
+CAMPAIGN_REPORT_REVOLT,Aufstand in %s!,Revolt in %s!
+CAMPAIGN_REPORT_LOST,Verloren: %s,Lost: %s
+CAMPAIGN_BATTLE_TITLE,Schlacht um %s,Battle for %s
+CAMPAIGN_BATTLE_WALL,hinter Mauern der Stufe %d,behind walls of level %d
+CAMPAIGN_BATTLE_WINTER,Winter: Angreifer mit weniger Moral,Winter: attackers with lower morale
+CAMPAIGN_BATTLE_COMPANIES,%d × %s (%s),%d × %s (%s)
+CAMPAIGN_BATTLE_LEADER,"Anführer, Führung %d","Leader, leadership %d"
+CAMPAIGN_BATTLE_NO_TROOPS,keine Truppen,no troops
+CAMPAIGN_BATTLE_STRENGTH,Kampfkraft %s,Strength %s
+CAMPAIGN_BATTLE_CHANCE,Siegchance des Angreifers im Auto-Kampf: %s,Attacker's auto-resolve win chance: %s
+CAMPAIGN_BATTLE_CHANCE_HINT,"Aus der Kampfkraft beider Seiten. Selbst geschlagen zählt nur, was auf dem Feld geschieht.","From both sides' strength. Fought live, only what happens on the field counts."
+CAMPAIGN_BATTLE_LIVE,Selbst schlagen,Fight yourself
+CAMPAIGN_BATTLE_AUTO,Auto-Kampf,Auto-resolve
+CAMPAIGN_VICTORY,Sieg: %s,Victory: %s
+CAMPAIGN_VICTORY_NOBODY,Niemand siegt,Nobody wins
+CAMPAIGN_VICTORY_SUBJUGATION,Alle anderen Häuser sind unterworfen.,Every other house has been subjugated.
+CAMPAIGN_VICTORY_TIME,Die Zeit ist um – der Papst entscheidet nach der Legitimität.,Time is up – the Pope decides by legitimacy.
+CAMPAIGN_HOUSE,Haus,House
+CAMPAIGN_PROVINCES,Provinzen,Provinces
+CAMPAIGN_LEGITIMACY,Legitimität,Legitimacy
+CAMPAIGN_ELIMINATED,ausgeschieden,eliminated
+CAMPAIGN_NEW_GAME,Neue Partie,New game
+ECONOMY_TERM_TAX,Steuer %s,Tax %s
+ECONOMY_TERM_MARKET,Markt %s,Market %s
+ECONOMY_TERM_FIXED_INCOME,Feste Einnahmen %s,Fixed income %s
+ECONOMY_TERM_BUILDING_INCOME,%s in %s,%s in %s
+ECONOMY_TERM_REVOLT,Aufstand in %s: keine Einnahmen,Revolt in %s: no income
+ECONOMY_TERM_ARMY_UPKEEP,Sold der Armee in %s,Pay of the army in %s
+ECONOMY_TERM_CASTLE_UPKEEP,Unterhalt %s (%s),Upkeep %s (%s)
+ECONOMY_TERM_BUILDING_UPKEEP,Unterhalt %s in %s,Upkeep %s in %s
+ECONOMY_TERM_HARVEST,Ernte %s,Harvest %s
+ECONOMY_TERM_PEOPLE_GRAIN,Volk %s,People of %s
+ECONOMY_TERM_TROOP_GRAIN,Truppen in %s,Troops in %s
+ECONOMY_TERM_SPOILAGE,Schwund,Spoilage
+ECONOMY_TERM_GRAIN_PRICE,Kornpreis,Grain price
+ECONOMY_TERM_BUY_PRICE,Kaufpreis,Buy price
+ECONOMY_TERM_SELL_PRICE,Verkaufspreis,Sell price
+ECONOMY_TERM_GROWTH,Wachstum je Jahr,Growth per year
+ECONOMY_Z_BASE,Grundwert,Base
+ECONOMY_Z_TAX,Steuersatz,Tax rate
+ECONOMY_Z_RATION,Ration,Ration
+ECONOMY_Z_BUILDING,%s,%s
+ECONOMY_Z_PROVINCE,Eigenart der Provinz,Province's own bonus
+ECONOMY_Z_DECORATION,%s,%s
+ECONOMY_Z_PRESTIGE,Ansehen,Prestige
+ECONOMY_Z_HOME_CASTLE,Stammburg,Home castle
+ECONOMY_Z_OCCUPATION,Besatzung,Occupation
+ECONOMY_Z_BAN,Kirchenbann,Excommunication
+ECONOMY_Z_LIMIT,Begrenzung,Capped
+ECONOMY_PRESTIGE_DECAY,Verfall,Decay
+ECONOMY_PRESTIGE_BUILDING,%s in %s,%s in %s
+ECONOMY_PRESTIGE_CASTLE,Stammburg: %s,Home castle: %s
+ECONOMY_PRESTIGE_DECORATION,%s,%s
+ECONOMY_PRESTIGE_PENDING,Schlachten seit der letzten Abrechnung,Battles since the last settlement
+ECONOMY_PRESTIGE_BAN,Kirchenbann,Excommunication
+ECONOMY_PRESTIGE_LIMIT,Begrenzung,Capped
+ECONOMY_CAPACITY_START,Startvolk,Starting population
+ECONOMY_CAPACITY_CASTLE,Burgstufe,Castle level
+ECONOMY_CAPACITY_MARKET,Marktstufe,Market level
+CAMPAIGN_SETUP_HUMAN,Mensch,human
+CAMPAIGN_SETUP_PASSIVE,passiv,passive

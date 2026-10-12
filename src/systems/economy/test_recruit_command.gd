@@ -43,6 +43,8 @@ func test_staufer_knights_cost_a_quarter_less() -> void:
 	_activate("staufer")
 	_state.houses["staufer"].gold = 1000.0
 	_state.provinces["SWB"].castle_level = 3
+	assert_eq(RecruitCommand.unit_cost(_cfg, "staufer", "knights"), 90.0)
+	assert_eq(RecruitCommand.unit_cost(_cfg, "welfen", "knights"), 120.0)
 	assert_eq(RecruitCommand.new(_cfg, _map, "staufer", "SWB", "knights").execute(_state), "")
 	assert_eq(_state.houses["staufer"].gold, 1000.0 - 90.0)
 
