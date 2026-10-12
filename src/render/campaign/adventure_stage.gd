@@ -2,7 +2,8 @@ class_name AdventureStage
 extends Node
 ## Runs the minigame of an adventure over the war table: asks whether to play it live
 ## (AdventureChoice), opens the minigame scene that fits the setup and hands the command back
-## with the result — null when the computer plays the house's side.
+## with the result — null when the computer plays the house's side. The device the player used
+## last leads (minigames with one rider read only the first device).
 
 signal opened
 signal decided(command: Command, result: RefCounted)
@@ -19,6 +20,7 @@ var _setup: RefCounted = null
 var _adventure := ""
 var _seed := 0
 var _scene: Node = null
+var _last_device := BattleInputMap.Device.KEYBOARD
 
 
 func _ready() -> void:
@@ -32,6 +34,14 @@ func ask(command: Command, setup: RefCounted, seed_value: int) -> void:
 	_adventure = adventure_of(setup)
 	_seed = seed_value
 	choice.open(_adventure)
+
+
+func _input(event: InputEvent) -> void:
+	var motion := event as InputEventJoypadMotion
+	if event is InputEventJoypadButton or (motion != null and absf(motion.axis_value) > 0.5):
+		_last_device = BattleInputMap.Device.PAD_1 + clampi(event.device, 0, 1)
+	elif event is InputEventKey or event is InputEventMouseButton:
+		_last_device = BattleInputMap.Device.KEYBOARD
 
 
 func is_running() -> bool:
@@ -53,7 +63,10 @@ func _on_chosen(play_live: bool) -> void:
 		_decide(null)
 		return
 	_scene = (load(SCENES[_adventure]) as PackedScene).instantiate()
-	var devices := PackedInt32Array([BattleInputMap.Device.KEYBOARD, BattleInputMap.Device.PAD_1])
+	var other := BattleInputMap.Device.PAD_1
+	if _last_device != BattleInputMap.Device.KEYBOARD:
+		other = BattleInputMap.Device.KEYBOARD
+	var devices := PackedInt32Array([_last_device, other])
 	_scene.call("configure_campaign", _setup, devices, _seed)
 	_scene.connect("finished", _on_finished)
 	add_child(_scene)

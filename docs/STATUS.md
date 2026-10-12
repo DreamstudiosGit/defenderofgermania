@@ -127,3 +127,11 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 
 ## Design questions (M6 adventures; current choice)
 - The fief joust against a neighbouring house for a border province needs both houses to agree; that is diplomacy between houses, which the owner left out, so it is not built. Jousts come from hosting a tournament and from the invitation event.
+- Joust: the GDD does not say what the run-up tempo does; it is the hit's force (half the stance hit at a standstill, full at the ideal tempo) and more sway above the ideal. A "normal" hit is a press within ±300 ms; outside it the lance glances off; only the first press counts.
+- Joust draw (not in the GDD): points, then stance, then one deciding pass, then the opponent keeps the field; when both fall in one pass, points and then stance decide.
+- Joust and trebuchet pauses (herald, ride back, flight) make the 1–3 minutes and cannot be skipped; with 3+ trebuchets a full bombardment can run past 3 minutes (the GDD shot formula is uncapped).
+- A hosted tournament's prize (100 T) is paid also at the house's own tournament; its favour bonus only reaches an elector host (the invitation event), so it does nothing at home.
+- The invitation comes from the elector who likes the house best; champions ride with lance 3 and skill 1 (`campaign.adventures`); a house that lets an adventure resolve itself plays it at skill 1.
+- Trebuchet: at wall 1 one good stone breaches (240 > any part's share of 400 HP); a fire pot landing in the bailey counts as a garrison hit; the breach's segment is not modelled in the storm battle (the whole wall bonus is gone).
+- Merchant train: a captured leader loses all the loot (companies keep nothing); escort skill 1; a raider of skill 0 is captured nearly always — computer houses (M7) need a sensible skill.
+- The trebuchet is a siege option, not an adventure: it needs no leader and does not count towards the one adventure a round.

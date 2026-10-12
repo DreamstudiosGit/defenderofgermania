@@ -2,7 +2,7 @@
 
 ## Systems
 - `map` — provinces, ownership, unit positions, movement and visibility; electors, favour, coronation, homage, patron cards and the ban (`CrownData`).
-- `combat` — resolves battles between units and applies losses.
+- `combat` — resolves battles between units and applies losses; the adventure minigames (joust, trebuchet siege, castle raid, merchant train) are its modules (ADR 0007), played in the campaign through `Adventures` in `src/core/`.
 - `economy` — resources, income and the costs of recruiting and building.
 - `events` — event cards: drawing per turn, round events, choices and effects (`docs/design/events.md`, ADR 0005); its state is `EventState` in `src/core/`, battles it starts run in `EventBattles`.
 - `ai` — decides computer-controlled turns using the same actions as human players.

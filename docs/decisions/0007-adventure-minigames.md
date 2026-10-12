@@ -1,0 +1,7 @@
+# 0007 — Adventure minigames as combat modules
+
+- Context: M6 brings four minigames (joust, trebuchet siege, castle raid, merchant train), each 1–3 minutes with a practice mode, played by humans live and by the computer for auto-resolve and computer houses; four agents built them in parallel.
+- Decision: each minigame is a module of the `combat` system with its own data file `data/combat_<minigame>.json` (plus `combat_siege_art.json` for presentation), rules in `src/systems/combat/<minigame>/`, scene in `src/render/<minigame>/`, HUD in `src/ui/<minigame>/` and a design doc `docs/design/combat_<minigame>.md`.
+- Decision: every module has a `<Minigame>Setup` the campaign fills and a `<Minigame>Result` it applies; a deterministic simulation at the battle tick (or per shot) driven by input data; a computer player with fixed error patterns per skill 0–3; and a scene with `configure_campaign(setup, devices, seed)` and `signal finished(result)` that is the practice mode when opened directly.
+- Decision: the campaign side lives in `src/core/` (`Adventures`, `HostTournamentCommand`, `TrebuchetCommand`, event choices): like battles, a live result reaches the command through `GameRules.adventure_resolver`; without one the computer plays the house's side at `campaign.adventures.auto_skill`.
+- Consequences: no extra system name, no merge collisions on one data file; the AI (M7) plays adventures through the same simulations; minigames never read campaign state directly.

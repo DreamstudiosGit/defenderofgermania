@@ -31,3 +31,4 @@
 - 2026-10-12 feat(core): M6 adventures in the campaign — merchant train raid from its event, live or computer-played
 - 2026-10-12 feat(core): M6 joust in the campaign — hosted tournaments and invitations, three wins raise a skill (save version 6)
 - 2026-10-12 feat(core): M6 siege options in the campaign — storm and trebuchet from the army panel, breach storms without the wall, one siege action a round (save version 7)
+- 2026-10-12 docs(combat): M6 adventure ADR, campaign docs and design questions; minigames follow the last used device
