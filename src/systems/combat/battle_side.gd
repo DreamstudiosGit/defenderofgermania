@@ -8,6 +8,8 @@ var units: Array[String] = []
 var health: PackedFloat64Array = []
 var has_leader: bool = false
 var leadership: int = 0
+## A leader wounded on a castle raid fights without his aura.
+var leader_wounded: bool = false
 var is_human: bool = false
 ## Added to the average unit morale, e.g. data morale.leader_captured while the leader is held.
 var morale_bonus: float = 0.0

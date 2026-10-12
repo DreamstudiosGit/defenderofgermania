@@ -12,6 +12,8 @@ var occupied_rounds: int = 0
 var in_revolt: bool = false
 ## Health share of the castle garrison, or of the levy of a province without a house.
 var garrison_health: float = 1.0
+## Share of the wall's HP the besiegers' trebuchets destroyed; repaired once no enemy is left.
+var wall_damage: float = 0.0
 ## Companies the province can still give this year; set from its people each spring.
 var recruits_left: int = 0
 var constructions: Array[ConstructionState] = []
@@ -28,6 +30,7 @@ static func from_dict(r: DataReader, data: Dictionary) -> ProvinceState:
 	province.occupied_rounds = r.integer(data, "occupied_rounds")
 	province.in_revolt = r.flag(data, "in_revolt")
 	province.garrison_health = r.number(data, "garrison_health")
+	province.wall_damage = r.number(data, "wall_damage")
 	province.recruits_left = r.integer(data, "recruits_left")
 	for entry: Variant in r.list(data, "constructions"):
 		if entry is Dictionary:
@@ -58,6 +61,7 @@ func to_dict() -> Dictionary:
 		"occupied_rounds": occupied_rounds,
 		"in_revolt": in_revolt,
 		"garrison_health": garrison_health,
+		"wall_damage": wall_damage,
 		"recruits_left": recruits_left,
 		"constructions": construction_data,
 	}

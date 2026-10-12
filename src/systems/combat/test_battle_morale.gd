@@ -72,6 +72,18 @@ func test_leader_aura_stops_at_its_configured_radius() -> void:
 	assert_eq(BattleMorale.aura(sim.state, 1), 0.0)
 
 
+func test_a_wounded_leader_gives_no_aura() -> void:
+	var setup := BattleSetup.new()
+	setup.attacker.add_company("spearmen")
+	setup.defender.add_company("spearmen")
+	setup.attacker.has_leader = true
+	setup.attacker.leader_wounded = true
+	var sim := BattleSim.new(_cfg, setup, 1)
+	_place(sim, sim.state.leader[0], Vector2(100, 90), 0.0)
+	_place(sim, 0, Vector2(101, 90), 0.0)
+	assert_eq(BattleMorale.aura(sim.state, 0), 0.0)
+
+
 func test_rally_brings_back_fleeing_companies_in_radius() -> void:
 	var sim := _sim(["spearmen", "spearmen"], ["spearmen"], true)
 	var state := sim.state

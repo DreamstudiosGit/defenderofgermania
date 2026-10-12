@@ -63,6 +63,8 @@ var fig_jitter: PackedVector2Array = []
 var fig_company: PackedInt32Array = []
 
 var leader := PackedInt32Array([-1, -1])
+## 1 while a side's leader is wounded and gives no aura.
+var aura_off := PackedByteArray([0, 0])
 var active_group := PackedInt32Array([0, 0])
 var stick_held := PackedByteArray([0, 0])
 var rally_cooldown := PackedFloat64Array([0.0, 0.0])
@@ -127,5 +129,5 @@ func _snapshot() -> Array:
 		tick, phase, winner, timed_out, pos, facing, speed, radius, hp, morale, shock, status,
 		order, order_point, order_target, charge_run, formation, bolts, reload_timer,
 		volley_cooldown, fire_pending, aim_point, shot_point, shot_timer, contact,
-		last_contact_tick, fig_pos, leader, active_group, stick_held, rally_cooldown,
+		last_contact_tick, fig_pos, leader, aura_off, active_group, stick_held, rally_cooldown,
 	]

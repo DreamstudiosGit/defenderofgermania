@@ -60,5 +60,6 @@ static func starve(state: GameState, rules: GameRules) -> void:
 static func recover(state: GameState, rules: GameRules) -> void:
 	for province: ProvinceState in state.provinces.values():
 		if not Movement.has_hostile_army(state, province.id, province.owner):
+			province.wall_damage = 0.0
 			var healed := province.garrison_health + rules.map.campaign.recovery_own
 			province.garrison_health = minf(1.0, healed)

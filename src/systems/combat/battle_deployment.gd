@@ -72,6 +72,7 @@ static func _add_side(state: BattleState, cfg: CombatConfig, side: BattleSide, s
 		_add_company(state, cfg.units[id], id, s, i, health)
 		state.start_morale.append(cfg.units[id].morale + side.morale_bonus + leadership_morale)
 	if side.has_leader:
+		state.aura_off[s] = 1 if side.leader_wounded else 0
 		state.leader[s] = state.company_count()
 		_add_company(state, cfg.units["leader"], "leader", s, -1, 1.0)
 		state.start_morale.append(0.0)

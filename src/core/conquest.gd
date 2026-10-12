@@ -20,6 +20,7 @@ static func conquer(
 	province.occupied_rounds = rules.map.campaign.occupation_rounds
 	province.in_revolt = false
 	province.garrison_health = 1.0
+	province.wall_damage = 0.0
 	province.constructions.clear()
 	var level := maxi(level_before - 1, 0) if by_siege else level_before
 	var conqueror := state.houses[house_id]

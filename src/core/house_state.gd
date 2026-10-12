@@ -25,6 +25,10 @@ var pending_prestige: float = 0.0
 ## Settlements left to win a new home castle; 0 while the house holds one.
 var exile_rounds: int = 0
 var is_eliminated: bool = false
+## Round of the house's last adventure (joust, castle raid, merchant train): one a round.
+var adventure_turn: int = -1
+## First round in which a leader wounded on a castle raid gives his aura again.
+var wounded_until: int = 0
 
 
 static func from_dict(r: DataReader, data: Dictionary) -> HouseState:
@@ -47,6 +51,8 @@ static func from_dict(r: DataReader, data: Dictionary) -> HouseState:
 	house.pending_prestige = r.number(data, "pending_prestige")
 	house.exile_rounds = r.integer(data, "exile_rounds")
 	house.is_eliminated = r.flag(data, "eliminated")
+	house.adventure_turn = r.integer(data, "adventure_turn")
+	house.wounded_until = r.integer(data, "wounded_until")
 	return house
 
 
@@ -76,4 +82,6 @@ func to_dict() -> Dictionary:
 		"pending_prestige": pending_prestige,
 		"exile_rounds": exile_rounds,
 		"eliminated": is_eliminated,
+		"adventure_turn": adventure_turn,
+		"wounded_until": wounded_until,
 	}

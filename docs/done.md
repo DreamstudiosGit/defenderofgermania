@@ -26,3 +26,4 @@
 - 2026-10-12 feat(map): M5 crown rules — votes, coronation along all four rows, court commands, favour settlement and campaign hooks
 - 2026-10-12 feat(events): M5 event cards — one draw per house and turn, round events, choices with defaults, band battles and economy hooks
 - 2026-10-12 feat(events): M5 event card dialog in the campaign scene, realm tab merged
+- 2026-10-12 feat(core): M6 prep — one adventure a round, wounded leader without aura, trebuchet wall damage (save version 5)

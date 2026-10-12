@@ -115,11 +115,14 @@ func _add_campaign_details(state: GameState) -> void:
 	house.leader_army = HouseState.NO_ARMY
 	house.pending_prestige = 3.0
 	house.exile_rounds = 2
+	house.adventure_turn = 4
+	house.wounded_until = 6
 	var army := state.add_army("welfen", "HOL")
 	army.add_company("knights", 0.42)
 	army.moves_left = 1
 	var province := state.provinces["HOL"]
 	province.garrison_health = 0.65
+	province.wall_damage = 0.3
 	province.recruits_left = 2
 	province.constructions.append(ConstructionState.create("granary", 1))
 	province.constructions.append(ConstructionState.create(ConstructionState.CASTLE, 2))

@@ -77,6 +77,27 @@ func test_a_move_into_a_lords_province_is_war() -> void:
 	assert_eq(_state.crown.favour_of("ELS", "staufer"), 30.0)
 
 
+func test_a_leader_wounded_on_a_raid_rides_without_aura_next_round() -> void:
+	var welfen := _state.houses["welfen"]
+	var army := _state.army(welfen.leader_army)
+	welfen.wounded_until = _state.turn + 1
+	assert_true(CampaignBattles.army_side(_state, _rules, army).leader_wounded)
+	_state.turn += 1
+	assert_false(CampaignBattles.army_side(_state, _rules, army).leader_wounded)
+
+
+func test_trebuchet_damage_is_repaired_once_the_siege_ends() -> void:
+	var province := _state.provinces["HOL"]
+	province.wall_damage = 0.4
+	var raiders := _state.add_army("staufer", "HOL")
+	raiders.add_company("levy")
+	Garrisons.recover(_state, _rules)
+	assert_eq(province.wall_damage, 0.4, "still besieged")
+	_state.remove_army(raiders)
+	Garrisons.recover(_state, _rules)
+	assert_eq(province.wall_damage, 0.0)
+
+
 func _won(setup: BattleSetup, attacker_wins: bool = true) -> BattleResult:
 	var result := BattleResult.new()
 	result.attacker_won = attacker_wins

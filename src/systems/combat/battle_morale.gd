@@ -33,8 +33,9 @@ static func base_value(state: BattleState, rules: BattleRules, company: int) -> 
 
 
 static func aura(state: BattleState, company: int) -> float:
-	var leader := state.leader[state.side[company]]
-	if leader < 0 or state.status[leader] != BattleState.Status.ACTIVE:
+	var s := state.side[company]
+	var leader := state.leader[s]
+	if leader < 0 or state.status[leader] != BattleState.Status.ACTIVE or state.aura_off[s] == 1:
 		return 0.0
 	var stats := state.stats[leader]
 	if state.pos[company].distance_to(state.pos[leader]) <= stats.aura_radius:

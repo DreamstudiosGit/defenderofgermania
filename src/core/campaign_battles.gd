@@ -97,6 +97,7 @@ static func army_side(state: GameState, rules: GameRules, army: ArmyState) -> Ba
 		side.add_company(rules.map.crown.patron_mercenary_unit, 1.0)
 	side.has_leader = house.leader_army == army.id
 	side.leadership = house.leadership if side.has_leader else 0
+	side.leader_wounded = side.has_leader and state.turn < house.wounded_until
 	if house.is_leader_captured():
 		side.morale_bonus = rules.combat.morale_leader_captured
 	return side
