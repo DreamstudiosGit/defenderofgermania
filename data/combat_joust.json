@@ -1,0 +1,61 @@
+{
+  "tick_rate": 30,
+  "passes": 3,
+  "deciding_passes": 1,
+  "stance": 100,
+  "timeline": {
+    "intro_seconds": 8.0,
+    "ready_seconds": 3.0,
+    "runup_seconds": 3.0,
+    "aim_seconds": 1.5,
+    "clash_seconds": 4.0,
+    "return_seconds": 7.0,
+    "finale_seconds": 5.0
+  },
+  "strike": {"perfect_stance": 40, "normal_stance": 20, "perfect_points": 1, "couch_window_ms": 300},
+  "shield": {"damage_factor": 0.5, "min_deflection": 0.5, "tolerance_deg": 35},
+  "tempo": {
+    "start": 0.4, "ideal": 1.0, "max": 1.6,
+    "beat_seconds": 0.5, "beat_window_ms": 120,
+    "on_beat": 0.15, "off_beat": -0.1,
+    "min_force": 0.5, "overspeed_sway": 1.5
+  },
+  "aim": {"range": 0.8, "speed": 1.4, "rest": [0.0, -0.6]},
+  "sway": {"amplitude": [0.08, 0.12], "period_seconds": [1.1, 0.5], "pass_phase": [0.0, 0.37, 0.71]},
+  "zones": [
+    {"id": "helmet", "center": [0.0, 0.5], "radius": 0.16, "points": 5},
+    {"id": "shield_centre", "center": [0.4, -0.1], "radius": 0.13, "points": 3},
+    {"id": "shield_rim", "center": [0.4, -0.1], "radius": 0.3, "points": 1}
+  ],
+  "ai": [
+    {
+      "spurs": [0, 1, 2, 3, 4, 5], "spur_error_ms": [150, -40, 170, 20, -140, 90],
+      "targets": ["shield_centre"],
+      "aim_error": [[0.22, -0.12], [-0.2, 0.16], [0.1, -0.24]],
+      "sway_compensation": 0.0, "strike_error_ms": [220, -180, 120, -260],
+      "shield_reads": [false], "reaction_seconds": 0.5
+    },
+    {
+      "spurs": [0, 1, 2, 3, 4], "spur_error_ms": [60, -130, 30, 150, -50],
+      "targets": ["shield_centre"],
+      "aim_error": [[0.12, -0.06], [-0.1, 0.1], [0.06, -0.14]],
+      "sway_compensation": 0.4, "strike_error_ms": [110, -70, 160, -40],
+      "shield_reads": [false, true], "reaction_seconds": 0.35
+    },
+    {
+      "spurs": [0, 1, 2, 3], "spur_error_ms": [40, -60, 20, 90],
+      "targets": ["shield_centre", "helmet"],
+      "aim_error": [[0.05, -0.03], [-0.04, 0.06], [0.03, -0.07]],
+      "sway_compensation": 0.75, "strike_error_ms": [50, -80, 30, -110],
+      "shield_reads": [true, true, false], "reaction_seconds": 0.25
+    },
+    {
+      "spurs": [0, 1, 2, 3], "spur_error_ms": [10, -20, 15, -5],
+      "targets": ["helmet", "shield_centre", "helmet"],
+      "aim_error": [[0.02, -0.01], [-0.02, 0.02], [0.01, 0.02]],
+      "sway_compensation": 0.95, "strike_error_ms": [15, -30, 25, -10],
+      "shield_reads": [true], "reaction_seconds": 0.15
+    }
+  ],
+  "rewards": {"prize_gold": 100, "fief_satisfaction": -10}
+}
