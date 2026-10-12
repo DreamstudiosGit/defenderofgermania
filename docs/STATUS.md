@@ -4,8 +4,8 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 
 | Milestone | State | Acceptance (short) |
 |---|---|---|
-| M0 Foundation | done, awaiting owner review | tests green; worked example "Welfen im ersten Herbst" exact (20.925 / 15.694 / 25.3125 T, 300 + 180 bushels, demand 363, surplus 117, sale 52.65 T) |
-| M1 Battle graybox | prototype P1 exists, not yet checked against M1 | 2–4 min match with two controllers; same seed and inputs give the same result; scenario tests: knight charge beats crossbows, hedgehog stops knights, crossbows beat a spear line at range |
+| M0 Foundation | done | tests green; worked example "Welfen im ersten Herbst" exact (20.925 / 15.694 / 25.3125 T, 300 + 180 bushels, demand 363, surplus 117, sale 52.65 T) |
+| M1 Battle graybox | done; needs an owner playtest with two controllers (`docs/screenshots/m1_battle_*.png`) | 2–4 min match with two controllers; same seed and inputs give the same result; scenario tests: knight charge beats crossbows, hedgehog stops knights, crossbows beat a spear line at range |
 | M2 Blender figures and battle look | Blender sources, glTF models, scenery and shaders exist (ADR 0004), not yet checked against M2 | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
 | M3 Imperial map and round flow | rules exist (map, economy, turn loop); no map view | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | rules and data exist; no castle view | every level looks clearly different; costs, upkeep and unlocks match the tables |
@@ -33,7 +33,6 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - The tourney ground can be built now but does nothing until tournaments exist (M5/M6).
 - Without the camp truce every house is hostile from the start (as before).
 - House colours are hex values picked from the GDD colour names; the battle prototype still uses its own blue and red.
-- M1: the prototype field is 72 × 44 m with crossbow range 32 m and leader aura 12 m; the GDD says about 300 × 180 m, 90 m and 30 m.
 - M2: the figure references (`docs/reference/figur_*.png`) show rounded cartoon figures with a fleur-de-lis and a lion; the GDD asks for stylised low-poly at a 1 : 5 head-to-body ratio with each house's crest.
 
 ## Design questions (economy; current choice)
@@ -66,4 +65,13 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - With the GDD numbers morale rarely breaks from HP loss alone (−0.5 per % HP); routs come from the −15 flank and −20 leader shocks.
 - Rallied companies return with at least 40 morale; the 45 s cooldown starts only if someone was rallied.
 - A side loses when none of its companies fights; a lone leader escapes. At the time limit fleeing companies count 0, ties keep the defender on the field.
-- The leader charges with the cavalry and is captured in 17 of 24 computer battles — keep the leader out of charges or give the leader an own shield?
+
+## Design questions (M1 battle; current choice)
+- The field is back at the GDD scale (300 × 180 m, 90 m crossbow range, 30 m aura, 12-figure companies, 6 knights); the art pass had shrunk it to 72 × 44 m. Zoom level 0 shows the whole fight with tiny figures, level 1 an 80 m slice — M2 tunes both against `docs/reference/schlacht.png`.
+- The brief wants the active group to glow golden; in the couch duel it stays hidden (owner request, ADR 0004), so two players only see their selection by its movement. Keep it hidden?
+- The leader moves with the cavalry but never charges (it was captured in 21 of 24 computer battles); it fights when attacked and rallies.
+- After a charge impact the riders keep fighting the company they hit (before, they drifted out of reach and the battle stalled).
+- Cover: 70 % ranged damage within 4 m of a tree stand or rock — the GDD gives no number for cover; the forest’s −30 % is borrowed.
+- Trebuchets: stones fly 3 s, the target circle moves at 30 m/s, they hit enemies only (no friendly fire), one stone per 20 s; no walls on the open field yet.
+- Deployment lasts 20 s (was 15 s) so computer battles fight 2–4 minutes; measured 143–205 s over 12 seeds, each side won 6.
+- The default battle is Wittelsbacher against Welfen, so the models’ blue and red team markings match the house colours until M2 brings colour masks.
