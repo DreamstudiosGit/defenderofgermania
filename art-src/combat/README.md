@@ -16,6 +16,8 @@ Without arguments the build exports the house-neutral units, the crests and the 
 - `units` — `unit_<role>.glb` and `crest_<house>.glb` plus `combat_asset_catalog.png`; a unit or crest over its triangle budget stops the build.
 - `scenery` — terrain, trees, rocks, foliage, camp props and `weapon_spear`. The scenery scripts have drifted from the committed exports: a rebuild changes those files, so review the diff before committing it.
 
+The merchant train kit (`model_merchant.py`) has its own build: `… --python art-src/combat/build_merchant_assets.py` exports `prop_wagon_merchant` (open wagon facing +Z with box, draw pole and axles), `prop_wagon_wheel` (pivot at the hub, axle along X, so the game can spin it), `prop_cargo_bale`, `prop_cargo_crate`, `unit_draught_horse` (collar, blinkers and loose traces; legs carry the diagonal trot in UV2) and `prop_town_gate` (gatehouse with its passage along Z, arches at both ends, roof and wall stubs).
+
 ## Units
 
 One house-neutral model per unit: `unit_levy`, `unit_spearman`, `unit_crossbowman`, `unit_brabanter`, `unit_knight`, `unit_leader`, `unit_trebuchet`. Figures are stocky, 1.90 m to the helmet top with the head (chin to helmet top) one fifth of that.
