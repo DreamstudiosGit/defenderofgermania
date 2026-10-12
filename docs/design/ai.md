@@ -15,3 +15,8 @@ Computer opponents (GDD "KI-Gegner"): a utility AI in `src/systems/ai/` with val
 ## Debug overlay and balance
 - `AiPlayer.logs` keeps every option each computer house weighed in its last turn with its utility and whether it was taken.
 - `scripts/balance_run.gd` plays computer-only games (one JSON line each; `--trace=1` prints every round and every action); `node scripts/balance.mjs --games=1000 --jobs=8` runs them in parallel and sums up win shares, endings, the coronation round and bankruptcies against the GDD targets.
+
+## Setup and debug overlay (UI)
+- New game (`SetupScreen`): each house is played by a human or the computer; a computer house gets a personality (its house's default, or "random", rolled from the seed in map order) and a difficulty (default `default_difficulty`). At least one human: the session plays computer houses in one call until a human is to move, so a game without humans would run to its end at once. Tooltips show a personality's weights and a difficulty's income and habits from the data; the hot-seat handover lists the other houses with their player.
+- Debug overlay (`AiDebugOverlay`, campaign scene only, never takes the focus): F3 or Back+Y toggles it, F4 / Shift+F4 or Back+RB / Back+LB pick the computer house, the wheel or Back+d-pad scrolls. It shows the house's personality, difficulty and pillars and its `AiPlayer.logs` entries newest first: phase, label, utility, ✓ when taken, the error key when the rules refused.
+- Screenshots: `godot --resolution 1280x800 --script res://scripts/preview_campaign_ai.gd -- --view=setup|overlay --shot=<png>`.

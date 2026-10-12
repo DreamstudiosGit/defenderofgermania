@@ -548,11 +548,11 @@ CAMPAIGN_HANDOVER_TITLE,Am Zug: %s,%s to move
 CAMPAIGN_HANDOVER_HINT,"Gib den Controller weiter. Alle anderen schauen weg, bis du bereit bist.",Pass the controller on. Everyone else looks away until you are ready.
 CAMPAIGN_HANDOVER_READY,Bereit,Ready
 CAMPAIGN_SETUP_TITLE,Neue Partie,New game
-CAMPAIGN_SETUP_HINT,"Wähle die Häuser, die Menschen spielen (%d bis %d). Die übrigen bleiben passiv, bis die Computergegner kommen.",Choose the houses humans play (%d to %d). The others stay passive until computer opponents arrive.
+CAMPAIGN_SETUP_HINT,"Wer spielt welches Haus? Computergegner bekommen eine Persönlichkeit und eine Schwierigkeit. Mehrere Menschen spielen abwechselnd an einem Gerät.","Who plays which house? Computer opponents get a personality and a difficulty. Several humans take turns on one device."
 CAMPAIGN_SEED,Seed,Seed
 CAMPAIGN_SEED_REROLL,Neu würfeln,Reroll
 CAMPAIGN_SETUP_START,Partie beginnen,Start game
-CAMPAIGN_SETUP_TOO_FEW,Wähle mindestens %d Häuser.,Choose at least %d houses.
+CAMPAIGN_SETUP_TOO_FEW,Mindestens ein Haus muss ein Mensch spielen.,At least one house needs a human player.
 CAMPAIGN_SETUP_BAD_SEED,Der Seed muss eine ganze Zahl sein.,The seed must be a whole number.
 CAMPAIGN_REPORT_TITLE,Abrechnung: %s,Settlement: %s
 CAMPAIGN_REPORT_WEATHER,Wetter der Ernte: %s,Harvest weather: %s
@@ -681,8 +681,49 @@ ECONOMY_PRESTIGE_LIMIT,Begrenzung,Capped
 ECONOMY_CAPACITY_START,Startvolk,Starting population
 ECONOMY_CAPACITY_CASTLE,Burgstufe,Castle level
 ECONOMY_CAPACITY_MARKET,Marktstufe,Market level
-CAMPAIGN_SETUP_HUMAN,Mensch,human
-CAMPAIGN_SETUP_PASSIVE,passiv,passive
+CAMPAIGN_SETUP_HUMAN,Mensch,Human
+CAMPAIGN_SETUP_COMPUTER,Computer,Computer
+CAMPAIGN_SETUP_HOUSE,Haus,House
+CAMPAIGN_SETUP_PLAYER,Spieler,Player
+CAMPAIGN_SETUP_PLAYER_HINT,"Mensch: spielt an diesem Gerät; mehrere Menschen wechseln sich ab. Computer: die KI spielt das Haus nach denselben Regeln.","Human: plays on this device; several humans take turns. Computer: the AI plays the house by the same rules."
+CAMPAIGN_AI_PERSONALITY,Persönlichkeit,Personality
+CAMPAIGN_AI_DIFFICULTY,Schwierigkeit,Difficulty
+CAMPAIGN_AI_PERSONALITY_MERCHANT,Kaufmann,Merchant
+CAMPAIGN_AI_PERSONALITY_BUILDER,Baumeister,Builder
+CAMPAIGN_AI_PERSONALITY_CONQUEROR,Eroberer,Conqueror
+CAMPAIGN_AI_PERSONALITY_DIPLOMAT,Diplomat,Diplomat
+CAMPAIGN_AI_PERSONALITY_RANDOM,Zufällig,Random
+CAMPAIGN_AI_DIFFICULTY_0,Knappe,Squire
+CAMPAIGN_AI_DIFFICULTY_1,Ritter,Knight
+CAMPAIGN_AI_DIFFICULTY_2,Fürst,Prince
+CAMPAIGN_AI_DIFFICULTY_3,Kaiser,Emperor
+CAMPAIGN_AI_COMPUTER_ROLE,Computer · %s,Computer · %s
+CAMPAIGN_AI_ONLY_COMPUTER,Nur für Computergegner.,Computer opponents only.
+CAMPAIGN_AI_RANDOM_HINT,Der Seed würfelt eine der Persönlichkeiten aus.,The seed picks one of the personalities.
+CAMPAIGN_AI_DEFAULT_FOR,Standard der %s,Default of the %s
+CAMPAIGN_AI_WEIGHTS,Gewichtet die Arten von Handlungen:,Weighs the kinds of actions:
+CAMPAIGN_AI_CATEGORY_ECONOMY,Wirtschaft,Economy
+CAMPAIGN_AI_CATEGORY_MILITARY,Militär,Military
+CAMPAIGN_AI_CATEGORY_CASTLE,Burg,Castle
+CAMPAIGN_AI_CATEGORY_COURT,Hof,Court
+CAMPAIGN_AI_CATEGORY_FAVOUR,Gunst,Favour
+CAMPAIGN_AI_CATEGORY_ADVENTURE,Abenteuer,Adventure
+CAMPAIGN_AI_INCOME,Einnahmen %s,Income %s
+CAMPAIGN_AI_INCOME_NORMAL,normal,normal
+CAMPAIGN_AI_SUBOPTIMAL,%s der Entscheidungen bewusst schlechter,%s of decisions deliberately worse
+CAMPAIGN_AI_BETTER_TARGETS,bessere Zielwahl,better choice of targets
+CAMPAIGN_AI_COUNTERS,rekrutiert gegen die häufigste Einheit der Feinde,recruits against the enemies' most common unit
+CAMPAIGN_AI_COALITION,verbündet sich gegen den Führenden,gangs up on the leading house
+CAMPAIGN_AI_STANDARD,Standardverhalten,Standard behaviour
+CAMPAIGN_AI_DEBUG_TITLE,KI-Nutzenwerte,AI utilities
+CAMPAIGN_AI_DEBUG_NONE,Kein Computergegner,No computer opponent
+CAMPAIGN_AI_DEBUG_EMPTY,Dieses Haus hat noch nichts abgewogen.,This house has not weighed anything yet.
+CAMPAIGN_AI_DEBUG_PROFILE,%s · %s · Säulen %d/%d,%s · %s · pillars %d/%d
+CAMPAIGN_AI_DEBUG_TURN,Runde %d · %d Optionen,Round %d · %d options
+CAMPAIGN_AI_DEBUG_PHASE,Phase,Phase
+CAMPAIGN_AI_DEBUG_OPTION,Option,Option
+CAMPAIGN_AI_DEBUG_UTILITY,Nutzen,Utility
+CAMPAIGN_AI_DEBUG_KEYS,F3 / Back+Y: ein/aus · F4 / Back+RB: nächstes Haus (Umschalt+F4 / Back+LB: voriges) · Mausrad / Back+Steuerkreuz: blättern,F3 / Back+Y: on/off · F4 / Back+RB: next house (Shift+F4 / Back+LB: previous) · wheel / Back+d-pad: scroll
 CAMPAIGN_VIEW_CASTLE,Burg ansehen,View castle
 CASTLE_CLOSE,Zurück zur Karte,Back to the map
 CROWN_NO_REGALIA,Ohne Insignien keine Krönung – weder echte noch nachgemachte.,No coronation without regalia – neither true nor forged.

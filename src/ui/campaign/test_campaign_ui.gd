@@ -62,10 +62,15 @@ func test_hud_ends_the_phase_through_a_command() -> void:
 
 func test_setup_emits_humans_and_seed() -> void:
 	var screen: SetupScreen = add_child_autofree(SetupScreen.new())
-	screen.open(_rules.map, 77)
+	var config := AiConfig.load_file()
+	screen.open(_rules, config, 77)
 	watch_signals(screen)
 	_button(screen, "start").pressed.emit()
-	assert_signal_emitted_with_parameters(screen, "start_requested", [["welfen", "wettiner"], 77])
+	var parameters: Array = get_signal_parameters(screen, "start_requested")
+	assert_eq(parameters[0], ["welfen"], "the first house is played by a human")
+	assert_eq(parameters[1], 77)
+	var others := AiPlayer.opponents(config, _rules.map.houses, ["welfen"] as Array[String])
+	assert_eq(parameters[2], others, "the others are the data's computer opponents")
 
 
 func test_battle_choice_reports_the_choice() -> void:
