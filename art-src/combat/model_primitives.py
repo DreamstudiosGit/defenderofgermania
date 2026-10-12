@@ -21,6 +21,8 @@ PALETTE = {
     "leaf_autumn": (0.32, 0.105, 0.018), "leaf_yellow": (0.43, 0.27, 0.03),
     "leaf_dark": (0.025, 0.09, 0.016), "water_deep": (0.018, 0.15, 0.27),
 }
+# Metallic, roughness per material name; everything else is matte (0, 0.78).
+METALLIC = {"steel": (0.48, 0.52), "steel_light": (0.48, 0.52), "mail": (0.48, 0.52), "gold": (0.60, 0.36)}
 
 
 def material(name):
@@ -33,9 +35,8 @@ def material(name):
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
     bsdf.inputs["Base Color"].default_value = mat.diffuse_color
     bsdf.inputs["Roughness"].default_value = 0.78
-    if name in ("steel", "steel_light", "gold", "mail"):
-        bsdf.inputs["Metallic"].default_value = 0.60 if name == "gold" else 0.48
-        bsdf.inputs["Roughness"].default_value = 0.36 if name == "gold" else 0.52
+    if name in METALLIC:
+        bsdf.inputs["Metallic"].default_value, bsdf.inputs["Roughness"].default_value = METALLIC[name]
     return mat
 
 
