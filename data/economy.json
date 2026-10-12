@@ -58,6 +58,7 @@
     "tournament_won": 5, "tournament_hosted": 5
   },
   "tournament": {"cost": 80, "building": "tourney_ground"},
+  "computer_income": [0.8, 1.0, 1.15, 1.3],
   "treasury": {"desertion_share": 0.1, "satisfaction_penalty": 5},
   "recruitment": {"population_per_unit": 20, "satisfaction_cost": 2},
   "slots": {"province": 2, "home_per_castle_level": 1, "max": 6},

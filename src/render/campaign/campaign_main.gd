@@ -11,6 +11,8 @@ const ADMIN_WIDTH := 450.0
 const FIRST_SEED := 1198
 
 var session: CampaignSession = null
+## The computer opponents; their logs feed the debug overlay.
+var ai: AiPlayer = null
 
 var _map: MapData
 var _table := MapTable.new()
@@ -53,7 +55,11 @@ func _ready() -> void:
 func start(humans: Array[String], seed_value: int) -> void:
 	_setup.visible = false
 	_victory.visible = false
-	session = CampaignSession.create(GameRules.load_files(), humans, seed_value)
+	var rules := GameRules.load_files()
+	var config := AiConfig.load_file()
+	ai = AiPlayer.new(rules, config)
+	var computers := AiPlayer.opponents(config, rules.map.houses, humans)
+	session = CampaignSession.create(rules, humans, seed_value, computers, ai.play_phase)
 	_actions.session = session
 	_seen_house = ""
 	_events_seen = ""

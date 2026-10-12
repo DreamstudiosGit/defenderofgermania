@@ -74,7 +74,7 @@ static func play(state: GameState, rules: GameRules, raid: RaidSetup) -> RaidRes
 		live = rules.adventure_resolver.call(raid)
 	if live is RaidResult:
 		return live
-	var skill := rules.map.campaign.adventure_auto_skill
+	var skill := Adventures.auto_skill(state, rules, raid.raider_house)
 	return RaidAI.auto_resolve(rules.raid, raid, state.rng.randi(), skill)
 
 

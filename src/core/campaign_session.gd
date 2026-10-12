@@ -1,13 +1,17 @@
 class_name CampaignSession
 extends RefCounted
-## A running campaign for the map scene: human houses issue commands, the others stay passive
-## (they end their phases at once until the AI of milestone M7 plays them). A move into a
+## A running campaign for the map scene: human houses issue commands; computer houses play
+## through `computer` (the AI system's play_phase, injected so the core does not depend on it),
+## or pass their phases when none is set. A move into a
 ## battle can be fought live first; its result then decides that battle. Adventures work the
 ## same way: the minigame is played first, its result decides the command.
 
 var state: GameState
 var rules: GameRules
 var humans: Array[String] = []
+## Plays the active computer house's current phase: (state: GameState) -> void; the session
+## ends the phase afterwards.
+var computer: Callable = Callable()
 ## Snapshot taken just before the last settlement, for the settlement report; null before.
 var before_settlement: GameState = null
 
@@ -37,13 +41,24 @@ class LiveBattle:
 		return live if fits else null
 
 
+## A new campaign; computers maps a house to [personality, difficulty] and makes it a
+## computer opponent that `player` plays.
 static func create(
-	game_rules: GameRules, human_houses: Array[String], seed_value: int
+	game_rules: GameRules,
+	human_houses: Array[String],
+	seed_value: int,
+	computers: Dictionary[String, Array] = {},
+	player: Callable = Callable()
 ) -> CampaignSession:
 	var session := CampaignSession.new()
 	session.rules = game_rules
 	session.humans = human_houses.duplicate()
 	session.state = GameSetup.create(game_rules.map, game_rules.economy, seed_value)
+	for house: String in computers:
+		var settings: Array = computers[house]
+		session.state.houses[house].personality = settings[0]
+		session.state.houses[house].difficulty = settings[1]
+	session.computer = player
 	session.rules.resolver = session._live.resolve
 	session.rules.adventure_resolver = session._live.resolve_adventure
 	session.advance_passive()
@@ -96,10 +111,16 @@ func execute_live(
 	return error
 
 
-## Passive houses end their phases until a human house is to move or the game is over.
+## Computer houses play (or pass) their phases until a human house is to move or the game is
+## over.
 func advance_passive() -> void:
 	while not state.is_over() and active_house() not in humans:
 		var house := active_house()
+		if computer.is_valid():
+			var phase := state.phase
+			computer.call(state)
+			if state.is_over() or state.phase != phase or active_house() != house:
+				continue
 		var settles := state.phase == GameState.Phase.CAMPAIGN and _last_in_round()
 		var snapshot := GameState.from_dict(state.to_dict()) if settles else null
 		var error := EndPhaseCommand.new(rules, house).execute(state)

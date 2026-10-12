@@ -87,6 +87,7 @@ static func _income(
 	var modifiers := cfg.houses[house.id]
 	var is_autumn := state.season() == GameState.Season.AUTUMN
 	var total := 0.0
+	var factor := cfg.income_factor(house)
 	for province: ProvinceState in owned:
 		if province.in_revolt:
 			continue
@@ -107,7 +108,7 @@ static func _income(
 			total += IncomeRules.building_income(
 				cfg.buildings[id], multiplier, not def.river.is_empty(), def.has_pass
 			)
-	return total
+	return total * factor
 
 
 static func _upkeep(

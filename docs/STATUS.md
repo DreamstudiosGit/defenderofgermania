@@ -11,7 +11,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
 | M5 Electors, coronation, events | done; needs a hot-seat playtest of the realm tab and event cards with mouse and controller (`docs/screenshots/m5_*.png`) | test scenarios trigger the coronation along all four rows of the table |
 | M6 Adventures | done; needs hands-on playtests of all four minigames with mouse and controller (timing feel, frame rate) (`docs/screenshots/m6_*.png`, practice: `node scripts/run.mjs --joust / --siege / --raid / --merchant`) | each minigame takes 1–3 min and has a practice mode |
-| M7 AI | open | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
+| M7 AI | in progress: utility AI with four decision levels, personalities and difficulties; balance tuning running | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
 | M8 Full game | open | prologue to coronation without a crash in 60–120 min |
 
 ## Owner decisions

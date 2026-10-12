@@ -878,3 +878,4 @@ CAMPAIGN_RAID_DUNGEON_HINT,Befreit die gefangenen Anführer in dieser Burg.,Free
 CAMPAIGN_RAID_REGALIA,Reichsinsignien stehlen,Steal the imperial regalia
 CAMPAIGN_RAID_REGALIA_HINT,Die echten Insignien wandern in Eure Stammburg – Ansehen +10.,The true regalia move to your home castle – prestige +10.
 CAMPAIGN_ADVENTURE_CASTLE_RAID_HINT,"Allein gegen die Wachen: hoch, mittel, tief schlagen, in der richtigen Höhe parieren, Schleichwege nutzen. Nach 60 Sekunden schlägt Alarm.","Alone against the guards: strike high, middle, low, parry at the right height, use the sneak paths. After 60 seconds the alarm sounds."
+ECONOMY_TERM_DIFFICULTY,Schwierigkeit des Computers,Computer difficulty

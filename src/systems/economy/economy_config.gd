@@ -81,6 +81,8 @@ var tournament_hosted_prestige: float
 var tournament_cost: float
 ## Building at the home castle a house needs to host tournaments.
 var tournament_building: String
+## Income factor of a computer house per difficulty, squire to emperor (GDD "KI-Gegner").
+var computer_income: PackedFloat64Array
 var slots_per_province: int
 var slots_per_home_castle_level: int
 var slots_max: int
@@ -212,6 +214,7 @@ func _read_society(r: DataReader, data: Dictionary) -> void:
 	var tournament := r.object(data, "tournament")
 	tournament_cost = r.number(tournament, "cost")
 	tournament_building = r.text(tournament, "building")
+	computer_income = r.numbers(data, "computer_income")
 	var treasury := r.object(data, "treasury")
 	desertion_share = r.number(treasury, "desertion_share")
 	treasury_satisfaction_penalty = r.number(treasury, "satisfaction_penalty")
@@ -278,6 +281,8 @@ func _multipliers(r: DataReader, entry: Dictionary, key: String) -> Dictionary[S
 
 
 func _check(r: DataReader) -> void:
+	if computer_income.size() != 4:
+		r.errors.append("computer_income: needs one factor per difficulty (4)")
 	if not buildings.has(tournament_building):
 		r.errors.append("tournament.building: unknown building '%s'" % tournament_building)
 	if weather_values.size() != weather_weights.size():
@@ -296,3 +301,10 @@ func _check(r: DataReader) -> void:
 		var requires := units[id].requires
 		if not requires.is_empty() and not buildings.has(requires):
 			r.errors.append("units.%s.requires: unknown building '%s'" % [id, requires])
+
+
+## Income factor of the house: its difficulty's for a computer house, 1 for a human one.
+func income_factor(house: HouseState) -> float:
+	if not house.is_computer():
+		return 1.0
+	return computer_income[clampi(house.difficulty, 0, computer_income.size() - 1)]

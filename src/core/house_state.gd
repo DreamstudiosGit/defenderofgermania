@@ -32,6 +32,10 @@ var wounded_until: int = 0
 ## Wins of the leader per skill since its last raise (battles: leadership, joust: lance,
 ## castle raid: blade).
 var wins: Dictionary[String, int] = {}
+## Computer opponent: personality id ("" for a house humans play) and difficulty 0 (squire)
+## to 3 (emperor), which also sets its minigame skill.
+var personality: String = ""
+var difficulty: int = 1
 
 
 static func from_dict(r: DataReader, data: Dictionary) -> HouseState:
@@ -56,6 +60,8 @@ static func from_dict(r: DataReader, data: Dictionary) -> HouseState:
 	house.is_eliminated = r.flag(data, "eliminated")
 	house.adventure_turn = r.integer(data, "adventure_turn")
 	house.wounded_until = r.integer(data, "wounded_until")
+	house.personality = r.text(data, "personality")
+	house.difficulty = r.integer(data, "difficulty")
 	var win_data := r.object(data, "wins")
 	for skill: String in win_data:
 		house.wins[skill] = r.integer(win_data, skill)
@@ -64,6 +70,10 @@ static func from_dict(r: DataReader, data: Dictionary) -> HouseState:
 
 func is_leader_captured() -> bool:
 	return not leader_captor.is_empty()
+
+
+func is_computer() -> bool:
+	return not personality.is_empty()
 
 
 ## Counts a win of the leader in a discipline; enough wins raise the skill by one up to the
@@ -104,4 +114,6 @@ func to_dict() -> Dictionary:
 		"adventure_turn": adventure_turn,
 		"wounded_until": wounded_until,
 		"wins": wins,
+		"personality": personality,
+		"difficulty": difficulty,
 	}

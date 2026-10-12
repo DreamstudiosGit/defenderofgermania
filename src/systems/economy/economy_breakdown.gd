@@ -39,6 +39,11 @@ static func income(
 				EconomyTerm.create("ECONOMY_TERM_FIXED_INCOME", def.fixed_income, "", [key])
 			)
 		terms.append_array(_building_income(cfg, house_id, def, province))
+	var factor := cfg.income_factor(house)
+	if factor != 1.0:
+		var earned := EconomyTerm.sum(terms)
+		var formula := "%s × (%s − 1)" % [_n(earned), _n(factor)]
+		terms.append(EconomyTerm.create("ECONOMY_TERM_DIFFICULTY", earned * (factor - 1.0), formula))
 	return terms
 
 

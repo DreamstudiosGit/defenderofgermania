@@ -5,7 +5,7 @@
 - `combat` — resolves battles between units and applies losses; the adventure minigames (joust, trebuchet siege, castle raid, merchant train) are its modules (ADR 0007), played in the campaign through `Adventures` in `src/core/`.
 - `economy` — resources, income and the costs of recruiting and building.
 - `events` — event cards: drawing per turn, round events, choices and effects (`docs/design/events.md`, ADR 0005); its state is `EventState` in `src/core/`, battles it starts run in `EventBattles`.
-- `ai` — decides computer-controlled turns using the same actions as human players.
+- `ai` — decides computer-controlled turns using the same actions as human players (`docs/design/ai.md`); the session calls it through an injected Callable, so the core does not depend on it.
 
 ## Communication
 - Systems talk via signals on an event bus autoload (`src/core/events.gd`).

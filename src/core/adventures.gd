@@ -19,6 +19,13 @@ const ERROR_LEADER_CAPTURED := "ADVENTURE_LEADER_CAPTURED"
 const MERCHANT_CAPTOR := "neutral"
 
 
+## Skill the computer plays the house's side of a minigame with: a computer house's difficulty,
+## else the campaign's auto skill for a human house that lets it resolve itself.
+static func auto_skill(state: GameState, rules: GameRules, house: String) -> int:
+	var owner := state.houses[house]
+	return owner.difficulty if owner.is_computer() else rules.map.campaign.adventure_auto_skill
+
+
 ## Why the house cannot start an adventure now; "" if it can.
 static func error(state: GameState, house: String) -> String:
 	var owner := state.houses[house]
@@ -118,7 +125,7 @@ static func play_joust(state: GameState, rules: GameRules, setup: JoustSetup) ->
 	var live := _live(rules, setup)
 	if live is JoustResult:
 		return live
-	var skill := rules.map.campaign.adventure_auto_skill
+	var skill := auto_skill(state, rules, setup.house)
 	return JoustSim.play_out(rules.joust, setup, state.rng.randi(), skill)
 
 
@@ -147,7 +154,8 @@ static func play_trebuchet(
 	if live is TrebuchetResult:
 		return live
 	var sim := TrebuchetSim.new(rules.siege, setup, state.rng.randi())
-	return TrebuchetAimer.new(rules.siege, rules.map.campaign.adventure_auto_skill).play(sim)
+	var skill := auto_skill(state, rules, setup.attacker_house)
+	return TrebuchetAimer.new(rules.siege, skill).play(sim)
 
 
 ## The leader and up to the allowed number of the strongest melee companies of the army he
@@ -163,7 +171,7 @@ static func merchant_setup(
 	setup.escort_skill = rules.map.campaign.adventure_opponent_skill
 	setup.province = province
 	setup.season = state.season()
-	setup.raider_skill = rules.map.campaign.adventure_auto_skill
+	setup.raider_skill = auto_skill(state, rules, house)
 	return setup
 
 
