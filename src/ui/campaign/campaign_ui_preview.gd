@@ -9,6 +9,7 @@ extends Control
 const VIEWS: Array[String] = [
 	"main", "levers", "grain", "build", "recruit", "court", "province",
 	"handover", "setup", "report", "battle", "victory", "crown", "electors", "coronation",
+	"events",
 ]
 const SHOT_FRAMES := 12
 const MARGIN := 8.0
@@ -146,7 +147,7 @@ func _show_view(view: String) -> void:
 			_admin.show_tab(AdministrationPanel.Tab.CROWN)
 			var target := "votes" if view == "crown" else "embassy_TRI"
 			_focus_after_layout(_admin, target if _focus_name.is_empty() else _focus_name)
-		"handover", "setup", "report", "battle", "victory", "coronation":
+		"handover", "setup", "report", "battle", "victory", "coronation", "events":
 			_open_screen(view)
 		_:
 			_admin.show_tab(AdministrationPanel.Tab.LEVERS)
@@ -207,6 +208,30 @@ func _open_screen(view: String) -> void:
 			var coronation := VictoryScreen.new()
 			_add_screen(coronation)
 			coronation.open(crowned, _rules)
+		"events":
+			var dialog := EventCardDialog.new()
+			_add_screen(dialog)
+			dialog.open(_event_sample(), _rules, _house)
+
+
+## Preview only: spring of the second year with the Lionheart dead, plague on the Rhine and
+## robber knights next to a province of the house waiting for an answer.
+func _event_sample() -> GameState:
+	var shown := GameState.from_dict(_state.to_dict())
+	shown.turn = 4
+	shown.phase = GameState.Phase.EVENT
+	var news: Array[EventState.EventCard] = [
+		EventState.EventCard.create("death_of_lionheart", "", ""),
+		EventState.EventCard.create("plague", "", "KOE"),
+		EventState.EventCard.create("plague", "", "AAC"),
+	]
+	shown.events.news = news
+	var robbers := _rules.events.events["robber_knights"]
+	var places := EventDeck.places(_state, _rules.map, robbers, _house)
+	var place := places[0] if not places.is_empty() else ""
+	shown.events.drawn.append(EventState.EventCard.create(robbers.id, _house, place))
+	shown.events.pending = 1
+	return shown
 
 
 ## Preview only: a winter court halfway to the crown with forged regalia and Aachen in hand,

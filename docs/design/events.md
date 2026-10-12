@@ -11,6 +11,7 @@ Event cards from `data/events.json` (GDD "Ereignisse"), read by `EventData`; sta
 
 ## Choices
 - Cards without a choice act at once. With cards waiting for a choice the house stays in the event phase; `ChooseEventCommand` answers the first one (cost, effects, then a battle and its victory effects); after the last the administration phase begins.
+- The campaign scene shows a human house its event phase in `EventCardDialog`: the round's news grouped per event, its cards that already acted and the waiting card with one button per choice (tooltip: cost and effects; refused choices say why); after the last answer the dialog sums up the turn once.
 - Ending the phase (and passive houses until the AI) takes each card's `default`, else the first choice the house can take; a card it cannot answer passes.
 - Refused choices: adventures (tournament invitation, merchant train raid, hostage raid) until their minigames exist (M6, `EVENT_ADVENTURE_LATER`); marriage is out of scope; Breisgau's homage once it has a lord; sending knights the house does not have; hunting without an army in or next to the card's province.
 

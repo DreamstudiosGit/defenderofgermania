@@ -269,10 +269,10 @@ CAMPAIGN_CROWN_PENANCE_HINT,"Hebt den Bann. Kostet dazu %s Ansehen und %d Runde 
 CAMPAIGN_CROWN_PATRON,Gönner: %s,Patron: %s
 CAMPAIGN_CROWN_PATRON_CARDS,Karten: %d von %d · diese Runde gespielt: %d von %d,Cards: %d of %d · played this round: %d of %d
 CAMPAIGN_CROWN_PATRON_WEAK,Geschwächt: jede Karte wirkt nur zu %s.,Weakened: every card gives only %s.
-CAMPAIGN_CROWN_MERCENARIES,Söldner für die nächste Schlacht: %d Kompanien %s,Mercenaries for the next battle: %d companies of %s
-CAMPAIGN_CROWN_COMPANIES,%d Kompanien,%d companies
+CAMPAIGN_CROWN_MERCENARIES,Söldner für die nächste Schlacht: %d Rotten %s,Mercenaries for the next battle: %d companies of %s
+CAMPAIGN_CROWN_COMPANIES,%d Rotten,%d companies
 CAMPAIGN_CROWN_SILVER_HINT,Der Gönner schickt Silber. Fragt besser nicht nach der Herkunft.,Your patron sends silver. Best not ask where it came from.
-CAMPAIGN_CROWN_HIRE_HINT,%d Kompanien %s kämpfen in Eurer nächsten Schlacht mit und ziehen danach heim.,%d companies of %s join your next battle and go home afterwards.
+CAMPAIGN_CROWN_HIRE_HINT,%d Rotten %s kämpfen in Eurer nächsten Schlacht mit und ziehen danach heim.,%d companies of %s join your next battle and go home afterwards.
 CAMPAIGN_CROWN_EMBASSY_HINT,"Die Gesandtschaft des Gönners bringt +%s Gunst bei diesem Fürsten, kostet aber eine Gönner-Karte.","The patron's embassy brings +%s favour with this prince, but costs one patron card."
 CAMPAIGN_CROWN_EMBASSY_NOTE,Gesandtschaften (+%s Gunst) schickt Ihr unten zu einem Wahlfürsten.,Send embassies (+%s favour) to an elector below.
 CAMPAIGN_CROWN_ELECTORS,Wahlfürsten · %d von %d Stimmen für Euch,Electors · %d of %d votes for you
@@ -589,3 +589,39 @@ EVENT_NO_CARD,Keine Ereigniskarte wartet auf Euch.,No event card is waiting for 
 EVENT_UNKNOWN_CHOICE,Diese Wahl steht nicht auf der Karte.,That choice is not on the card.
 EVENT_FLOOD_NO_PASSAGE,Hochwasser: Diese Runde kommt keine Armee hinein.,Flood: no army gets in this round.
 ECONOMY_TERM_EVENT_GRAIN,Ereignis: Mehrbedarf,Event: extra demand
+CAMPAIGN_EVENTS_TITLE,Ereignisse · %s,Events · %s
+CAMPAIGN_EVENTS_REALM,Im Reich,In the realm
+CAMPAIGN_EVENTS_HOUSE,Euer Haus,Your house
+CAMPAIGN_EVENTS_CHOOSE,Eure Entscheidung,Your decision
+CAMPAIGN_EVENTS_CONTINUE,Weiter,Continue
+CAMPAIGN_EVENTS_CHOSE,Gewählt: %s.,Chosen: %s.
+CAMPAIGN_EVENTS_WON,Gesiegt.,Victory.
+CAMPAIGN_EVENTS_LOST,Verloren.,Defeat.
+EVENT_EFFECT_COST,−%s Taler,−%s taler
+EVENT_EFFECT_GRAIN,Korn %s %%,Grain %s %%
+EVENT_EFFECT_GRAIN_DEMAND,Kornbedarf %s %% bei der nächsten Abrechnung,Grain demand %s %% at the next settlement
+EVENT_EFFECT_HARVEST,Ernte %s %%,Harvest %s %%
+EVENT_EFFECT_POPULATION,Volk %s %%,People %s %%
+EVENT_EFFECT_SATISFACTION,Zufriedenheit %s,Satisfaction %s
+EVENT_EFFECT_PRESTIGE,Ansehen %s,Prestige %s
+EVENT_EFFECT_GOLD,%s Taler,%s taler
+EVENT_EFFECT_FAVOUR,Gunst %s,Favour %s
+EVENT_EFFECT_WITH,bei %s,with %s
+EVENT_EFFECT_HALVED,(halbiert mit %s),(halved by %s)
+EVENT_EFFECT_BAN_CHANCE,Bann-Risiko %s,Risk of the ban %s
+EVENT_EFFECT_NO_PASSAGE,Kein Durchzug für %s Runde(n),No passage for %s round(s)
+EVENT_EFFECT_BATTLE_HUNT,Schlacht gegen %d Rotten %s,Battle against %d companies of %s
+EVENT_EFFECT_BATTLE_DEFEND,"%d Rotten %s greifen an – hält die Provinz nicht, fällt sie an einen neutralen Herrn","%d companies of %s attack – if the province does not hold, it falls to a neutral lord"
+EVENT_EFFECT_ADVENTURE,Abenteuer: %s,Adventure: %s
+EVENT_EFFECT_HOMAGE,%s huldigt Euch,%s pays you homage
+EVENT_EFFECT_SECURE_VOTE,Die Stimme von %s ist Euch sicher,The vote of %s is yours
+EVENT_EFFECT_SEND_UNITS,%d Rotten %s ziehen für %d Runden fort,%d companies of %s leave for %d rounds
+EVENT_EFFECT_PATRON_STRENGTH,Die Karten von %s wirken schwächer,The cards of %s work less
+EVENT_EFFECT_MARRIAGE,Heirat,Marriage
+EVENT_EFFECT_VICTORY,Bei Sieg: %s,On victory: %s
+EVENT_EFFECT_NOTHING,Nichts geschieht.,Nothing happens.
+EVENT_GROUP_CHURCH_ELECTORS,den Kirchen-Wahlfürsten,the church electors
+EVENT_GROUP_TRADE_CITIES,den Handelsstädten,the trade cities
+EVENT_ADVENTURE_JOUST,Tjost,Joust
+EVENT_ADVENTURE_CASTLE_RAID,Burgüberfall,Castle raid
+EVENT_ADVENTURE_MERCHANT_TRAIN,Kaufmannszug,Merchant train

@@ -9,7 +9,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M2 Blender figures and battle look | done; Steam Deck frame rate not measured (`docs/screenshots/m2_*.png`, `scripts/benchmark_battle.gd`: 412 figures, 140 fps at 1280 × 800 on an RTX 5060 Ti) | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
 | M3 Imperial map and round flow | done; needs a hot-seat playtest (`node scripts/run.mjs --campaign`, `docs/screenshots/m3_*.png`) | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
-| M5 Electors, coronation, events | in progress: crown rules and court commands, the four coronation rows tested (`src/systems/map/test_coronation.gd`), all 18 events drawn and applied; court UI and event card dialog open | test scenarios trigger the coronation along all four rows of the table |
+| M5 Electors, coronation, events | done; needs a hot-seat playtest of the realm tab and event cards with mouse and controller (`docs/screenshots/m5_*.png`) | test scenarios trigger the coronation along all four rows of the table |
 | M6 Adventures | open | each minigame takes 1–3 min and has a practice mode |
 | M7 AI | open | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
 | M8 Full game | open | prologue to coronation without a crash in 60–120 min |
@@ -117,3 +117,10 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Plague rolls once a year in summer; the weather news comes at the start of winter, after the autumn roll.
 - Crusaders come home after 8 rounds as a new army at the home castle (lost if the house has none then); while away they cost no upkeep.
 - Jugglers (+3) and the plague (−10) change the current satisfaction once, not the target Z*.
+
+## Design questions (M5 realm tab, event cards and coronation plate; current choice)
+- The realm tab is one scrolling list (pillars, court, patron, 7 electors, 10 neutral lords) in data order; a filter or sort (votes within reach) may help later.
+- Calling the coronation wins at once, without a confirmation step.
+- The best rival shown per lord is the first one found on a tie, and it shows even when every house sits at the start favour.
+- The GDD wants a blackletter heading on the coronation plate; there is no font asset yet, so it uses the default font.
+- The event dialog shows each turn's news and cards once per house; a later look back (chronicle, M8) does not exist yet.

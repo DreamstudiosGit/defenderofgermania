@@ -103,14 +103,16 @@ func _execute(command: Command) -> void:
 	_scene.call("execute", command)
 
 
+## Closes report and handover as a player would; the event dialog is only hidden, since the
+## test ends event phases with EndPhaseCommand (default choices).
 func _dismiss_screens() -> void:
-	for name: String in ["_report", "_handover"]:
+	for name: String in ["_report", "_handover", "_events"]:
 		var screen: Control = _scene.get(name)
 		while screen.visible:
 			screen.visible = false
 			if screen is SettlementReport:
 				(screen as SettlementReport).closed.emit()
-			else:
+			elif screen is HandoverScreen:
 				(screen as HandoverScreen).confirmed.emit()
 
 
@@ -147,3 +149,25 @@ func test_the_province_panel_opens_the_castle_and_closing_returns_to_the_table()
 	castle.closed.emit()
 	assert_false(castle.visible)
 	assert_eq(table.process_mode, Node.PROCESS_MODE_INHERIT, "back on the war table")
+
+
+func test_an_event_card_is_answered_in_the_dialog() -> void:
+	_dismiss_screens()
+	var session := _session()
+	var house := session.active_house()
+	var card := EventState.EventCard.create("jugglers", house, "")
+	session.state.phase = GameState.Phase.EVENT
+	session.state.events.drawn.assign([card])
+	session.state.events.pending = 1
+	_scene.call("_after_change")
+	var dialog: EventCardDialog = _scene.get("_events")
+	assert_true(dialog.visible, "the card waits for an answer")
+	var gold := session.state.houses[house].gold
+	(dialog.find_child("choice_accept", true, false) as Button).pressed.emit()
+	assert_eq(session.state.houses[house].gold, gold - 20.0)
+	assert_eq(session.state.phase, GameState.Phase.ADMINISTRATION)
+	assert_true(dialog.visible, "the dialog sums up the turn")
+	(dialog.find_child("continue", true, false) as Button).pressed.emit()
+	assert_false(dialog.visible)
+	_scene.call("_after_change")
+	assert_false(dialog.visible, "once a turn")

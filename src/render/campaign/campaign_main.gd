@@ -1,7 +1,8 @@
 extends Node
 ## Campaign scene: the war table, the campaign panels and live battles around one
 ## CampaignSession. Setup screen first; a handover screen covers the table between two human
-## houses (hot-seat); after every settlement the report shows what changed.
+## houses (hot-seat); after every settlement the report shows what changed; each turn opens
+## with the house's event cards.
 
 const BATTLE_SCENE := preload("res://src/render/battle/battle_main.tscn")
 const MARGIN := 8.0
@@ -27,6 +28,7 @@ var _handover := HandoverScreen.new()
 var _report := SettlementReport.new()
 var _choice := BattleChoice.new()
 var _victory := VictoryScreen.new()
+var _events := EventCardDialog.new()
 var _battle: Node = null
 var _castle := CastleView.new()
 var _province := ""
@@ -34,6 +36,8 @@ var _army := MapTable.NO_ARMY
 var _move_army := MapTable.NO_ARMY
 var _move_target := ""
 var _seen_house := ""
+## Round and house whose event dialog was closed ("<turn>:<house>").
+var _events_seen := ""
 var _seen_settlement: GameState = null
 
 
@@ -55,6 +59,7 @@ func start(humans: Array[String], seed_value: int) -> void:
 	_victory.visible = false
 	session = CampaignSession.create(GameRules.load_files(), humans, seed_value)
 	_seen_house = ""
+	_events_seen = ""
 	_seen_settlement = null
 	_select_home()
 	_after_change()
@@ -69,7 +74,8 @@ func execute(command: Command) -> String:
 	return error
 
 
-## Order of screens after every change: victory, settlement report, handover, then the table.
+## Order of screens after every change: victory, settlement report, handover, event cards,
+## then the table.
 func _after_change() -> void:
 	if session.state.is_over():
 		_refresh()
@@ -88,6 +94,29 @@ func _after_change() -> void:
 			_handover.open(session.state, session.rules, house)
 			return
 	_refresh()
+	if _wants_events(house):
+		_events.open(session.state, session.rules, house)
+
+
+## A human house in its event phase must answer its cards; afterwards the dialog shows once a
+## turn what the round and the house's cards brought.
+func _wants_events(house: String) -> bool:
+	if not session.is_human_turn():
+		return false
+	var events := session.state.events
+	if session.state.phase == GameState.Phase.EVENT:
+		return true
+	var has_news := not events.drawn.is_empty() or not events.news.is_empty()
+	return has_news and _events_seen != _turn_key(house)
+
+
+func _turn_key(house: String) -> String:
+	return "%d:%s" % [session.state.turn, house]
+
+
+func _on_events_closed() -> void:
+	_events_seen = _turn_key(session.active_house())
+	_after_change()
 
 
 func _refresh() -> void:
@@ -232,7 +261,7 @@ func _close_castle() -> void:
 
 
 func _blocked() -> bool:
-	for screen: Control in [_setup, _handover, _report, _choice, _victory]:
+	for screen: Control in [_setup, _handover, _report, _choice, _victory, _events]:
 		if screen.visible:
 			return true
 	return _battle != null or _castle.visible
@@ -273,10 +302,17 @@ func _build_ui() -> void:
 	_castle.visible = false
 	_castle.closed.connect(_close_castle)
 	add_child(_castle)
-	for screen: Control in [_toast, _setup, _handover, _report, _choice, _victory, _tooltip]:
+	for screen: Control in [
+		_toast, _setup, _handover, _report, _events, _choice, _victory, _tooltip
+	]:
 		_root.add_child(screen)
 	_setup.start_requested.connect(start)
-	_handover.confirmed.connect(_refresh)
+	_handover.confirmed.connect(_after_change)
+	_events.choice_requested.connect(
+		func(choice: String) -> void:
+			execute(ChooseEventCommand.new(session.rules, session.active_house(), choice))
+	)
+	_events.closed.connect(_on_events_closed)
 	_report.closed.connect(_after_change)
 	_choice.chosen.connect(_on_battle_chosen)
 	_victory.new_game_requested.connect(func() -> void: _setup.open(_map, FIRST_SEED))
