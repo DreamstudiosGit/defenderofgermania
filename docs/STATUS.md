@@ -7,7 +7,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M0 Foundation | done | tests green; worked example "Welfen im ersten Herbst" exact (20.925 / 15.694 / 25.3125 T, 300 + 180 bushels, demand 363, surplus 117, sale 52.65 T) |
 | M1 Battle graybox | done; needs an owner playtest with two controllers (`docs/screenshots/m1_battle_*.png`) | 2–4 min match with two controllers; same seed and inputs give the same result; scenario tests: knight charge beats crossbows, hedgehog stops knights, crossbows beat a spear line at range |
 | M2 Blender figures and battle look | done; Steam Deck frame rate not measured (`docs/screenshots/m2_*.png`, `scripts/benchmark_battle.gd`: 412 figures, 140 fps at 1280 × 800 on an RTX 5060 Ti) | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
-| M3 Imperial map and round flow | rules exist (map, economy, turn loop); no map view | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
+| M3 Imperial map and round flow | done; needs a hot-seat playtest (`node scripts/run.mjs --campaign`, `docs/screenshots/m3_*.png`) | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | rules and data exist; no castle view | every level looks clearly different; costs, upkeep and unlocks match the tables |
 | M5 Electors, coronation, events | data exists (M0) | test scenarios trigger the coronation along all four rows of the table |
 | M6 Adventures | open | each minigame takes 1–3 min and has a practice mode |
@@ -83,3 +83,12 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Death is a comic throw and somersault drawn on the CPU, cheering a hop; the skeletal clips in the exports (`hit`, `death`, `cheer`, horse gaits) are not played at runtime yet — the batched figures animate through UV2 limb masks.
 - Camp props (banner, tent, watchtower) still carry the blue/red prototype markings instead of house colours.
 - Ink: figures get an inverted-hull outline, scenery gets edges from depth jumps over 3 m and normal jumps; grass tufts and figures are kept out of the post-effect edges so the field does not turn into dark specks.
+
+## Design questions (M3 map and round flow; current choice)
+- Houses nobody plays pass their turns until the AI arrives (M7); they keep their start armies and do not build, recruit or move.
+- The war table draws Voronoi borders around rough real province centres; 59 of the 63 GDD neighbourhoods also share a drawn border. Moves always follow the GDD adjacency.
+- The main scene stays the battle prototype (`AGENTS.md` describes the smoke test that way); the campaign starts with `node scripts/run.mjs --campaign` until the main menu (M8).
+- A live battle puts the attacker on keyboard and mouse and a human defender on controller 1; storming a castle and several battles in one move are still auto-resolved (only the first battle of a move can be played live).
+- The settlement report's income and upkeep lines come from the breakdown of the state before the settlement; if starving garrisons change a province first, these lines can differ slightly (the before → after totals are exact).
+- The Kornvogt forecast ignores census growth, recruiting and desertion; the prestige projection leaves out hunger and revolts (its tooltip says so).
+- Controller support on the map covers panning and zooming; picking provinces needs a cursor or province cycling (M8 "controller everywhere").

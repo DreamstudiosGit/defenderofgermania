@@ -18,3 +18,4 @@
 - 2026-10-12 feat(combat): campaign battles take the light and landscape of their season
 - 2026-10-12 feat(map): merge the war-table diorama; owner colours from map.json lords for map, battle and shields
 - 2026-10-12 Merge the M3 campaign UI: panels, economy breakdowns and grain forecast
+- 2026-10-12 feat(map): M3 campaign scene — war table, panels, hot-seat handover, settlement report and live battles

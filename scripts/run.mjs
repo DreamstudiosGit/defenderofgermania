@@ -18,5 +18,7 @@ function findGodot() {
 
 const args = ['--path', projectDir];
 if (process.argv.includes('--editor')) args.push('--editor');
+// The campaign (war table) until the main menu of milestone M8 picks it; default: battle prototype.
+if (process.argv.includes('--campaign')) args.push('res://src/render/campaign/campaign_main.tscn');
 
 spawn(findGodot(), args, { detached: true, stdio: 'ignore' }).unref();
