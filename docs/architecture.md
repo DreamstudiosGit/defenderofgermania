@@ -4,7 +4,7 @@
 - `map` — provinces, ownership, unit positions, movement and visibility; electors, favour, coronation, homage, patron cards and the ban (`CrownData`).
 - `combat` — resolves battles between units and applies losses.
 - `economy` — resources, income and the costs of recruiting and building.
-- `events` — event cards: triggers, conditions, choices and effects (data only until M5; ADR 0005).
+- `events` — event cards: drawing per turn, round events, choices and effects (`docs/design/events.md`, ADR 0005); its state is `EventState` in `src/core/`, battles it starts run in `EventBattles`.
 - `ai` — decides computer-controlled turns using the same actions as human players.
 
 ## Communication

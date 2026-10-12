@@ -73,4 +73,12 @@ func test_validate_reports_repeated_choice_and_unit_effect_without_unit() -> voi
 	var event := _events.events["robber_knights"]
 	event.choices[1].id = "hunt"
 	event.choices[0].effects[0].unit = ""
+	event.default_choice = "hunt"
+	assert_eq(_events.validate().size(), 2, str(_events.validate()))
+
+
+func test_validate_reports_a_default_that_is_no_choice_and_an_unknown_battle() -> void:
+	var event := _events.events["feud_letter"]
+	event.default_choice = "flee"
+	event.choices[0].effects[0].target = "duel"
 	assert_eq(_events.validate().size(), 2, str(_events.validate()))

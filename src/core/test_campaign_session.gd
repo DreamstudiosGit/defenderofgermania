@@ -18,9 +18,13 @@ func test_two_houses_play_eight_rounds_while_the_others_pass() -> void:
 	assert_true(_session.is_human_turn())
 	for round_index: int in 8:
 		assert_eq(_session.state.turn, round_index)
-		for step: int in 4:
+		var steps := 0
+		while _session.state.turn == round_index and steps < 10:
 			assert_true(_session.active_house() in HUMANS, "only humans are asked to move")
 			assert_eq(_end_phase(), "")
+			steps += 1
+		# Administration and campaign of both, plus an event phase per card awaiting a choice.
+		assert_between(steps, 4, 8)
 	assert_eq(_session.state.turn, 8, "eight rounds were settled")
 	assert_not_null(_session.before_settlement)
 	assert_eq(_session.before_settlement.turn, 7, "the snapshot is from before the last settlement")

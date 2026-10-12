@@ -58,7 +58,8 @@ func test_settlement_runs_after_the_last_house() -> void:
 	var gold := _state.houses["welfen"].gold
 	_play_round()
 	assert_eq(_state.turn, 1)
-	assert_eq(_state.phase, GameState.Phase.ADMINISTRATION)
+	var waits := _state.events.pending > 0
+	assert_eq(_state.phase == GameState.Phase.EVENT, waits, "event phase only for open choices")
 	assert_ne(_state.houses["welfen"].gold, gold)
 
 

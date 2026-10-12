@@ -50,13 +50,18 @@ static func eliminate(state: GameState, house: HouseState) -> void:
 	house.is_eliminated = true
 	house.exile_rounds = 0
 	for province: ProvinceState in state.provinces_of(house.id):
-		province.owner = NEUTRAL
-		province.garrison_health = 1.0
-		province.occupied_rounds = 0
-		province.in_revolt = false
-		province.constructions.clear()
+		to_neutral(province)
 	for army: ArmyState in state.armies_of(house.id):
 		state.remove_army(army)
+
+
+## A neutral lord takes the province over, with a fresh garrison and no orders.
+static func to_neutral(province: ProvinceState) -> void:
+	province.owner = NEUTRAL
+	province.garrison_health = 1.0
+	province.occupied_rounds = 0
+	province.in_revolt = false
+	province.constructions.clear()
 
 
 ## Exile: the house keeps one army (the leader's, else the largest) and its decorations are

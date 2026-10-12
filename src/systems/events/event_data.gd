@@ -1,7 +1,7 @@
 class_name EventData
 extends RefCounted
 ## Event cards from data/events.json (GDD "Ereignisse"): when they fire, what the drawing
-## house needs and what they do. Drawing and applying them comes with milestone M5.
+## house needs and what they do. EventDeck draws them, EventEffects applies them.
 
 const PATH := "res://data/events.json"
 ## deck: drawn from the season's weighted deck; weather: announces an extreme weather roll;
@@ -20,7 +20,13 @@ const SCOPES: Array[String] = [
 const ADVENTURES: Array[String] = ["joust", "castle_raid", "merchant_train"]
 ## Effects that put companies of `unit` on the field or send them away.
 const UNIT_EFFECTS: Array[String] = ["battle", "send_units"]
+## hunt: the house's army attacks the band; defend: the band attacks the card's province.
+const BATTLE_TARGETS: Array[String] = ["hunt", "defend"]
 
+## First round (0-based) with event cards; the opening round belongs to the prologue.
+var first_turn: int
+## Named groups of lords an effect can aim at, e.g. church_electors → [KOE, MAI, TRI].
+var groups: Dictionary[String, Array] = {}
 var events: Dictionary[String, EventDef] = {}
 
 
@@ -46,6 +52,14 @@ class EventDef:
 	var to_year: int
 	var effects: Array[EffectDef] = []
 	var choices: Array[ChoiceDef] = []
+	## Choice a house takes that does not choose (passive houses, ending the phase).
+	var default_choice: String
+
+	func choice(choice_id: String) -> ChoiceDef:
+		for candidate: ChoiceDef in choices:
+			if candidate.id == choice_id:
+				return candidate
+		return null
 
 
 class ChoiceDef:
@@ -97,6 +111,8 @@ func validate() -> PackedStringArray:
 		if event.to_year > 0 and event.to_year < event.from_year:
 			errors.append("%s: to_year before from_year" % where)
 		errors.append_array(_validate_effects(where, event.effects))
+		if not event.choices.is_empty() and event.choice(event.default_choice) == null:
+			errors.append("%s: default '%s' is no choice" % [where, event.default_choice])
 		var choice_ids: Array[String] = []
 		for choice: ChoiceDef in event.choices:
 			if choice.id in choice_ids:
@@ -127,10 +143,26 @@ func _validate_effects(where: String, effects: Array[EffectDef]) -> PackedString
 			errors.append("%s: unknown adventure '%s'" % [where, effect.target])
 		if effect.type in UNIT_EFFECTS and (effect.unit.is_empty() or effect.amount <= 0.0):
 			errors.append("%s: %s needs a unit and a positive amount" % [where, effect.type])
+		if effect.type == "battle" and effect.target not in BATTLE_TARGETS:
+			errors.append("%s: unknown battle '%s'" % [where, effect.target])
 	return errors
 
 
+## Province ids of a group, or the target itself when it names no group.
+func lords(target: String) -> Array[String]:
+	var ids: Array[String] = []
+	if groups.has(target):
+		ids.assign(groups[target])
+	elif not target.is_empty():
+		ids.append(target)
+	return ids
+
+
 func _read(r: DataReader, data: Dictionary) -> void:
+	first_turn = r.integer(data, "first_turn")
+	var group_data := r.object(data, "groups")
+	for id: String in group_data:
+		groups[id] = r.strings(group_data, id)
 	for item: Variant in r.list(data, "events"):
 		if not item is Dictionary:
 			r.errors.append("events: expected objects")
@@ -168,6 +200,7 @@ func _read_event(r: DataReader, entry: Dictionary) -> EventDef:
 	event.favour_min = r.number(entry, "favour_min", 0.0)
 	event.from_year = r.integer(entry, "from_year", 0)
 	event.to_year = r.integer(entry, "to_year", 0)
+	event.default_choice = r.text(entry, "default")
 	event.effects = _read_effects(r, entry, "effects")
 	for item: Variant in r.list(entry, "choices", false):
 		if not item is Dictionary:

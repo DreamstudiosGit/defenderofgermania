@@ -144,7 +144,7 @@ static func _harvest(
 	var total := 0.0
 	for province: ProvinceState in owned:
 		var def := map.provinces[province.id]
-		total += GrainRules.harvest(
+		var harvest := GrainRules.harvest(
 			cfg,
 			province.population,
 			map.terrains[def.terrain].field_yield,
@@ -152,6 +152,7 @@ static func _harvest(
 			building_sum(cfg, [province], "harvest_bonus"),
 			province.occupied_rounds > 0 or province.in_revolt
 		)
+		total += harvest * (1.0 + state.events.harvest.get(province.id, 0.0))
 	return total
 
 
@@ -167,7 +168,8 @@ static func _grain_demand(
 		var abroad := is_winter and state.provinces[army.province].owner != house.id
 		for id: String in army.units:
 			troops += GrainRules.troop_grain(cfg, cfg.units[id].upkeep_grain, abroad)
-	return GrainRules.demand(population, house.ration, troops)
+	var extra: float = state.events.grain_demand.get(house.id, 0.0)
+	return GrainRules.demand(population, house.ration, troops) * (1.0 + extra)
 
 
 static func _target_satisfaction(

@@ -8,6 +8,7 @@ const ERROR_UNKNOWN_ARMY := "TURN_UNKNOWN_ARMY"
 const ERROR_NOT_NEIGHBOR := "TURN_NOT_NEIGHBOR"
 const ERROR_NO_MOVES := "TURN_NO_MOVES_LEFT"
 const ERROR_PENANCE := "CROWN_PENANCE_NO_CAMPAIGN"
+const ERROR_FLOODED := "EVENT_FLOOD_NO_PASSAGE"
 
 var army_id: int
 var target: String
@@ -79,4 +80,6 @@ func _check_move(state: GameState) -> String:
 		return ERROR_NOT_NEIGHBOR
 	if CrownRules.is_doing_penance(state, house):
 		return ERROR_PENANCE
+	if state.events.is_blocked(target, state.turn):
+		return ERROR_FLOODED
 	return "" if army.moves_left > 0 else ERROR_NO_MOVES

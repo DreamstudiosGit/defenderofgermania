@@ -32,13 +32,18 @@ static func harvest(
 			formula += " × (1 + %s)" % _n(bonus)
 		if disrupted:
 			formula += " × %s" % _n(cfg.harvest_disrupted_multiplier)
+		var flooded: float = state.events.harvest.get(province.id, 0.0)
+		if flooded != 0.0:
+			value *= 1.0 + flooded
+			formula += " × (1 + %s)" % _n(flooded)
 		var key := EconomyTerm.province_key(province.id)
 		terms.append(EconomyTerm.create("ECONOMY_TERM_HARVEST", value, formula, [key]))
 	return terms
 
 
 ## Grain eaten at a settlement in the given season: the people of each own province, then
-## the troops of each army (more in winter outside own provinces).
+## the troops of each army (more in winter outside own provinces), then what an event adds
+## to this round's settlement (harsh winter).
 static func grain_demand(
 	state: GameState,
 	cfg: EconomyConfig,
@@ -67,6 +72,11 @@ static func grain_demand(
 			formula = "(%s) × %s" % [formula, _n(cfg.winter_abroad_multiplier)]
 		var where := EconomyTerm.province_key(army.province)
 		terms.append(EconomyTerm.create("ECONOMY_TERM_TROOP_GRAIN", value, formula, [where]))
+	var extra: float = state.events.grain_demand.get(house_id, 0.0)
+	if extra != 0.0 and season == state.season():
+		var eaten := EconomyTerm.sum(terms)
+		var formula := "%s × %s" % [_n(eaten), _n(extra)]
+		terms.append(EconomyTerm.create("ECONOMY_TERM_EVENT_GRAIN", eaten * extra, formula))
 	return terms
 
 

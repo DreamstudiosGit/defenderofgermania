@@ -140,6 +140,26 @@ func _add_campaign_details(state: GameState) -> void:
 	crown.tournament_turn["wittelsbacher"] = 4
 	crown.promised_votes["BOH"] = "wittelsbacher"
 	crown.crowned_at = "coronation_site"
+	var events := state.events
+	var card := EventState.EventCard.create("robber_knights", "welfen", "HOL")
+	card.choice = "hunt"
+	card.won = true
+	events.drawn.append(card)
+	events.drawn.append(EventState.EventCard.create("hostage", "welfen", ""))
+	events.pending = 1
+	var news := EventState.EventCard.create("harvest_extreme", "", "")
+	news.region = "north"
+	events.news.append(news)
+	events.fired.append("bohemian_crown")
+	events.grain_demand["welfen"] = 0.25
+	events.harvest["BAY"] = -0.2
+	events.blocked_until["BAY"] = 6
+	var away := EventState.AwayCompanies.new()
+	away.house = "staufer"
+	away.unit = "knights"
+	away.companies = 2
+	away.back_turn = 13
+	events.away.append(away)
 
 
 func _end_phase(state: GameState) -> void:

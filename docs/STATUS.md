@@ -9,7 +9,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M2 Blender figures and battle look | done; Steam Deck frame rate not measured (`docs/screenshots/m2_*.png`, `scripts/benchmark_battle.gd`: 412 figures, 140 fps at 1280 × 800 on an RTX 5060 Ti) | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
 | M3 Imperial map and round flow | done; needs a hot-seat playtest (`node scripts/run.mjs --campaign`, `docs/screenshots/m3_*.png`) | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
-| M5 Electors, coronation, events | in progress: crown rules, court commands and the four coronation rows tested (`src/systems/map/test_coronation.gd`); events and court UI open | test scenarios trigger the coronation along all four rows of the table |
+| M5 Electors, coronation, events | in progress: crown rules and court commands, the four coronation rows tested (`src/systems/map/test_coronation.gd`), all 18 events drawn and applied; court UI and event card dialog open | test scenarios trigger the coronation along all four rows of the table |
 | M6 Adventures | open | each minigame takes 1–3 min and has a practice mode |
 | M7 AI | open | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
 | M8 Full game | open | prologue to coronation without a crash in 60–120 min |
@@ -25,8 +25,8 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Plague: the GDD has both "population −10 %" in the event and "− plague" in the spring growth formula; the data applies −10 % population and −10 Z to the province and its neighbours, each halved by a monastery.
 - Flood hits one river province of the drawing house.
 - Feud letter: the count's 4 companies have no unit type; using levy, like the robber knights.
-- Merchant train escort: "favour of the trade cities +5" — which lords count as trade cities?
-- Papal legate and crusade: "church favour" = favour with the three church electors (the only church lords with a favour list now that the peace congress is out).
+- Merchant train escort: "favour of the trade cities +5" goes to Cologne and Brabant, the lords with a favour list and a market (`groups.trade_cities` in `data/events.json`).
+- Papal legate and crusade: "church favour" = favour with the three church electors (the only church lords with a favour list now that the peace congress is out); the legate compares the sum over the three, and on a tie nobody gains or risks the ban.
 - Home castle 4 halves "the ban's duration", but the ban has no duration (it ends with penance); only the chapel's half-price penance is in the data.
 - Osnabrück's start favour (Welfen 45) belongs to the peace congress and is left out; so is the second marriage card at home castle 4.
 - Death of the Lionheart: English cards work at 75 % on all three effects (150 T, 3 companies, +11.25 favour).
@@ -107,3 +107,13 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Patron mercenaries join the next battle of any army of the house (as attacker or defender) and may exceed the army limit for it.
 - A house in exile that retakes its old home castle ends the exile; a razed home castle comes back as level 1.
 - Gifts work for any lord with a favour list, also an elector whose province another house occupies.
+
+## Design questions (M5 events; current choice)
+- The opening round (spring of year 1) has no event cards; from the second round on every house draws exactly one card per turn, as the GDD says ("Jedes Haus zieht pro Runde eine Karte") — there is no "nothing happens" card.
+- Adventure choices (tournament invitation, merchant train raid, hostage raid) are shown but refused until their minigames exist (M6).
+- Houses that do not choose (ending the event phase, passive houses until the AI) take a default per card: decline the jugglers, the Wartburg, the tournament, Bohemia, the Zähringer and the crusade; ignore the robber knights; escort the merchants; atone the feud (fight if the 80 T are missing); abandon the hostage.
+- Robber knights and feuds need an own province that is not the home and borders land of no house; a lost feud hands that province to a neutral lord. Hunting needs an army in or next to it. Both battles are auto-resolved for now and earn no battle prestige (the card's reward instead).
+- The Zähringer and the crusade are deck cards while their years last and until one house drew them; Bohemia's card goes to the first house that reaches favour 50 at the start of its turn.
+- Plague rolls once a year in summer; the weather news comes at the start of winter, after the autumn roll.
+- Crusaders come home after 8 rounds as a new army at the home castle (lost if the house has none then); while away they cost no upkeep.
+- Jugglers (+3) and the plague (−10) change the current satisfaction once, not the target Z*.

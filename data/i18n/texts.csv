@@ -502,3 +502,12 @@ CROWN_PENANCE_NO_CAMPAIGN,Nach dem Bußgang ruht der Feldzug diese Runde.,After 
 ECONOMY_TOURNAMENT_SEASON,Turniere gibt es nur im Frühling und Sommer.,Tournaments are held only in spring and summer.
 ECONOMY_TOURNAMENT_NO_GROUND,Für ein Turnier braucht die Stammburg einen Turnierplatz.,A tournament needs a tourney ground at the home castle.
 ECONOMY_TOURNAMENT_HOSTED,Diese Runde habt Ihr schon ein Turnier ausgerichtet.,You already hosted a tournament this round.
+EVENT_ADVENTURE_LATER,Dieses Abenteuer kommt mit den Abenteuer-Modulen.,This adventure arrives with the adventure modules.
+EVENT_UNAVAILABLE,Das ist in diesem Spiel nicht möglich.,That is not possible in this game.
+EVENT_TARGET_GONE,Das Angebot gilt nicht mehr – die Provinz hat schon einen Herrn.,The offer has lapsed – the province already has a lord.
+EVENT_NO_UNITS,Dafür fehlen Euch die Rotten.,You lack the companies for that.
+EVENT_NO_ARMY,Keine Eurer Armeen steht nahe genug für die Jagd.,None of your armies is close enough for the hunt.
+EVENT_NO_CARD,Keine Ereigniskarte wartet auf Euch.,No event card is waiting for you.
+EVENT_UNKNOWN_CHOICE,Diese Wahl steht nicht auf der Karte.,That choice is not on the card.
+EVENT_FLOOD_NO_PASSAGE,Hochwasser: Diese Runde kommt keine Armee hinein.,Flood: no army gets in this round.
+ECONOMY_TERM_EVENT_GRAIN,Ereignis: Mehrbedarf,Event: extra demand

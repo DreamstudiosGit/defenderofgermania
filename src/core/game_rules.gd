@@ -5,6 +5,7 @@ extends RefCounted
 var map: MapData
 var economy: EconomyConfig
 var combat: CombatConfig
+var events: EventData
 ## Takes a BattleSetup and returns a BattleResult; the real-time battle plugs in here.
 ## While empty, or when it returns null, battles are auto-resolved with state.rng.
 var resolver: Callable = Callable()
@@ -15,7 +16,8 @@ static func load_files() -> GameRules:
 	rules.map = MapData.load_file()
 	rules.economy = EconomyConfig.load_file()
 	rules.combat = CombatConfig.load_file()
-	if rules.map == null or rules.economy == null or rules.combat == null:
+	rules.events = EventData.load_file()
+	if rules.map == null or rules.economy == null or rules.combat == null or rules.events == null:
 		return null
 	return rules
 

@@ -43,6 +43,7 @@ func _play(seed_value: int) -> GameState:
 	rules.map = _rules.map
 	rules.economy = _rules.economy
 	rules.combat = _rules.combat
+	rules.events = _rules.events
 	var combat := _rules.combat
 	# Capturing `rules` itself would make a reference cycle through its resolver.
 	rules.resolver = func(setup: BattleSetup) -> BattleResult:
@@ -105,7 +106,9 @@ func _campaign(
 	for army: ArmyState in state.armies_of(house):
 		while state.army(army.id) != null and army.moves_left > 0:
 			var target: String = _pick(players, rules.map.provinces[army.province].neighbors)
-			MoveArmyCommand.new(rules, house, army.id, target).execute(state)
+			# A flood or a penance can refuse every move this round.
+			if not MoveArmyCommand.new(rules, house, army.id, target).execute(state).is_empty():
+				break
 		if state.army(army.id) != null and players.randf() < 0.5:
 			StormCommand.new(rules, house, army.id).execute(state)
 

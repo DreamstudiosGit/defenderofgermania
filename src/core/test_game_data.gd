@@ -136,6 +136,20 @@ func test_event_references_exist() -> void:
 				assert_true(effect.target in patrons, "%s: patron %s" % [where, effect.target])
 
 
+func test_event_groups_name_lords_with_favour_lists() -> void:
+	for group: String in _events.groups:
+		var lords: Array = _events.groups[group]
+		assert_false(lords.is_empty(), group)
+		for id: String in lords:
+			var def: MapData.ProvinceDef = _map.provinces.get(id)
+			assert_not_null(def, "%s: province %s" % [group, id])
+			if def != null:
+				var keeps_list := def.owner == "elector" or (def.owner == "neutral" and not def.is_church)
+				assert_true(keeps_list, "%s: %s keeps no favour list" % [group, id])
+	for id: String in _events.lords(EventEffects.CHURCH_GROUP):
+		assert_true(_map.provinces[id].is_church and _map.provinces[id].owner == "elector", id)
+
+
 func test_crown_and_event_texts_exist_in_both_languages() -> void:
 	var keys: Array[String] = []
 	for id: String in _map.electors():
@@ -192,6 +206,15 @@ func test_campaign_error_keys_have_texts() -> void:
 		HostTournamentCommand.ERROR_SEASON,
 		HostTournamentCommand.ERROR_NO_GROUND,
 		HostTournamentCommand.ERROR_HOSTED,
+		MoveArmyCommand.ERROR_FLOODED,
+		ChooseEventCommand.ERROR_NO_CARD,
+		ChooseEventCommand.ERROR_UNKNOWN_CHOICE,
+		EventEffects.ERROR_ADVENTURE_LATER,
+		EventEffects.ERROR_UNAVAILABLE,
+		EventEffects.ERROR_TARGET_GONE,
+		EventEffects.ERROR_NO_UNITS,
+		EventBattles.ERROR_NO_ARMY,
+		"ECONOMY_TERM_EVENT_GRAIN",
 	]:
 		assert_string_contains(texts, "\n%s," % key)
 

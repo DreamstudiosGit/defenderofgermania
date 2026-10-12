@@ -33,6 +33,39 @@ static func fight_garrison(
 	return won
 
 
+## Field battle of the army against a band without a house (robber knights) in the province;
+## true if the army won.
+static func fight_band(
+	state: GameState, rules: GameRules, army: ArmyState, band: BattleSide, province: String
+) -> bool:
+	var setup := _setup(state, rules, province)
+	setup.attacker = army_side(state, rules, army)
+	setup.defender = band
+	var result := rules.resolve_battle(state, setup)
+	_apply(state, rules, army, result, true, band.owner, "", false)
+	return result.attacker_won
+
+
+## A band without a house attacks the province's army, else its garrison behind the walls;
+## true if the province held.
+static func defend_against_band(
+	state: GameState, rules: GameRules, band: BattleSide, province: String, army: ArmyState
+) -> bool:
+	var setup := _setup(state, rules, province)
+	setup.attacker = band
+	if army != null:
+		setup.defender = army_side(state, rules, army)
+		var result := rules.resolve_battle(state, setup)
+		_apply(state, rules, army, result, false, band.owner, "", false)
+		return not result.attacker_won
+	setup.defender_wall = Garrisons.wall(state, rules, province)
+	setup.defender = Garrisons.side(state, rules, province)
+	var outcome := rules.resolve_battle(state, setup)
+	var held := not outcome.attacker_won
+	state.provinces[province].garrison_health = _lowest(outcome.defender_health) if held else 0.0
+	return held
+
+
 ## The battle an army fights against a hostile army in the province.
 static func army_battle(
 	state: GameState, rules: GameRules, attacker: ArmyState, defender: ArmyState, province: String
@@ -78,7 +111,8 @@ static func _setup(state: GameState, rules: GameRules, province_id: String) -> B
 
 
 ## Losses, then retreat or disbanding for the loser. A leader is captured when the battle
-## says so, or when a beaten army has nowhere to retreat.
+## says so, or when a beaten army has nowhere to retreat. Battles against bands earn no
+## battle prestige; their event rewards instead.
 static func _apply(
 	state: GameState,
 	rules: GameRules,
@@ -86,14 +120,16 @@ static func _apply(
 	result: BattleResult,
 	is_attacker: bool,
 	enemy: String,
-	preferred_retreat: String
+	preferred_retreat: String,
+	earns_prestige: bool = true
 ) -> void:
 	var house := state.houses[army.owner]
 	var won := result.attacker_won == is_attacker
 	var captured := (
 		result.attacker_leader_captured if is_attacker else result.defender_leader_captured
 	)
-	_add_prestige(state, rules, army.owner, won)
+	if earns_prestige:
+		_add_prestige(state, rules, army.owner, won)
 	if captured and house.leader_army == army.id:
 		_capture(house, enemy)
 	# Patron mercenaries fight behind the army's own companies and leave after one battle.

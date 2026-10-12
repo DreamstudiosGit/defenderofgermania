@@ -4,14 +4,22 @@ extends RefCounted
 ## first, ties by seed), then settlement runs for all houses and the next round starts.
 
 
+## Orders the houses for the round; the first one starts with its administration, since the
+## opening round has no event cards (EventData.first_turn) and later rounds draw them in
+## _settle.
 static func start_round(state: GameState) -> void:
 	state.turn_order = _order(state)
 	state.active_index = 0
-	_begin_turn(state)
+	state.phase = GameState.Phase.ADMINISTRATION
 
 
-## Ends the active house's administration or campaign phase; EndPhaseCommand validates.
+## Ends the active house's event, administration or campaign phase; EndPhaseCommand validates.
+## Ending the event phase takes the default choice of every waiting card.
 static func end_phase(state: GameState, rules: GameRules) -> void:
+	if state.phase == GameState.Phase.EVENT:
+		ChooseEventCommand.resolve_by_default(state, rules)
+		state.phase = GameState.Phase.ADMINISTRATION
+		return
 	if state.phase == GameState.Phase.ADMINISTRATION:
 		state.phase = GameState.Phase.CAMPAIGN
 		Movement.start_campaign(state, rules.map.campaign, state.active_house())
@@ -26,14 +34,18 @@ static func end_phase(state: GameState, rules: GameRules) -> void:
 	):
 		state.active_index += 1
 	if state.active_index < state.turn_order.size():
-		_begin_turn(state)
+		_begin_turn(state, rules)
 	else:
 		_settle(state, rules)
 
 
-static func _begin_turn(state: GameState) -> void:
-	# There are no event cards yet, so the event phase passes at once; they hook in here.
-	state.phase = GameState.Phase.ADMINISTRATION
+## The event phase: cards without a choice act at once; with cards waiting for a choice the
+## house stays in it until it answers them (ChooseEventCommand).
+static func _begin_turn(state: GameState, rules: GameRules) -> void:
+	state.phase = GameState.Phase.EVENT
+	EventDeck.begin_turn(state, rules.events, rules.map, rules.economy)
+	if state.events.pending == 0:
+		state.phase = GameState.Phase.ADMINISTRATION
 
 
 static func _settle(state: GameState, rules: GameRules) -> void:
@@ -41,12 +53,15 @@ static func _settle(state: GameState, rules: GameRules) -> void:
 	Garrisons.starve(state, rules)
 	CrownSettlement.settle(state, rules.map)
 	EconomySettlement.settle(state, rules.map, rules.economy)
+	EventRound.end_round(state)
 	Movement.recover(state, rules.map.campaign)
 	Garrisons.recover(state, rules)
 	Conquest.count_down_exile(state)
 	Victory.check(state, rules)
 	if not state.is_over():
 		start_round(state)
+		EventRound.start_round(state, rules.events, rules.map, rules.economy)
+		_begin_turn(state, rules)
 
 
 ## Houses still in the game, lowest prestige first; the seed breaks ties.
