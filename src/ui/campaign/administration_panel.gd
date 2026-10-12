@@ -1,12 +1,13 @@
 class_name AdministrationPanel
 extends PanelContainer
 ## The administration phase in tabs: levers (tax, ration), grain market, building and
-## recruiting in the selected province, and the court (decorations, leader, ransom). Every
-## action is emitted as a Command; the controller executes it and calls refresh().
+## recruiting in the selected province, the court (decorations, leader, ransom) and the realm
+## (the road to the crown). Every action is emitted as a Command; the controller executes it
+## and calls refresh().
 
 signal command_requested(command: Command)
 
-enum Tab { LEVERS, GRAIN, BUILD, RECRUIT, COURT }
+enum Tab { LEVERS, GRAIN, BUILD, RECRUIT, COURT, CROWN }
 
 const TITLES: Array[String] = [
 	"CAMPAIGN_TAB_LEVERS",
@@ -14,6 +15,7 @@ const TITLES: Array[String] = [
 	"CAMPAIGN_TAB_BUILD",
 	"CAMPAIGN_TAB_RECRUIT",
 	"CAMPAIGN_TAB_COURT",
+	"CAMPAIGN_TAB_CROWN",
 ]
 
 var _tabs := TabContainer.new()
@@ -23,6 +25,7 @@ var _sections: Array[AdministrationSection] = [
 	BuildSection.new(),
 	RecruitSection.new(),
 	CourtSection.new(),
+	CrownSection.new(),
 ]
 
 

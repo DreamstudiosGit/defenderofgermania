@@ -2,12 +2,13 @@ extends Control
 ## Preview of the campaign screens over a plain background, for screenshots and trying them
 ## out: a fresh game (seed 1), the Welfen to move, Brunswick selected. It stands in for the
 ## campaign controller: commands run on its own state and refused ones show in the toast.
-## Arguments after "--": --view=<name> (VIEWS), --locale=de|en, --shot=<png path> saves a
-## screenshot after a few frames and quits.
+## Arguments after "--": --view=<name> (VIEWS), --locale=de|en, --house=<id> plays another
+## house, --site=<coronation site tag> for the coronation view, --focus=<node name> on the
+## realm tab, --shot=<png path> saves a screenshot after a few frames and quits.
 
 const VIEWS: Array[String] = [
 	"main", "levers", "grain", "build", "recruit", "court", "province",
-	"handover", "setup", "report", "battle", "victory",
+	"handover", "setup", "report", "battle", "victory", "crown", "electors", "coronation",
 ]
 const SHOT_FRAMES := 12
 const MARGIN := 8.0
@@ -27,6 +28,8 @@ var _toast: ErrorToast
 var _tooltip: FocusTooltip
 var _screen: Control
 var _shot := ""
+var _site := "coronation_site"
+var _focus_name := ""
 var _frames := 0
 
 
@@ -36,7 +39,12 @@ func _ready() -> void:
 		TranslationServer.set_locale(args["locale"])
 	_rules = GameRules.load_files()
 	_state = GameSetup.create(_rules.map, _rules.economy, 1)
-	# Preview only: the Welfen move first whatever the seed's turn order says.
+	if _state.houses.has(args.get("house", "")):
+		_house = args["house"]
+		_province = _state.houses[_house].home_province
+	_site = args.get("site", _site)
+	_focus_name = args.get("focus", "")
+	# Preview only: the chosen house moves first whatever the seed's turn order says.
 	_state.active_index = _state.turn_order.find(_house)
 	_army = _state.armies_of(_house)[0].id
 	_build()
@@ -133,7 +141,12 @@ func _show_view(view: String) -> void:
 		"province":
 			_admin.show_tab(AdministrationPanel.Tab.LEVERS)
 			_focus(_province_panel, "satisfaction")
-		"handover", "setup", "report", "battle", "victory":
+		"crown", "electors":
+			_prepare_crown()
+			_admin.show_tab(AdministrationPanel.Tab.CROWN)
+			var target := "votes" if view == "crown" else "embassy_TRI"
+			_focus_after_layout(_admin, target if _focus_name.is_empty() else _focus_name)
+		"handover", "setup", "report", "battle", "victory", "coronation":
 			_open_screen(view)
 		_:
 			_admin.show_tab(AdministrationPanel.Tab.LEVERS)
@@ -179,12 +192,51 @@ func _open_screen(view: String) -> void:
 			var victory := VictoryScreen.new()
 			_add_screen(victory)
 			victory.open(done, _rules)
+		"coronation":
+			var crowned := GameState.from_dict(_state.to_dict())
+			crowned.turn = GameState.Season.WINTER
+			var map := _rules.map
+			for id: String in [crowned.crown.regalia_province, CrownFormat.site_province(map, _site)]:
+				crowned.provinces[id].owner = _house
+			for id: String in map.electors():
+				crowned.crown.set_favour(id, _house, map.crown.vote_threshold, map.crown.favour_max)
+			var error := CoronationCommand.new(map, _house).execute(crowned)
+			if not error.is_empty():
+				_toast.show_error(error)
+				return
+			var coronation := VictoryScreen.new()
+			_add_screen(coronation)
+			coronation.open(crowned, _rules)
+
+
+## Preview only: a winter court halfway to the crown with forged regalia and Aachen in hand,
+## two votes won, a rival's vote, a lord ready for homage and mercenaries on the way.
+func _prepare_crown() -> void:
+	var crown := _state.crown
+	_state.turn = GameState.Season.WINTER
+	_state.provinces["AAC"].owner = _house
+	if _house not in crown.forged_regalia:
+		crown.forged_regalia.append(_house)
+	crown.set_favour("KOE", _house, 62.0, 100.0)
+	crown.set_favour("BRB", _house, 61.0, 100.0)
+	crown.set_favour("PFA", _house, 57.5, 100.0)
+	var rival := "staufer" if _house != "staufer" else "welfen"
+	crown.set_favour("TRI", rival, 64.0, 100.0)
+	crown.set_favour("BBT", _house, 82.0, 100.0)
+	crown.mercenaries[_house] = 4
+	_refresh()
 
 
 func _add_screen(screen: Control) -> void:
 	_screen = screen
 	add_child(screen)
 	move_child(_tooltip, -1)
+
+
+## Focuses once the newly shown tab has its layout, so its scroll container follows the focus.
+func _focus_after_layout(root: Node, node_name: String) -> void:
+	await get_tree().process_frame
+	_focus(root, node_name)
 
 
 func _focus(root: Node, node_name: String) -> void:

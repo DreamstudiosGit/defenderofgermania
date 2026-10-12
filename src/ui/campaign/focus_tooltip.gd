@@ -53,7 +53,8 @@ func _process(_delta: float) -> void:
 		if _label.get_minimum_size().x > MAX_WIDTH:
 			_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			_label.custom_minimum_size.x = MAX_WIDTH
-		reset_size()
+	# A wrapping label measures its height at the width it had, so shrink again once it wrapped.
+	reset_size()
 	_place(owner)
 	visible = true
 

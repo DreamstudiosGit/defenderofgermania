@@ -160,6 +160,18 @@ func _data_keys() -> Array[String]:
 			keys.append("ECONOMY_Z_" + part.to_upper())
 	for house: String in map.houses:
 		keys.append("BATTLE_HOUSE_" + house.to_upper())
+	for id: String in map.electors():
+		keys.append("ELECTOR_" + id)
+	for patron: String in map.crown.camp_patrons.values():
+		keys.append("PATRON_" + patron.to_upper())
+	for card: String in PlayPatronCommand.CARDS:
+		keys.append("PATRON_CARD_" + card.to_upper())
+	for kind: String in CrownData.REGALIA:
+		keys.append("CAMPAIGN_CROWN_REGALIA_" + kind.to_upper())
+	for site: String in map.crown.archbishops:
+		keys.append("CAMPAIGN_CROWN_PLATE_" + site.to_upper())
+		for house: String in map.houses:
+			keys.append("CAMPAIGN_CROWN_PLATE_%s_%s" % [house.to_upper(), site.to_upper()])
 	return keys
 
 
