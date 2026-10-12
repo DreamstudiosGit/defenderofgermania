@@ -36,3 +36,4 @@
 - 2026-10-12 feat(ai): M7 utility AI — decision levels, personalities, difficulties, home guard, balance run (save version 8)
 - 2026-10-12 feat(ai): M7 AI tuning — pillar plan, key-province guard, saving, upkeep-aware spending, balance search tooling
 - 2026-10-12 feat(ai): M7 merge AI setup and debug overlay, searched AI values, log marks taken options
+- 2026-10-12 feat(ai): M7 home guard against near threats only, lone home guards and far armies weigh partly, grain-aware recruiting

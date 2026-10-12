@@ -25,20 +25,37 @@ static func win_chance(rules: GameRules, setup: BattleSetup) -> float:
 	return AutoResolve.win_chance(rules.combat, k[0], k[1])
 
 
-## Enemy strength that could strike the province soon: hostile house armies within `radius`
-## steps (1: next round).
+## Enemy strength that could strike the province soon: hostile house armies next to it, and
+## two steps away at `far_share`. An army that is the only one guarding its own home castle
+## counts at `guarding_share`: it is unlikely to march off.
 static func threat(
-	state: GameState, rules: GameRules, house: String, province_id: String, radius: int = 1
+	state: GameState,
+	rules: GameRules,
+	house: String,
+	province_id: String,
+	far_share: float = 0.0,
+	guarding_share: float = 1.0
 ) -> float:
 	var total := 0.0
 	var steps := AiTargets.distances(rules.map, province_id)
 	for id: String in steps:
-		if steps[id] > radius:
+		var share := 1.0 if steps[id] <= 1 else far_share
+		if steps[id] > 2 or share <= 0.0:
 			continue
 		for army: ArmyState in state.armies_in(id):
 			if army.owner != house and state.houses.has(army.owner):
-				total += army_power(state, rules, army)
+				var guarding := guarding_share if _guards_home(state, army) else 1.0
+				total += army_power(state, rules, army) * share * guarding
 	return total
+
+
+static func _guards_home(state: GameState, army: ArmyState) -> bool:
+	if state.houses[army.owner].home_province != army.province:
+		return false
+	for other: ArmyState in state.armies_in(army.province):
+		if other.owner == army.owner and other.id != army.id:
+			return false
+	return true
 
 
 ## Own armies in the province plus its garrison, strengthened by the walls.

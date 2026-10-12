@@ -27,6 +27,7 @@ const space = [
   ['values.province', 20, 200], ['values.prestige', 1, 20], ['values.favour', 0.5, 10],
   ['opportunity.attack_ratio', 1.2, 2.2], ['opportunity.storm_ratio', 1.2, 3.0],
   ['security.threat_ratio', 0.5, 1.6], ['security.home_weight', 1, 5],
+  ['security.far_share', 0.05, 1.0], ['security.guarding_share', 0.1, 1.0],
   ['supply.gold_reserve', 20, 200], ['goals.payback_rounds', 4, 30], ['goals.save_factor', 1.0, 2.5],
   ['goals.min_utility', 0.02, 1.0], ['army.max_share_of_income', 0.2, 0.9],
 ];

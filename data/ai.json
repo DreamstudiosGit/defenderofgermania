@@ -97,7 +97,9 @@
   "security": {
     "home_weight": 2.12,
     "threat_ratio": 0.9,
-    "defenders_per_threat": 1.2
+    "defenders_per_threat": 1.2,
+    "far_share": 0.3,
+    "guarding_share": 0.4
   },
   "goals": {
     "payback_rounds": 12,

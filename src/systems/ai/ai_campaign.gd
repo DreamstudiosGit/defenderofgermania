@@ -89,7 +89,8 @@ static func _siege(turn: AiTurn, army: ArmyState) -> void:
 
 
 ## The only army in a key province (home, true regalia, coronation site) stays while enemies
-## within two steps outmatch its garrison alone; it may still strike an army that threatens it.
+## near it (data: two steps away and lone home guards count partly) outmatch its garrison
+## alone; it may still strike an army that threatens it.
 static func must_guard(turn: AiTurn, army: ArmyState) -> bool:
 	var state := turn.state
 	var key := army.province
@@ -101,7 +102,10 @@ static func must_guard(turn: AiTurn, army: ArmyState) -> bool:
 	var garrison := AiStrength.side_power(turn.rules, Garrisons.side(state, turn.rules, key))
 	var wall := Garrisons.wall(state, turn.rules, key)
 	garrison *= 1.0 + turn.rules.combat.castle_per_wall * wall
-	var danger := AiStrength.threat(state, turn.rules, turn.house, key, 2)
+	var security := turn.cfg.security
+	var danger := AiStrength.threat(
+		state, turn.rules, turn.house, key, security["far_share"], security["guarding_share"]
+	)
 	return danger * turn.cfg.security["threat_ratio"] > garrison
 
 

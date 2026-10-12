@@ -80,13 +80,15 @@ static func unit_options(
 		EconomyBreakdown.gold_change(turn.state, turn.rules.map, cfg, turn.house)
 	)
 	var counter := _enemy_group(turn) if turn.level.counters else ""
+	var grain_price := TradeGrainCommand.current_price(turn.state, cfg)
 	var options: Array[AiOption] = []
 	for unit: String in cfg.units:
 		var def := cfg.units[unit]
 		var combat := turn.rules.combat.units[unit]
 		if def.is_mercenary or combat.group == TrebuchetCommand.SIEGE_GROUP:
 			continue
-		if def.upkeep_gold > upkeep_room * turn.cfg.army["max_share_of_income"] + 1.0:
+		var upkeep := def.upkeep_gold + def.upkeep_grain * grain_price
+		if upkeep > upkeep_room * turn.cfg.army["max_share_of_income"] + 1.0:
 			continue
 		var cost := RecruitCommand.unit_cost(cfg, turn.house, unit)
 		if turn.owner().gold - cost < turn.reserve():
@@ -97,9 +99,9 @@ static func unit_options(
 		var command := RecruitCommand.new(
 			cfg, turn.rules.map, turn.house, province_id, unit, army_id
 		)
-		var worth := power * 100.0 / (cost + def.upkeep_gold * 8.0)
+		var worth := power * 100.0 / (cost + upkeep * 8.0)
 		var option := AiOption.create("%s: recruit %s" % [reason, unit], worth, command, cost)
-		option.upkeep = def.upkeep_gold
+		option.upkeep = upkeep
 		options.append(option)
 	return options
 
