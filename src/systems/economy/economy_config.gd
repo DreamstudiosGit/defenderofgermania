@@ -54,6 +54,9 @@ var ban_penalty: float
 var revolt_threshold: float
 var revolt_chance_per_point: float
 var revolt_prestige: float
+var rebel_population_divisor: float
+var concession_rounds: int
+var concession_satisfaction: float
 var satisfaction_max: float
 
 var growth_base: float
@@ -73,6 +76,9 @@ var recruit_population_per_unit: float
 var recruit_satisfaction_cost: float
 var battle_won_prestige: float
 var battle_lost_prestige: float
+var tournament_won_prestige: float
+var tournament_hosted_prestige: float
+var tournament_cost: float
 var slots_per_province: int
 var slots_per_home_castle_level: int
 var slots_max: int
@@ -96,13 +102,6 @@ class HouseModifiers:
 	var building_income: Dictionary[String, float] = {}
 	var building_cost: Dictionary[String, float] = {}
 	var unit_cost: Dictionary[String, float] = {}
-
-
-class DecorationDef:
-	var cost: float
-	var prestige: float
-	var satisfaction: float
-	var home_castle: int
 
 
 static func load_file(path: String = PATH) -> EconomyConfig:
@@ -186,6 +185,9 @@ func _read_society(r: DataReader, data: Dictionary) -> void:
 	revolt_threshold = r.number(sat, "revolt_threshold")
 	revolt_chance_per_point = r.number(sat, "revolt_chance_per_point")
 	revolt_prestige = r.number(sat, "revolt_prestige")
+	rebel_population_divisor = r.number(sat, "rebel_population_divisor")
+	concession_rounds = r.integer(sat, "concession_rounds")
+	concession_satisfaction = r.number(sat, "concession_satisfaction")
 	satisfaction_max = r.number(sat, "max")
 
 	var pop := r.object(data, "population")
@@ -203,6 +205,9 @@ func _read_society(r: DataReader, data: Dictionary) -> void:
 	ban_prestige = r.number(prestige, "ban_per_round")
 	battle_won_prestige = r.number(prestige, "battle_won")
 	battle_lost_prestige = r.number(prestige, "battle_lost")
+	tournament_won_prestige = r.number(prestige, "tournament_won")
+	tournament_hosted_prestige = r.number(prestige, "tournament_hosted")
+	tournament_cost = r.number(r.object(data, "tournament"), "cost")
 	var treasury := r.object(data, "treasury")
 	desertion_share = r.number(treasury, "desertion_share")
 	treasury_satisfaction_penalty = r.number(treasury, "satisfaction_penalty")
@@ -256,13 +261,7 @@ func _read_tables(r: DataReader, data: Dictionary) -> void:
 	var decoration_data := r.object(data, "decorations")
 	for id: String in decoration_data:
 		r.context = "decorations.%s" % id
-		var entry := r.object(decoration_data, id)
-		var decoration := DecorationDef.new()
-		decoration.cost = r.number(entry, "cost")
-		decoration.prestige = r.number(entry, "prestige", 0.0)
-		decoration.satisfaction = r.number(entry, "satisfaction", 0.0)
-		decoration.home_castle = r.integer(entry, "home_castle", 0)
-		decorations[id] = decoration
+		decorations[id] = DecorationDef.read(r, r.object(decoration_data, id))
 	r.context = ""
 
 

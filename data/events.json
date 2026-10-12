@@ -1,0 +1,98 @@
+{
+  "events": [
+    {"id": "rat_plague", "trigger": "deck", "weight": 1, "seasons": ["autumn", "winter"],
+      "effects": [{"type": "grain", "amount": -0.2, "halved_by": "granary"}]},
+    {"id": "harvest_extreme", "trigger": "weather", "seasons": ["autumn"], "weather": [0.6, 1.3]},
+    {"id": "plague", "trigger": "province_chance", "chance_per_year": 0.04,
+      "effects": [
+        {"type": "population", "amount": -0.1, "scope": "province_and_neighbors", "halved_by": "monastery"},
+        {"type": "satisfaction", "amount": -10, "scope": "province_and_neighbors", "halved_by": "monastery"}
+      ]},
+    {"id": "harsh_winter", "trigger": "deck", "weight": 1, "seasons": ["winter"],
+      "effects": [{"type": "grain_demand", "amount": 0.25}]},
+    {"id": "flood", "trigger": "deck", "weight": 1, "seasons": ["spring"], "needs_feature": "river",
+      "effects": [
+        {"type": "no_passage", "scope": "province", "rounds": 1},
+        {"type": "harvest", "amount": -0.2, "scope": "province"}
+      ]},
+    {"id": "jugglers", "trigger": "deck", "weight": 1,
+      "choices": [
+        {"id": "accept", "cost": 20, "effects": [{"type": "satisfaction", "amount": 3, "scope": "home"}]},
+        {"id": "decline"}
+      ]},
+    {"id": "wartburg_contest", "trigger": "deck", "weight": 1, "seasons": ["summer"], "needs_province": "THU",
+      "choices": [
+        {"id": "host", "cost": 100, "effects": [{"type": "prestige", "amount": 8}]},
+        {"id": "decline"}
+      ]},
+    {"id": "robber_knights", "trigger": "deck", "weight": 1,
+      "choices": [
+        {"id": "hunt", "effects": [{"type": "battle", "amount": 3, "unit": "levy", "scope": "neighbor"}],
+          "victory": [{"type": "prestige", "amount": 3}, {"type": "gold", "amount": 50}]},
+        {"id": "ignore", "effects": [{"type": "satisfaction", "amount": -5, "scope": "neighbor"}]}
+      ]},
+    {"id": "merchant_train", "trigger": "deck", "weight": 1, "seasons": ["spring", "summer"], "needs_feature": "river",
+      "choices": [
+        {"id": "escort", "effects": [
+          {"type": "gold", "amount": 20},
+          {"type": "prestige", "amount": 2},
+          {"type": "favour", "amount": 5, "target": "trade_cities"}
+        ]},
+        {"id": "raid", "effects": [
+          {"type": "adventure", "target": "merchant_train"},
+          {"type": "prestige", "amount": -3},
+          {"type": "favour", "amount": -10, "target": "KOE"}
+        ]}
+      ]},
+    {"id": "tournament_invitation", "trigger": "deck", "weight": 1, "seasons": ["spring", "summer"],
+      "choices": [
+        {"id": "attend", "effects": [{"type": "adventure", "target": "joust"}]},
+        {"id": "decline"}
+      ]},
+    {"id": "feud_letter", "trigger": "deck", "weight": 1,
+      "choices": [
+        {"id": "fight", "effects": [{"type": "battle", "amount": 4, "unit": "levy", "scope": "neighbor"}]},
+        {"id": "atone", "cost": 80}
+      ]},
+    {"id": "marriage_offer", "trigger": "deck", "weight": 1, "seasons": ["winter"], "enabled": false,
+      "choices": [
+        {"id": "accept", "effects": [{"type": "marriage"}]},
+        {"id": "decline"}
+      ]},
+    {"id": "hostage", "trigger": "deck", "weight": 1,
+      "choices": [
+        {"id": "raid", "effects": [{"type": "adventure", "target": "castle_raid"}]},
+        {"id": "ransom", "cost": 120},
+        {"id": "abandon", "effects": [{"type": "prestige", "amount": -5}]}
+      ]},
+    {"id": "bohemian_crown", "trigger": "once", "favour_province": "BOH", "favour_min": 50,
+      "choices": [
+        {"id": "promise", "effects": [
+          {"type": "secure_vote", "target": "BOH"},
+          {"type": "prestige", "amount": -10}
+        ]},
+        {"id": "decline"}
+      ]},
+    {"id": "zaehringer_candidacy", "trigger": "once", "from_year": 1, "to_year": 3,
+      "choices": [
+        {"id": "buy", "cost": 400, "effects": [{"type": "homage", "target": "BRG"}]},
+        {"id": "decline"}
+      ]},
+    {"id": "papal_legate", "trigger": "fixed", "seasons": ["winter"],
+      "effects": [
+        {"type": "favour", "amount": 10, "scope": "highest_church_favour", "target": "church_electors"},
+        {"type": "ban_chance", "amount": 0.25, "scope": "lowest_church_favour"}
+      ]},
+    {"id": "crusade_call", "trigger": "once", "from_year": 4,
+      "choices": [
+        {"id": "send", "effects": [
+          {"type": "send_units", "amount": 2, "unit": "knights", "rounds": 8},
+          {"type": "prestige", "amount": 10},
+          {"type": "favour", "amount": 10, "target": "church_electors"}
+        ]},
+        {"id": "decline"}
+      ]},
+    {"id": "death_of_lionheart", "trigger": "fixed", "seasons": ["spring"], "from_year": 2, "to_year": 2,
+      "effects": [{"type": "patron_strength", "amount": 0.75, "target": "england"}]}
+  ]
+}

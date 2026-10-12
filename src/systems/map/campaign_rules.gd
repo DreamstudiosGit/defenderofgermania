@@ -23,9 +23,13 @@ var exile_min_castle_level: int
 var leader_points: int
 var leader_min: int
 var leader_max: int
+## Wins in one discipline that raise its skill by one point.
+var leader_wins_per_point: int
 ## Skill that gets the house's bonus point; "" lets the seed pick one.
 var leader_bonus: Dictionary[String, String] = {}
 var legitimacy_tags: Dictionary[String, float] = {}
+var legitimacy_forged_regalia: float
+var legitimacy_per_vote: float
 var legitimacy_per_province: float
 var legitimacy_prestige_divisor: float
 
@@ -51,6 +55,7 @@ static func read(r: DataReader, data: Dictionary) -> CampaignRules:
 	rules.leader_points = r.integer(leader, "points")
 	rules.leader_min = r.integer(leader, "min")
 	rules.leader_max = r.integer(leader, "max")
+	rules.leader_wins_per_point = r.integer(leader, "wins_per_point")
 	var bonus := r.object(leader, "house_bonus")
 	for house: String in bonus:
 		rules.leader_bonus[house] = r.text(bonus, house)
@@ -58,6 +63,8 @@ static func read(r: DataReader, data: Dictionary) -> CampaignRules:
 	var tags := r.object(legitimacy, "tags")
 	for tag: String in tags:
 		rules.legitimacy_tags[tag] = r.number(tags, tag)
+	rules.legitimacy_forged_regalia = r.number(legitimacy, "forged_regalia")
+	rules.legitimacy_per_vote = r.number(legitimacy, "per_vote")
 	rules.legitimacy_per_province = r.number(legitimacy, "per_province")
 	rules.legitimacy_prestige_divisor = r.number(legitimacy, "prestige_divisor")
 	rules._check(r)
@@ -109,9 +116,19 @@ func roll_leader(house: String, rng: RandomNumberGenerator) -> Dictionary[String
 	return skills
 
 
-## L = Σ tag weights of held provinces + per_province · P + A / prestige_divisor.
-func legitimacy(held_tags: Array[String], province_count: int, prestige: float) -> float:
+## L = Σ tag weights of held provinces + forged regalia + per_vote · S + per_province · P
+## + A / prestige_divisor.
+func legitimacy(
+	held_tags: Array[String],
+	province_count: int,
+	prestige: float,
+	has_forged_regalia: bool = false,
+	secure_votes: int = 0
+) -> float:
 	var total := legitimacy_per_province * province_count + prestige / legitimacy_prestige_divisor
+	total += legitimacy_per_vote * secure_votes
+	if has_forged_regalia:
+		total += legitimacy_forged_regalia
 	for tag: String in held_tags:
 		total += legitimacy_tags.get(tag, 0.0)
 	return total

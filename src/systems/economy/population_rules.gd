@@ -39,6 +39,11 @@ static func revolt_chance(cfg: EconomyConfig, satisfaction: float) -> float:
 	return maxf(0.0, (cfg.revolt_threshold - satisfaction) * cfg.revolt_chance_per_point)
 
 
+## Levy companies of the rebels when a province revolts: ⌈V / 15⌉.
+static func rebel_companies(cfg: EconomyConfig, population: float) -> int:
+	return ceili(population / cfg.rebel_population_divisor)
+
+
 static func growth_rate(
 	cfg: EconomyConfig, satisfaction: float, ration: int, bonus: float, plague: float
 ) -> float:

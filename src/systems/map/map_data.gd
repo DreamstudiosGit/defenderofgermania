@@ -9,8 +9,13 @@ const FEATURES: Array[String] = ["ore", "river", "pass", "port"]
 
 var regions: Array[String] = []
 var houses: Array[String] = []
+## Camp of each house; the camp decides the patron power (CrownData.camp_patrons).
+var house_camps: Dictionary[String, String] = {}
+## Heraldic colours of each house: field first, then charge.
+var house_colors: Dictionary[String, PackedColorArray] = {}
 var start_army: Array[String] = []
 var campaign: CampaignRules
+var crown: CrownData
 var terrains: Dictionary[String, TerrainDef] = {}
 var provinces: Dictionary[String, ProvinceDef] = {}
 
@@ -40,6 +45,9 @@ class ProvinceDef:
 	var tax_cap: int = 100
 	var fixed_income: float = 0.0
 	var tags: Array[String] = []
+	## Favour of the province's lord (elector or neutral) per house where it differs from
+	## CrownData.favour_default.
+	var start_favour: Dictionary[String, float] = {}
 
 	func has_feature(feature: String) -> bool:
 		match feature:
@@ -90,6 +98,7 @@ func validate() -> PackedStringArray:
 	for house: String in houses:
 		if homes.get(house, 0) != 1:
 			errors.append("house %s: needs exactly one home province" % house)
+	errors.append_array(_validate_crown())
 	return errors
 
 
@@ -112,6 +121,20 @@ func home_province(house: String) -> String:
 	return ""
 
 
+## Provinces whose lord is an elector, in data order.
+func electors() -> Array[String]:
+	var ids: Array[String] = []
+	for province: ProvinceDef in provinces.values():
+		if province.owner == "elector":
+			ids.append(province.id)
+	return ids
+
+
+## Start favour of a house with the lord of an elector or neutral province.
+func start_favour(province_id: String, house: String) -> float:
+	return provinces[province_id].start_favour.get(house, crown.favour_default)
+
+
 func _validate_neighbors(province: ProvinceDef) -> PackedStringArray:
 	var errors: PackedStringArray = []
 	var seen: Array[String] = []
@@ -129,14 +152,53 @@ func _validate_neighbors(province: ProvinceDef) -> PackedStringArray:
 	return errors
 
 
+func _validate_crown() -> PackedStringArray:
+	var errors: PackedStringArray = []
+	for house: String in houses:
+		if not crown.camp_patrons.has(house_camps[house]):
+			errors.append("house %s: unknown camp '%s'" % [house, house_camps[house]])
+		if house_colors[house].size() != 2:
+			errors.append("house %s: needs two colors" % house)
+	for site: String in crown.archbishops:
+		var id: String = crown.archbishops[site]
+		if not campaign.legitimacy_tags.has(site):
+			errors.append("crown.coronation.archbishops: unknown site '%s'" % site)
+		if not provinces.has(id) or provinces[id].owner != "elector" or not provinces[id].is_church:
+			errors.append("crown.coronation.archbishops.%s: %s is no church elector" % [site, id])
+	for province: ProvinceDef in provinces.values():
+		var where := "province %s: start favour" % province.id
+		if not province.start_favour.is_empty() and province.owner not in ["elector", "neutral"]:
+			errors.append("%s, but its lord keeps no favour list" % where)
+		for house: String in province.start_favour:
+			var value := province.start_favour[house]
+			if house not in houses:
+				errors.append("%s for unknown house '%s'" % [where, house])
+			if value < 0.0 or value > crown.favour_max:
+				errors.append("%s %s is outside 0–%s" % [where, value, crown.favour_max])
+	var modified: Array = crown.house_favour_multiplier.keys()
+	modified.append_array(crown.house_gift_cost_multiplier.keys())
+	for house: String in modified:
+		if house not in houses:
+			errors.append("crown.favour: unknown house '%s'" % house)
+	return errors
+
+
 func _read(reader: DataReader, data: Dictionary) -> void:
 	regions = reader.strings(data, "regions")
-	houses = reader.strings(data, "houses")
+	var house_data := reader.object(data, "houses")
+	for id: String in house_data:
+		reader.context = "houses.%s" % id
+		var entry := reader.object(house_data, id)
+		houses.append(id)
+		house_camps[id] = reader.text(entry, "camp")
+		house_colors[id] = _read_colors(reader, entry)
+	reader.context = ""
 	start_army = reader.strings(data, "start_army")
 	var campaign_data := reader.object(data, "campaign")
 	reader.context = "campaign"
 	campaign = CampaignRules.read(reader, campaign_data)
 	reader.context = ""
+	crown = CrownData.read(reader, reader.object(data, "crown"))
 	var terrain_data := reader.object(data, "terrains")
 	for id: String in terrain_data:
 		reader.context = "terrains.%s" % id
@@ -180,5 +242,18 @@ func _read_province(reader: DataReader, entry: Dictionary) -> ProvinceDef:
 	province.tax_cap = reader.integer(entry, "tax_cap", 100)
 	province.fixed_income = reader.number(entry, "fixed_income", 0.0)
 	province.tags = reader.strings(entry, "tags", false)
+	var favour := reader.object(entry, "start_favour", false)
+	for house: String in favour:
+		province.start_favour[house] = reader.number(favour, house)
 	reader.context = ""
 	return province
+
+
+func _read_colors(reader: DataReader, entry: Dictionary) -> PackedColorArray:
+	var colors := PackedColorArray()
+	for html: String in reader.strings(entry, "colors"):
+		if Color.html_is_valid(html):
+			colors.append(Color.html(html))
+		else:
+			reader.errors.append("%s.colors: invalid color '%s'" % [reader.context, html])
+	return colors

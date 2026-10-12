@@ -1,15 +1,20 @@
 extends GutTest
-## Cross-file consistency between data/map.json and data/economy.json.
+## Cross-file consistency between the data files in data/.
+
+const TEXTS_PATH := "res://data/i18n/texts.csv"
+const PATRON_CARDS: Array[String] = ["SILVER", "MERCENARIES", "EMBASSY"]
 
 var _map: MapData
 var _economy: EconomyConfig
 var _combat: CombatConfig
+var _events: EventData
 
 
 func before_all() -> void:
 	_map = MapData.load_file()
 	_economy = EconomyConfig.load_file()
 	_combat = CombatConfig.load_file()
+	_events = EventData.load_file()
 
 
 func test_every_recruitable_unit_has_combat_stats() -> void:
@@ -96,6 +101,57 @@ func test_castle_tables_cover_every_level_up_to_the_top() -> void:
 			assert_true(table.has(level), "missing castle level %d" % level)
 
 
+func test_patron_mercenaries_exist_in_economy_and_combat() -> void:
+	var unit := _map.crown.patron_mercenary_unit
+	assert_true(_economy.units.has(unit), "no economy entry for %s" % unit)
+	assert_true(_combat.units.has(unit), "no combat stats for %s" % unit)
+	assert_true(_economy.units[unit].is_mercenary, "%s are no mercenaries" % unit)
+
+
+func test_event_references_exist() -> void:
+	var patrons := _map.crown.camp_patrons.values()
+	for event: EventData.EventDef in _events.events.values():
+		var where := "event %s" % event.id
+		if not event.needs_feature.is_empty():
+			assert_true(event.needs_feature in MapData.FEATURES, "%s: feature" % where)
+		for id: String in [event.needs_province, event.favour_province]:
+			assert_true(id.is_empty() or _map.provinces.has(id), "%s: province %s" % [where, id])
+		for effect: EventData.EffectDef in _events.all_effects(event):
+			if not effect.unit.is_empty():
+				assert_true(_combat.units.has(effect.unit), "%s: unit %s" % [where, effect.unit])
+				assert_true(_economy.units.has(effect.unit), "%s: unit %s" % [where, effect.unit])
+			if not effect.halved_by.is_empty():
+				var building := effect.halved_by
+				assert_true(_economy.buildings.has(building), "%s: building %s" % [where, building])
+			var names_province := not effect.target.is_empty() and effect.target == effect.target.to_upper()
+			if effect.type in ["secure_vote", "homage"] or names_province:
+				assert_true(_map.provinces.has(effect.target), "%s: province %s" % [where, effect.target])
+			if effect.type == "patron_strength":
+				assert_true(effect.target in patrons, "%s: patron %s" % [where, effect.target])
+
+
+func test_crown_and_event_texts_exist_in_both_languages() -> void:
+	var keys: Array[String] = []
+	for id: String in _map.electors():
+		keys.append("ELECTOR_%s" % id)
+	for house: String in _map.houses:
+		keys.append("CASTLE_HOME_%s" % house.to_upper())
+	for camp: String in _map.crown.camp_patrons:
+		keys.append("CAMP_%s" % camp.to_upper())
+		keys.append("PATRON_%s" % _map.crown.camp_patrons[camp].to_upper())
+	for card: String in PATRON_CARDS:
+		keys.append("PATRON_CARD_%s" % card)
+	for event: EventData.EventDef in _events.events.values():
+		var prefix := "EVENT_%s" % event.id.to_upper()
+		keys.append_array([prefix + "_TITLE", prefix + "_TEXT"])
+		for choice: EventData.ChoiceDef in event.choices:
+			keys.append("%s_CHOICE_%s" % [prefix, choice.id.to_upper()])
+	var texts := _read_texts()
+	for key: String in keys:
+		var row: PackedStringArray = texts.get(key, PackedStringArray())
+		assert_true(row.size() >= 3 and not row[1].is_empty() and not row[2].is_empty(), key)
+
+
 func test_campaign_error_keys_have_texts() -> void:
 	var texts := FileAccess.get_file_as_string("res://data/i18n/texts.csv")
 	for key: String in [
@@ -113,3 +169,13 @@ func test_campaign_error_keys_have_texts() -> void:
 		AssignLeaderCommand.ERROR_ARMY_FULL,
 	]:
 		assert_string_contains(texts, "\n%s," % key)
+
+
+func _read_texts() -> Dictionary:
+	var rows := {}
+	var file := FileAccess.open(TEXTS_PATH, FileAccess.READ)
+	while not file.eof_reached():
+		var row := file.get_csv_line()
+		if row.size() >= 3:
+			rows[row[0]] = row
+	return rows

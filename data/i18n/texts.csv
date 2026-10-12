@@ -109,3 +109,80 @@ COMBAT_ART_SUMMER,Sommerwiese,Summer meadow
 COMBAT_ART_RIVER,Grünes Flusstal,Green river valley
 COMBAT_ART_AUTUMN,Herbstwald,Autumn woodland
 COMBAT_ART_HINT,1–3: Landschaft wechseln · Blau: eigene Auswahl,1–3: change landscape · Blue: your selection
+ELECTOR_KOE,Erzbischof von Köln,Archbishop of Cologne
+ELECTOR_MAI,Erzbischof von Mainz,Archbishop of Mainz
+ELECTOR_TRI,Erzbischof von Trier,Archbishop of Trier
+ELECTOR_PFA,Pfalzgraf bei Rhein,Count Palatine of the Rhine
+ELECTOR_SXW,Herzog von Sachsen,Duke of Saxony
+ELECTOR_BRB,Markgraf von Brandenburg,Margrave of Brandenburg
+ELECTOR_BOH,König von Böhmen,King of Bohemia
+CASTLE_HOME_WELFEN,Dankwarderode,Dankwarderode
+CASTLE_HOME_WETTINER,Burgberg Meißen,Meissen Castle Hill
+CASTLE_HOME_STAUFER,Hohenstaufen,Hohenstaufen
+CASTLE_HOME_WITTELSBACHER,Kelheim,Kelheim
+CAMP_NORTH,Nordlager,Northern camp
+CAMP_SOUTH,Südlager,Southern camp
+PATRON_ENGLAND,England,England
+PATRON_FRANCE,Frankreich,France
+PATRON_CARD_SILVER,Silber,Silver
+PATRON_CARD_MERCENARIES,Söldner,Mercenaries
+PATRON_CARD_EMBASSY,Gesandtschaft,Embassy
+EVENT_RAT_PLAGUE_TITLE,Rattenplage,Plague of Rats
+EVENT_RAT_PLAGUE_TEXT,Die Ratten halten Hof im Kornspeicher. Ein Fünftel des Vorrats ist fort – mit Kornspeicher nur ein Zehntel.,The rats are holding court in the granary. A fifth of the stock is gone – only a tenth with a granary.
+EVENT_HARVEST_EXTREME_TITLE,Missernte oder reiche Ernte,Failed or Bountiful Harvest
+EVENT_HARVEST_EXTREME_TEXT,Der Himmel hat entschieden: In einer Region verdorrt die Ernte oder sie sprengt die Scheunen.,The heavens have spoken: in one region the harvest either withers or bursts the barns.
+EVENT_PLAGUE_TITLE,Seuche,Pestilence
+EVENT_PLAGUE_TEXT,Eine Seuche zieht durchs Land. Die Provinz und ihre Nachbarn verlieren ein Zehntel ihres Volkes; ein Kloster lindert die Not.,A pestilence sweeps the land. The province and its neighbours lose a tenth of their people; a monastery eases the suffering.
+EVENT_HARSH_WINTER_TITLE,Strenger Winter,Harsh Winter
+EVENT_HARSH_WINTER_TEXT,Selbst die Wölfe tragen Pelzmützen. Volk und Truppen essen ein Viertel mehr.,Even the wolves wear fur hats. People and troops eat a quarter more.
+EVENT_FLOOD_TITLE,Hochwasser,Flood
+EVENT_FLOOD_TEXT,Der Fluss hat sich die Felder ausgeliehen. Eine Runde kein Durchzug und dort ein Fünftel weniger Ernte.,The river has borrowed the fields. No passage for one round and a fifth less harvest there.
+EVENT_JUGGLERS_TITLE,Gaukler am Hof,Jugglers at Court
+EVENT_JUGGLERS_TEXT,Fahrende Gaukler bieten Feuerspucker und einen Bären an. Der Bär kann fast tanzen.,Travelling jugglers offer fire-eaters and a bear. The bear can almost dance.
+EVENT_JUGGLERS_CHOICE_ACCEPT,Hereinlassen (20 Taler),Let them in (20 taler)
+EVENT_JUGGLERS_CHOICE_DECLINE,Tor zu,Shut the gate
+EVENT_WARTBURG_CONTEST_TITLE,Sängerkrieg auf der Wartburg,Minstrels' Contest at the Wartburg
+EVENT_WARTBURG_CONTEST_TEXT,Die besten Minnesänger des Reiches wollen sich auf der Wartburg messen. Die Lieder werden lang; der Ruhm noch länger.,The Empire's finest minstrels wish to compete at the Wartburg. The songs will be long; the fame even longer.
+EVENT_WARTBURG_CONTEST_CHOICE_HOST,Ausrichten (100 Taler),Host it (100 taler)
+EVENT_WARTBURG_CONTEST_CHOICE_DECLINE,Lieber Ruhe,Rather have silence
+EVENT_ROBBER_KNIGHTS_TITLE,Raubritter,Robber Knights
+EVENT_ROBBER_KNIGHTS_TEXT,Ein Haufen Raubritter lauert nebenan und nennt es Wegezoll.,A band of robber knights lurks next door and calls it a road toll.
+EVENT_ROBBER_KNIGHTS_CHOICE_HUNT,Jagen,Hunt them
+EVENT_ROBBER_KNIGHTS_CHOICE_IGNORE,Wegsehen,Look away
+EVENT_MERCHANT_TRAIN_TITLE,Kaufmannszug,Merchant Train
+EVENT_MERCHANT_TRAIN_TEXT,Ein Kaufmannszug rollt den Fluss entlang. Schwer beladen und schlecht bewacht.,A merchant train rolls along the river. Heavily laden and poorly guarded.
+EVENT_MERCHANT_TRAIN_CHOICE_ESCORT,Geleit geben,Escort it
+EVENT_MERCHANT_TRAIN_CHOICE_RAID,Überfallen,Raid it
+EVENT_TOURNAMENT_INVITATION_TITLE,Turniereinladung,Tournament Invitation
+EVENT_TOURNAMENT_INVITATION_TEXT,Ein Wahlfürst lädt zum Turnier. Die Lanzen sind poliert; die Knochen noch heil.,An elector invites you to a tournament. The lances are polished; the bones are still whole.
+EVENT_TOURNAMENT_INVITATION_CHOICE_ATTEND,Teilnehmen,Attend
+EVENT_TOURNAMENT_INVITATION_CHOICE_DECLINE,Absagen,Decline
+EVENT_FEUD_LETTER_TITLE,Fehdebrief,Letter of Feud
+EVENT_FEUD_LETTER_TEXT,Ein Graf erklärt Euch die Fehde – mit vier Rotten und erstaunlich schöner Handschrift.,A count declares a feud on you – with four companies and remarkably fine handwriting.
+EVENT_FEUD_LETTER_CHOICE_FIGHT,Kämpfen,Fight
+EVENT_FEUD_LETTER_CHOICE_ATONE,Sühne zahlen (80 Taler),Pay atonement (80 taler)
+EVENT_MARRIAGE_OFFER_TITLE,Heiratsangebot,Marriage Proposal
+EVENT_MARRIAGE_OFFER_TEXT,Ein Herzog bietet eine Heirat an. Die Mitgift klingt verlockend; die Verwandtschaft weniger.,A duke proposes a marriage. The dowry sounds tempting; the in-laws less so.
+EVENT_MARRIAGE_OFFER_CHOICE_ACCEPT,Annehmen,Accept
+EVENT_MARRIAGE_OFFER_CHOICE_DECLINE,Ablehnen,Decline
+EVENT_HOSTAGE_TITLE,Geiselnahme,Hostage
+EVENT_HOSTAGE_TEXT,Ein Verwandter sitzt in einer feindlichen Burg fest und lässt ausrichten: Das Essen ist schlecht.,A relative is stuck in an enemy castle and sends word: the food is dreadful.
+EVENT_HOSTAGE_CHOICE_RAID,Befreien (Burgüberfall),Free them (castle raid)
+EVENT_HOSTAGE_CHOICE_RANSOM,Lösegeld (120 Taler),Ransom (120 taler)
+EVENT_HOSTAGE_CHOICE_ABANDON,Zurücklassen,Leave them
+EVENT_BOHEMIAN_CROWN_TITLE,Böhmische Königswürde,The Bohemian Crown
+EVENT_BOHEMIAN_CROWN_TEXT,Der König von Böhmen will seine Krone erblich – und verspricht dafür seine Stimme.,The King of Bohemia wants a hereditary crown – and promises the vote in return.
+EVENT_BOHEMIAN_CROWN_CHOICE_PROMISE,Zusagen,Promise it
+EVENT_BOHEMIAN_CROWN_CHOICE_DECLINE,Ablehnen,Refuse
+EVENT_ZAEHRINGER_CANDIDACY_TITLE,Der Zähringer verkauft seine Kandidatur,The Zähringer Sells the Candidacy
+EVENT_ZAEHRINGER_CANDIDACY_TEXT,Der Zähringer will doch nicht König werden. Für 400 Taler huldigt Euch der Breisgau.,The Zähringer would rather not be king after all. For 400 taler the Breisgau pays homage to you.
+EVENT_ZAEHRINGER_CANDIDACY_CHOICE_BUY,Kaufen (400 Taler),Buy (400 taler)
+EVENT_ZAEHRINGER_CANDIDACY_CHOICE_DECLINE,Ablehnen,Decline
+EVENT_PAPAL_LEGATE_TITLE,Papstlegat,Papal Legate
+EVENT_PAPAL_LEGATE_TEXT,"Ein Legat aus Rom prüft die Frömmigkeit der Häuser. Wer die Kirche umworben hat, wird belohnt; die anderen sollten beten.",A legate from Rome inspects the piety of the houses. Those who courted the Church are rewarded; the rest should pray.
+EVENT_CRUSADE_CALL_TITLE,Kreuzzugsaufruf,Call to Crusade
+EVENT_CRUSADE_CALL_TEXT,Der Papst ruft zum Kreuzzug. Zwei Rotten Ritter wären acht Runden fort – und der Himmel sehr dankbar.,The Pope calls for a crusade. Two companies of knights would be gone for eight rounds – and heaven most grateful.
+EVENT_CRUSADE_CALL_CHOICE_SEND,Entsenden,Send them
+EVENT_CRUSADE_CALL_CHOICE_DECLINE,Daheim bleiben,Stay at home
+EVENT_DEATH_OF_LIONHEART_TITLE,Tod des Löwenherz,Death of the Lionheart
+EVENT_DEATH_OF_LIONHEART_TEXT,Der König von England ist gefallen. Englische Gönner-Karten wirken nur noch zu drei Vierteln.,The King of England has fallen. English patron cards now work at three quarters.

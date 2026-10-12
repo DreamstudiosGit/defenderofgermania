@@ -1,6 +1,11 @@
 {
   "regions": ["north", "middle", "south"],
-  "houses": ["welfen", "wettiner", "staufer", "wittelsbacher"],
+  "houses": {
+    "welfen": {"camp": "north", "colors": ["#b0202a", "#e0b040"]},
+    "wettiner": {"camp": "north", "colors": ["#2e7d32", "#d9dee4"]},
+    "staufer": {"camp": "south", "colors": ["#222222", "#e0b040"]},
+    "wittelsbacher": {"camp": "south", "colors": ["#2457a8", "#d9dee4"]}
+  },
   "start_army": ["levy", "levy", "spearmen", "spearmen"],
   "campaign": {
     "max_rounds": 48,
@@ -19,13 +24,53 @@
     "exile_rounds": 4,
     "exile_min_castle_level": 2,
     "leader": {
-      "points": 9, "min": 2, "max": 5,
+      "points": 9, "min": 2, "max": 5, "wins_per_point": 3,
       "house_bonus": {"welfen": "leadership", "wettiner": "blade", "staufer": "lance", "wittelsbacher": ""}
     },
     "legitimacy": {
       "tags": {"imperial_regalia": 30, "coronation_site": 20, "emergency_coronation_site": 10},
+      "forged_regalia": 10,
+      "per_vote": 10,
       "per_province": 2,
       "prestige_divisor": 5
+    }
+  },
+  "crown": {
+    "camps": {"north": "england", "south": "france"},
+    "favour": {
+      "default": 30, "max": 100, "vote_threshold": 60,
+      "prestige_divisor": 50, "drift_to": 30, "drift_per_round": 1,
+      "house_multiplier": {"wittelsbacher": 1.5},
+      "gift": {"cost": 50, "favour": 5, "repeat_penalty": 1, "house_cost_multiplier": {"wittelsbacher": 0.75}},
+      "changes": {
+        "tournament_hosted": 3, "tournament_won": 5, "protection": 10,
+        "imperial_palace": 1, "war": -20, "occupation_others": -10
+      },
+      "imperial_palace_home_castle": 5,
+      "occupation_prestige": -5
+    },
+    "coronation": {
+      "archbishops": {"coronation_site": "KOE", "emergency_coronation_site": "MAI"},
+      "archbishop_min_favour": 50,
+      "rules": [
+        {"regalia": "true", "site": "coronation_site", "votes": 4},
+        {"regalia": "forged", "site": "coronation_site", "votes": 5},
+        {"regalia": "true", "site": "emergency_coronation_site", "votes": 5},
+        {"regalia": "forged", "site": "emergency_coronation_site", "votes": 6}
+      ],
+      "forged_regalia": {"cost": 300, "build_rounds": 2, "home_castle": 3}
+    },
+    "homage": {"threshold": 80, "cost": 100},
+    "patrons": {
+      "cards": 3, "per_round": 1, "silver": 200, "embassy": 15,
+      "mercenaries": {"unit": "brabanters", "companies": 4}
+    },
+    "ban": {
+      "attack_church_chance": 0.5, "raid_church_chance": 0.25,
+      "penance": {
+        "gold": 150, "prestige": 10, "campaign_rounds": 1,
+        "chapel_home_castle": 4, "chapel_gold_multiplier": 0.5
+      }
     }
   },
   "terrains": {
@@ -60,10 +105,11 @@
       "neighbors": ["BSW", "GOS", "BRB", "SXW", "THU"],
       "church": true, "river": "elbe"},
     {"id": "BRB", "region": "north", "owner": "elector", "terrain": "heath", "population": 35,
-      "neighbors": ["HOL", "MAG", "SXW"]},
+      "neighbors": ["HOL", "MAG", "SXW"],
+      "start_favour": {"welfen": 40, "wettiner": 35}},
     {"id": "SXW", "region": "north", "owner": "elector", "terrain": "heath", "population": 35,
       "neighbors": ["BRB", "MAG", "MEI"],
-      "river": "elbe"},
+      "river": "elbe", "start_favour": {"wettiner": 45}},
     {"id": "GOS", "region": "middle", "owner": "neutral", "terrain": "mountains", "population": 30,
       "neighbors": ["BSW", "MAG", "THU", "HES"],
       "ore": true},
@@ -77,7 +123,7 @@
       "home_of": "wettiner", "castle_level": 1, "ore": true, "river": "elbe"},
     {"id": "BOH", "region": "middle", "owner": "elector", "terrain": "hills", "population": 70,
       "neighbors": ["MEI", "NUE", "BAY", "OST"],
-      "garrison": 8},
+      "garrison": 8, "start_favour": {"wettiner": 40, "wittelsbacher": 40}},
     {"id": "BBT", "region": "middle", "owner": "neutral", "terrain": "farmland", "population": 55,
       "neighbors": ["FRS", "AAC"],
       "buildings": ["market_1"], "tags": ["cloth_trade"]},
@@ -86,7 +132,7 @@
       "castle_level": 3, "tags": ["coronation_site"]},
     {"id": "KOE", "region": "middle", "owner": "elector", "terrain": "farmland", "population": 60,
       "neighbors": ["AAC", "MUN", "HES", "TRI"],
-      "church": true, "river": "rhine", "buildings": ["market_1"]},
+      "church": true, "river": "rhine", "buildings": ["market_1"], "start_favour": {"welfen": 55}},
     {"id": "TRI", "region": "middle", "owner": "elector", "terrain": "hills", "population": 40,
       "neighbors": ["AAC", "KOE", "MAI", "LOT", "PFA"],
       "church": true, "river": "moselle"},
@@ -95,10 +141,11 @@
       "tags": ["french_border"]},
     {"id": "MAI", "region": "middle", "owner": "elector", "terrain": "farmland", "population": 50,
       "neighbors": ["TRI", "HES", "FRA", "PFA"],
-      "church": true, "river": "rhine", "tags": ["emergency_coronation_site"]},
+      "church": true, "river": "rhine", "tags": ["emergency_coronation_site"],
+      "start_favour": {"staufer": 45}},
     {"id": "PFA", "region": "middle", "owner": "elector", "terrain": "hills", "population": 45,
       "neighbors": ["TRI", "MAI", "FRA", "SPT"],
-      "river": "rhine"},
+      "river": "rhine", "start_favour": {"welfen": 40, "staufer": 40}},
     {"id": "FRA", "region": "middle", "owner": "church", "terrain": "farmland", "population": 55,
       "neighbors": ["HES", "THU", "MEI", "MAI", "PFA", "NUE", "SWB"],
       "church": true, "river": "main"},
@@ -107,7 +154,7 @@
       "castle_level": 3, "tags": ["imperial_regalia"]},
     {"id": "ELS", "region": "south", "owner": "neutral", "terrain": "farmland", "population": 55,
       "neighbors": ["LOT", "SPT", "BRG"],
-      "river": "rhine"},
+      "river": "rhine", "start_favour": {"staufer": 50}},
     {"id": "BRG", "region": "south", "owner": "neutral", "terrain": "forest", "population": 40,
       "neighbors": ["ELS", "SWB", "TIR"],
       "tags": ["zaehringer"]},

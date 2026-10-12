@@ -110,13 +110,19 @@ func test_workshop_needs_home_province_and_home_castle_four() -> void:
 	assert_eq(_build("welfen", "BSW", "workshop"), "")
 
 
-func test_tourney_ground_is_gone_with_the_joust() -> void:
+func test_tourney_ground_needs_home_province_and_home_castle_three() -> void:
 	_activate("welfen")
-	assert_eq(_build("welfen", "BSW", "tourney_ground"), BuildCommand.ERROR_UNKNOWN_BUILDING)
+	_state.houses["welfen"].gold = 1000.0
+	assert_eq(_build("welfen", "BSW", "tourney_ground"), BuildCommand.ERROR_PREREQUISITE)
+	_state.provinces["BSW"].castle_level = 3
+	assert_eq(_build("welfen", "HOL", "tourney_ground"), BuildCommand.ERROR_PREREQUISITE)
+	assert_eq(_build("welfen", "BSW", "tourney_ground"), "")
+	assert_eq(_state.houses["welfen"].gold, 1000.0 - 120.0)
 
 
 func test_building_needs_an_own_province_and_gold() -> void:
 	_activate("welfen")
+	assert_eq(_build("welfen", "HOL", "joust_arena"), BuildCommand.ERROR_UNKNOWN_BUILDING)
 	assert_eq(_build("welfen", "BRM", "mill"), Command.ERROR_NOT_OWNER)
 	assert_eq(_build("welfen", "XXX", "mill"), Command.ERROR_UNKNOWN_PROVINCE)
 	_state.houses["welfen"].gold = 10.0

@@ -1,14 +1,15 @@
 # Architecture
 
 ## Systems
-- `map` — provinces, ownership, unit positions, movement and visibility.
+- `map` — provinces, ownership, unit positions, movement and visibility; electors, favour, coronation, homage, patron cards and the ban (`CrownData`).
 - `combat` — resolves battles between units and applies losses.
 - `economy` — resources, income and the costs of recruiting and building.
+- `events` — event cards: triggers, conditions, choices and effects (data only until M5; ADR 0005).
 - `ai` — decides computer-controlled turns using the same actions as human players.
 
 ## Communication
 - Systems talk via signals on an event bus autoload (`src/core/events.gd`).
-- Allowed direct dependencies between systems: `combat`, `economy`, `ai` → read-only queries of `map`; `ai` → read-only queries of `combat` and `economy` (provisional).
+- Allowed direct dependencies between systems: `combat`, `economy`, `events`, `ai` → read-only queries of `map`; `events`, `ai` → read-only queries of `economy`; `ai` → read-only queries of `combat` (provisional).
 - Systems may use `src/core/` state and base classes; `src/core/` setup, turn loop and campaign orchestration call into systems (battles only through `GameRules.resolve_battle`).
 - `economy` also reads the army limits and the hostile-army check of `map` (`CampaignRules`, `Movement`).
 - The battle's computer opponent (`BattleAI`) lives in `combat` and sends the same `BattleInput` as a player; the strategic `ai` system is separate.

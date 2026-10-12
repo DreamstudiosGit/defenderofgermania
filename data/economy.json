@@ -39,6 +39,9 @@
     "revolt_threshold": 25,
     "revolt_chance_per_point": 0.03,
     "revolt_prestige": 2,
+    "rebel_population_divisor": 15,
+    "concession_rounds": 2,
+    "concession_satisfaction": 20,
     "max": 100
   },
   "population": {
@@ -50,7 +53,11 @@
     "capacity_per_castle_level": 5,
     "capacity_per_market_level": 10
   },
-  "prestige": {"decay": 0.95, "max": 100, "ban_per_round": 2, "battle_won": 3, "battle_lost": 3},
+  "prestige": {
+    "decay": 0.95, "max": 100, "ban_per_round": 2, "battle_won": 3, "battle_lost": 3,
+    "tournament_won": 5, "tournament_hosted": 5
+  },
+  "tournament": {"cost": 80},
   "treasury": {"desertion_share": 0.1, "satisfaction_penalty": 5},
   "recruitment": {"population_per_unit": 20, "satisfaction_cost": 2},
   "slots": {"province": 2, "home_per_castle_level": 1, "max": 6},
@@ -94,6 +101,7 @@
       "cost": 60, "build_rounds": 1, "upkeep": 1, "income_river": 8, "income_pass": 15,
       "features": ["river", "pass"]
     },
+    "tourney_ground": {"cost": 120, "build_rounds": 1, "upkeep": 2, "home_only": true, "home_castle": 3},
     "workshop": {
       "cost": 150, "build_rounds": 2, "upkeep": 3, "home_only": true, "home_castle": 4,
       "castle_cost_multiplier": 0.85

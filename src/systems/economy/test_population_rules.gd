@@ -56,6 +56,12 @@ func test_satisfaction_moves_a_quarter_towards_target() -> void:
 	assert_almost_eq(PopulationRules.next_satisfaction(_cfg, 60.0, 40.0), 55.0, EPSILON)
 
 
+func test_rebels_raise_one_levy_company_per_15_population_rounded_up() -> void:
+	assert_eq(PopulationRules.rebel_companies(_cfg, 45.0), 3)
+	assert_eq(PopulationRules.rebel_companies(_cfg, 46.0), 4)
+	assert_eq(PopulationRules.rebel_companies(_cfg, 60.0), 4)
+
+
 func test_no_revolt_risk_at_or_above_threshold() -> void:
 	assert_eq(PopulationRules.revolt_chance(_cfg, 25.0), 0.0)
 	assert_almost_eq(PopulationRules.revolt_chance(_cfg, 15.0), 0.30, EPSILON)

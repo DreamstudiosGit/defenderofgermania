@@ -49,8 +49,10 @@ func _play(seed_value: int) -> GameState:
 		_battles += 1
 		return AutoResolve.resolve(combat, setup, state.rng)
 	# Scripted players draw from their own generator so their choices never touch state.rng.
+	# Their picks depend on the data lists, so new data can end the game early; the seed is
+	# chosen so the game runs all 48 rounds.
 	var players := RandomNumberGenerator.new()
-	players.seed = 7
+	players.seed = 10
 	while not state.is_over():
 		var house := state.active_house()
 		_administrate(state, rules, house, players)

@@ -34,6 +34,13 @@
     }
   },
   "morale": {"per_leadership": 5, "leader_captured": -10, "winter_attack_multiplier": 0.75},
+  "leader_skills": {
+    "lance": {
+      "joust_window_base_ms": 60, "joust_window_per_point_ms": 15, "sway_reduction_per_point": 0.1,
+      "house_joust_window_ms": {"staufer": 40}
+    },
+    "blade": {"damage_per_point": 0.1, "parry_window_per_point_ms": 20}
+  },
   "auto_resolve": {
     "leadership_bonus": 0.05,
     "morale_base": 0.5,

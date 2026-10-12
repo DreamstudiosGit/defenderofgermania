@@ -12,6 +12,14 @@ var morale_per_leadership: float
 var morale_leader_captured: float
 var winter_attack_morale_multiplier: float
 
+## Lance and blade of the leader (GDD "Häuser & Anführer"), used by joust and castle raid.
+var joust_window_base_ms: float
+var joust_window_per_lance_ms: float
+var sway_reduction_per_lance: float
+var house_joust_window_ms: Dictionary[String, float] = {}
+var damage_per_blade: float
+var parry_window_per_blade_ms: float
+
 var leadership_bonus: float
 var morale_base: float
 var morale_divisor: float
@@ -82,6 +90,18 @@ func _read(r: DataReader, data: Dictionary) -> void:
 	morale_leader_captured = r.number(morale, "leader_captured")
 	winter_attack_morale_multiplier = r.number(morale, "winter_attack_multiplier")
 
+	var skills := r.object(data, "leader_skills")
+	var lance := r.object(skills, "lance")
+	joust_window_base_ms = r.number(lance, "joust_window_base_ms")
+	joust_window_per_lance_ms = r.number(lance, "joust_window_per_point_ms")
+	sway_reduction_per_lance = r.number(lance, "sway_reduction_per_point")
+	var house_window := r.object(lance, "house_joust_window_ms", false)
+	for house: String in house_window:
+		house_joust_window_ms[house] = r.number(house_window, house)
+	var blade := r.object(skills, "blade")
+	damage_per_blade = r.number(blade, "damage_per_point")
+	parry_window_per_blade_ms = r.number(blade, "parry_window_per_point_ms")
+
 	var auto := r.object(data, "auto_resolve")
 	leadership_bonus = r.number(auto, "leadership_bonus")
 	morale_base = r.number(auto, "morale_base")
@@ -101,6 +121,12 @@ func _read(r: DataReader, data: Dictionary) -> void:
 	winner_loss_max = r.number(auto, "winner_loss_max")
 
 	battle = BattleRules.read(r, r.object(data, "battle"))
+
+
+## Half-width of the joust hit window: ±(60 + 15 · lance) ms plus the house bonus.
+func joust_window_ms(lance: int, house: String) -> float:
+	var house_bonus: float = house_joust_window_ms.get(house, 0.0)
+	return joust_window_base_ms + joust_window_per_lance_ms * lance + house_bonus
 
 
 func _read_unit(r: DataReader, entry: Dictionary) -> UnitStats:

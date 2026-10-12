@@ -36,17 +36,17 @@ Levers per house, valid for all its provinces: tax rate s ∈ {5, 10, 15, 20, 25
 ## Satisfaction and revolt
 - Each round `Z ← Z + 0.25 · (Z* − Z)`.
 - `Z* = 60 − 1.5·(s% − 10) + 10·(r − 3) + 10·monastery + 5·market + A/10 + B − 15·occupied − 15·ban`, clamped to 0–100. B = +5 per home castle level above 1 (home province only); occupied = 4 rounds after a conquest. Frisia +10, fountain decoration +3 in the home province.
-- Z < 25 at round end: revolt with chance (25 − Z) · 3 %: no income, rebels with ⌈V/15⌉ levy companies; ends by victory or concession (2 rounds tax-free, +20 Z).
+- Z < 25 at round end: revolt with chance (25 − Z) · 3 %: no income, rebels with ⌈V/15⌉ levy companies (`PopulationRules.rebel_companies`); ends by victory or concession (2 rounds tax-free, +20 Z).
 
 ## Population and prestige
 - Spring census: `V ← min(K, V · (1 + g))`, `g = 0.03 · (Z − 40)/60 + 0.02 · (r − 3) + 0.01 · monastery − plague`; `K = 1.5 · start V + 5 · castle level + 10 · market level`.
-- `A ← min(100, 0.95 · A + ΔA)`; ΔA = running sources (home castle level, decorations, monasteries) + one-offs: battle won +3, defeat −3, revolt −2, hunger −3, ban −2 per round (tournament, raid and alliance one-offs left with the cut minigames and the deferred diplomacy). Battle one-offs are collected in `HouseState.pending_prestige` and enter ΔA at the next settlement. Prestige settles at 20× the running sources.
+- `A ← min(100, 0.95 · A + ΔA)`; ΔA = running sources (home castle level, decorations, monasteries) + one-offs: battle won +3, defeat −3, revolt −2, hunger −3, ban −2 per round; tournament won +5 and hosted +5 (with M5/M6), merchant raid −3 (event data); alliance breaks are out with house diplomacy. Battle one-offs are collected in `HouseState.pending_prestige` and enter ΔA at the next settlement. Prestige settles at 20× the running sources.
 
 ## Building and castles
 All orders are administration-phase commands of the active house, paid at once; they finish at the end of the settlement after their build time (build time 1: ordered this round, working from next round's settlement). Buildings under construction cost no upkeep; a conquest cancels the province's orders.
 - Buildings (`BuildCommand`): each kind once per province. Slots: 2 per province; the home province 2 + 1 per home castle level above 1, at most 6; orders under construction take a slot. Cost × house modifier (Wettiner mine ×0.7).
 - Prerequisites (data fields of `buildings`): market II needs market I (`upgrade_of`, replaces it in its slot) and home castle 2; mine needs ore; toll needs a river or pass (`features`); workshop needs the home province (`home_only`) and home castle 4.
-- The tourney ground is removed with the joust.
+- Tourney ground: home province, home castle 3. It can be built now; hosting a tournament (80 T, prestige +5, favour +3 with all electors) comes with M5/M6.
 - Castles (`UpgradeCastleCommand`): one level at a time per province. Home province: home castle table, levels 2–5. Elsewhere: province castle table, levels 1–3; level 3 needs home castle 3. A workshop makes every castle level of its house 15 % cheaper (counted once).
 - Decorations (`BuyDecorationCommand`): instant, each kind once, at most 5, only while the house holds its home castle; stained glass needs home castle 4. They are lost with the home castle.
 
