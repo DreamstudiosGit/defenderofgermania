@@ -101,6 +101,12 @@ func test_castle_tables_cover_every_level_up_to_the_top() -> void:
 			assert_true(table.has(level), "missing castle level %d" % level)
 
 
+func test_battle_armies_are_houses_with_colors() -> void:
+	for army: BattleRules.ArmyPreset in _combat.battle.armies:
+		assert_true(army.house in _map.houses, "unknown house %s" % army.house)
+		assert_eq(_map.house_colors[army.house].size(), 2, army.house)
+
+
 func test_patron_mercenaries_exist_in_economy_and_combat() -> void:
 	var unit := _map.crown.patron_mercenary_unit
 	assert_true(_economy.units.has(unit), "no economy entry for %s" % unit)

@@ -15,11 +15,14 @@ func build(rules: BattleRules, style: Dictionary = {}) -> void:
 	if style.get("tree_palette", "summer") == "autumn":
 		_trees = ["tree_oak_autumn", "tree_birch", "tree_pine", "tree_oak_autumn"]
 	var size := rules.field_size
+	# Grove extents and counts were laid out for a field `layout_width` meters wide.
+	var stretch := size.x / float(settings.get("layout_width", size.x))
 	var groves: Array = settings.get("groves", [])
 	for entry: Array in groves:
 		var center := Vector3(float(entry[0]) * size.x, 0, float(entry[1]) * size.y)
-		var count := int(float(entry[4]) * float(style.get("tree_density", 1.0)))
-		_grove(center, Vector2(entry[2], entry[3]), count, settings, size, rng)
+		var count := int(float(entry[4]) * stretch * float(style.get("tree_density", 1.0)))
+		var extent := Vector2(entry[2], entry[3]) * stretch
+		_grove(center, extent, count, settings, size, rng)
 	_ground_cover(rules, settings, rng)
 	_add_river(size, settings, rng)
 	_add_camps(size)
@@ -118,17 +121,26 @@ func _add_camps(size: Vector2) -> void:
 			_place("prop_fence_wood", Vector3(x, 0, size.y * 0.48 + i * 3), 1, PI / 2)
 
 
+## Rocks are one boulder scaled to the obstacle; tree obstacles are a stand of normal trees.
 func _add_obstacles(rules: BattleRules, rng: RandomNumberGenerator) -> void:
 	for i: int in rules.obstacles.size():
 		var obstacle := rules.obstacles[i]
-		var kind := _trees[i % _trees.size()] if rules.obstacle_kinds[i] == "tree" else "rock_boulder"
-		var asset := BattleModels.mesh(kind)
-		if asset == null:
-			continue
-		var bounds := asset.get_aabb()
-		var radius := maxf(bounds.size.x, bounds.size.z) * 0.5
 		var center := Vector3(obstacle.x, 0, obstacle.y)
-		_place(kind, center, obstacle.z / radius, i * 0.7)
+		if rules.obstacle_kinds[i] == "tree":
+			var trees := maxi(1, roundi(obstacle.z * obstacle.z / 4.0))
+			for t: int in trees:
+				var angle := rng.randf() * TAU
+				var reach := obstacle.z * sqrt(rng.randf()) * 0.8
+				var at := center + Vector3(cos(angle), 0, sin(angle)) * reach
+				var kind := _trees[rng.randi_range(0, _trees.size() - 1)]
+				_place(kind, at, rng.randf_range(0.9, 1.3), rng.randf() * TAU)
+		else:
+			var asset := BattleModels.mesh("rock_boulder")
+			if asset == null:
+				continue
+			var bounds := asset.get_aabb()
+			var radius := maxf(bounds.size.x, bounds.size.z) * 0.5
+			_place("rock_boulder", center, obstacle.z / radius, i * 0.7)
 		for j: int in 7:
 			var angle := j * TAU / 7
 			var at := center + Vector3(cos(angle), 0, sin(angle)) * obstacle.z * 0.7

@@ -91,7 +91,9 @@ static func _attack(
 ) -> void:
 	var ordered := -1
 	for c: int in members:
-		if rules.formation(g, state.formation[c]).speed <= 0.0:
+		# The leader moves with the cavalry but stays out of its charges: an aura and a rally
+		# point, not a battering ram (captured in 21 of 24 computer battles otherwise).
+		if rules.formation(g, state.formation[c]).speed <= 0.0 or state.is_leader(c):
 			continue
 		var stats := state.stats[c]
 		if stats.ranged > 0.0 and stats.attack_range > 0.0:

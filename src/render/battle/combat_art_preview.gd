@@ -70,6 +70,7 @@ func show_landscape(variant: String) -> void:
 	_content = Node3D.new()
 	add_child(_content)
 	var cfg := CombatConfig.load_file()
+	cfg.battle.apply_house_colors(MapData.load_file().house_colors)
 	for i: int in _shields.size():
 		_shields[i].house_color = cfg.battle.armies[i / 3].color
 		_shields[i].accent = cfg.battle.armies[i / 3].accent

@@ -13,10 +13,40 @@ func before_each() -> void:
 	BattleInputMap.register()
 
 
-func test_fixed_camera_fits_all_field_corners_at_desktop_and_deck_sizes() -> void:
+func test_wide_zoom_without_companies_fits_all_field_corners_at_desktop_and_deck_sizes() -> void:
 	for resolution: Vector2i in RESOLUTIONS:
 		var camera := _camera_at(resolution)
 		_assert_field_fits(camera, resolution)
+
+
+func test_camera_looks_down_at_about_60_degrees() -> void:
+	var camera := _camera_at(RESOLUTIONS[0])
+	assert_almost_eq(rad_to_deg(-camera.rotation.x), 60.0, 0.5)
+
+
+func test_wide_zoom_follows_the_companies() -> void:
+	var camera := _camera_at(RESOLUTIONS[0])
+	var whole_field := camera.size
+	var points := PackedVector2Array([Vector2(200, 80), Vector2(240, 110), Vector2(220, 60)])
+	camera.frame(points, Vector2.ZERO, 0.0)
+	assert_lt(camera.size, whole_field, "the view closes in on the fight")
+	for point: Vector2 in points:
+		_assert_on_screen(camera, point, RESOLUTIONS[0])
+
+
+func test_near_zoom_shows_the_near_width_around_the_focus() -> void:
+	var camera := _camera_at(RESOLUTIONS[0])
+	var near := float(BattleModels.settings()["camera"]["near_width"])
+	var focus := Vector2(150, 90)
+	camera.zoom(1)
+	camera.zoom(1)
+	assert_eq(camera.zoom_level, 1, "two zoom levels")
+	camera.frame(PackedVector2Array([Vector2.ZERO, _cfg.battle.field_size]), focus, 0.0)
+	for point: Vector2 in [focus, focus + Vector2(near * 0.5, 0), focus - Vector2(near * 0.5, 0)]:
+		_assert_on_screen(camera, point, RESOLUTIONS[0])
+	_assert_off_screen(camera, Vector2.ZERO, RESOLUTIONS[0])
+	camera.zoom(-1)
+	assert_eq(camera.zoom_level, 0)
 
 
 func test_ground_projection_roundtrip_preserves_mouse_command_coordinates() -> void:
@@ -68,19 +98,18 @@ func test_only_pressed_right_mouse_button_queues_a_keyboard_command() -> void:
 	assert_false(controller.take().command_point, "mouse does not command the controller player")
 
 
-func test_mouse_wheel_leaves_camera_and_pending_orders_unchanged() -> void:
+func test_mouse_wheel_zooms_without_giving_orders() -> void:
 	var camera := _camera_at(RESOLUTIONS[0])
 	var reader := BattleInputReader.new(BattleInputMap.Device.KEYBOARD)
-	var original := camera.transform
-	var original_size := camera.size
+	var steps := {MOUSE_BUTTON_WHEEL_UP: 1, MOUSE_BUTTON_WHEEL_DOWN: -1}
 	for button: MouseButton in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 		reader.handle_event(_mouse(button, Vector2(400, 300), true), camera)
 		var command := reader.take()
 		assert_false(command.command_point)
 		assert_false(command.attack)
 		assert_eq(command.move, Vector2.ZERO)
-	assert_eq(camera.transform, original)
-	assert_eq(camera.size, original_size)
+		assert_eq(reader.take_zoom(), steps[button])
+		assert_eq(reader.take_zoom(), 0, "a zoom step is taken once")
 
 
 func test_four_group_hud_fits_both_halves_of_the_deck_viewport_after_resize() -> void:
@@ -141,6 +170,16 @@ func _assert_field_fits(camera: BattleCamera, resolution: Vector2i) -> void:
 			assert_lte(screen.x, float(resolution.x) + EPSILON, "field right at %s" % resolution)
 			assert_gte(screen.y, -EPSILON, "field top at %s" % resolution)
 			assert_lte(screen.y, float(resolution.y) + EPSILON, "field bottom at %s" % resolution)
+
+
+func _assert_on_screen(camera: BattleCamera, point: Vector2, resolution: Vector2i) -> void:
+	var screen := camera.unproject_position(Vector3(point.x, 0, point.y))
+	assert_true(Rect2(Vector2.ZERO, resolution).grow(EPSILON).has_point(screen), "%s visible" % point)
+
+
+func _assert_off_screen(camera: BattleCamera, point: Vector2, resolution: Vector2i) -> void:
+	var screen := camera.unproject_position(Vector3(point.x, 0, point.y))
+	assert_false(Rect2(Vector2.ZERO, resolution).has_point(screen), "%s outside the view" % point)
 
 
 func _mouse(button: MouseButton, at: Vector2, pressed: bool) -> InputEventMouseButton:

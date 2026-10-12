@@ -35,9 +35,11 @@ var _headless: bool = false
 
 func _ready() -> void:
 	_cfg = CombatConfig.load_file()
-	if _cfg == null:
-		push_error("battle: data/combat.json could not be loaded")
+	var map := MapData.load_file()
+	if _cfg == null or map == null:
+		push_error("battle: data/combat.json or data/map.json could not be loaded")
 		return
+	_cfg.battle.apply_house_colors(map.house_colors)
 	BattleInputMap.register()
 	_headless = DisplayServer.get_name() == "headless"
 	if not _headless:
@@ -74,6 +76,7 @@ func _process(delta: float) -> void:
 		if reader == null:
 			continue
 		reader.poll()
+		_camera.zoom(reader.take_zoom())
 		if reader.menu_pressed() and not _menu.visible:
 			_open_menu()
 	var tick := _sim.tick_seconds()
@@ -87,6 +90,7 @@ func _process(delta: float) -> void:
 	var positions := _interpolated(_previous_positions, _sim.state.pos, alpha)
 	_figures.update_view(_sim.state, _previous_figures, alpha)
 	_markers.update_view(_sim.state, _sim.rules, positions, _selection_sides(), _marker_colors())
+	_camera.frame(_camera_points(positions), _camera_focus(positions), delta)
 	_hud.update_view(_sim, positions, delta)
 
 
@@ -195,6 +199,41 @@ func _selection_sides() -> Array[bool]:
 
 func _marker_colors() -> Array[Color]:
 	return [_cfg.battle.armies[0].accent, _cfg.battle.armies[1].accent]
+
+
+## Zoom level 0 keeps every company on the field in view.
+func _camera_points(positions: PackedVector2Array) -> PackedVector2Array:
+	var state := _sim.state
+	var points := PackedVector2Array()
+	for c: int in mini(state.company_count(), positions.size()):
+		if state.is_present(c):
+			points.append(positions[c])
+	return points
+
+
+## Zoom level 1 looks at the single human's active group; with two humans or none it looks at
+## the melee (or every company), so the shared view never reveals a player's selection.
+func _camera_focus(positions: PackedVector2Array) -> Vector2:
+	var state := _sim.state
+	var selection := _selection_sides()
+	var picked := PackedVector2Array()
+	var melee := PackedVector2Array()
+	for c: int in mini(state.company_count(), positions.size()):
+		if state.status[c] != BattleState.Status.ACTIVE:
+			continue
+		var s := state.side[c]
+		if selection[s] and state.group[c] == state.active_group[s]:
+			picked.append(positions[c])
+		if state.contact[c] >= 0:
+			melee.append(positions[c])
+	if picked.is_empty():
+		picked = melee
+	if picked.is_empty():
+		picked = _camera_points(positions)
+	var sum := Vector2.ZERO
+	for point: Vector2 in picked:
+		sum += point
+	return sum / maxi(1, picked.size()) if not picked.is_empty() else _cfg.battle.field_size * 0.5
 
 
 static func _interpolated(

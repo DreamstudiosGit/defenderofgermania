@@ -63,6 +63,7 @@
   },
   "scenery": {
     "seed": 1198,
+    "layout_width": 72,
     "tree_scale_min": 0.85,
     "tree_scale_max": 1.4,
     "grove_spacing": 2.7,
@@ -143,6 +144,10 @@
     ]
   },
   "camera": {
+    "pitch_deg": 60.0,
+    "near_width": 80.0,
+    "company_margin": 20.0,
+    "follow_speed": 2.5,
     "horizontal_margin": 14.0,
     "vertical_margin": 19.0,
     "center_offset": -1.5

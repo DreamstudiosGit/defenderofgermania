@@ -65,8 +65,9 @@ class FormationRules:
 
 class ArmyPreset:
 	var house: String
-	var color: Color
-	var accent: Color
+	## Heraldic colours of the house (MapData.house_colors), set by apply_house_colors().
+	var color := Color.WHITE
+	var accent := Color.WHITE
 	var has_leader: bool
 	var leadership: int
 	var units: Array[String] = []
@@ -102,6 +103,15 @@ func deploy_ticks() -> int:
 
 func time_limit_ticks() -> int:
 	return roundi(time_limit_seconds * tick_rate)
+
+
+## Gives the default armies their house colours: house id → [field, charge].
+func apply_house_colors(house_colors: Dictionary[String, PackedColorArray]) -> void:
+	for army: ArmyPreset in armies:
+		var colors: PackedColorArray = house_colors.get(army.house, PackedColorArray())
+		if colors.size() >= 2:
+			army.color = colors[0]
+			army.accent = colors[1]
 
 
 ## Builds the prototype battle from the default armies.
@@ -223,20 +233,10 @@ func _read_armies(r: DataReader, entries: Array) -> void:
 		var data: Dictionary = entry if entry is Dictionary else {}
 		var army := ArmyPreset.new()
 		army.house = r.text(data, "house")
-		army.color = _color(r, data, "color")
-		army.accent = _color(r, data, "accent")
 		army.has_leader = r.flag(data, "leader")
 		army.leadership = r.integer(data, "leadership", 0)
 		army.units = r.strings(data, "units")
 		armies.append(army)
-
-
-func _color(r: DataReader, data: Dictionary, key: String) -> Color:
-	var html := r.text(data, key)
-	if not Color.html_is_valid(html):
-		r.errors.append("battle.armies.%s: expected an html color" % key)
-		return Color.WHITE
-	return Color.html(html)
 
 
 func _fill_side(side: BattleSide, army: ArmyPreset) -> void:

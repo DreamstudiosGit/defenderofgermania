@@ -13,7 +13,7 @@ func before_all() -> void:
 func test_battle_section_loads() -> void:
 	assert_not_null(_cfg.battle)
 	assert_eq(_cfg.battle.tick_rate, 30)
-	assert_eq(_cfg.battle.field_size, Vector2(72, 44))
+	assert_eq(_cfg.battle.field_size, Vector2(300, 180), "GDD: about 300 × 180 m")
 	assert_eq(_cfg.battle.armies.size(), 2)
 
 

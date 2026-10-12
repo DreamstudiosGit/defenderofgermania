@@ -7,6 +7,8 @@ var device: int
 
 var _prefix: String
 var _pending := BattleInput.new()
+## Camera zoom steps since the last take_zoom(); presentation only, never sent to the battle.
+var _zoom: int = 0
 
 
 func _init(input_device: int) -> void:
@@ -26,6 +28,10 @@ func poll() -> void:
 	_pending.attack = _pending.attack or _just("attack")
 	_pending.formation = _pending.formation or _just("formation")
 	_pending.rally = _pending.rally or _just("rally")
+	if _just("zoom_in"):
+		_zoom += 1
+	if _just("zoom_out"):
+		_zoom -= 1
 
 
 ## Mouse commands of the keyboard player.
@@ -41,6 +47,17 @@ func handle_event(event: InputEvent, camera: Camera3D) -> void:
 			if point.is_finite():
 				_pending.command_point = true
 				_pending.point = point
+		MOUSE_BUTTON_WHEEL_UP:
+			_zoom += 1
+		MOUSE_BUTTON_WHEEL_DOWN:
+			_zoom -= 1
+
+
+## Zoom steps since the last call: positive zooms in.
+func take_zoom() -> int:
+	var steps := _zoom
+	_zoom = 0
+	return steps
 
 
 func take() -> BattleInput:

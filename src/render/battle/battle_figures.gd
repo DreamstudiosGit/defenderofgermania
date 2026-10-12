@@ -4,7 +4,8 @@ extends Node3D
 
 ## Transform + ring color + animation phase, movement, contact and simulation time.
 const FLOATS := 20
-const SELECTION_BLUE := Color(0.12, 0.52, 1.0)
+## The selected group's rings are larger and this much lighter than the house colour.
+const SELECTION_LIGHTEN := 0.45
 const LINE_SPEAR_TILT := 0.35
 const HEDGEHOG_SPEAR_TILT := 1.0
 const CAVALRY_RING_SCALE := 1.7
@@ -131,8 +132,12 @@ func _prepare(state: BattleState) -> void:
 		_basis[c] = Basis(Vector3.UP, PI / 2 - state.facing[c]).scaled(Vector3.ONE * scale_factor)
 		_movement[c] = clampf(state.speed[c] / maxf(state.stats[c].speed, 0.01), 0.0, 1.0)
 		var size := CAVALRY_RING_SCALE if state.group[c] == BattleState.Group.CAVALRY else 1.0
-		size *= ACTIVE_RING_SCALE
-		_ring_color[c] = SELECTION_BLUE
+		var side := state.side[c]
+		var house := _armies[side].color if side < _armies.size() else Color.WHITE
+		if selection_visible(state, c):
+			size *= ACTIVE_RING_SCALE
+			house = house.lightened(SELECTION_LIGHTEN)
+		_ring_color[c] = house
 		_ring_basis[c] = Basis().scaled(Vector3(size, 0.3, size))
 
 
@@ -147,8 +152,7 @@ func _draw_figure(
 		"spear":
 			_write_spear(state, buffer, i, c, at)
 		"ring":
-			var basis := _ring_basis[c] if selection_visible(state, c) else HIDDEN
-			_write(buffer, i, basis, Vector3(at.x, 0.045, at.y), _ring_color[c])
+			_write(buffer, i, _ring_basis[c], Vector3(at.x, 0.045, at.y), _ring_color[c])
 		_:
 			var contact := 1.0 if state.contact[c] >= 0 else 0.0
 			var animation := Color(f * 1.73, _movement[c], contact, _motion_time)
@@ -202,9 +206,6 @@ static func _material(unshaded: bool) -> StandardMaterial3D:
 	material.vertex_color_is_srgb = true
 	if unshaded:
 		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		material.emission_enabled = true
-		material.emission = SELECTION_BLUE
-		material.emission_energy_multiplier = 0.5
 	return material
 
 

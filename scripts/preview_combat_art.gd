@@ -39,7 +39,7 @@ func _capture() -> void:
 	shout.clear()
 	volleys.clear()
 	var focus := Vector3(sim.state.pos[0].x, 0, sim.state.pos[0].y)
-	camera.position = focus + Vector3(0, sin(BattleCamera.PITCH), cos(BattleCamera.PITCH)) * 32
+	camera.position = focus + Vector3(0, sin(camera.pitch), cos(camera.pitch)) * 32
 	hud.visible = false
 	await process_frame
 	await RenderingServer.frame_post_draw

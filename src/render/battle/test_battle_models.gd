@@ -130,10 +130,14 @@ func test_shared_view_selection_policy() -> void:
 	battle.set("_devices", PackedInt32Array([0, 1]))
 	var sim: BattleSim = battle.get("_sim")
 	var camera: BattleCamera = battle.get("_camera")
-	var original := camera.transform
-	sim.state.active_group[0] = BattleState.Group.CAVALRY
-	battle.call("_process", 0.0)
-	assert_eq(camera.transform, original, "fixed camera does not reveal selection")
+	for level: int in BattleCamera.ZOOM_LEVELS:
+		camera.zoom_level = level
+		sim.state.active_group[0] = BattleState.Group.INFANTRY
+		battle.call("_process", 0.0)
+		var original := camera.transform
+		sim.state.active_group[0] = BattleState.Group.CAVALRY
+		battle.call("_process", 0.0)
+		assert_eq(camera.transform, original, "couch camera at zoom %d hides the selection" % level)
 
 
 func test_hud_hides_active_borders_for_couch_and_ai() -> void:
