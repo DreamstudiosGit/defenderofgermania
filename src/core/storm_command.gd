@@ -27,6 +27,8 @@ func validate(state: GameState) -> String:
 	var army := state.army(army_id)
 	if army == null or army.owner != house:
 		return ERROR_UNKNOWN_ARMY
+	if CrownRules.is_doing_penance(state, house):
+		return MoveArmyCommand.ERROR_PENANCE
 	var defended := Garrisons.size(state, _rules, army.province) > 0
 	return "" if state.is_besieging(army) and defended else ERROR_NOT_BESIEGING
 

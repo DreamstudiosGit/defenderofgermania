@@ -19,7 +19,8 @@ func test_legitimacy_at_the_start() -> void:
 	assert_almost_eq(Victory.legitimacy(_state, _rules, "welfen"), 4.0 + 4.0, 1e-9)
 	_state.provinces["AAC"].owner = "welfen"
 	_state.provinces["MAI"].owner = "welfen"
-	assert_almost_eq(Victory.legitimacy(_state, _rules, "welfen"), 30.0 + 8.0 + 4.0, 1e-9)
+	# Aachen 20, Mainz 10, its elector votes for the occupier: 10.
+	assert_almost_eq(Victory.legitimacy(_state, _rules, "welfen"), 30.0 + 10.0 + 8.0 + 4.0, 1e-9)
 
 
 func test_time_limit_crowns_the_most_legitimate_house() -> void:
@@ -52,6 +53,14 @@ func test_losing_the_home_castle_means_exile_with_one_army() -> void:
 	assert_true(welfen.decorations.is_empty())
 	assert_eq(_state.home_castle_level("welfen"), 0)
 	assert_false(_state.is_over())
+
+
+func test_retaking_the_old_home_ends_the_exile() -> void:
+	Conquest.conquer(_state, _rules, "BSW", "staufer", true)
+	Conquest.conquer(_state, _rules, "BSW", "welfen", true)
+	assert_eq(_state.houses["welfen"].exile_rounds, 0)
+	assert_eq(_state.home_castle_level("welfen"), 1, "a razed home castle is a motte again")
+	assert_eq(Garrisons.size(_state, _rules, "BSW"), _rules.economy.home_castle[1].garrison)
 
 
 func test_exile_ends_in_elimination() -> void:

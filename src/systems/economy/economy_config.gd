@@ -79,6 +79,8 @@ var battle_lost_prestige: float
 var tournament_won_prestige: float
 var tournament_hosted_prestige: float
 var tournament_cost: float
+## Building at the home castle a house needs to host tournaments.
+var tournament_building: String
 var slots_per_province: int
 var slots_per_home_castle_level: int
 var slots_max: int
@@ -207,7 +209,9 @@ func _read_society(r: DataReader, data: Dictionary) -> void:
 	battle_lost_prestige = r.number(prestige, "battle_lost")
 	tournament_won_prestige = r.number(prestige, "tournament_won")
 	tournament_hosted_prestige = r.number(prestige, "tournament_hosted")
-	tournament_cost = r.number(r.object(data, "tournament"), "cost")
+	var tournament := r.object(data, "tournament")
+	tournament_cost = r.number(tournament, "cost")
+	tournament_building = r.text(tournament, "building")
 	var treasury := r.object(data, "treasury")
 	desertion_share = r.number(treasury, "desertion_share")
 	treasury_satisfaction_penalty = r.number(treasury, "satisfaction_penalty")
@@ -274,6 +278,8 @@ func _multipliers(r: DataReader, entry: Dictionary, key: String) -> Dictionary[S
 
 
 func _check(r: DataReader) -> void:
+	if not buildings.has(tournament_building):
+		r.errors.append("tournament.building: unknown building '%s'" % tournament_building)
 	if weather_values.size() != weather_weights.size():
 		r.errors.append("weather: values and weights differ in length")
 	if start_tax_rate not in tax_rates:

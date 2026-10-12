@@ -7,6 +7,7 @@ extends Command
 const ERROR_UNKNOWN_ARMY := "TURN_UNKNOWN_ARMY"
 const ERROR_NOT_NEIGHBOR := "TURN_NOT_NEIGHBOR"
 const ERROR_NO_MOVES := "TURN_NO_MOVES_LEFT"
+const ERROR_PENANCE := "CROWN_PENANCE_NO_CAMPAIGN"
 
 var army_id: int
 var target: String
@@ -34,6 +35,7 @@ func validate(state: GameState) -> String:
 func apply(state: GameState) -> void:
 	var army := state.army(army_id)
 	var came_from := army.province
+	CrownRules.attack(state, _rules.map, house, target)
 	army.province = target
 	army.moves_left = Movement.steps_after(house, state.provinces[target].owner, army.moves_left)
 	var enemies := state.armies_in(target).filter(
@@ -75,4 +77,6 @@ func _check_move(state: GameState) -> String:
 		return ERROR_UNKNOWN_ARMY
 	if not _rules.map.are_neighbors(army.province, target):
 		return ERROR_NOT_NEIGHBOR
+	if CrownRules.is_doing_penance(state, house):
+		return ERROR_PENANCE
 	return "" if army.moves_left > 0 else ERROR_NO_MOVES

@@ -8,10 +8,13 @@ extends RefCounted
 static func fight_army(
 	state: GameState, rules: GameRules, attacker: ArmyState, defender: ArmyState, came_from: String
 ) -> bool:
-	var setup := army_battle(state, rules, attacker, defender, attacker.province)
+	var province := attacker.province
+	var setup := army_battle(state, rules, attacker, defender, province)
 	var result := rules.resolve_battle(state, setup)
+	var winner := attacker.owner if result.attacker_won else defender.owner
 	_apply(state, rules, attacker, result, true, defender.owner, came_from)
 	_apply(state, rules, defender, result, false, attacker.owner, "")
+	CrownRules.protect(state, rules.map, winner, province)
 	return result.attacker_won
 
 
@@ -57,6 +60,8 @@ static func army_side(state: GameState, rules: GameRules, army: ArmyState) -> Ba
 	side.owner = army.owner
 	for i: int in army.company_count():
 		side.add_company(army.units[i], army.health[i])
+	for _i: int in state.crown.mercenaries.get(army.owner, 0):
+		side.add_company(rules.map.crown.patron_mercenary_unit, 1.0)
 	side.has_leader = house.leader_army == army.id
 	side.leadership = house.leadership if side.has_leader else 0
 	if house.is_leader_captured():
@@ -91,7 +96,10 @@ static func _apply(
 	_add_prestige(state, rules, army.owner, won)
 	if captured and house.leader_army == army.id:
 		_capture(house, enemy)
-	army.health = (result.attacker_health if is_attacker else result.defender_health).duplicate()
+	# Patron mercenaries fight behind the army's own companies and leave after one battle.
+	var health := result.attacker_health if is_attacker else result.defender_health
+	army.health = health.slice(0, army.company_count())
+	state.crown.mercenaries.erase(army.owner)
 	for i: int in range(army.company_count() - 1, -1, -1):
 		if army.health[i] < rules.map.campaign.disband_health:
 			army.remove_company(i)

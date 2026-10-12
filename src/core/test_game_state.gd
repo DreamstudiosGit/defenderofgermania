@@ -131,11 +131,15 @@ func _add_campaign_details(state: GameState) -> void:
 	crown.forged_regalia.append("wettiner")
 	crown.set_favour("KOE", "welfen", 72.5, 100.0)
 	crown.patron_cards["welfen"] = 1
-	crown.patron_played["welfen"] = 4
+	crown.patron_played["welfen"] = 1
 	crown.patron_strength["england"] = 0.75
 	crown.gifts[CrownState.key("BOH", "wettiner")] = 2
-	crown.penance_turn["staufer"] = 5
-	crown.bohemia_promised = "wittelsbacher"
+	crown.forging["staufer"] = 1
+	crown.mercenaries["welfen"] = 3
+	crown.penance_until["staufer"] = 6
+	crown.tournament_turn["wittelsbacher"] = 4
+	crown.promised_votes["BOH"] = "wittelsbacher"
+	crown.crowned_at = "coronation_site"
 
 
 func _end_phase(state: GameState) -> void:

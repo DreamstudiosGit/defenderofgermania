@@ -57,7 +57,7 @@
     "decay": 0.95, "max": 100, "ban_per_round": 2, "battle_won": 3, "battle_lost": 3,
     "tournament_won": 5, "tournament_hosted": 5
   },
-  "tournament": {"cost": 80},
+  "tournament": {"cost": 80, "building": "tourney_ground"},
   "treasury": {"desertion_share": 0.1, "satisfaction_penalty": 5},
   "recruitment": {"population_per_unit": 20, "satisfaction_cost": 2},
   "slots": {"province": 2, "home_per_castle_level": 1, "max": 6},

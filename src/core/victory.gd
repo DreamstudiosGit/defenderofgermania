@@ -1,7 +1,7 @@
 class_name Victory
 extends RefCounted
-## Victory while electors are deferred: subjugation (every other house eliminated) or the
-## highest legitimacy once the last round is settled. Coronation comes with the electors.
+## Victory by subjugation (every other house eliminated) or by the highest legitimacy once
+## the last round is settled. Coronation wins through CoronationCommand.
 
 
 ## Ends the game if a house has won; sets state.winner and the GAME_OVER phase.
@@ -17,15 +17,25 @@ static func check(state: GameState, rules: GameRules) -> void:
 		_finish(state, _most_legitimate(state, rules, alive))
 
 
-## L = 30·regalia + 20·Aachen + 10·Mainz + 2·provinces + prestige/5 (weights from data);
-## the electors' votes and forged regalia count once electors exist.
+## L = 30·true regalia + 10·forged regalia + 20·Aachen + 10·Mainz + 10·votes + 2·provinces
+## + prestige/5 (weights from data). The true regalia count where they lie now, which a
+## castle raid can change.
 static func legitimacy(state: GameState, rules: GameRules, house_id: String) -> float:
 	var tags: Array[String] = []
 	var owned := state.provinces_of(house_id)
 	for province: ProvinceState in owned:
-		tags.append_array(rules.map.provinces[province.id].tags)
-	var prestige := state.houses[house_id].prestige
-	return rules.map.campaign.legitimacy(tags, owned.size(), prestige)
+		for tag: String in rules.map.provinces[province.id].tags:
+			if tag != CrownRules.REGALIA_TAG:
+				tags.append(tag)
+	if CrownRules.holds_true_regalia(state, house_id):
+		tags.append(CrownRules.REGALIA_TAG)
+	return rules.map.campaign.legitimacy(
+		tags,
+		owned.size(),
+		state.houses[house_id].prestige,
+		house_id in state.crown.forged_regalia,
+		CrownRules.vote_count(state, rules.map, house_id)
+	)
 
 
 ## Ties go to the house that comes first alphabetically, so the result stays deterministic.

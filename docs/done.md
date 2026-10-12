@@ -23,3 +23,4 @@
 - 2026-10-12 feat(economy): province panel offers a view-castle button
 - 2026-10-12 feat(economy): M4 — merge the castle kit and view, open it from the province panel
 - 2026-10-12 feat(core): M5 crown and event state in the save (version 3)
+- 2026-10-12 feat(map): M5 crown rules — votes, coronation along all four rows, court commands, favour settlement and campaign hooks

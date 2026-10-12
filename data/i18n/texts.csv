@@ -483,3 +483,22 @@ CAMPAIGN_SETUP_HUMAN,Mensch,human
 CAMPAIGN_SETUP_PASSIVE,passiv,passive
 CAMPAIGN_VIEW_CASTLE,Burg ansehen,View castle
 CASTLE_CLOSE,Zurück zur Karte,Back to the map
+CROWN_NO_REGALIA,Ohne Insignien keine Krönung – weder echte noch nachgemachte.,No coronation without regalia – neither true nor forged.
+CROWN_NO_SITE,Ihr haltet weder Aachen noch Mainz.,You hold neither Aachen nor Mainz.
+CROWN_NO_ARCHBISHOP,Kein Erzbischof will Euch krönen: Gunst unter 50 und seine Provinz nicht in Eurer Hand.,No archbishop will crown you: favour below 50 and his province not in your hands.
+CROWN_NOT_ENOUGH_VOTES,Zu wenige Fürstenstimmen für die Krönung.,Too few electors' votes for a coronation.
+CROWN_NOT_WINTER,Gekrönt wird nur am Hoftag im Winter.,Coronations happen only at the winter court.
+CROWN_NO_FAVOUR_LIST,Dieser Herr führt keine Gunstliste.,This lord keeps no favour list.
+CROWN_HOMAGE_NOT_NEUTRAL,Nur neutrale weltliche Herren huldigen.,Only neutral secular lords pay homage.
+CROWN_HOMAGE_FAVOUR,Seine Gunst reicht für eine Huldigung noch nicht.,His favour is not yet high enough for homage.
+CROWN_NOT_BANNED,Euer Haus steht nicht im Bann.,Your house is not under the ban.
+CROWN_PATRON_UNKNOWN,Unbekannte Gönner-Karte.,Unknown patron card.
+CROWN_NO_PATRON_CARDS,Keine Gönner-Karten mehr.,No patron cards left.
+CROWN_PATRON_PLAYED,Diese Runde habt Ihr schon eine Gönner-Karte gespielt.,You already played a patron card this round.
+CROWN_NOT_ELECTOR,Eine Gesandtschaft geht nur an einen Wahlfürsten.,An embassy only goes to an elector.
+CROWN_REGALIA_FORGED,Eure nachgemachten Insignien sind fertig oder in Arbeit.,Your forged regalia are finished or in the making.
+CROWN_REGALIA_CASTLE,Nachgemachte Insignien braucht Stammburg Stufe 3.,Forged regalia need home castle level 3.
+CROWN_PENANCE_NO_CAMPAIGN,Nach dem Bußgang ruht der Feldzug diese Runde.,After the penance your armies rest this round.
+ECONOMY_TOURNAMENT_SEASON,Turniere gibt es nur im Frühling und Sommer.,Tournaments are held only in spring and summer.
+ECONOMY_TOURNAMENT_NO_GROUND,Für ein Turnier braucht die Stammburg einen Turnierplatz.,A tournament needs a tourney ground at the home castle.
+ECONOMY_TOURNAMENT_HOSTED,Diese Runde habt Ihr schon ein Turnier ausgerichtet.,You already hosted a tournament this round.

@@ -6,7 +6,7 @@ extends RefCounted
 enum Season { SPRING, SUMMER, AUTUMN, WINTER }
 enum Phase { EVENT, ADMINISTRATION, CAMPAIGN, SETTLEMENT, GAME_OVER }
 
-const SAVE_VERSION := 3
+const SAVE_VERSION := 4
 const ROUNDS_PER_YEAR := 4
 
 var turn: int = 0

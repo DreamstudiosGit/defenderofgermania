@@ -39,6 +39,7 @@ static func _begin_turn(state: GameState) -> void:
 static func _settle(state: GameState, rules: GameRules) -> void:
 	state.phase = GameState.Phase.SETTLEMENT
 	Garrisons.starve(state, rules)
+	CrownSettlement.settle(state, rules.map)
 	EconomySettlement.settle(state, rules.map, rules.economy)
 	Movement.recover(state, rules.map.campaign)
 	Garrisons.recover(state, rules)

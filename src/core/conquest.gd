@@ -7,7 +7,8 @@ const NEUTRAL := "neutral"
 
 
 ## Hands the province to the house. A castle taken by siege loses one level; a castle that
-## is nobody's home castle any more is capped at the province castle table.
+## is nobody's home castle any more is capped at the province castle table. An exiled house
+## that takes its old home back, or a castle from the exile level, makes it its home castle.
 static func conquer(
 	state: GameState, rules: GameRules, province_id: String, house_id: String, by_siege: bool
 ) -> void:
@@ -22,12 +23,15 @@ static func conquer(
 	province.constructions.clear()
 	var level := maxi(level_before - 1, 0) if by_siege else level_before
 	var conqueror := state.houses[house_id]
-	if conqueror.exile_rounds > 0 and level_before >= rules.map.campaign.exile_min_castle_level:
+	var is_old_home := conqueror.home_province == province_id
+	var is_castle := level_before >= rules.map.campaign.exile_min_castle_level
+	if conqueror.exile_rounds > 0 and (is_old_home or is_castle):
 		conqueror.home_province = province_id
 		conqueror.exile_rounds = 0
-		province.castle_level = level
+		province.castle_level = maxi(level, 1)
 	else:
 		province.castle_level = mini(level, _max_province_castle(rules))
+	CrownRules.occupy(state, rules.map, house_id, province_id)
 	if was_home:
 		_lose_home(state, rules, previous)
 

@@ -9,7 +9,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M2 Blender figures and battle look | done; Steam Deck frame rate not measured (`docs/screenshots/m2_*.png`, `scripts/benchmark_battle.gd`: 412 figures, 140 fps at 1280 × 800 on an RTX 5060 Ti) | screenshot comparable to `docs/reference/schlacht.png`; 400 figures at ≥ 40 fps at 1280 × 800; every house recognisable by colour and crest |
 | M3 Imperial map and round flow | done; needs a hot-seat playtest (`node scripts/run.mjs --campaign`, `docs/screenshots/m3_*.png`) | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
-| M5 Electors, coronation, events | data exists (M0) | test scenarios trigger the coronation along all four rows of the table |
+| M5 Electors, coronation, events | in progress: crown rules, court commands and the four coronation rows tested (`src/systems/map/test_coronation.gd`); events and court UI open | test scenarios trigger the coronation along all four rows of the table |
 | M6 Adventures | open | each minigame takes 1–3 min and has a practice mode |
 | M7 AI | open | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
 | M8 Full game | open | prologue to coronation without a crash in 60–120 min |
@@ -27,10 +27,10 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Feud letter: the count's 4 companies have no unit type; using levy, like the robber knights.
 - Merchant train escort: "favour of the trade cities +5" — which lords count as trade cities?
 - Papal legate and crusade: "church favour" = favour with the three church electors (the only church lords with a favour list now that the peace congress is out).
-- Death of the Lionheart: do English cards work at 75 % on all three effects (150 T, 3 companies, +11.25 favour)?
 - Home castle 4 halves "the ban's duration", but the ban has no duration (it ends with penance); only the chapel's half-price penance is in the data.
 - Osnabrück's start favour (Welfen 45) belongs to the peace congress and is left out; so is the second marriage card at home castle 4.
-- The tourney ground can be built now but does nothing until tournaments exist (M5/M6).
+- Death of the Lionheart: English cards work at 75 % on all three effects (150 T, 3 companies, +11.25 favour).
+- The tourney ground hosts tournaments (`HostTournamentCommand`) without the joust until M6.
 - Without the camp truce every house is hostile from the start (as before).
 - House colours are hex values picked from the GDD colour names; the battle prototype still uses its own blue and red.
 - M2: the figure references (`docs/reference/figur_*.png`) show rounded cartoon figures with a fleur-de-lis and a lion; the GDD asks for stylised low-poly at a 1 : 5 head-to-body ratio with each house's crest.
@@ -46,7 +46,6 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Neutral, church and elector provinces are not settled (satisfaction, growth stay static).
 
 ## Design questions (round flow; current choice)
-- Interim victory: until the coronation exists (M5) a game ends by subjugation or by legitimacy after round 48.
 - Constructions finish at the end of settlement: build time 1 means ordered this round, usable next round.
 - The home castle level unlocks units for the whole house; the recruiting province only needs a castle. Brabanters need market II, trebuchets the workshop in that province.
 - The yearly recruit cap ⌊V/20⌋ is a budget set at game start and each spring, so recruiting does not shrink its own cap.
@@ -98,3 +97,13 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - During an upgrade the old pieces (wooden tower, wood hall, palas) stand until it finishes and overlap the rising new ones; market I stands inside a market II under construction.
 - Buildings stand on the same plots in every province; rivers and terrain of the province are not shown yet; the mill wheel and banners do not move and there are no people.
 - "Time-lapse while the round goes on": the view replays what is new since the province was last shown (per session) whenever it opens; the round does not wait for it.
+
+## Design questions (M5 crown; current choice)
+- The Wittelsbacher multiplier (×1.5) works on every favour gain: gifts, embassies, tournaments, protection, prestige ÷ 50 and the imperial palace; losses and the drift towards 30 stay as they are. A second gift brings (5 − 1) × 1.5 = 6, not 6.5.
+- Neutral secular lords keep their favour lists like electors: prestige ÷ 50 and the drift every round, gifts, −20 for war against them; embassies, tournaments, protection, the imperial palace and occupation only concern electors.
+- Holding true and forged regalia counts both in L (30 + 10), as the formula reads.
+- Attacking church land risks the ban even when another house holds it now; the 50 % roll comes when the army enters, not again on conquest.
+- Penance takes its 10 prestige at once; the armies may not move or storm until the next round.
+- Patron mercenaries join the next battle of any army of the house (as attacker or defender) and may exceed the army limit for it.
+- A house in exile that retakes its old home castle ends the exile; a razed home castle comes back as level 1.
+- Gifts work for any lord with a favour list, also an elector whose province another house occupies.
