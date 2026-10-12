@@ -2,9 +2,10 @@ class_name ProvincePanel
 extends PanelContainer
 ## The selected province: owner, region and terrain, people against capacity, satisfaction
 ## against its target Z*, yield, buildings, castle and garrison, features and the armies
-## present, each a button that emits army_selected.
+## present, each a button that emits army_selected; a button opens the castle view.
 
 signal army_selected(army_id: int)
+signal castle_requested(province_id: String)
 
 var _title := CampaignStyle.heading("", 22)
 var _owner := CampaignStyle.label("", CampaignStyle.SMALL_SIZE, CampaignStyle.MUTED)
@@ -15,6 +16,8 @@ var _castle := CampaignStyle.info()
 var _buildings := CampaignStyle.paragraph()
 var _features := CampaignStyle.paragraph()
 var _armies := VBoxContainer.new()
+var _view_castle := Button.new()
+var _province_id := ""
 
 
 func _init() -> void:
@@ -33,10 +36,17 @@ func _init() -> void:
 	_satisfaction.name = "satisfaction"
 	_yield.name = "yield"
 	_castle.name = "castle"
+	_view_castle.name = "view_castle"
+	_view_castle.text = tr("CAMPAIGN_VIEW_CASTLE")
+	_view_castle.pressed.connect(func() -> void: castle_requested.emit(_province_id))
+	column.add_child(_view_castle)
+	column.move_child(_view_castle, column.get_children().find(_castle) + 1)
 
 
 func refresh(state: GameState, rules: GameRules, _house: String, province_id: String) -> void:
 	var province: ProvinceState = state.provinces.get(province_id)
+	_province_id = province_id
+	_view_castle.visible = province != null
 	for child: Control in [_owner, _population, _satisfaction, _yield, _castle, _buildings]:
 		child.visible = province != null
 	_features.visible = province != null

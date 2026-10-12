@@ -481,3 +481,4 @@ ECONOMY_CAPACITY_CASTLE,Burgstufe,Castle level
 ECONOMY_CAPACITY_MARKET,Marktstufe,Market level
 CAMPAIGN_SETUP_HUMAN,Mensch,human
 CAMPAIGN_SETUP_PASSIVE,passiv,passive
+CAMPAIGN_VIEW_CASTLE,Burg ansehen,View castle
