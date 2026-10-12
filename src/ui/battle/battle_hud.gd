@@ -14,6 +14,7 @@ var _timer := Label.new()
 var _bars := CompanyBars.new()
 var _shout := BattleShout.new()
 var _armies: Array[BattleRules.ArmyPreset] = []
+var _selection_sides: Array[bool] = [false, false]
 
 
 func _ready() -> void:
@@ -45,6 +46,7 @@ func _ready() -> void:
 		)
 		corner.add_child(hint)
 		_hints.append(hint)
+	get_viewport().size_changed.connect(_resize_shields)
 
 
 ## devices[s] is a BattleInputMap.Device, or -1 for an AI side.
@@ -55,6 +57,10 @@ func setup(
 	camera: Camera3D
 ) -> void:
 	_armies = armies
+	var humans: Array[bool] = [devices[0] >= 0, devices[1] >= 0]
+	_selection_sides.fill(false)
+	if humans[0] != humans[1]:
+		_selection_sides.assign(humans)
 	_bars.setup(camera, [armies[0].color.lightened(0.2), armies[1].color.lightened(0.2)])
 	_shout.clear()
 	for s: int in BattleState.SIDES:
@@ -72,6 +78,34 @@ func setup(
 			_shields[s].append(shield)
 		_rows[s].add_child(_switch_label(device, false))
 		_hints[s].text = _hint_text(device)
+	_resize_shields()
+
+
+func _resize_shields() -> void:
+	var group_count := maxi(_shields[0].size(), _shields[1].size())
+	if group_count == 0:
+		return
+	var available := get_viewport().get_visible_rect().size.x * 0.5 - MARGIN * 2.0
+	var extra_width := 0.0
+	for row: HBoxContainer in _rows:
+		var fixed_width := 0.0
+		var entries := 0
+		for child: Node in row.get_children():
+			if child.is_queued_for_deletion():
+				continue
+			entries += 1
+			if child is Control and not child is GroupShield:
+				fixed_width += (child as Control).get_combined_minimum_size().x
+		fixed_width += float(row.get_theme_constant("separation") * maxi(0, entries - 1))
+		extra_width = maxf(extra_width, fixed_width)
+	var icon_width := minf(GroupShield.SHIELD_SIZE.x, (available - extra_width) / group_count)
+	var icon_size := GroupShield.SHIELD_SIZE * maxf(0.25, icon_width / GroupShield.SHIELD_SIZE.x)
+	for shields: Array in _shields:
+		for shield: GroupShield in shields:
+			shield.custom_minimum_size = icon_size
+			shield.queue_redraw()
+	for hint: Label in _hints:
+		hint.custom_minimum_size.x = minf(HINT_WIDTH, available)
 
 
 func update_view(sim: BattleSim, positions: PackedVector2Array, delta: float) -> void:
@@ -124,7 +158,7 @@ func _fill_shield(
 			continue
 		companies += 1
 		bolts = mini(bolts, state.bolts[c])
-	var active := state.active_group[s] == g
+	var active := _selection_sides[s] and state.active_group[s] == g
 	var archers := g == BattleState.Group.ARCHERS
 	var changed := shield.companies != companies or shield.active != active
 	changed = changed or shield.has_leader != leader or (archers and shield.bolts != bolts)

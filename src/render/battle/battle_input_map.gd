@@ -39,8 +39,6 @@ static func _register_keyboard() -> void:
 	_add(p + "attack", [_key(KEY_SPACE)], BUTTON_DEADZONE)
 	_add(p + "formation", [_key(KEY_F)], BUTTON_DEADZONE)
 	_add(p + "rally", [_key(KEY_R)], BUTTON_DEADZONE)
-	_add(p + "zoom_in", [_key(KEY_PAGEUP), _key(KEY_KP_ADD)], BUTTON_DEADZONE)
-	_add(p + "zoom_out", [_key(KEY_PAGEDOWN), _key(KEY_KP_SUBTRACT)], BUTTON_DEADZONE)
 	_add(p + "menu", [_key(KEY_ESCAPE)], BUTTON_DEADZONE)
 
 
@@ -75,8 +73,6 @@ static func _register_pad(pad: int) -> void:
 	_add(p + "attack", [_button(pad, JOY_BUTTON_A)], BUTTON_DEADZONE)
 	_add(p + "formation", [_button(pad, JOY_BUTTON_B)], BUTTON_DEADZONE)
 	_add(p + "rally", [_button(pad, JOY_BUTTON_Y)], BUTTON_DEADZONE)
-	_add(p + "zoom_in", [_axis(pad, JOY_AXIS_RIGHT_Y, -1.0)], BUTTON_DEADZONE)
-	_add(p + "zoom_out", [_axis(pad, JOY_AXIS_RIGHT_Y, 1.0)], BUTTON_DEADZONE)
 	_add(p + "menu", [_button(pad, JOY_BUTTON_START)], BUTTON_DEADZONE)
 
 

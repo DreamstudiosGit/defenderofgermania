@@ -1,20 +1,28 @@
 class_name GroupShield
 extends Control
-## Coat-of-arms shield for one command group: symbol (spear, crossbow, horse head, trebuchet),
-## number of companies, bolt marks for archers, golden glow while the group is active.
 
-const SHIELD_SIZE := Vector2(72, 84)
-const FIELD := Color(0.55, 0.38, 0.22)
-const RIM := Color(0.30, 0.20, 0.12)
+const SHIELD_SIZE := Vector2(144, 162)
 const GOLD := Color(1.0, 0.82, 0.30)
-const MUTED := Color(0.25, 0.22, 0.2, 0.6)
-const BOLT_FULL := Color(0.96, 0.94, 0.88)
-const BOLT_EMPTY := Color(0.2, 0.16, 0.12)
+const RIM := Color(0.18, 0.11, 0.06)
+const BLUE_SHIELDS: Array[Texture2D] = [
+	preload("res://assets/ui/combat/combat_group_infantry_blue.svg"),
+	preload("res://assets/ui/combat/combat_group_crossbow_blue.svg"),
+	preload("res://assets/ui/combat/combat_group_cavalry_blue.svg"),
+	preload("res://assets/ui/combat/combat_group_siege_blue.svg")
+]
+const RED_SHIELDS: Array[Texture2D] = [
+	preload("res://assets/ui/combat/combat_group_infantry_red.svg"),
+	preload("res://assets/ui/combat/combat_group_crossbow_red.svg"),
+	preload("res://assets/ui/combat/combat_group_cavalry_red.svg"),
+	preload("res://assets/ui/combat/combat_group_siege_red.svg")
+]
+const SELECTED_GLOW: Texture2D = preload("res://assets/ui/combat/combat_group_selected_glow.svg")
+const LEADER_CROWN: Texture2D = preload("res://assets/ui/combat/combat_status_leader.svg")
+const BOLT: Texture2D = preload("res://assets/ui/combat/combat_status_bolt.svg")
 
 var group: int = 0
 var active: bool = false
 var companies: int = 0
-## Ready volleys for archers, -1 for groups without bolt marks.
 var bolts: int = -1
 var max_bolts: int = 3
 var has_leader: bool = false
@@ -28,76 +36,29 @@ func _init() -> void:
 
 
 func _draw() -> void:
-	var outline := _outline(size * 0.5, 1.0)
+	var rect := Rect2(Vector2.ZERO, size)
+	var textures := BLUE_SHIELDS if house_color.b >= house_color.r else RED_SHIELDS
+	var icon: Texture2D = textures[clampi(group, 0, textures.size() - 1)]
+	var tint := Color.WHITE if companies > 0 else Color(0.52, 0.49, 0.45, 0.65)
+	draw_texture_rect(icon, rect, false, tint)
 	if active:
-		draw_colored_polygon(_outline(size * 0.5, 1.12), Color(GOLD, 0.35))
-	draw_colored_polygon(outline, FIELD if companies > 0 else MUTED)
-	var rim := outline.duplicate()
-	rim.append(outline[0])
-	draw_polyline(rim, GOLD if active else RIM, 4.0 if active else 2.0, true)
-	var ink := house_color if companies > 0 else MUTED
-	_draw_symbol(size * 0.5 + Vector2(0, 2), ink)
+		draw_texture_rect(SELECTED_GLOW, rect, false)
+	var status_scale := size.x / SHIELD_SIZE.x
 	if bolts >= 0:
+		var total_width := max_bolts * 11.0 * status_scale
 		for i: int in max_bolts:
-			var mark := Rect2(size.x * 0.5 - 15 + i * 11, 6, 7, 12)
-			draw_rect(mark, BOLT_FULL if i < bolts else BOLT_EMPTY)
+			var at := Vector2((size.x - total_width) * 0.5 + i * 11.0 * status_scale, size.y * 0.11)
+			var bolt_tint := Color.WHITE if i < bolts else Color(0.15, 0.17, 0.19, 0.8)
+			draw_texture_rect(BOLT, Rect2(at, Vector2(11, 21) * status_scale), false, bolt_tint)
 	var font := ThemeDB.fallback_font
 	var label := "×%d" % companies
-	var at := Vector2(size.x - 30, size.y - 8)
-	draw_string_outline(font, at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, 4, RIM)
-	draw_string(font, at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color.WHITE)
+	var font_size := maxi(12, roundi(18.0 * status_scale))
+	var label_width := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+	var label_at := Vector2(size.x * 0.79 - label_width * 0.5, size.y * 0.92)
+	draw_string_outline(font, label_at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, 4, RIM)
+	draw_string(font, label_at, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(1, 0.94, 0.78))
 	if has_leader:
-		_draw_crown(Vector2(14, size.y - 16))
-
-
-func _outline(center: Vector2, scale_factor: float) -> PackedVector2Array:
-	var half := SHIELD_SIZE * 0.5 * scale_factor
-	var points := PackedVector2Array()
-	points.append(center + Vector2(-half.x, -half.y))
-	points.append(center + Vector2(half.x, -half.y))
-	points.append(center + Vector2(half.x, half.y * 0.2))
-	points.append(center + Vector2(0, half.y))
-	points.append(center + Vector2(-half.x, half.y * 0.2))
-	return points
-
-
-func _draw_symbol(center: Vector2, ink: Color) -> void:
-	match group:
-		BattleState.Group.INFANTRY:
-			_stroke(center + Vector2(-18, 20), center + Vector2(16, -18), ink)
-			draw_colored_polygon(
-				PackedVector2Array([
-					center + Vector2(22, -24), center + Vector2(10, -20), center + Vector2(18, -12)
-				]),
-				ink
-			)
-		BattleState.Group.ARCHERS:
-			_stroke(center + Vector2(-18, 16), center + Vector2(14, -16), ink)
-			var bow := center + Vector2(6, -8)
-			draw_arc(bow, 16.0, PI * 0.75, PI * 1.75, 12, accent, 6.0)
-			draw_arc(bow, 16.0, PI * 0.75, PI * 1.75, 12, ink, 3.5)
-		BattleState.Group.CAVALRY:
-			var head := PackedVector2Array([
-				Vector2(-12, 24), Vector2(-14, 0), Vector2(-8, -14), Vector2(-4, -26),
-				Vector2(0, -16), Vector2(12, -10), Vector2(22, 2), Vector2(18, 8),
-				Vector2(6, 4), Vector2(2, 8), Vector2(8, 24)
-			])
-			for i: int in head.size():
-				head[i] += center
-			draw_colored_polygon(head, ink)
-		_:
-			draw_circle(center + Vector2(0, 10), 10.0, ink)
-			_stroke(center + Vector2(-16, -16), center + Vector2(16, 6), ink)
-
-
-func _stroke(from: Vector2, to: Vector2, ink: Color) -> void:
-	draw_line(from, to, accent, 7.0, true)
-	draw_line(from, to, ink, 4.0, true)
-
-
-func _draw_crown(at: Vector2) -> void:
-	var crown := PackedVector2Array([
-		at + Vector2(-8, 4), at + Vector2(-8, -4), at + Vector2(-4, 0), at + Vector2(0, -6),
-		at + Vector2(4, 0), at + Vector2(8, -4), at + Vector2(8, 4)
-	])
-	draw_colored_polygon(crown, GOLD)
+		draw_texture_rect(
+			LEADER_CROWN,
+			Rect2(Vector2(size.x * 0.09, size.y * 0.77), Vector2(27, 30) * status_scale), false
+		)

@@ -22,7 +22,7 @@ Every battle can be auto-resolved; AI against AI always is.
 - An empty defender loses without a fight.
 
 ## Battle module (prototype P1)
-Real-time battle from the GDD "Schlacht-Modul" as a graybox: simulation in `src/systems/combat/battle_*.gd`, presentation in `src/render/battle/` (main scene `battle_main.tscn`), HUD and menus in `src/ui/battle/`. All constants and the default armies (Welfen vs. Staufer, each 2 spearmen, 2 crossbowmen, 2 knights and a leader with leadership 3) are in the `battle` section of `data/combat.json`.
+Real-time battle from the GDD "Schlacht-Modul": simulation in `src/systems/combat/battle_*.gd`, presentation in `src/render/battle/` (main scene `battle_main.tscn`), HUD and menus in `src/ui/battle/`. All constants and the default armies (Welfen vs. Staufer, each 2 spearmen, 2 crossbowmen, 2 knights and a leader with leadership 3) are in the `battle` section of `data/combat.json`. Blender models use blue and red prototype team markings; scenery presets and visual animation parameters live in `data/combat_art.json`.
 
 ### Simulation
 - Fixed 30 Hz tick, deterministic: the state is packed arrays (`BattleState`), each side sends one `BattleInput` per tick, devices never reach the simulation. No chance in combat (pillar "skill over dice"); the seed only jitters figure positions. Same setup, seed and inputs give the same `BattleResult` and `BattleState.checksum()`.
@@ -62,6 +62,8 @@ Real-time battle from the GDD "Schlacht-Modul" as a graybox: simulation in `src/
 | Back to the menu | Start | Esc |
 
 The start menu assigns keyboard and mouse, controller 1, controller 2 or the computer to each side (couch duel: two controllers or keyboard plus controller). Input actions are registered at runtime per device (`BattleInputMap`), not in `project.godot`. A fresh push of the stick overrides any order but a running cavalry charge; a held stick does not cancel an attack given while holding it.
+
+Blue selection circles and a golden group-shield border identify only the human player's active group against the computer. The shared view hides selection circles, directional markers and active shield borders when both sides are human or both are computer-controlled.
 
 ### Not in P1
 Terrain effects and cover, siege weapons, light by season, dust and tumbling figures (only a 0.5 s slow motion on charge impacts), the illuminated end banner and prestige.

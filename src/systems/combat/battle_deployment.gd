@@ -3,12 +3,6 @@ extends RefCounted
 ## Builds the starting BattleState from a BattleSetup: attacker on the left, defender on the
 ## right, infantry in front, archers behind, cavalry and leader on the right wing.
 
-const FRONT_FROM_ZONE_EDGE := 12.0
-const COMPANY_GAP := 6.0
-const ARCHER_DEPTH := 16.0
-const CAVALRY_DEPTH := 4.0
-const LEADER_DEPTH := 12.0
-const SIEGE_DEPTH := 30.0
 const JITTER := 0.15
 
 
@@ -124,19 +118,19 @@ static func _add_company(
 static func _layout_side(state: BattleState, rules: BattleRules, s: int) -> void:
 	var forward := Vector2.RIGHT if s == 0 else Vector2.LEFT
 	var right := forward.orthogonal() * -1.0
-	var front_x := rules.deploy_depth - FRONT_FROM_ZONE_EDGE
+	var front_x := rules.deploy_depth - rules.deployment["front_gap"]
 	var origin_x := front_x if s == 0 else rules.field_size.x - front_x
 	var origin := Vector2(origin_x, rules.field_size.y / 2)
 	var infantry := _row(state, rules, s, BattleState.Group.INFANTRY)
-	var span := _row_width(state, infantry)
+	var span := _row_width(state, rules, infantry)
 	_place_row(state, rules, infantry, origin, forward, right, 0.0)
 	_place_row(
 		state, rules, _row(state, rules, s, BattleState.Group.ARCHERS),
-		origin - forward * ARCHER_DEPTH, forward, right, 0.0
+		origin - forward * rules.deployment["archer_depth"], forward, right, 0.0
 	)
 	_place_row(
 		state, rules, _row(state, rules, s, BattleState.Group.SIEGE),
-		origin - forward * SIEGE_DEPTH, forward, right, 0.0
+		origin - forward * rules.deployment["siege_depth"], forward, right, 0.0
 	)
 	var cavalry := _row(state, rules, s, BattleState.Group.CAVALRY)
 	var leader := state.leader[s]
@@ -144,10 +138,15 @@ static func _layout_side(state: BattleState, rules: BattleRules, s: int) -> void
 	for c: int in cavalry:
 		if c != leader:
 			knights.append(c)
-	var wing := span * 0.5 + COMPANY_GAP + _row_width(state, knights) * 0.5
-	_place_row(state, rules, knights, origin - forward * CAVALRY_DEPTH, forward, right, wing)
+	var wing := span * 0.5 + rules.deployment["company_gap"] + _row_width(state, rules, knights) * 0.5
+	_place_row(
+		state, rules, knights, origin - forward * rules.deployment["cavalry_depth"],
+		forward, right, wing
+	)
 	if leader >= 0:
-		var at := origin - forward * (CAVALRY_DEPTH + LEADER_DEPTH) + right * wing
+		var depth := rules.deployment["cavalry_depth"] + rules.deployment["leader_depth"]
+		var at := origin - forward * depth + right * wing
+		at = at.clamp(Vector2.ONE * 2.0, rules.field_size - Vector2.ONE * 2.0)
 		place(state, rules, leader, at, forward.angle())
 
 
@@ -162,11 +161,11 @@ static func _row(state: BattleState, rules: BattleRules, s: int, g: int) -> Pack
 	return result
 
 
-static func _row_width(state: BattleState, row: PackedInt32Array) -> float:
+static func _row_width(state: BattleState, rules: BattleRules, row: PackedInt32Array) -> float:
 	var width := 0.0
 	for c: int in row:
-		width += state.radius[c] * 2.0 + COMPANY_GAP
-	return maxf(0.0, width - COMPANY_GAP)
+		width += state.radius[c] * 2.0 + rules.deployment["company_gap"]
+	return maxf(0.0, width - rules.deployment["company_gap"])
 
 
 static func _place_row(
@@ -178,11 +177,14 @@ static func _place_row(
 	right: Vector2,
 	lateral: float
 ) -> void:
-	var offset := lateral - _row_width(state, row) * 0.5
+	var offset := lateral - _row_width(state, rules, row) * 0.5
 	for c: int in row:
 		offset += state.radius[c]
-		place(state, rules, c, center + right * offset, forward.angle())
-		offset += state.radius[c] + COMPANY_GAP
+		var at := center + right * offset
+		var margin := Vector2.ONE * state.radius[c]
+		at = at.clamp(margin, rules.field_size - margin)
+		place(state, rules, c, at, forward.angle())
+		offset += state.radius[c] + rules.deployment["company_gap"]
 
 
 static func _spawn_figures(

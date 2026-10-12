@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="288" viewBox="0 0 256 288">
+<defs>
+<linearGradient id="metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#95a7b8"/><stop offset=".5" stop-color="#f0f3e8"/><stop offset="1" stop-color="#73818c"/></linearGradient>
+<linearGradient id="timber" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#a57235"/><stop offset=".5" stop-color="#ffe0a1"/><stop offset="1" stop-color="#a57235"/></linearGradient>
+</defs>
+<path d="M116 109 L140 109 L140 244 L116 244 Z" fill="url(#timber)" stroke="#684925" stroke-width="3"/>
+<path d="M128 30 L155 118 L128 108 L101 118 Z" fill="url(#metal)" stroke="#43515f" stroke-width="3"/>
+<path d="M128 32 L128 108 L106 113 Z" fill="#f2f5ee"/>
+<path d="M116 200 L99 216 L99 254 L116 242 M140 200 L157 216 L157 254 L140 242" fill="#e4d7ac" stroke="#6f684f" stroke-width="3"/>
+<path d="M103 223 L112 215 M144 215 L153 223" stroke="#fff7d8" stroke-width="3"/>
+</svg>

@@ -13,7 +13,7 @@ func before_all() -> void:
 func test_battle_section_loads() -> void:
 	assert_not_null(_cfg.battle)
 	assert_eq(_cfg.battle.tick_rate, 30)
-	assert_eq(_cfg.battle.field_size, Vector2(300, 180))
+	assert_eq(_cfg.battle.field_size, Vector2(72, 44))
 	assert_eq(_cfg.battle.armies.size(), 2)
 
 
@@ -50,12 +50,15 @@ func test_knights_double_only_when_charging_fast() -> void:
 func test_charge_impact_needs_full_runup() -> void:
 	var knights := _cfg.units["knights"]
 	var wedge := _cfg.battle.formation(BattleState.Group.CAVALRY, 0).impact
-	# (14 * 2 wedge * 2 charge - 1 armor) * 3 impact seconds, scaled by run / 30 m.
+	# (14 * 2 wedge * 2 charge - 1 armor) * 3 impact seconds.
 	var full := 55.0 * 3.0
-	assert_almost_eq(BattleDamage.impact(knights, 1.0, 8.0, 30.0, wedge, _cfg.battle), full, EPSILON)
-	assert_almost_eq(BattleDamage.impact(knights, 1.0, 8.0, 90.0, wedge, _cfg.battle), full, EPSILON)
+	var runup := _cfg.battle.runup_distance
+	assert_almost_eq(BattleDamage.impact(knights, 1.0, 8.0, runup, wedge, _cfg.battle), full, EPSILON)
 	assert_almost_eq(
-		BattleDamage.impact(knights, 1.0, 8.0, 15.0, wedge, _cfg.battle), full / 2.0, EPSILON
+		BattleDamage.impact(knights, 1.0, 8.0, runup * 3, wedge, _cfg.battle), full, EPSILON
+	)
+	assert_almost_eq(
+		BattleDamage.impact(knights, 1.0, 8.0, runup * 0.5, wedge, _cfg.battle), full / 2.0, EPSILON
 	)
 	assert_eq(BattleDamage.impact(knights, 1.0, 8.0, 0.0, wedge, _cfg.battle), 0.0)
 

@@ -12,11 +12,13 @@
 - Audio: `.ogg` for music and ambience, `.wav` for short sound effects.
 
 ## Style
-- Low-poly 3D, flat shading, limited muted palette, top-down three-quarter camera, soft directional daylight.
+- Stylized low-poly 3D, faceted scenery and softly shaded characters, warm daylight, three-quarter camera.
+- Combat uses the supplied medieval illustration references: rounded proportions, blue/gold lilies and red/white crosses. These are prototype team markings, not historical house heraldry.
 - AI base prompt: "low-poly 3D game asset, flat shading, limited muted color palette, historical Germanic setting, three-quarter top-down view, soft daylight, plain neutral background"
 
 ## Sources & licenses
 - One line per external pack or AI tool: folder — source — license.
+- `assets/combat/` — original Blender meshes based on user-supplied style references; no third-party meshes or textures.
 
 ## After adding or renaming
 - Run `godot --headless --import` (or open the editor) and commit the generated `.import`/`.uid` files with the asset.

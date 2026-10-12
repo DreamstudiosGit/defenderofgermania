@@ -11,6 +11,8 @@ var _cfg: CombatConfig
 func before_each() -> void:
 	_cfg = CombatConfig.load_file()
 	_cfg.battle.deploy_seconds = 0.0
+	_cfg.battle.field_size = Vector2(300, 180)
+	_cfg.battle.deploy_depth = 80
 
 
 func test_start_morale_adds_five_per_leadership() -> void:
@@ -59,12 +61,13 @@ func test_company_flees_below_twenty() -> void:
 	assert_lt(sim.state.pos[1].x, sim.state.pos[0].x, "flees towards the own (left) edge")
 
 
-func test_leader_aura_reaches_thirty_meters() -> void:
+func test_leader_aura_stops_at_its_configured_radius() -> void:
 	var sim := _sim(["spearmen", "spearmen"], ["spearmen"], true)
 	var leader := sim.state.leader[0]
 	_place(sim, leader, Vector2(100, 90), 0.0)
-	_place(sim, 0, Vector2(129, 90), 0.0)
-	_place(sim, 1, Vector2(131, 90), 0.0)
+	var radius := _cfg.units["leader"].aura_radius
+	_place(sim, 0, Vector2(100 + radius - 1, 90), 0.0)
+	_place(sim, 1, Vector2(100 + radius + 1, 90), 0.0)
 	assert_eq(BattleMorale.aura(sim.state, 0), 15.0)
 	assert_eq(BattleMorale.aura(sim.state, 1), 0.0)
 
@@ -74,8 +77,9 @@ func test_rally_brings_back_fleeing_companies_in_radius() -> void:
 	var state := sim.state
 	var leader := state.leader[0]
 	_place(sim, leader, Vector2(100, 90), 0.0)
-	_place(sim, 0, Vector2(120, 90), 0.0)
-	_place(sim, 1, Vector2(100, 121), 0.0)
+	var radius := sim.rules.rally_radius
+	_place(sim, 0, Vector2(100 + radius * 0.65, 90), 0.0)
+	_place(sim, 1, Vector2(100, 90 + radius + 1), 0.0)
 	for c: int in [0, 1]:
 		state.status[c] = BattleState.Status.FLEEING
 		state.shock[c] = -50.0
@@ -83,10 +87,10 @@ func test_rally_brings_back_fleeing_companies_in_radius() -> void:
 	input.rally = true
 	sim.step(input, BattleInput.new())
 	assert_eq(state.status[0], BattleState.Status.ACTIVE)
-	assert_eq(state.status[1], BattleState.Status.FLEEING, "31 m away is out of reach")
+	assert_eq(state.status[1], BattleState.Status.FLEEING, "outside rally radius")
 	assert_almost_eq(BattleMorale.value(state, sim.rules, 0) - BattleMorale.aura(state, 0), 40.0, 0.1)
 	assert_almost_eq(state.rally_cooldown[0], 45.0 - sim.tick_seconds(), EPSILON)
-	_place(sim, 1, Vector2(110, 90), 0.0)
+	_place(sim, 1, Vector2(100 + radius * 0.5, 90), 0.0)
 	assert_eq(BattleMorale.rally(state, sim.rules, 0), 0, "still cooling down")
 	state.rally_cooldown[0] = 0.0
 	assert_eq(BattleMorale.rally(state, sim.rules, 0), 1)

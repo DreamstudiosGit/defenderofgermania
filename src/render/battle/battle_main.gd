@@ -40,6 +40,8 @@ func _ready() -> void:
 		return
 	BattleInputMap.register()
 	_headless = DisplayServer.get_name() == "headless"
+	if not _headless:
+		get_viewport().msaa_3d = Viewport.MSAA_4X
 	_field.build(_cfg.battle, _cfg.battle.armies)
 	add_child(_field)
 	add_child(_figures)
@@ -72,7 +74,6 @@ func _process(delta: float) -> void:
 		if reader == null:
 			continue
 		reader.poll()
-		_camera.zoom(reader.take_zoom())
 		if reader.menu_pressed() and not _menu.visible:
 			_open_menu()
 	var tick := _sim.tick_seconds()
@@ -85,9 +86,8 @@ func _process(delta: float) -> void:
 	var alpha := 1.0 if _headless else clampf(_accumulator / tick, 0.0, 1.0)
 	var positions := _interpolated(_previous_positions, _sim.state.pos, alpha)
 	_figures.update_view(_sim.state, _previous_figures, alpha)
-	_markers.update_view(_sim.state, _sim.rules, positions, _humans(), _marker_colors())
+	_markers.update_view(_sim.state, _sim.rules, positions, _selection_sides(), _marker_colors())
 	_hud.update_view(_sim, positions, delta)
-	_camera.follow(_focus(positions), delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -150,7 +150,8 @@ func _start() -> void:
 		var human := _devices[s] >= 0
 		_readers[s] = BattleInputReader.new(_devices[s]) if human else null
 		_ais[s] = null if human else BattleAI.new(s, _seed * 2 + s)
-	_figures.setup(_sim.state, _cfg.battle.armies)
+	_figures.setup(_sim.state, _cfg.battle.armies, _sim.tick_seconds())
+	_figures.set_selection_sides(_selection_sides())
 	_hud.setup(_sim.state, _cfg.battle.armies, _devices, _camera)
 	_volleys.clear()
 	_field.show_zones(true)
@@ -160,8 +161,7 @@ func _start() -> void:
 	_previous_positions = _sim.state.pos.duplicate()
 	_accumulator = 0.0
 	_slowmo_left = 0.0
-	_camera.zoomed_out = not (_devices[0] >= 0 or _devices[1] >= 0)
-	_camera.setup(_cfg.battle.field_size, _focus(_sim.state.pos))
+	_camera.setup(_cfg.battle.field_size, _cfg.battle.field_size * 0.5)
 
 
 func _finish() -> void:
@@ -181,25 +181,16 @@ func _on_start_requested(devices: PackedInt32Array) -> void:
 	_start()
 
 
-## Human players' active groups, or the whole battle when only the computer plays.
-func _focus(positions: PackedVector2Array) -> Vector2:
-	var state := _sim.state
-	var sum := Vector2.ZERO
-	var count := 0
-	for c: int in state.company_count():
-		if not state.is_present(c) or c >= positions.size():
-			continue
-		var s := state.side[c]
-		var humans := _devices[0] >= 0 or _devices[1] >= 0
-		if humans and (_devices[s] < 0 or state.group[c] != state.active_group[s]):
-			continue
-		sum += positions[c]
-		count += 1
-	return sum / count if count > 0 else _cfg.battle.field_size * 0.5
-
-
 func _humans() -> Array[bool]:
 	return [_devices[0] >= 0, _devices[1] >= 0]
+
+
+func _selection_sides() -> Array[bool]:
+	var humans := _humans()
+	if humans[0] != humans[1]:
+		return humans
+	var hidden: Array[bool] = [false, false]
+	return hidden
 
 
 func _marker_colors() -> Array[Color]:

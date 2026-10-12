@@ -25,6 +25,7 @@ One round is one season; turn 0 is spring. `TurnLoop` drives it; houses play pha
 - Static data (`MapData`, `EconomyConfig`, `CombatConfig`) and the battle resolver form `GameRules`, built once from `data/` and never saved.
 - Battles: the campaign builds a `BattleSetup`, the resolver returns a `BattleResult` (auto-resolve with `GameState.rng` while no resolver is set) and the campaign applies it.
 - Real-time battle: `BattleSim` advances `BattleState` (packed arrays) in fixed 30 Hz ticks from one `BattleInput` per side and tick; render/ui turn devices into inputs and only read the state. Same setup, seed and inputs give the same `BattleResult`. The main scene is currently the battle prototype (`src/render/battle/battle_main.tscn`).
+- Combat presentation uses Blender glTF meshes batched by unit and team, GPU limb animation, foliage wind and flowing water. `data/combat_art.json` is presentation-only. Shared-view selection cues are hidden in two-human couch battles; see `docs/decisions/0004-combat-art.md`.
 - Player actions are `Command` subclasses; `execute()` validates (active house, phase, game not over, rules) before `apply()` changes the state.
 - All chance goes through `GameState.rng`; same seed and commands give the same `checksum()`.
 - Multiplayer: hot-seat and the couch battle share one local state; online v1.0 is Steam Remote Play Together. Async online after launch sends only commands and the seed and replays them, so the simulation must stay deterministic.

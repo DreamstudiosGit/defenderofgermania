@@ -84,6 +84,13 @@ func test_seed_changes_the_battle() -> void:
 ## HP the defender's first company loses in the tick the attacker's knights hit it.
 func _charge_loss(defender: Array[String], distance: float, hedgehog: bool) -> float:
 	_cfg.battle.deploy_seconds = 0.0
+	_cfg.battle.field_size = Vector2(300, 180)
+	_cfg.battle.runup_distance = 30.0
+	_cfg.battle.charge_max_distance = 100.0
+	_cfg.battle.horse_spacing = 2.4
+	_cfg.units["knights"].figures = 12
+	_cfg.units["spearmen"].figures = 12
+	_cfg.units["crossbowmen"].figures = 12
 	var setup := BattleSetup.new()
 	setup.attacker.add_company("knights")
 	for id: String in defender:

@@ -15,6 +15,7 @@ var acceleration: float
 var turn_rate: float
 var flee_speed_factor: float
 var melee_reach: float
+var deployment: Dictionary[String, float] = {}
 
 var foot_radius: float
 var horse_radius: float
@@ -75,6 +76,12 @@ static func read(r: DataReader, data: Dictionary) -> BattleRules:
 	var rules := BattleRules.new()
 	r.context = "battle"
 	rules._read_core(r, data)
+	var layout := r.object(data, "deployment")
+	var keys: Array[String] = [
+		"front_gap", "company_gap", "archer_depth", "cavalry_depth", "leader_depth", "siege_depth"
+	]
+	for key: String in keys:
+		rules.deployment[key] = r.number(layout, key)
 	rules._read_figures(r, r.object(data, "figures"))
 	rules._read_morale(r, r.object(data, "morale"))
 	rules._read_attacks(r, data)
@@ -117,6 +124,13 @@ func check(r: DataReader, units: Dictionary) -> void:
 			r.errors.append("battle.formations: unknown shape '%s'" % rule.shape)
 	if tick_rate <= 0 or runup_distance <= 0.0:
 		r.errors.append("battle: tick_rate and charge.runup_distance must be positive")
+	if field_size.x <= 0 or field_size.y <= 0 or deploy_depth <= 0:
+		r.errors.append("battle: field dimensions and deploy_depth must be positive")
+	if deploy_depth * 2 >= field_size.x:
+		r.errors.append("battle: deployment zones must leave space between armies")
+	for key: String in deployment:
+		if deployment[key] < 0:
+			r.errors.append("battle.deployment.%s: must not be negative" % key)
 
 
 func _read_core(r: DataReader, data: Dictionary) -> void:

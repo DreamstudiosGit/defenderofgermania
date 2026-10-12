@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const checks = [
   'godot --headless --import',
@@ -54,12 +54,21 @@ if (!status.output.trim()) {
   process.exit(0);
 }
 
+for (const key of ['user.name', 'user.email']) {
+  if (!exec('git', ['config', key]).output.trim()) {
+    console.log(`FAILED: git ${key} is not set (git config ${key} "...")`);
+    process.exit(1);
+  }
+}
+
 const env = { ...process.env, CI: 'true' };
 for (const check of checks) step(check, check, null, { env });
 
 mkdirSync('docs', { recursive: true });
 if (!existsSync('docs/done.md')) writeFileSync('docs/done.md', '# Done\n\n');
-appendFileSync('docs/done.md', `- ${new Date().toLocaleDateString('sv-SE')} ${message}\n`);
+// Only the subject line; a rerun after a failed commit or push must not log it twice.
+const entry = `- ${new Date().toLocaleDateString('sv-SE')} ${message.split('\n')[0]}\n`;
+if (!readFileSync('docs/done.md', 'utf8').includes(entry)) appendFileSync('docs/done.md', entry);
 
 step('git add', 'git', ['add', '-A']);
 step('git commit', 'git', ['commit', '-m', message]);

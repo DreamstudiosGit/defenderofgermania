@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="288" viewBox="0 0 256 288">
+<defs>
+  <linearGradient id="face" x1="0" y1="0" x2="0.65" y2="1">
+    <stop stop-color="#315da5"/><stop offset=".4" stop-color="#163e79"/><stop offset="1" stop-color="#0c2451"/>
+  </linearGradient>
+  <linearGradient id="silk" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#4788d1"/><stop offset=".48" stop-color="#163e79"/><stop offset="1" stop-color="#102a55"/>
+  </linearGradient>
+  <linearGradient id="rim" x1=".12" y1="0" x2=".8" y2="1">
+    <stop stop-color="#fff3b4"/><stop offset=".13" stop-color="#e5b864"/>
+    <stop offset=".31" stop-color="#bd7f32"/><stop offset=".57" stop-color="#e3ab48"/>
+    <stop offset=".8" stop-color="#9a5d22"/><stop offset="1" stop-color="#efce83"/>
+  </linearGradient>
+  <linearGradient id="gold" x1=".18" y1="0" x2=".9" y2="1">
+    <stop stop-color="#fff1ad"/><stop offset=".26" stop-color="#efca78"/>
+    <stop offset=".54" stop-color="#d99838"/><stop offset="1" stop-color="#a86c27"/>
+  </linearGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2=".8" y2="1">
+    <stop stop-color="#fff8ce"/><stop offset=".6" stop-color="#dba544"/><stop offset="1" stop-color="#784519"/>
+  </linearGradient>
+  <linearGradient id="steel" x1="0" y1=".2" x2="1" y2=".7">
+    <stop stop-color="#5d6d83"/><stop offset=".36" stop-color="#d5e4ea"/>
+    <stop offset=".55" stop-color="#f6fcfd"/><stop offset=".58" stop-color="#a2b5c8"/><stop offset="1" stop-color="#566677"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2=".2">
+    <stop stop-color="#81502b"/><stop offset=".23" stop-color="#d89a52"/>
+    <stop offset=".5" stop-color="#e8b46a"/><stop offset=".85" stop-color="#ae7037"/><stop offset="1" stop-color="#724121"/>
+  </linearGradient>
+  <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+    <stop stop-color="#6b3b18"/><stop offset=".35" stop-color="#f2c773"/><stop offset=".6" stop-color="#cb8c3c"/><stop offset="1" stop-color="#80501d"/>
+  </linearGradient>
+  <radialGradient id="stone" cx=".28" cy=".22" r=".85">
+    <stop stop-color="#faf4e5"/><stop offset=".28" stop-color="#c9c6be"/><stop offset=".72" stop-color="#898f92"/><stop offset="1" stop-color="#4d5863"/>
+  </radialGradient>
+  <radialGradient id="rivet" cx=".25" cy=".2" r=".85">
+    <stop stop-color="#fff7ca"/><stop offset=".5" stop-color="#b88947"/><stop offset="1" stop-color="#503013"/>
+  </radialGradient>
+</defs><path d="M37 209 L9 213 L20 236 L10 253 L52 248 L68 230 Z" fill="#0c1724" opacity=".4" transform="translate(1 5)"/>
+<path d="M219 209 L247 213 L236 236 L246 253 L204 248 L188 230 Z" fill="#0c1724" opacity=".4" transform="translate(1 5)"/>
+<path d="M37 207 L9 211 L20 233 L10 250 L51 245 L68 226 Z M219 207 L247 211 L236 233 L246 250 L205 245 L188 226 Z" fill="url(#silk)" stroke="#c5a35f" stroke-width="1.4"/>
+<path d="M11 213 L43 221 L61 223 M245 213 L213 221 L195 223 M14 245 L43 240 M242 245 L213 240" fill="none" stroke="#a7cdf0" stroke-opacity=".32" stroke-width="2"/>
+<path d="M37 207 L38 230 L61 236 L68 226 Z M219 207 L218 230 L195 236 L188 226 Z" fill="#0b162b" opacity=".66"/>
+<path d="M128 18 L223 35 C223 106 219 181 179 222 Q154 250 128 266 Q100 252 76 226 C36 188 33 111 33 35 Z" fill="#0b1018" opacity=".52" transform="translate(3 8)"/>
+<path d="M128 18 L223 35 C223 106 219 181 179 222 Q154 250 128 266 Q100 252 76 226 C36 188 33 111 33 35 Z" fill="url(#rim)" stroke="#57371d" stroke-width="3"/>
+<path d="M128 22 L219 39 C219 115 209 180 176 220 Q150 247 128 261 Q104 248 80 223 C44 189 38 116 37 39 Z" fill="none" stroke="#fff0bd" stroke-width="2.5" opacity=".8"/>
+<path d="M128 29 L212 44 C210 117 205 176 170 216 Q147 240 128 253 Q107 241 86 217 C50 182 46 118 45 44 Z" fill="#69421f"/>
+<path d="M128 34 L206 49 C205 116 199 174 165 212 Q144 235 128 246 Q110 235 91 214 C57 181 50 121 50 49 Z" fill="url(#face)" stroke="#f2cf83" stroke-width="1.5"/>
+<path d="M128 34 L87 43 L91 214 Q110 235 128 246 Z" fill="#fff" opacity=".035"/>
+<path d="M128 34 L163 41 L164 211 Q144 235 128 246 Z" fill="#fff" opacity=".025"/>
+<path d="M74 45 L77 193 M103 39 L104 226 M155 40 L153 226 M180 45 L177 195" fill="none" stroke="#080d21" stroke-width="1" opacity=".17"/>
+<path d="M50 49 L128 34 L206 49" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+<path d="M51 51 C52 119 59 178 91 212 Q109 232 128 244" fill="none" stroke="#8ba6bc" stroke-opacity=".32" stroke-width="1.5"/>
+<g fill="url(#rivet)" stroke="#6e4823" stroke-width=".7">
+<circle cx="75" cy="34" r="3.4"/><circle cx="180" cy="34" r="3.4"/>
+<circle cx="42" cy="91" r="3.2"/><circle cx="214" cy="91" r="3.2"/>
+<circle cx="61" cy="190" r="3.2"/><circle cx="195" cy="190" r="3.2"/>
+<circle cx="128" cy="256" r="3.2"/></g><g transform="translate(1 5)" fill="#091321" opacity=".55">
+<path d="M79 215 L134 126 L142 130 L87 220 Z M134 126 L142 130 L163 78 L132 102 Z"/>
+<path d="M165 110 C145 116 128 146 128 173 C128 198 140 215 153 219 C176 201 188 171 184 142 C182 126 174 115 165 110 Z"/></g>
+<path d="M80 213 L135 124 L143 128 L87 218 Z" fill="url(#shaft)" stroke="#67451d" stroke-width="1.2"/>
+<path d="M82 214 L137 126" fill="none" stroke="#fff3b2" stroke-width="1.7" opacity=".8"/>
+<path d="M134 127 L131 102 L161 76 L148 115 L141 131 Z" fill="url(#steel)" stroke="#364250" stroke-width="1.2"/>
+<path d="M136 124 L161 76 L142 108 Z" fill="#e8f3f6"/>
+<path d="M134 125 L142 129 L146 123 L138 119 Z" fill="url(#gold)" stroke="#5d3f21" stroke-width="1"/>
+<path d="M166 108 C144 115 128 143 128 170 C128 196 140 213 153 216 C176 198 188 168 184 140 C182 124 175 112 166 108 Z" fill="url(#gold)" stroke="#57391f" stroke-width="2"/>
+<path d="M165 113 C147 119 133 144 133 170 C133 193 142 206 153 211 C173 195 183 168 180 141 C178 127 172 118 165 113 Z" fill="url(#wood)" stroke="#f5d898" stroke-width="1.5"/>
+<path d="M165 115 L153 210 M157 120 L145 204 M174 129 L163 200 M145 134 L138 190" fill="none" stroke="#6d4222" stroke-width="1.2" opacity=".65"/>
+<path d="M165 117 L154 207 M158 122 L147 203 M175 130 L165 197" fill="none" stroke="#ffe3a7" stroke-width=".9" opacity=".4"/>
+<path d="M166 111 Q140 126 133 158 Q126 191 153 214" fill="none" stroke="#fff0ad" stroke-width="1.6"/>
+<path d="M154 215 Q183 189 184 148" fill="none" stroke="#68411d" stroke-width="1.6"/>
+<circle cx="154" cy="128" r="1.5" fill="#654322"/><circle cx="145" cy="191" r="1.5" fill="#654322"/>
+</svg>

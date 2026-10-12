@@ -42,17 +42,19 @@ func _draw() -> void:
 	for c: int in _state.company_count():
 		if not _state.is_present(c) or c >= _positions.size():
 			continue
+		var health := _state.hp[c] / _state.max_hp[c]
+		var fleeing := _state.status[c] == BattleState.Status.FLEEING
+		if health >= 0.999 and not fleeing:
+			continue
 		var world := Vector3(_positions[c].x, LIFT, _positions[c].y)
 		if _camera.is_position_behind(world):
 			continue
 		var at := _camera.unproject_position(world) - Vector2(WIDTH / 2, 0)
-		var health := _state.hp[c] / _state.max_hp[c]
 		draw_rect(Rect2(at - Vector2(1, 1), Vector2(WIDTH + 2, HEIGHT * 2 + 3)), BACK)
 		draw_rect(Rect2(at, Vector2(WIDTH * health, HEIGHT)), HEALTH_LOW.lerp(HEALTH_FULL, health))
 		draw_rect(Rect2(at + Vector2(-4, 0), Vector2(3, HEIGHT * 2 + 1)), _colors[_state.side[c]])
 		if _state.is_leader(c):
 			continue
-		var fleeing := _state.status[c] == BattleState.Status.FLEEING
 		var morale := clampf(_state.morale[c] / MORALE_SCALE, 0.0, 1.0)
 		var color := BROKEN if fleeing and _blink < 0.25 else MORALE
 		draw_rect(Rect2(at + Vector2(0, HEIGHT + 1), Vector2(WIDTH * morale, HEIGHT)), color)

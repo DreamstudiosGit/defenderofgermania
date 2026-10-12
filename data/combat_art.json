@@ -1,0 +1,150 @@
+{
+  "teams": [
+    "blue",
+    "red"
+  ],
+  "unit_models": {
+    "levy": "levy",
+    "spearmen": "spearman",
+    "crossbowmen": "crossbowman",
+    "brabanters": "brabanter",
+    "knights": "knight",
+    "leader": "leader",
+    "trebuchet": "trebuchet"
+  },
+  "animation": {
+    "stride_rate": 9.0,
+    "stride_length": 0.22,
+    "body_bob": 0.035
+  },
+  "wind": {
+    "wind_strength": 0.018,
+    "wind_speed": 1.2,
+    "canopy_height": 4.5
+  },
+  "water": {
+    "flow_speed": 0.55,
+    "wave_height": 0.018,
+    "deep_color": "#164e65",
+    "foam_color": "#c5e8de"
+  },
+  "path": {
+    "roughness": 1.0
+  },
+  "default_landscape": "summer_meadow",
+  "landscapes": {
+    "summer_meadow": {
+      "title_key": "COMBAT_ART_SUMMER",
+      "meadow_color": "#556b29",
+      "sand_color": "#b18a4c",
+      "sun_energy": 0.95,
+      "ambient_energy": 0.45,
+      "tree_density": 1.0,
+      "tree_palette": "summer"
+    },
+    "river_valley": {
+      "title_key": "COMBAT_ART_RIVER",
+      "meadow_color": "#506c32",
+      "sand_color": "#ae915b",
+      "sun_energy": 0.95,
+      "ambient_energy": 0.45,
+      "tree_density": 1.3,
+      "tree_palette": "summer"
+    },
+    "autumn_woodland": {
+      "title_key": "COMBAT_ART_AUTUMN",
+      "meadow_color": "#75702e",
+      "sand_color": "#b88b47",
+      "sun_energy": 0.95,
+      "ambient_energy": 0.45,
+      "tree_density": 1.15,
+      "tree_palette": "autumn"
+    }
+  },
+  "scenery": {
+    "seed": 1198,
+    "tree_scale_min": 0.85,
+    "tree_scale_max": 1.4,
+    "grove_spacing": 2.7,
+    "ground_foliage_density": 0.16,
+    "river_offset": -8.0,
+    "river_width": 5.4,
+    "groves": [
+      [
+        -0.06,
+        0.0,
+        9,
+        10,
+        15
+      ],
+      [
+        0.12,
+        -0.22,
+        9,
+        5,
+        14
+      ],
+      [
+        0.34,
+        -0.3,
+        6,
+        5,
+        8
+      ],
+      [
+        0.71,
+        -0.22,
+        10,
+        6,
+        16
+      ],
+      [
+        1.07,
+        -0.02,
+        9,
+        12,
+        18
+      ],
+      [
+        -0.12,
+        0.55,
+        6,
+        10,
+        10
+      ],
+      [
+        1.13,
+        0.7,
+        6,
+        12,
+        10
+      ],
+      [
+        -0.08,
+        1.16,
+        10,
+        8,
+        16
+      ],
+      [
+        0.18,
+        1.2,
+        8,
+        5,
+        9
+      ],
+      [
+        0.89,
+        1.24,
+        12,
+        7,
+        16
+      ]
+    ]
+  },
+  "camera": {
+    "horizontal_margin": 14.0,
+    "vertical_margin": 19.0,
+    "center_offset": -1.5
+  }
+}

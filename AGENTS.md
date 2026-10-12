@@ -1,9 +1,10 @@
 ## Project
-- Genre: turn-based strategy with real-time battles and action minigames; players move armies across a map, fight battles and manage an economy, against the AI, in hot-seat (2–4) or in a 1v1 couch battle.
+- Genre: turn-based strategy with real-time battles; players move armies across a map, fight battles and manage an economy, against the AI, in hot-seat (2–4) or in a 1v1 couch battle.
 - Stack: Godot 4.7.2 (Forward+ renderer, Jolt physics), GDScript with static typing (untyped declarations are errors), GUT 9.7.1 for tests, gdtoolkit 4.5.0 for linting — use only APIs of these versions.
 - Target: Steam (Windows, macOS, Linux) and Steam Deck; input: controller and mouse/keyboard as equals
 
 ## Commands
+- Run the game for the user: `node scripts/run.mjs` (`--editor` opens the editor); finds Godot via `GODOT`, PATH or `~/Tools/Godot/`
 - Import (after cloning or adding assets): `godot --headless --import`
 - Lint/typecheck: `gdlint .` · `godot --headless --script res://scripts/typecheck.gd`
 - Test: `godot --headless -s addons/gut/gut_cmdln.gd` · folders: `… -gdir=res://src/<a>,res://src/<b> -gexit` · single: `… -gconfig= -gtest=res://<file>` (without `-gconfig=` the whole suite runs)
@@ -42,7 +43,7 @@
 - Pass randomness and time into game rules so they stay testable.
 - Every player action is a `Command` that validates before it applies; AI, hot-seat and later async online use the same path. Never trust UI state.
 - Move or rename assets and scenes together with their `.import`/`.uid` files, preferably in the editor.
-- Balancing values (stats, costs, timings, spawn rates) live in `data/`, not in code.
+- Balancing values (for example stats, costs, timings, spawn rates) live in `data/`, not in code.
 - Player-facing text: German and English via keys in `data/i18n/texts.csv` (columns `keys,de,en`, read with `tr()`), not in code.
 - Save format changes always bump the save version; add a migration once existing saves must survive (first public playtest).
 - Don't drop validation or error handling when simplifying.

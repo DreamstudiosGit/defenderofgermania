@@ -2,35 +2,35 @@
   "units": {
     "levy": {
       "group": "infantry", "hp": 300, "melee": 6, "armor": 1, "speed": 2.0, "morale": 40,
-      "auto_resolve": 1, "figures": 12, "strong_against": []
+      "auto_resolve": 1, "figures": 6, "strong_against": []
     },
     "spearmen": {
       "group": "infantry", "hp": 400, "melee": 8, "melee_vs_cavalry": 2.5, "armor": 3, "speed": 1.8,
-      "morale": 60, "auto_resolve": 2, "figures": 12, "strong_against": ["knights"]
+      "morale": 60, "auto_resolve": 2, "figures": 6, "strong_against": ["knights"]
     },
     "crossbowmen": {
-      "group": "archers", "hp": 250, "melee": 4, "ranged": 14, "range": 90, "reload": 4,
+      "group": "archers", "hp": 250, "melee": 4, "ranged": 14, "range": 32, "reload": 4,
       "armor_piercing": 0.5, "armor": 1, "speed": 1.8, "morale": 50, "auto_resolve": 2,
-      "figures": 12, "strong_against": ["spearmen"]
+      "figures": 3, "strong_against": ["spearmen"]
     },
     "knights": {
       "group": "cavalry", "hp": 500, "melee": 14, "charge_multiplier": 2.0, "charge_min_speed": 5.0,
       "armor": 6, "speed": 6.0, "charge_speed": 8.0, "morale": 80, "auto_resolve": 4,
-      "figures": 12, "strong_against": ["crossbowmen", "levy"]
+      "figures": 3, "strong_against": ["crossbowmen", "levy"]
     },
     "brabanters": {
       "group": "infantry", "hp": 400, "melee": 12, "armor": 4, "speed": 2.2, "morale": 55,
-      "unpaid_morale_penalty": 20, "auto_resolve": 3, "figures": 12,
+      "unpaid_morale_penalty": 20, "auto_resolve": 3, "figures": 6,
       "strong_against": ["levy", "spearmen"]
     },
     "trebuchet": {
-      "group": "siege", "hp": 200, "melee": 0, "ranged": 60, "range": 250, "reload": 20,
+      "group": "siege", "hp": 200, "melee": 0, "ranged": 60, "range": 80, "reload": 20,
       "splash_radius": 6, "wall_multiplier": 4, "armor": 2, "speed": 0.6, "morale": 30,
       "auto_resolve": 1, "figures": 1, "strong_against": []
     },
     "leader": {
       "group": "cavalry", "hp": 300, "melee": 16, "armor": 7, "speed": 6.0, "morale": 0,
-      "aura_morale": 15, "aura_radius": 30, "auto_resolve": 2, "figures": 1, "strong_against": []
+      "aura_morale": 15, "aura_radius": 12, "auto_resolve": 2, "figures": 1, "strong_against": []
     }
   },
   "morale": {"per_leadership": 5, "leader_captured": -10, "winter_attack_multiplier": 0.75},
@@ -52,23 +52,27 @@
   },
   "battle": {
     "tick_rate": 30,
-    "field": {"width": 300, "height": 180},
+    "field": {"width": 72, "height": 44},
     "deploy_seconds": 15,
-    "deploy_depth": 80,
+    "deploy_depth": 26,
     "time_limit_seconds": 240,
+    "deployment": {
+      "front_gap": 4, "company_gap": 2.5, "archer_depth": 10,
+      "cavalry_depth": 4, "leader_depth": 7, "siege_depth": 15
+    },
     "acceleration": 4.0,
     "turn_rate_deg": 120,
     "flee_speed_factor": 1.2,
     "melee_reach": 0.8,
     "figures": {
-      "foot_radius": 0.45, "horse_radius": 0.9, "foot_spacing": 1.6, "horse_spacing": 2.4,
+      "foot_radius": 0.45, "horse_radius": 0.9, "foot_spacing": 1.6, "horse_spacing": 3.0,
       "catch_up_factor": 1.5
     },
     "morale": {
       "per_hp_percent": 0.5, "flank": -15, "leader_captured": -20, "flee_below": 20,
-      "rally_radius": 30, "rally_cooldown": 45, "rally_morale": 40
+      "rally_radius": 12, "rally_cooldown": 45, "rally_morale": 40
     },
-    "charge": {"runup_distance": 30, "impact_seconds": 3, "max_distance": 100},
+    "charge": {"runup_distance": 10, "impact_seconds": 3, "max_distance": 36},
     "targeting": {"attack_cone_deg": 60, "aim_cone_deg": 30, "pick_radius": 8},
     "volleys": {"count": 3, "interval": 0.8},
     "formations": {
@@ -89,22 +93,19 @@
       ]
     },
     "obstacles": [
-      {"kind": "rock", "x": 150, "y": 98, "radius": 3},
-      {"kind": "tree", "x": 112, "y": 36, "radius": 5},
-      {"kind": "tree", "x": 192, "y": 146, "radius": 5},
-      {"kind": "tree", "x": 128, "y": 150, "radius": 4},
-      {"kind": "tree", "x": 174, "y": 28, "radius": 4},
-      {"kind": "rock", "x": 98, "y": 112, "radius": 2},
-      {"kind": "rock", "x": 204, "y": 66, "radius": 2}
+      {"kind": "rock", "x": 35, "y": 8, "radius": 1.8},
+      {"kind": "tree", "x": 18, "y": 4, "radius": 2.2},
+      {"kind": "tree", "x": 58, "y": 40, "radius": 2.2},
+      {"kind": "rock", "x": 6, "y": 37, "radius": 1.3}
     ],
     "armies": [
       {
-        "house": "welfen", "color": "#b3202a", "accent": "#e3b341", "leader": true,
+        "house": "welfen", "color": "#195cce", "accent": "#e3b341", "leader": true,
         "leadership": 3,
         "units": ["spearmen", "spearmen", "crossbowmen", "crossbowmen", "knights", "knights"]
       },
       {
-        "house": "staufer", "color": "#26262b", "accent": "#e3b341", "leader": true,
+        "house": "staufer", "color": "#b3202a", "accent": "#e3b341", "leader": true,
         "leadership": 3,
         "units": ["spearmen", "spearmen", "crossbowmen", "crossbowmen", "knights", "knights"]
       }
