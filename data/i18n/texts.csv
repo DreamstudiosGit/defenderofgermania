@@ -625,3 +625,55 @@ EVENT_GROUP_TRADE_CITIES,den Handelsstädten,the trade cities
 EVENT_ADVENTURE_JOUST,Tjost,Joust
 EVENT_ADVENTURE_CASTLE_RAID,Burgüberfall,Castle raid
 EVENT_ADVENTURE_MERCHANT_TRAIN,Kaufmannszug,Merchant train
+MERCHANT_TITLE,Überfall auf den Kaufmannszug,Raid on the Merchant Train
+MERCHANT_PRACTICE,Übung – nichts davon landet in der Chronik.,Practice – none of this makes it into the chronicle.
+MERCHANT_HOWTO,"Fünf Wagen rollen aufs Stadttor zu. Holt die Kutscher vom Bock oder kappt mit der Armbrust das Geschirr, bevor das Tor zufällt. Das Geleit hebt den Schild; leuchtet ein ! über einem Wächter, holt er aus: parieren, dann zuschlagen. Wer zu oft getroffen wird, verliert den Sattel – und die Freiheit.","Five wagons roll towards the town gate. Pull the drivers off their boxes or cut the harness with the crossbow before the gate shuts. The escort raises shields; when a ! lights up over a guard, he winds up: parry, then strike. Take too many blows and you lose the saddle – and your freedom."
+MERCHANT_KEYS_KEYBOARD,A/D reiten · W halten: Kutscher packen · Leertaste/Linksklick: Hieb · S/Rechtsklick: Parade · F: Armbrust · Esc: Menü,A/D ride · hold W: grab the driver · Space/left click: strike · S/right click: parry · F: crossbow · Esc: menu
+MERCHANT_KEYS_PAD,Stick reiten · A halten: Kutscher packen · X: Hieb · B/LB: Parade · Y/RT: Armbrust · Start: Menü,Stick ride · hold A: grab the driver · X: strike · B/LB: parry · Y/RT: crossbow · Start: menu
+MERCHANT_ESCORTS,Geleit,Escort
+MERCHANT_ESCORT_0,Verschlafen,Drowsy
+MERCHANT_ESCORT_1,Wachsam,Watchful
+MERCHANT_ESCORT_2,Erfahren,Seasoned
+MERCHANT_ESCORT_3,Veteranen,Veterans
+MERCHANT_COMPANIES,Rotten im Hinterhalt,Companies in ambush
+MERCHANT_START,Losreiten,Ride out
+MERCHANT_GATE_OF,Tor von %s,Gate of %s
+MERCHANT_INTRO_TIMER,Der Zug rollt an …,The train rolls in …
+MERCHANT_GATE_TIMER,Torschluss in %s,Gates close in %s
+MERCHANT_LOOT,Beute: %d T,Loot: %d T
+MERCHANT_WAGONS,Wagen: %d von %d,Wagons: %d of %d
+MERCHANT_CARGO_VALUE,%d T,%d T
+MERCHANT_COMPOSURE,Haltung,Composure
+MERCHANT_CROSSBOW,Armbrust,Crossbow
+MERCHANT_PROMPT_PULL,Halten: Kutscher vom Bock ziehen,Hold: pull the driver off the box
+MERCHANT_PROMPT_AIM,"Schießen, solange die Nadel im Grünen steht",Shoot while the needle sits in the green
+MERCHANT_POP_DRIVER,Hepp!,Hup!
+MERCHANT_POP_CUT,Ritsch!,Snip!
+MERCHANT_POP_MISS,Daneben!,Missed!
+MERCHANT_POP_BLOCKED,Klong!,Clonk!
+MERCHANT_POP_HIT,Bonk!,Bonk!
+MERCHANT_POP_DOWN,Plumps!,Plop!
+MERCHANT_POP_PARRIED,Pariert!,Parried!
+MERCHANT_POP_OUCH,Autsch!,Ouch!
+MERCHANT_POP_LOST,−%d T,−%d T
+MERCHANT_SHOUT_RAID,Überfall!,Raid!
+MERCHANT_SHOUT_ALARM,Alarm!,Alarm!
+MERCHANT_SHOUT_ALARM_SUB,Das ganze Geleit rückt an,The whole escort comes running
+MERCHANT_SHOUT_AMBUSH,Hinterhalt!,Ambush!
+MERCHANT_SHOUT_CAPTURED,Gefangen!,Captured!
+MERCHANT_SHOUT_GATE,Das Tor fällt zu,The gate slams shut
+MERCHANT_SHOUT_CLEAN,Kein Wagen kommt durch!,Not one wagon got through!
+MERCHANT_RESULT_RICH,Reiche Beute,A rich haul
+MERCHANT_RESULT_SOME,Etwas Beute,Some loot
+MERCHANT_RESULT_NONE,Leer ausgegangen,Empty-handed
+MERCHANT_RESULT_CAPTURED,Vom Geleit gefangen,Caught by the escort
+MERCHANT_RESULT_WAGONS,Wagen gestoppt: %d von %d,Wagons stopped: %d of %d
+MERCHANT_RESULT_LOOT,Beute: %d Taler,Loot: %d taler
+MERCHANT_RESULT_TIME,Zeit: %s,Time: %s
+MERCHANT_RESULT_NOTE_RICH,Die Kaufleute werden sich beschweren. Bei wem auch immer.,The merchants will complain. To whomever.
+MERCHANT_RESULT_NOTE_SOME,Ein Teil der Ware hat den Besitzer gewechselt. Der Rest hatte Glück.,Some of the goods changed hands. The rest got lucky.
+MERCHANT_RESULT_NOTE_NONE,Die Kaufleute zählen nach – alles da.,The merchants count twice – all there.
+MERCHANT_RESULT_NOTE_CAPTURED,"Die Beute bleibt beim Zug, der Anführer beim Geleit. Lösegeld folgt.","The loot stays with the train, the leader with the escort. A ransom note will follow."
+MERCHANT_RESULT_RETRY,Nochmal,Again
+MERCHANT_RESULT_QUIT,Beenden,Quit
+MERCHANT_RESULT_CONTINUE,Weiter,Continue

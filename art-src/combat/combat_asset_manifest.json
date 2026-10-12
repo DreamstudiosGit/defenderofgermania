@@ -1,5 +1,65 @@
 [
   {
+    "file": "prop_wagon_merchant.glb",
+    "triangles": 988,
+    "dimensions_blender": [
+      1.9,
+      6.453,
+      1.61
+    ],
+    "animations": []
+  },
+  {
+    "file": "prop_wagon_wheel.glb",
+    "triangles": 252,
+    "dimensions_blender": [
+      0.2,
+      1.02,
+      1.02
+    ],
+    "animations": []
+  },
+  {
+    "file": "prop_cargo_bale.glb",
+    "triangles": 84,
+    "dimensions_blender": [
+      0.84,
+      0.524,
+      0.524
+    ],
+    "animations": []
+  },
+  {
+    "file": "prop_cargo_crate.glb",
+    "triangles": 80,
+    "dimensions_blender": [
+      0.6,
+      0.61,
+      0.54
+    ],
+    "animations": []
+  },
+  {
+    "file": "unit_draught_horse.glb",
+    "triangles": 1332,
+    "dimensions_blender": [
+      0.82,
+      3.007,
+      2.16
+    ],
+    "animations": []
+  },
+  {
+    "file": "prop_town_gate.glb",
+    "triangles": 1432,
+    "dimensions_blender": [
+      24.0,
+      7.495,
+      15.0
+    ],
+    "animations": []
+  },
+  {
     "file": "unit_levy.glb",
     "triangles": 1764,
     "dimensions_blender": [
