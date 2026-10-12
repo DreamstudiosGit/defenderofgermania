@@ -11,7 +11,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
 | M5 Electors, coronation, events | done; needs a hot-seat playtest of the realm tab and event cards with mouse and controller (`docs/screenshots/m5_*.png`) | test scenarios trigger the coronation along all four rows of the table |
 | M6 Adventures | done; needs hands-on playtests of all four minigames with mouse and controller (timing feel, frame rate) (`docs/screenshots/m6_*.png`, practice: `node scripts/run.mjs --joust / --siege / --raid / --merchant`) | each minigame takes 1–3 min and has a practice mode |
-| M7 AI | in progress: utility AI with four decision levels, personalities and difficulties; balance tuning running | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
+| M7 AI | built; balance acceptance deferred by the owner (2026-10-12) — last run of 200 games: Wettiner 33 %, Wittelsbacher 29.5 %, Welfen 27.5 %, Staufer 10 % (too low, out in 66 %); coronation 66 % at round 33.4 on average; bankruptcy 3.3 %. Resume: `node scripts/balance_search.mjs --focus=personalities.conqueror,...`, then the 1000-game run | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
 | M8 Full game | open | prologue to coronation without a crash in 60–120 min |
 
 ## Owner decisions
@@ -136,3 +136,13 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - The trebuchet is a siege option, not an adventure: it needs no leader and does not count towards the one adventure a round.
 - Castle raid: guards per castle are 2 + wall level (3–6); guard skill is the campaign's opponent skill (1) until AI difficulties; a home castle of level 5 (6 guards, 3 reinforcements) is very hard; the raid's church ban chance sits in both `combat_raid.json` and the crown data, the campaign uses the crown's.
 - A raid for the regalia by a house in exile moves them to the lost home castle's province, i.e. to whoever holds it now.
+
+## Design questions (M7 AI; current choice)
+- There is no fog of war, so the AI sees what a human sees: everything. The GDD's "same fog as humans" holds trivially until a fog exists.
+- Balance is measured with four computer houses at knight difficulty (`node scripts/balance.mjs --games=1000`); bankruptcy counts a house-game once its taler fell below 0 after any settlement. The AI values in `data/ai.json` come partly from an automatic search (`scripts/balance_search.mjs`) against the targets.
+- The houses start unequal in the GDD data (the Welfen earn about 57 T a round with Holstein's market and their merchants, the Staufer pay 10 T for Trifels' castle and live on forest); the personality weights carry the balance, the GDD numbers stay.
+- Home guard (AI only): the only army in a key province (home castle, true regalia, held coronation site) stays while enemies next to it outmatch its garrison; an army that is itself the only guard of its own home counts at 40 %. Once the castle allows a second army, a 2-company guard holds the home.
+- Raid guards: their skill follows the castle — the campaign's opponent skill at castle level 2, one lower at level 1, one higher at level 3, the best from level 4 (the GDD sets no guard skill).
+- The AI calls the coronation the moment the rules allow it and never hesitates for a better row.
+- A game without human houses ("watch only") is not offered: the session plays computer houses in one call until a human is to move.
+- The debug overlay's option labels are English developer strings; it is available in every build (F3).

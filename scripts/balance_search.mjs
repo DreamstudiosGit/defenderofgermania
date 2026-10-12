@@ -27,7 +27,7 @@ const space = [
   ['values.province', 20, 200], ['values.prestige', 1, 20], ['values.favour', 0.5, 10],
   ['opportunity.attack_ratio', 1.2, 2.2], ['opportunity.storm_ratio', 1.2, 3.0],
   ['security.threat_ratio', 0.5, 1.6], ['security.home_weight', 1, 5],
-  ['security.far_share', 0.05, 1.0], ['security.guarding_share', 0.1, 1.0],
+  ['security.far_share', 0.0, 1.0], ['security.guarding_share', 0.1, 1.0],
   ['supply.gold_reserve', 20, 200], ['goals.payback_rounds', 4, 30], ['goals.save_factor', 1.0, 2.5],
   ['goals.min_utility', 0.02, 1.0], ['army.max_share_of_income', 0.2, 0.9],
 ];
@@ -35,6 +35,15 @@ for (const personality of ['merchant', 'builder', 'conqueror', 'diplomat']) {
   for (const category of ['economy', 'military', 'castle', 'court', 'favour', 'adventure']) {
     space.push([`personalities.${personality}.weights.${category}`, 0.3, 2.5]);
   }
+}
+
+// --focus=prefix,prefix limits the search to values whose path starts with one of them.
+const focusArg = process.argv.find((a) => a.startsWith('--focus='));
+if (focusArg) {
+  const prefixes = focusArg.split('=')[1].split(',');
+  const kept = space.filter(([path]) => prefixes.some((p) => path.startsWith(p)));
+  space.length = 0;
+  space.push(...kept);
 }
 
 const get = (obj, path) => path.split('.').reduce((o, k) => o[k], obj);
@@ -74,8 +83,13 @@ for (let step = 1; step <= steps; step++) {
   const changed = [];
   for (let i = 0; i < 3; i++) {
     const [path, low, high] = space[Math.floor(Math.random() * space.length)];
-    const factor = Math.exp((Math.random() * 2 - 1) * 0.35);
-    const value = Math.min(high, Math.max(low, get(candidate, path) * factor));
+    const current = get(candidate, path);
+    // Values near the bottom of their range move additively, so they can reach it and leave it.
+    const nearBottom = current < low + (high - low) * 0.1;
+    const moved = nearBottom
+      ? current + (Math.random() * 2 - 1) * (high - low) * 0.1
+      : current * Math.exp((Math.random() * 2 - 1) * 0.35);
+    const value = Math.min(high, Math.max(low, moved));
     set(candidate, path, Math.round(value * 100) / 100);
     changed.push(`${path}=${Math.round(value * 100) / 100}`);
   }

@@ -38,3 +38,4 @@
 - 2026-10-12 feat(ai): M7 merge AI setup and debug overlay, searched AI values, log marks taken options
 - 2026-10-12 feat(ai): M7 home guard against near threats only, lone home guards and far armies weigh partly, grain-aware recruiting
 - 2026-10-12 feat(ai): M7 balance — home guards, exile goals, castle-level raid guards, regalia valued over forgeries, arms-race damping
+- 2026-10-12 docs(ai): M7 balance acceptance deferred by the owner, status recorded
