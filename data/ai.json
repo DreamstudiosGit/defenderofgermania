@@ -8,18 +8,18 @@
         "military": 0.8,
         "castle": 0.9,
         "court": 1.19,
-        "favour": 1,
-        "adventure": 0.71
+        "favour": 0.71,
+        "adventure": 0.66
       }
     },
     "builder": {
       "house": "wettiner",
       "weights": {
-        "economy": 1.3,
+        "economy": 1.31,
         "military": 0.8,
         "castle": 1.5,
         "court": 1.3,
-        "favour": 1,
+        "favour": 0.81,
         "adventure": 0.96
       }
     },
@@ -31,14 +31,14 @@
         "castle": 1,
         "court": 0.9,
         "favour": 0.8,
-        "adventure": 1.8
+        "adventure": 2.23
       }
     },
     "diplomat": {
       "house": "wittelsbacher",
       "weights": {
         "economy": 1,
-        "military": 0.8,
+        "military": 1.06,
         "castle": 0.79,
         "court": 1,
         "favour": 1.5,
@@ -84,8 +84,9 @@
     "province": 60,
     "round": 12,
     "vote": 300,
-    "pillar": 856.92,
-    "pillar_urgency_rounds": 24
+    "pillar": 641.23,
+    "pillar_urgency_rounds": 23.83,
+    "exile": 15
   },
   "supply": {
     "min_satisfaction": 35,
@@ -98,19 +99,20 @@
     "home_weight": 2.12,
     "threat_ratio": 0.9,
     "defenders_per_threat": 1.2,
-    "far_share": 0.3,
-    "guarding_share": 0.4
+    "far_share": 0.0,
+    "guarding_share": 0.4,
+    "home_guard_companies": 2
   },
   "goals": {
-    "payback_rounds": 12,
+    "payback_rounds": 15.4,
     "min_utility": 0.23,
     "favour_reach": 30,
     "save_rounds": 4,
-    "save_factor": 1.3
+    "save_factor": 1.19
   },
   "opportunity": {
-    "attack_ratio": 1.4,
-    "storm_ratio": 2.12,
+    "attack_ratio": 1.29,
+    "storm_ratio": 2.95,
     "raid_min_loot": 60
   },
   "anti_leader": {

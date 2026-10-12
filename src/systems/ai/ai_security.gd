@@ -9,6 +9,39 @@ extends RefCounted
 static func run(turn: AiTurn) -> void:
 	for province_id: String in _by_danger(turn):
 		_defend(turn, province_id)
+	_home_guard(turn)
+
+
+## Once the castle allows a second army, a small guard holds the home while the field army is
+## away (it never marches: AiCampaign.is_home_guard).
+static func _home_guard(turn: AiTurn) -> void:
+	var state := turn.state
+	var owner := turn.owner()
+	var home := owner.home_province
+	if state.provinces[home].owner != turn.house:
+		return
+	var armies := state.armies_of(turn.house)
+	var room := turn.rules.map.campaign.max_armies(state.home_castle_level(turn.house))
+	var guard: ArmyState = null
+	for army: ArmyState in armies:
+		if army.province == home and army.id != owner.leader_army:
+			guard = army
+	if guard == null and armies.size() >= room:
+		return
+	var size := guard.company_count() if guard != null else 0
+	var wanted := int(turn.cfg.security["home_guard_companies"])
+	var target := guard.id if guard != null else RecruitCommand.AUTO_ARMY
+	for _i: int in wanted - size:
+		var leader := state.army(owner.leader_army)
+		if guard == null and leader != null and leader.province == home:
+			return
+		if not recruit(turn, home, "home guard", target):
+			return
+		if guard == null:
+			for army: ArmyState in state.armies_in(home):
+				if army.owner == turn.house and army.id != owner.leader_army:
+					guard = army
+					target = army.id
 
 
 ## Own provinces with a castle, the most endangered first (the home province weighs double).
@@ -18,7 +51,7 @@ static func _by_danger(turn: AiTurn) -> Array[String]:
 	for province: ProvinceState in turn.state.provinces_of(turn.house):
 		if province.castle_level == 0:
 			continue
-		var gap := AiStrength.threat(turn.state, turn.rules, turn.house, province.id)
+		var gap := turn.threat(province.id)
 		gap -= AiStrength.defense(turn.state, turn.rules, turn.house, province.id)
 		if province.id == owner.home_province:
 			gap *= turn.cfg.security["home_weight"]
@@ -31,7 +64,7 @@ static func _by_danger(turn: AiTurn) -> Array[String]:
 
 static func _defend(turn: AiTurn, province_id: String) -> void:
 	var state := turn.state
-	var needed := AiStrength.threat(state, turn.rules, turn.house, province_id)
+	var needed := turn.threat(province_id)
 	needed *= turn.cfg.security["defenders_per_threat"]
 	var guard := 0
 	while needed > 0.0 and guard < 6:

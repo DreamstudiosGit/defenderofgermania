@@ -63,8 +63,15 @@ static func setup(
 	raid.defender_owner = province.owner
 	raid.castle_level = province.castle_level
 	raid.home_castle = owner != null and owner.home_province == province_id
-	raid.guard_skill = rules.map.campaign.adventure_opponent_skill
+	raid.guard_skill = guard_skill(rules, province.castle_level)
 	return raid
+
+
+## Guards are drilled better in better castles: the campaign's opponent skill at castle level 2,
+## one lower at level 1, one higher at level 3, the best from level 4.
+static func guard_skill(rules: GameRules, castle_level: int) -> int:
+	var skill := rules.map.campaign.adventure_opponent_skill + castle_level - 2
+	return clampi(skill, 0, CampaignRules.ADVENTURE_SKILLS - 1)
 
 
 ## What the player achieved live, else the computer's raid at the campaign's auto skill.

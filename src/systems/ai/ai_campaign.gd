@@ -21,6 +21,8 @@ static func run(turn: AiTurn) -> void:
 		if rescue.has(army.id):
 			_march(turn, army, rescue[army.id])
 			continue
+		if is_home_guard(turn, army):
+			continue
 		if turn.state.is_besieging(army):
 			_siege(turn, army)
 			continue
@@ -29,6 +31,16 @@ static func run(turn: AiTurn) -> void:
 				break
 			if not _step(turn, army, leader, goals):
 				break
+
+
+## A small army at home that is not the leader's: it stays to hold the castle.
+static func is_home_guard(turn: AiTurn, army: ArmyState) -> bool:
+	var owner := turn.owner()
+	return (
+		army.province == owner.home_province
+		and army.id != owner.leader_army
+		and army.company_count() <= int(turn.cfg.security["home_guard_companies"])
+	)
 
 
 ## For every threatened key province without an own army, the nearest free army marches there
@@ -42,7 +54,7 @@ static func _rescues(turn: AiTurn, armies: Array[ArmyState]) -> Dictionary[int, 
 			guarded = guarded or army.province == key
 		if guarded:
 			continue
-		var threat := AiStrength.threat(state, turn.rules, turn.house, key)
+		var threat := turn.threat(key)
 		var defense := AiStrength.defense(state, turn.rules, turn.house, key)
 		if threat * turn.cfg.security["threat_ratio"] <= defense:
 			continue
@@ -102,10 +114,7 @@ static func must_guard(turn: AiTurn, army: ArmyState) -> bool:
 	var garrison := AiStrength.side_power(turn.rules, Garrisons.side(state, turn.rules, key))
 	var wall := Garrisons.wall(state, turn.rules, key)
 	garrison *= 1.0 + turn.rules.combat.castle_per_wall * wall
-	var security := turn.cfg.security
-	var danger := AiStrength.threat(
-		state, turn.rules, turn.house, key, security["far_share"], security["guarding_share"]
-	)
+	var danger := turn.threat(key, true)
 	return danger * turn.cfg.security["threat_ratio"] > garrison
 
 
@@ -147,10 +156,12 @@ static func _raid(turn: AiTurn) -> void:
 	var state := turn.state
 	if not Adventures.error(state, turn.house).is_empty():
 		return
-	var chance := turn.cfg.success(Adventures.auto_skill(state, turn.rules, turn.house))
+	var skill := Adventures.auto_skill(state, turn.rules, turn.house)
 	var ransom := PayRansomCommand.ransom(state, turn.rules.economy, turn.house)
 	var options: Array[AiOption] = []
 	for castle: String in CastleRaids.castles(state, turn.rules, turn.house):
+		var guards := CastleRaids.guard_skill(turn.rules, state.provinces[castle].castle_level)
+		var chance := turn.cfg.success(skill - maxi(guards - 1, 0))
 		for target: String in CastleRaids.targets(state, castle):
 			var prize := _raid_prize(turn, castle, target)
 			var worth := chance * prize - (1.0 - chance) * ransom * 0.5
@@ -175,7 +186,9 @@ static func _raid_prize(turn: AiTurn, castle: String, target: String) -> float:
 			return prestige + turn.rules.raid.granary_loss(victim.grain) * 0.4
 		CastleRaids.REGALIA:
 			var weights := turn.rules.map.campaign.legitimacy_tags
-			return prestige + weights.get(CrownRules.REGALIA_TAG, 0.0) * turn.value("legitimacy")
+			var gain: float = weights.get(CrownRules.REGALIA_TAG, 0.0)
+			gain -= turn.rules.map.campaign.legitimacy_forged_regalia
+			return prestige + gain * turn.value("legitimacy") + turn.pillar_worth() / 4.0
 	return prestige
 
 

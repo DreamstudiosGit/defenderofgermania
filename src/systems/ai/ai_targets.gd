@@ -21,7 +21,26 @@ static func goals(turn: AiTurn, leader: String) -> Dictionary[String, float]:
 		important = important or state.provinces[id].owner == leader
 		if important and worth > 0.0:
 			result[id] = worth
+	_exile_goals(turn, result)
 	return result
+
+
+## In exile the house must take its old home or a castle from the exile level within a few
+## rounds, or it is out.
+static func _exile_goals(turn: AiTurn, result: Dictionary[String, float]) -> void:
+	var owner := turn.owner()
+	if owner.exile_rounds <= 0:
+		return
+	var state := turn.state
+	var urgency := turn.value("province") * turn.cfg.values["exile"]
+	for id: String in turn.rules.map.provinces:
+		var province := state.provinces[id]
+		if province.owner == turn.house:
+			continue
+		if id == owner.home_province:
+			result[id] = result.get(id, 0.0) + urgency * 2.0
+		elif province.castle_level >= turn.rules.map.campaign.exile_min_castle_level:
+			result[id] = result.get(id, 0.0) + urgency
 
 
 ## Provinces the house must not lose: the home castle, the true regalia and coronation sites
@@ -78,10 +97,10 @@ static func conquest_worth(turn: AiTurn, province_id: String, leader: String) ->
 		if tag != CrownRules.REGALIA_TAG:
 			worth += map.campaign.legitimacy_tags.get(tag, 0.0) * turn.value("legitimacy")
 	if state.crown.regalia_province == province_id:
+		# Forged regalia give the pillar too; the true ones only add legitimacy and spare a vote.
 		var weight: float = map.campaign.legitimacy_tags.get(CrownRules.REGALIA_TAG, 0.0)
-		worth += weight * turn.value("legitimacy")
-		if CrownRules.regalia(state, turn.house).is_empty():
-			worth += turn.pillar_worth()
+		worth += (weight - map.campaign.legitimacy_forged_regalia) * turn.value("legitimacy")
+		worth += turn.pillar_worth() / 4.0
 	for site: String in map.crown.archbishops:
 		var holds_one := false
 		for any: String in map.crown.archbishops:
@@ -110,7 +129,7 @@ static func defense_worth(turn: AiTurn, army: ArmyState, target: String) -> floa
 	var home := turn.owner().home_province
 	if state.provinces[home].owner != turn.house:
 		return 0.0
-	var gap := AiStrength.threat(state, turn.rules, turn.house, home)
+	var gap := turn.threat(home)
 	gap -= AiStrength.defense(state, turn.rules, turn.house, home)
 	if gap <= 0.0:
 		return 0.0

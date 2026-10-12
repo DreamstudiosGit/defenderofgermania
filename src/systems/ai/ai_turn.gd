@@ -68,6 +68,16 @@ func pillar_worth() -> float:
 	return value("pillar") * (1.0 + held) * urgency
 
 
+## Enemy strength that could strike the province next round (lone home guards count partly);
+## with `far` also armies two steps away at the data's share (used by the home guard).
+func threat(province_id: String, far: bool = false) -> float:
+	var security := cfg.security
+	var far_share: float = security["far_share"] if far else 0.0
+	return AiStrength.threat(
+		state, rules, house, province_id, far_share, security["guarding_share"]
+	)
+
+
 ## Runs the command if the rules accept it and logs it; true if it ran.
 func act(command: Command, label: String, utility: float) -> bool:
 	var turn := state.turn
