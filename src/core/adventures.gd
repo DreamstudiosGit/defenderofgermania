@@ -7,6 +7,8 @@ extends RefCounted
 
 const MERCHANT_TRAIN := "merchant_train"
 const JOUST := "joust"
+## The trebuchet minigame of a siege; no adventure in the GDD's sense (no leader, not counted).
+const TREBUCHET := "trebuchet"
 ## Owner id of the champions at a tournament: an elector's court, or knights visiting the host.
 const ELECTOR_CHAMPION := "elector"
 const VISITING_CHAMPION := "neutral"
@@ -113,6 +115,17 @@ static func apply_joust(
 	CrownRules.change_favour(state, rules.map, setup.host_province, setup.house, favour)
 	var campaign := rules.map.campaign
 	rider.add_win("lance", campaign.leader_wins_per_point, campaign.leader_max)
+
+
+## The bombardment the player shot live, else the computer crew's at the campaign's auto skill.
+static func play_trebuchet(
+	state: GameState, rules: GameRules, setup: TrebuchetSetup
+) -> TrebuchetResult:
+	var live := _live(rules, setup)
+	if live is TrebuchetResult:
+		return live
+	var sim := TrebuchetSim.new(rules.siege, setup, state.rng.randi())
+	return TrebuchetAimer.new(rules.siege, rules.map.campaign.adventure_auto_skill).play(sim)
 
 
 ## The leader and up to the allowed number of the strongest melee companies of the army he

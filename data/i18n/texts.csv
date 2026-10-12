@@ -785,3 +785,14 @@ CAMPAIGN_ADVENTURE_AUTO,Automatisch,Let it resolve
 CAMPAIGN_ADVENTURE_AUTO_HINT,Der Rechner führt Euren Anführer – mit durchschnittlichem Geschick und ohne Ehrgeiz.,The computer leads your leader – with average skill and no ambition.
 CAMPAIGN_ADVENTURE_MERCHANT_TRAIN_HINT,"Fünf Wagen, 90 Sekunden bis zum Stadttor. Kutscher vom Bock holen, Zugstränge zerschießen, Geleitsoldaten parieren.","Five wagons, 90 seconds to the town gate. Pull drivers off the box, shoot the traces, parry the escorts."
 CAMPAIGN_ADVENTURE_JOUST_HINT,"Drei Durchgänge durch den Helmschlitz: im Takt spornen, zielen, im richtigen Augenblick einlegen. Wer fällt, verliert.","Three passes through the helmet slit: spur in rhythm, aim, couch the lance at the right moment. Whoever falls loses."
+TURN_SIEGE_DONE,Diese Armee hat diese Runde schon gestürmt oder beschossen.,This army already stormed or bombarded this round.
+SIEGE_NO_TREBUCHET,Ohne Blide keine Beschießung.,No bombardment without a trebuchet.
+SIEGE_NO_WALL,Hier steht keine Mauer zum Beschießen.,There is no wall here to bombard.
+EVENT_ADVENTURE_TREBUCHET,Blide,Trebuchet
+CAMPAIGN_ADVENTURE_TREBUCHET_HINT,"Gegengewicht und Abwurfwinkel einstellen, Wind lesen, treffen. Eine Bresche öffnet den Sturm ohne Mauerbonus.","Set counterweight and release angle, read the wind, hit. A breach opens the storm without the wall's bonus."
+CAMPAIGN_SIEGE,Belagerung,Siege
+CAMPAIGN_SIEGE_STORM,Stürmen,Storm
+CAMPAIGN_SIEGE_STORM_HINT,Eine Schlacht vor der Mauer: Die Verteidiger kämpfen mit dem Mauerbonus.,A battle before the wall: the defenders fight with the wall's bonus.
+CAMPAIGN_SIEGE_BOMBARD,Beschießen (%d Bliden),Bombard (%d trebuchets)
+CAMPAIGN_SIEGE_BOMBARD_HINT,"Steine gegen die Mauer, Brandtöpfe gegen die Besatzung. Eine Bresche öffnet sofort den Sturm.","Stones against the wall, fire pots against the garrison. A breach opens the storm at once."
+CAMPAIGN_SIEGE_STARVE,"Wer nichts tut, hungert die Burg aus: Besatzung %s, Mauerschaden %s.","Doing nothing starves the castle: garrison %s, wall damage %s."

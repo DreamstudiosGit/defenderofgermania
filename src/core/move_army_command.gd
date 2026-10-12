@@ -58,7 +58,7 @@ func apply(state: GameState) -> void:
 
 ## The first battle this move would fight, or null — so a player can fight it live before the
 ## move runs. Mirrors apply(): hostile armies first, then an open-field garrison.
-func first_battle(state: GameState) -> BattleSetup:
+func battle_setup(state: GameState) -> BattleSetup:
 	if not validate(state).is_empty():
 		return null
 	var army := state.army(army_id)

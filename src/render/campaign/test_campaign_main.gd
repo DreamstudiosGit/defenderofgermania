@@ -48,10 +48,11 @@ func test_a_battle_on_the_way_is_fought_live_and_changes_the_map() -> void:
 	raiders.add_company("levy")
 	_scene.call("_on_army_clicked", welfen.id)
 	_scene.call("_on_province_clicked", "HOL")
-	var choice: BattleChoice = _scene.get("_choice")
+	var actions: CampaignActions = _scene.get("_actions")
+	var choice := actions.battles.choice
 	assert_true(choice.visible, "the player is asked how to fight")
 	choice.chosen.emit(true)
-	var battle: Node = _scene.get("_battle")
+	var battle := actions.battles.battle
 	assert_not_null(battle, "the battle scene runs")
 	var table: MapTable = _scene.get("_table")
 	assert_false(table.visible, "the war table waits behind the battle")

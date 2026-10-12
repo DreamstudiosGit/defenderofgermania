@@ -75,21 +75,23 @@ func execute(command: Command) -> String:
 
 ## The first battle the move would fight, or null when it fights none.
 func battle_ahead(army_id: int, target: String) -> BattleSetup:
-	return MoveArmyCommand.new(rules, active_house(), army_id, target).first_battle(state)
+	return MoveArmyCommand.new(rules, active_house(), army_id, target).battle_setup(state)
 
 
 ## Executes a move whose first battle was fought live and ended with `result`.
 func move_after_battle(army_id: int, target: String, result: BattleResult) -> String:
-	_live.result = result
-	var error := execute(MoveArmyCommand.new(rules, active_house(), army_id, target))
-	_live.result = null
-	return error
+	return execute_live(MoveArmyCommand.new(rules, active_house(), army_id, target), result)
 
 
-## Executes a command whose adventure was played live and ended with `result`.
-func execute_after_adventure(command: Command, result: RefCounted) -> String:
-	_live.adventure = result
+## Executes a command whose first battle and adventure were played live; null leaves either to
+## the computer.
+func execute_live(
+	command: Command, battle: BattleResult = null, adventure: RefCounted = null
+) -> String:
+	_live.result = battle
+	_live.adventure = adventure
 	var error := execute(command)
+	_live.result = null
 	_live.adventure = null
 	return error
 

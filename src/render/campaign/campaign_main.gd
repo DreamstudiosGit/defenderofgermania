@@ -1,10 +1,9 @@
 extends Node
-## Campaign scene: the war table, the campaign panels and live battles around one
-## CampaignSession. Setup screen first; a handover screen covers the table between two human
-## houses (hot-seat); after every settlement the report shows what changed; each turn opens
-## with the house's event cards.
+## Campaign scene: the war table, the campaign panels, live battles and adventures
+## (CampaignActions) around one CampaignSession. Setup screen first; a handover screen covers
+## the table between two human houses (hot-seat); after every settlement the report shows what
+## changed; each turn opens with the house's event cards.
 
-const BATTLE_SCENE := preload("res://src/render/battle/battle_main.tscn")
 const MARGIN := 8.0
 const TOP := 80.0
 const SIDE_WIDTH := 340.0
@@ -26,16 +25,12 @@ var _tooltip := FocusTooltip.new()
 var _setup := SetupScreen.new()
 var _handover := HandoverScreen.new()
 var _report := SettlementReport.new()
-var _choice := BattleChoice.new()
 var _victory := VictoryScreen.new()
 var _events := EventCardDialog.new()
-var _adventures := AdventureStage.new()
-var _battle: Node = null
+var _actions := CampaignActions.new()
 var _castle := CastleView.new()
 var _province := ""
 var _army := MapTable.NO_ARMY
-var _move_army := MapTable.NO_ARMY
-var _move_target := ""
 var _seen_house := ""
 ## Round and house whose event dialog was closed ("<turn>:<house>").
 var _events_seen := ""
@@ -59,6 +54,7 @@ func start(humans: Array[String], seed_value: int) -> void:
 	_setup.visible = false
 	_victory.visible = false
 	session = CampaignSession.create(GameRules.load_files(), humans, seed_value)
+	_actions.session = session
 	_seen_house = ""
 	_events_seen = ""
 	_seen_settlement = null
@@ -117,24 +113,27 @@ func _turn_key(house: String) -> String:
 
 ## An event choice that starts an adventure first asks whether to play its minigame live.
 func _choose_event(choice: String) -> void:
-	_run(ChooseEventCommand.new(session.rules, session.active_house(), choice))
+	_events.visible = false
+	_actions.run(ChooseEventCommand.new(session.rules, session.active_house(), choice))
 
 
-func _on_adventure_opened() -> void:
-	_table.visible = false
-	_ui.visible = false
+## A battle or minigame covers the war table; the table rests meanwhile.
+func _on_covering(hidden: bool) -> void:
+	_table.visible = not hidden
+	_ui.visible = not hidden
+	if not hidden:
+		_table.camera.current = true
 
 
-func _on_adventure_decided(command: Command, result: RefCounted) -> void:
-	_table.visible = true
-	_ui.visible = true
-	_table.camera.current = true
-	var error := (
-		session.execute(command) if result == null
-		else session.execute_after_adventure(command, result)
-	)
+## After a command from the table or the panels: errors, the moved army stays selected.
+func _on_action_finished(command: Command, error: String) -> void:
 	if not error.is_empty():
 		_toast.show_error(error)
+	var move := command as MoveArmyCommand
+	if move != null:
+		var army := session.state.army(move.army_id)
+		_army = move.army_id if army != null else MapTable.NO_ARMY
+		_province = army.province if army != null else move.target
 	_after_change()
 
 
@@ -191,69 +190,7 @@ func _on_army_clicked(army_id: int) -> void:
 
 
 func _move(army_id: int, target: String) -> void:
-	_move_army = army_id
-	_move_target = target
-	var setup := session.battle_ahead(army_id, target)
-	if setup == null:
-		_finish_move()
-		return
-	_choice.open(setup, session.rules, target)
-
-
-## Fights the battle of the pending move live, or lets the move auto-resolve it.
-func _on_battle_chosen(play_live: bool) -> void:
-	if not play_live:
-		_finish_move()
-		return
-	var setup := session.battle_ahead(_move_army, _move_target)
-	if setup == null:
-		_finish_move()
-		return
-	var defender_human := setup.defender.owner in session.humans
-	var devices := PackedInt32Array([
-		BattleInputMap.Device.KEYBOARD, BattleInputMap.Device.PAD_1 if defender_human else -1
-	])
-	setup.attacker.is_human = true
-	setup.defender.is_human = defender_human
-	_battle = BATTLE_SCENE.instantiate()
-	_battle.call("configure_campaign", setup, devices, _battle_seed())
-	_battle.connect("battle_finished", _on_battle_finished)
-	_table.visible = false
-	_ui.visible = false
-	add_child(_battle)
-
-
-func _on_battle_finished(result: BattleResult) -> void:
-	_battle.queue_free()
-	_battle = null
-	_table.visible = true
-	_ui.visible = true
-	_table.camera.current = true
-	var error := session.move_after_battle(_move_army, _move_target, result)
-	_after_move(error)
-
-
-func _finish_move() -> void:
-	var error := session.execute(
-		MoveArmyCommand.new(session.rules, session.active_house(), _move_army, _move_target)
-	)
-	_after_move(error)
-
-
-func _after_move(error: String) -> void:
-	if not error.is_empty():
-		_toast.show_error(error)
-	var army := session.state.army(_move_army)
-	_army = _move_army if army != null else MapTable.NO_ARMY
-	_province = army.province if army != null else _move_target
-	_move_army = MapTable.NO_ARMY
-	_move_target = ""
-	_after_change()
-
-
-## Same campaign moment, same battle: the seed comes from the round and the moving army.
-func _battle_seed() -> int:
-	return session.state.turn * 1000 + _move_army
+	_actions.run(MoveArmyCommand.new(session.rules, session.active_house(), army_id, target))
 
 
 func _select_home() -> void:
@@ -285,10 +222,10 @@ func _close_castle() -> void:
 
 
 func _blocked() -> bool:
-	for screen: Control in [_setup, _handover, _report, _choice, _victory, _events]:
+	for screen: Control in [_setup, _handover, _report, _victory, _events]:
 		if screen.visible:
 			return true
-	return _battle != null or _castle.visible or _adventures.is_running()
+	return _castle.visible or _actions.is_running()
 
 
 func _build_ui() -> void:
@@ -327,32 +264,22 @@ func _build_ui() -> void:
 	_castle.closed.connect(_close_castle)
 	add_child(_castle)
 	for screen: Control in [
-		_toast, _setup, _handover, _report, _events, _adventures.choice, _choice, _victory, _tooltip
+		_toast, _setup, _handover, _report, _events, _actions.adventures.choice,
+		_actions.battles.choice, _victory, _tooltip,
 	]:
 		_root.add_child(screen)
 	_setup.start_requested.connect(start)
 	_handover.confirmed.connect(_after_change)
 	_events.choice_requested.connect(_choose_event)
-	add_child(_adventures)
-	_adventures.opened.connect(_on_adventure_opened)
-	_adventures.decided.connect(_on_adventure_decided)
+	add_child(_actions)
+	_actions.covering.connect(_on_covering)
+	_actions.finished.connect(_on_action_finished)
+	_army_panel.command_requested.connect(_on_command)
 	_events.closed.connect(_on_events_closed)
 	_report.closed.connect(_after_change)
-	_choice.chosen.connect(_on_battle_chosen)
 	_victory.new_game_requested.connect(func() -> void: _setup.open(_map, FIRST_SEED))
 
 
-## Commands from the panels; one that starts an adventure first asks how to play it.
+## Commands from the panels; one that starts a battle or an adventure asks how to play it.
 func _on_command(command: Command) -> void:
-	_run(command)
-
-
-func _run(command: Command) -> void:
-	var setup: RefCounted = null
-	if command.has_method("adventure_setup"):
-		setup = command.call("adventure_setup", session.state)
-	if setup == null:
-		execute(command)
-		return
-	_events.visible = false
-	_adventures.ask(command, setup, session.state.turn * 1000 + session.state.active_index)
+	_actions.run(command)

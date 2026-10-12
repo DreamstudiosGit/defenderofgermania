@@ -10,6 +10,7 @@ signal decided(command: Command, result: RefCounted)
 const SCENES := {
 	Adventures.MERCHANT_TRAIN: "res://src/render/merchant/merchant_main.tscn",
 	Adventures.JOUST: "res://src/render/joust/joust_main.tscn",
+	Adventures.TREBUCHET: "res://src/render/siege/trebuchet_main.tscn",
 }
 
 var choice := AdventureChoice.new()
@@ -42,6 +43,8 @@ static func adventure_of(setup: RefCounted) -> String:
 		return Adventures.MERCHANT_TRAIN
 	if setup is JoustSetup:
 		return Adventures.JOUST
+	if setup is TrebuchetSetup:
+		return Adventures.TREBUCHET
 	return ""
 
 

@@ -10,6 +10,8 @@ var units: Array[String] = []
 var health: PackedFloat64Array = []
 ## Provinces the army may still enter in the current campaign phase.
 var moves_left: int = 0
+## Round of the army's last storm or bombardment; a besieger acts once a round.
+var siege_turn: int = -1
 
 
 static func from_dict(r: DataReader, data: Dictionary) -> ArmyState:
@@ -20,6 +22,7 @@ static func from_dict(r: DataReader, data: Dictionary) -> ArmyState:
 	army.units = r.strings(data, "units")
 	army.health = r.numbers(data, "health")
 	army.moves_left = r.integer(data, "moves_left")
+	army.siege_turn = r.integer(data, "siege_turn")
 	if army.health.size() != army.units.size():
 		r.errors.append("army %d: units and health differ in length" % army.id)
 	return army
@@ -47,4 +50,5 @@ func to_dict() -> Dictionary:
 		"units": units,
 		"health": Array(health),
 		"moves_left": moves_left,
+		"siege_turn": siege_turn,
 	}

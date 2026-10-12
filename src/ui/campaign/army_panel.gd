@@ -1,7 +1,10 @@
 class_name ArmyPanel
 extends PanelContainer
 ## The selected army: owner, where it stands and what it does there, its leader or captain,
-## moves left, upkeep, and every company with its health.
+## moves left, upkeep, and every company with its health. An own army besieging a castle
+## offers the siege options: storm, trebuchet or starving the garrison out.
+
+signal command_requested(command: Command)
 
 var _title := CampaignStyle.heading("", 20)
 var _owner := CampaignStyle.label("", CampaignStyle.SMALL_SIZE, CampaignStyle.MUTED)
@@ -9,6 +12,13 @@ var _command := CampaignStyle.info()
 var _moves := CampaignStyle.info()
 var _upkeep := CampaignStyle.info()
 var _companies := GridContainer.new()
+var _siege := VBoxContainer.new()
+var _storm := Button.new()
+var _bombard := Button.new()
+var _starve := CampaignStyle.paragraph()
+var _rules: GameRules = null
+var _house := ""
+var _army := -1
 
 
 func _init() -> void:
@@ -23,12 +33,28 @@ func _init() -> void:
 	_companies.add_theme_constant_override("h_separation", 10)
 	_companies.add_theme_constant_override("v_separation", 4)
 	column.add_child(_companies)
+	_siege.add_theme_constant_override("separation", 4)
+	column.add_child(_siege)
+	_siege.add_child(HSeparator.new())
+	_siege.add_child(CampaignStyle.heading(tr("CAMPAIGN_SIEGE"), 18))
+	_storm.name = "storm"
+	_storm.text = tr("CAMPAIGN_SIEGE_STORM")
+	_storm.pressed.connect(func() -> void: command_requested.emit(_command_of(_storm)))
+	_bombard.name = "bombard"
+	_bombard.pressed.connect(func() -> void: command_requested.emit(_command_of(_bombard)))
+	_starve.custom_minimum_size.x = 300
+	for child: Control in [_storm, _bombard, _starve]:
+		_siege.add_child(child)
 
 
-func refresh(state: GameState, rules: GameRules, _house: String, army_id: int) -> void:
+func refresh(state: GameState, rules: GameRules, house: String, army_id: int) -> void:
+	_rules = rules
+	_house = house
+	_army = army_id
 	var army := state.army(army_id)
 	for child: Control in [_owner, _command, _moves, _upkeep, _companies]:
 		child.visible = army != null
+	_siege.visible = army != null and army.owner == house and state.is_besieging(army)
 	if army == null:
 		_title.text = tr("CAMPAIGN_NO_ARMY")
 		return
@@ -50,6 +76,31 @@ func refresh(state: GameState, rules: GameRules, _house: String, army_id: int) -
 	if owner != null:
 		_show_upkeep(state, rules, army)
 	_show_companies(army)
+	if _siege.visible:
+		_show_siege(state, rules, army)
+
+
+## Storm and trebuchet buttons with the reason when the rules refuse them, and what starving
+## the garrison out costs.
+func _show_siege(state: GameState, rules: GameRules, army: ArmyState) -> void:
+	var count := TrebuchetCommand.trebuchets(rules, army)
+	_bombard.text = tr("CAMPAIGN_SIEGE_BOMBARD") % count
+	for button: Button in [_storm, _bombard]:
+		var error := _command_of(button).validate(state)
+		button.disabled = not error.is_empty()
+		button.tooltip_text = tr(error) if not error.is_empty() else tr(
+			"CAMPAIGN_SIEGE_%s_HINT" % button.name.to_upper()
+		)
+	var province := state.provinces[army.province]
+	_starve.text = tr("CAMPAIGN_SIEGE_STARVE") % [
+		CampaignFormat.percent(province.garrison_health), CampaignFormat.percent(province.wall_damage)
+	]
+
+
+func _command_of(button: Button) -> Command:
+	if button == _storm:
+		return StormCommand.new(_rules, _house, _army)
+	return TrebuchetCommand.new(_rules, _house, _army)
 
 
 func _show_command(rules: GameRules, army: ArmyState, owner: HouseState) -> void:
