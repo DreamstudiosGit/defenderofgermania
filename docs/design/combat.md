@@ -67,7 +67,7 @@ Real-time battle from the GDD "Schlacht-Modul": simulation in `src/systems/comba
 
 The start menu assigns keyboard and mouse, controller 1, controller 2 or the computer to each side (couch duel: two controllers or keyboard plus controller). Input actions are registered at runtime per device (`BattleInputMap`), not in `project.godot`. A fresh push of the stick overrides any order but a running cavalry charge; a held stick does not cancel an attack given while holding it.
 
-Camera: orthographic, tilted down 60°, not rotatable. Zoom level 0 frames every company on the field (at least 80 m wide, at most the whole field) and glides after the fight; level 1 shows 80 m around the single human's active group, or around the melee when both or no sides are human. Zoom is presentation only and never reaches the simulation.
+Camera: orthographic, tilted down 60°, not rotatable. Zoom level 0 frames every company on the field (at least 45 m wide, at most the whole field) and glides after the fight; level 1 shows 45 m around the single human's active group, or around the melee when both or no sides are human. Zoom is presentation only and never reaches the simulation.
 
 Every figure stands on a ring in its house colour. Larger, lighter rings and a golden group-shield border identify only the human player's active group against the computer. The shared view hides the selection rings, directional markers and active shield borders when both sides are human or both are computer-controlled (owner request, ADR 0004).
 

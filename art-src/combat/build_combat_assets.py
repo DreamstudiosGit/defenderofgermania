@@ -1,5 +1,4 @@
 import json
-import math
 import sys
 from pathlib import Path
 
@@ -11,99 +10,32 @@ ROOT = SOURCE.parent.parent
 sys.path.insert(0, str(SOURCE))
 sys.dont_write_bytecode = True
 
-from model_characters import horse, soldier, spear, trebuchet
 from model_landscape import (
     bridge, camp, fern, ground, pebble_patch, river, riverbank, rock, tree, undergrowth, water_lilies
 )
 from model_primitives import clear_scene, join_meshes
+from model_weapons import spear
 from render_unit_catalog import make_catalog
 from unit_export import export_all
 
 OUTPUT = ROOT / "assets" / "combat"
-ROLES = ("levy", "spearman", "crossbowman", "brabanter", "knight", "leader", "trebuchet")
 
 
-def animate(obj, role):
-    bpy.ops.object.select_all(action="DESELECT")
-    data = bpy.data.armatures.new("unit_rig")
-    rig = bpy.data.objects.new("unit_rig", data)
-    bpy.context.collection.objects.link(rig)
-    bpy.context.view_layer.objects.active = rig
-    rig.select_set(True)
-    bpy.ops.object.mode_set(mode="EDIT")
-    root = data.edit_bones.new("root")
-    root.head, root.tail = (0, 0, 0), (0, 0, 1)
-    for side, name in ((-1, "leg_left"), (1, "leg_right")):
-        bone = data.edit_bones.new(name)
-        bone.head = (side * 0.17, 0, 0.65)
-        bone.tail = (side * 0.17, 0, 0.15)
-        bone.parent = root
-    bpy.ops.object.mode_set(mode="OBJECT")
-    modifier = obj.modifiers.new("unit_skin", "ARMATURE")
-    modifier.object = rig
-    obj.parent = rig
-    for name in ("idle", "walk", "attack", "death"):
-        action = bpy.data.actions.new(name)
-        action.use_fake_user = True
-        rig.animation_data_create()
-        rig.animation_data.action = action
-        for frame in (1, 7, 13, 19, 25):
-            phase = (frame - 1) / 24 * math.tau
-            for bone in rig.pose.bones:
-                bone.rotation_mode = "XYZ"
-                bone.rotation_euler = (0, 0, 0)
-                bone.location = (0, 0, 0)
-                if name == "walk" and bone.name != "root":
-                    bone.rotation_euler.x = math.sin(phase) * (0.34 if bone.name == "leg_left" else -0.34)
-                if bone.name == "root":
-                    if name == "idle":
-                        bone.location.y = math.sin(phase) * 0.012
-                    elif name == "walk":
-                        bone.location.y = abs(math.sin(phase)) * 0.025
-                    elif name == "attack":
-                        bone.rotation_euler.x = math.sin(phase) * 0.10
-                    elif name == "death":
-                        bone.rotation_euler.x = min((frame - 1) / 18, 1) * math.pi / 2
-                bone.keyframe_insert(data_path="rotation_euler", frame=frame)
-                bone.keyframe_insert(data_path="location", frame=frame)
-    rig.animation_data.action = bpy.data.actions.get("idle")
-    bpy.context.scene.frame_set(1)
-    return rig
-
-
-def export_asset(name, build, role=None):
+def export_asset(name, build):
     clear_scene()
     build()
     obj = join_meshes(name)
     obj["front"] = "-Y in Blender, +Z in glTF/Godot"
     obj["units"] = "metres; ground-centred pivot"
     obj["stride_mask"] = "UV2.x weight; UV2.y limb phase; runtime GPU animation"
-    rig = animate(obj, role) if role and role != "trebuchet" else None
-    held_spear = None
-    if role == "spearman":
-        before = set(bpy.context.scene.objects)
-        spear()
-        held_spear = join_meshes("weapon_spear", list(set(bpy.context.scene.objects) - before))
-        held_spear.location = (0.39, -0.23, 0.0)
-        held_spear.parent = rig
-        modifier = held_spear.modifiers.new("weapon_skin", "ARMATURE")
-        modifier.object = rig
-    bpy.context.scene.render.fps = 24
-    bpy.context.scene.frame_start = 1
-    bpy.context.scene.frame_end = 25
     bpy.ops.object.select_all(action="DESELECT")
     obj.select_set(True)
-    if rig:
-        rig.select_set(True)
-    if held_spear:
-        held_spear.select_set(True)
     bpy.context.view_layer.objects.active = obj
     bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE / (name + ".blend")), compress=True)
     bpy.ops.export_scene.gltf(
         filepath=str(OUTPUT / (name + ".glb")), export_format="GLB",
         use_selection=True, export_yup=True, export_texcoords=True,
-        export_normals=True, export_materials="EXPORT", export_animations=bool(rig),
-        export_animation_mode="ACTIONS", export_extras=True,
+        export_normals=True, export_materials="EXPORT", export_animations=False, export_extras=True,
     )
     triangle_count = 0
     for item in bpy.context.scene.objects:
@@ -116,22 +48,7 @@ def export_asset(name, build, role=None):
                  for axis in range(3))
     print("ASSET", name, triangle_count, size, flush=True)
     return {"file": name + ".glb", "triangles": triangle_count,
-            "dimensions_blender": size, "animations": ["idle", "walk", "attack", "death"] if rig else []}
-
-
-def character(team, role):
-    if role == "trebuchet":
-        trebuchet(team)
-    else:
-        seated = role in ("knight", "leader")
-        if seated:
-            horse(team, role == "leader")
-        soldier(team, role, seated)
-
-
-def build_legacy_units():
-    return [export_asset(f"unit_{role}_{team}", lambda t=team, r=role: character(t, r), role)
-            for team in ("blue", "red") for role in ROLES]
+            "dimensions_blender": size, "animations": []}
 
 
 def build_scenery():
@@ -172,8 +89,7 @@ def write_manifest(entries):
 
 
 def main():
-    """Groups after `--`: units (house-neutral units, crests, catalog), scenery, legacy (blue/red
-    prototype units, kept until the game drops them). Default: units."""
+    """Groups after `--`: units (house-neutral units, crests, catalog), scenery. Default: units."""
     bpy.context.preferences.filepaths.save_version = 0
     OUTPUT.mkdir(parents=True, exist_ok=True)
     groups = set(sys.argv[sys.argv.index("--") + 1:]) if "--" in sys.argv else {"units"}
@@ -182,8 +98,6 @@ def main():
         entries += export_all(SOURCE, OUTPUT)
     if "scenery" in groups:
         entries += build_scenery()
-    if "legacy" in groups:
-        entries += build_legacy_units()
     print("BUILT", len(entries), "assets;", len(write_manifest(entries)), "in manifest", flush=True)
     if "units" in groups:
         make_catalog(SOURCE, OUTPUT)

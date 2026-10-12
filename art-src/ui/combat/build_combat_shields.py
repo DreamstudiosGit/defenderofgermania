@@ -1,5 +1,6 @@
 """Author the original vector battle crests and matching editable SVG masters."""
 
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -11,12 +12,23 @@ OUTLINE = "M128 18 L223 35 C223 106 219 181 179 222 Q154 250 128 266 Q100 252 76
 INNER = "M128 34 L206 49 C205 116 199 174 165 212 Q144 235 128 246 Q110 235 91 214 C57 181 50 121 50 49 Z"
 
 
-def definitions(team):
-    palette = {
-        "blue": ("#315da5", "#163e79", "#0c2451", "#4788d1", "#102a55"),
-        "red": ("#d34230", "#9a211d", "#531211", "#ed6951", "#6d1716"),
-    }
-    top, middle, bottom, shine, ribbon = palette[team]
+def house_colors():
+    """House field colour from data/map.json, the single source of the heraldry."""
+    houses = json.loads((ROOT / "data" / "map.json").read_text(encoding="utf-8"))["houses"]
+    return {house: entry["colors"][0] for house, entry in houses.items()}
+
+
+def shade(color, factor):
+    """Lighten (factor > 0) towards white or darken (factor < 0) towards black."""
+    channels = [int(color[i:i + 2], 16) for i in (1, 3, 5)]
+    target = 255 if factor > 0 else 0
+    mixed = [round(c + (target - c) * abs(factor)) for c in channels]
+    return "#" + "".join(f"{c:02x}" for c in mixed)
+
+
+def definitions(field):
+    top, middle, bottom = shade(field, 0.2), field, shade(field, -0.45)
+    shine, ribbon = shade(field, 0.4), shade(field, -0.3)
     return f'''<defs>
   <linearGradient id="face" x1="0" y1="0" x2="0.65" y2="1">
     <stop stop-color="{top}"/><stop offset=".4" stop-color="{middle}"/><stop offset="1" stop-color="{bottom}"/>
@@ -166,9 +178,10 @@ def write_svg(name, body):
     (RUNTIME / name).write_text(svg, encoding="utf-8")
 
 
-for team in ("blue", "red"):
+HOUSES = house_colors()
+for house, field in HOUSES.items():
     for name, symbol in (("infantry", infantry), ("crossbow", crossbow), ("cavalry", cavalry), ("siege", siege)):
-        write_svg(f"combat_group_{name}_{team}.svg", definitions(team) + crest_base() + symbol())
+        write_svg(f"combat_group_{name}_{house}.svg", definitions(field) + crest_base() + symbol())
 
 write_svg("combat_group_selected_glow.svg", f'''<defs>
 <linearGradient id="light" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff7bd"/><stop offset=".35" stop-color="#ffe457"/><stop offset="1" stop-color="#ffc91e"/></linearGradient>
@@ -205,13 +218,13 @@ write_svg("combat_status_bolt.svg", '''<defs>
 <path d="M116 200 L99 216 L99 254 L116 242 M140 200 L157 216 L157 254 L140 242" fill="#e4d7ac" stroke="#6f684f" stroke-width="3"/>
 <path d="M103 223 L112 215 M144 215 L153 223" stroke="#fff7d8" stroke-width="3"/>''')
 
-print(f"Created 11 SVG combat crests and status icons in {RUNTIME}")
+print(f"Created {len(HOUSES) * 4 + 3} SVG combat crests and status icons in {RUNTIME}")
 
 cards = []
-for team in ("blue", "red"):
+for house in HOUSES:
     for role in ("infantry", "crossbow", "cavalry", "siege"):
         selected = '<img class="glow" src="combat_group_selected_glow.svg">' if role == "infantry" else ""
-        cards.append(f'<div class="card"><div class="crest"><img src="combat_group_{role}_{team}.svg">{selected}</div><span>{role} / {team}</span></div>')
+        cards.append(f'<div class="card"><div class="crest"><img src="combat_group_{role}_{house}.svg">{selected}</div><span>{role} / {house}</span></div>')
 preview = '''<!doctype html><html lang="en"><meta charset="utf-8"><title>Combat shield SVG masters</title>
 <style>body{margin:0;background:#262b27;color:#e6d3a2;font:14px Georgia,serif}main{display:grid;grid-template-columns:repeat(4,220px);gap:20px;padding:24px}.card{text-align:center}.crest{position:relative;width:220px;height:247.5px}.crest img{position:absolute;inset:0;width:100%;height:100%}span{display:block;margin-top:5px;letter-spacing:.8px}</style><main>''' + ''.join(cards) + '</main></html>'
 (MASTER / "combat_shield_catalog.html").write_text(preview, encoding="utf-8")

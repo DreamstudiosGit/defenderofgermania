@@ -15,7 +15,6 @@ Without arguments the build exports the house-neutral units, the crests and the 
 
 - `units` — `unit_<role>.glb` and `crest_<house>.glb` plus `combat_asset_catalog.png`; a unit or crest over its triangle budget stops the build.
 - `scenery` — terrain, trees, rocks, foliage, camp props and `weapon_spear`. The scenery scripts have drifted from the committed exports: a rebuild changes those files, so review the diff before committing it.
-- `legacy` — the blue/red prototype units `unit_<role>_<blue|red>`. The game still loads them; they are not rebuilt by default and are removed once it switches to the house-neutral units.
 
 ## Units
 

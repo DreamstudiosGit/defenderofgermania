@@ -4,7 +4,7 @@ import bpy
 from mathutils import Vector
 
 from model_character_details import rounded
-from model_characters import spear
+from model_weapons import spear
 from model_primitives import box, cone
 from unit_palette import HOUSE_PRIMARY, HOUSE_SECONDARY
 from unit_shapes import limb, outline_plate, part, sheet

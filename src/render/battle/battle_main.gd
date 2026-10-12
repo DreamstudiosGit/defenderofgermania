@@ -176,7 +176,7 @@ func _start() -> void:
 	_hud.setup(_sim.state, _cfg.battle.armies, _devices, _camera)
 	_volleys.clear()
 	_dust.clear()
-	_tumblers.setup(_sim.state)
+	_tumblers.setup(_sim.state, _cfg.battle.armies)
 	_field.show_zones(true)
 	_menu.visible = false
 	_result_panel.visible = false

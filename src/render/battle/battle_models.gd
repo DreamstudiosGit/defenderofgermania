@@ -13,6 +13,8 @@ const PATH := preload("res://src/render/battle/path_surface.gdshader")
 static var _meshes: Dictionary[String, ArrayMesh] = {}
 static var _art: Dictionary = {}
 static var _outline: ShaderMaterial
+## Rest-pose transform of each export's `crest_anchor` node, by export name.
+static var _anchors: Dictionary[String, Transform3D] = {}
 
 
 static func settings() -> Dictionary:
@@ -25,14 +27,41 @@ static func settings() -> Dictionary:
 	return _art
 
 
-static func unit_mesh(unit_id: String, side: int) -> ArrayMesh:
+## The house-neutral model of a unit with the house's crest on its helmet, if it wears one.
+## House colours come from the batch's house_primary / house_secondary instance uniforms.
+static func unit_mesh(unit_id: String, house: String) -> ArrayMesh:
 	var art := settings()
 	var units: Dictionary = art.get("unit_models", {})
-	var teams: Array = art.get("teams", [])
-	if not units.has(unit_id) or side < 0 or side >= teams.size():
-		push_error("combat art: no model for unit %s, side %d" % [unit_id, side])
+	if not units.has(unit_id):
+		push_error("combat art: no model for unit %s" % unit_id)
 		return null
-	return mesh("unit_%s_%s" % [units[unit_id], teams[side]], true)
+	var filename := "unit_%s" % units[unit_id]
+	var base := mesh(filename, true)
+	var crests: Dictionary = art.get("crests", {})
+	if base == null or not crests.has(house) or not _anchors.has(filename):
+		return base
+	var key := "%s_%s_animated" % [filename, house]
+	if _meshes.has(key):
+		return _meshes[key]
+	var crest := mesh(str(crests[house]), true)
+	if crest == null:
+		return base
+	var result := ArrayMesh.new()
+	for surface: int in base.get_surface_count():
+		result.add_surface_from_arrays(
+			base.surface_get_primitive_type(surface), base.surface_get_arrays(surface)
+		)
+		result.surface_set_material(surface, base.surface_get_material(surface))
+	for surface: int in crest.get_surface_count():
+		var builder := SurfaceTool.new()
+		builder.begin(Mesh.PRIMITIVE_TRIANGLES)
+		builder.append_from(crest, surface, _anchors[filename])
+		builder.commit(result)
+		result.surface_set_material(
+			result.get_surface_count() - 1, crest.surface_get_material(surface)
+		)
+	_meshes[key] = result
+	return result
 
 
 static func mesh(filename: String, animated: bool = false) -> ArrayMesh:
@@ -61,6 +90,8 @@ static func _collect(
 	var transform := parent
 	if node is Node3D:
 		transform *= (node as Node3D).transform
+	if node.name == "crest_anchor":
+		_anchors[filename] = transform
 	if node is MeshInstance3D:
 		var instance := node as MeshInstance3D
 		# Spears are a separate batch so hedgehogs can tilt them towards their own slot.

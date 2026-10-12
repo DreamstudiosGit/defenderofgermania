@@ -23,7 +23,7 @@ func test_lost_figures_tumble_but_fled_companies_do_not() -> void:
 	var sim := BattleSim.new(_cfg, _cfg.battle.default_setup(), 1198)
 	var tumblers := BattleTumblers.new()
 	add_child_autofree(tumblers)
-	tumblers.setup(sim.state)
+	tumblers.setup(sim.state, _cfg.battle.armies)
 	var state := sim.state
 	state.hp[0] = state.max_hp[0] * 0.5
 	state.status[1] = BattleState.Status.FLED

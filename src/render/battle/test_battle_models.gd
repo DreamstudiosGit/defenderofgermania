@@ -1,5 +1,11 @@
 extends GutTest
 
+const HOUSES: Array[String] = ["welfen", "wettiner", "staufer", "wittelsbacher"]
+## Units that wear a helmet with the house crest.
+const CRESTED: Array[String] = ["spearmen", "crossbowmen", "knights", "leader"]
+## Mercenaries carry no house colours.
+const UNPAINTED: Array[String] = ["brabanters"]
+
 var _cfg: CombatConfig
 
 
@@ -7,25 +13,44 @@ func before_all() -> void:
 	_cfg = CombatConfig.load_file()
 
 
-func test_every_combat_unit_has_both_team_models() -> void:
+func test_every_unit_has_a_model_for_every_house() -> void:
 	for unit_id: String in _cfg.units:
-		for side: int in BattleState.SIDES:
-			var mesh := BattleModels.unit_mesh(unit_id, side)
-			assert_not_null(mesh, "%s side %d" % [unit_id, side])
+		for house: String in HOUSES:
+			var mesh := BattleModels.unit_mesh(unit_id, house)
+			assert_not_null(mesh, "%s %s" % [unit_id, house])
 			if mesh == null:
 				continue
-			assert_gt(mesh.get_surface_count(), 0)
 			assert_gt(mesh.get_aabb().size.y, 1.5, "models use metres and Y up")
 			assert_almost_eq(mesh.get_aabb().position.y, 0.0, 0.2, "ground pivot")
 			var has_stride := false
+			var slots: Array[int] = []
 			for surface: int in mesh.get_surface_count():
 				var arrays := mesh.surface_get_arrays(surface)
 				var uv2: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV2]
 				for mask: Vector2 in uv2:
 					has_stride = has_stride or mask.x > 0.5
-				assert_true(mesh.surface_get_material(surface) is ShaderMaterial)
+				var material := mesh.surface_get_material(surface) as ShaderMaterial
+				assert_not_null(material)
+				if material != null:
+					slots.append(int(material.get_shader_parameter("house_slot")))
+					assert_eq(material.next_pass, BattleModels.outline(), "ink outline")
 			if unit_id != "trebuchet":
 				assert_true(has_stride, "%s has animated limbs" % unit_id)
+			assert_eq(1 in slots, unit_id not in UNPAINTED, "%s wears house colours" % unit_id)
+
+
+func test_crests_sit_on_the_helmet_and_differ_by_house() -> void:
+	var units: Dictionary = BattleModels.settings()["unit_models"]
+	for unit_id: String in CRESTED:
+		var base := BattleModels.mesh("unit_%s" % units[unit_id], true)
+		for house: String in HOUSES:
+			var mesh := BattleModels.unit_mesh(unit_id, house)
+			assert_gt(mesh.get_surface_count(), base.get_surface_count(), "%s %s" % [unit_id, house])
+			assert_gt(mesh.get_aabb().end.y, base.get_aabb().end.y - 0.4, "crest above the helmet")
+		var welfen := BattleModels.unit_mesh(unit_id, "welfen")
+		assert_ne(welfen, BattleModels.unit_mesh(unit_id, "staufer"), "each house its crest")
+	var levy := BattleModels.unit_mesh("levy", "welfen")
+	assert_eq(levy, BattleModels.mesh("unit_levy", true), "the levy wears no helmet and no crest")
 
 
 func test_all_environment_exports_load() -> void:
@@ -100,15 +125,16 @@ func test_character_exports_include_named_actions() -> void:
 	var art := BattleModels.settings()
 	var units: Dictionary = art["unit_models"]
 	for role: String in units.values():
-		if role == "trebuchet":
-			continue
-		var path := BattleModels.DIRECTORY + "unit_%s_blue.glb" % role
+		var path := BattleModels.DIRECTORY + "unit_%s.glb" % role
 		var packed := load(path) as PackedScene
 		var model := packed.instantiate()
 		var player := model.find_child("AnimationPlayer", true, false) as AnimationPlayer
 		assert_not_null(player, role)
+		var actions: Array[String] = ["idle", "walk", "attack", "hit", "death", "cheer"]
+		if role in ["knight", "leader"]:
+			actions.append_array(["horse_trot", "horse_gallop", "horse_charge"])
 		if player != null:
-			for action: String in ["idle", "walk", "attack", "death"]:
+			for action: String in actions:
 				assert_true(player.has_animation(action), "%s has %s" % [role, action])
 		model.free()
 

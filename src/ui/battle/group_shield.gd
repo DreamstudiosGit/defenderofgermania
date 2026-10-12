@@ -4,21 +4,14 @@ extends Control
 const SHIELD_SIZE := Vector2(144, 162)
 const GOLD := Color(1.0, 0.82, 0.30)
 const RIM := Color(0.18, 0.11, 0.06)
-const BLUE_SHIELDS: Array[Texture2D] = [
-	preload("res://assets/ui/combat/combat_group_infantry_blue.svg"),
-	preload("res://assets/ui/combat/combat_group_crossbow_blue.svg"),
-	preload("res://assets/ui/combat/combat_group_cavalry_blue.svg"),
-	preload("res://assets/ui/combat/combat_group_siege_blue.svg")
-]
-const RED_SHIELDS: Array[Texture2D] = [
-	preload("res://assets/ui/combat/combat_group_infantry_red.svg"),
-	preload("res://assets/ui/combat/combat_group_crossbow_red.svg"),
-	preload("res://assets/ui/combat/combat_group_cavalry_red.svg"),
-	preload("res://assets/ui/combat/combat_group_siege_red.svg")
-]
+## Shield art per house and group: combat_group_<group>_<house>.svg (art-src/ui/combat).
+const DIRECTORY := "res://assets/ui/combat/"
+const GROUP_NAMES: Array[String] = ["infantry", "crossbow", "cavalry", "siege"]
 const SELECTED_GLOW: Texture2D = preload("res://assets/ui/combat/combat_group_selected_glow.svg")
 const LEADER_CROWN: Texture2D = preload("res://assets/ui/combat/combat_status_leader.svg")
 const BOLT: Texture2D = preload("res://assets/ui/combat/combat_status_bolt.svg")
+
+static var _textures: Dictionary[String, Texture2D] = {}
 
 var group: int = 0
 var active: bool = false
@@ -26,8 +19,7 @@ var companies: int = 0
 var bolts: int = -1
 var max_bolts: int = 3
 var has_leader: bool = false
-var house_color := Color.WHITE
-var accent := Color.WHITE
+var house: String = ""
 
 
 func _init() -> void:
@@ -37,10 +29,10 @@ func _init() -> void:
 
 func _draw() -> void:
 	var rect := Rect2(Vector2.ZERO, size)
-	var textures := BLUE_SHIELDS if house_color.b >= house_color.r else RED_SHIELDS
-	var icon: Texture2D = textures[clampi(group, 0, textures.size() - 1)]
+	var icon := texture(house, group)
 	var tint := Color.WHITE if companies > 0 else Color(0.52, 0.49, 0.45, 0.65)
-	draw_texture_rect(icon, rect, false, tint)
+	if icon != null:
+		draw_texture_rect(icon, rect, false, tint)
 	if active:
 		draw_texture_rect(SELECTED_GLOW, rect, false)
 	var status_scale := size.x / SHIELD_SIZE.x
@@ -62,3 +54,11 @@ func _draw() -> void:
 			LEADER_CROWN,
 			Rect2(Vector2(size.x * 0.09, size.y * 0.77), Vector2(27, 30) * status_scale), false
 		)
+
+
+static func texture(of_house: String, of_group: int) -> Texture2D:
+	var key := "%s_%s" % [GROUP_NAMES[clampi(of_group, 0, GROUP_NAMES.size() - 1)], of_house]
+	if not _textures.has(key):
+		var path := DIRECTORY + "combat_group_%s.svg" % key
+		_textures[key] = load(path) as Texture2D if ResourceLoader.exists(path) else null
+	return _textures[key]

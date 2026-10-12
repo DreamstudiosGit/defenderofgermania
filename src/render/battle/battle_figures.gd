@@ -55,7 +55,10 @@ func setup(
 				if state.side[c] == side and state.unit_ids[c] == unit_id:
 					figures.append(f)
 			if not figures.is_empty():
-				_add_batch(BattleModels.unit_mesh(unit_id, side), figures, unit_id)
+				var house := armies[side].house if side < armies.size() else ""
+				var batch := _add_batch(BattleModels.unit_mesh(unit_id, house), figures, unit_id)
+				if batch != null and side < armies.size():
+					paint_house(batch, armies[side])
 	var spears := PackedInt32Array()
 	var rings := PackedInt32Array()
 	for f: int in state.fig_pos.size():
@@ -67,9 +70,15 @@ func setup(
 	_add_batch(_ring(), rings, "ring")
 
 
-func _add_batch(mesh: Mesh, figures: PackedInt32Array, layer: String) -> void:
+## Tints the house-coloured surfaces (unit_motion house_slot) of a figure batch.
+static func paint_house(batch: GeometryInstance3D, army: BattleRules.ArmyPreset) -> void:
+	batch.set_instance_shader_parameter("house_primary", army.color)
+	batch.set_instance_shader_parameter("house_secondary", army.accent)
+
+
+func _add_batch(mesh: Mesh, figures: PackedInt32Array, layer: String) -> MultiMeshInstance3D:
 	if mesh == null or figures.is_empty():
-		return
+		return null
 	var multimesh := MultiMesh.new()
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D
 	multimesh.use_colors = true
@@ -89,6 +98,7 @@ func _add_batch(mesh: Mesh, figures: PackedInt32Array, layer: String) -> void:
 	_buffers.append(buffer)
 	_figures.append(figures)
 	_layers.append(layer)
+	return instance
 
 
 func set_selection_sides(sides: Array[bool]) -> void:

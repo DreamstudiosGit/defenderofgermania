@@ -12,6 +12,12 @@
     "leader": "leader",
     "trebuchet": "trebuchet"
   },
+  "crests": {
+    "welfen": "crest_lion",
+    "staufer": "crest_eagle",
+    "wettiner": "crest_antlers",
+    "wittelsbacher": "crest_wings"
+  },
   "animation": {
     "stride_rate": 9.0,
     "stride_length": 0.22,
@@ -164,7 +170,7 @@
   },
   "camera": {
     "pitch_deg": 60.0,
-    "near_width": 80.0,
+    "near_width": 45.0,
     "company_margin": 20.0,
     "follow_speed": 2.5,
     "horizontal_margin": 40.0,

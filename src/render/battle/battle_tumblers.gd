@@ -15,6 +15,7 @@ const HIDDEN := Transform3D(Basis(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO), Vec
 
 var _rng := RandomNumberGenerator.new()
 var _last_alive := PackedInt32Array()
+var _armies: Array[BattleRules.ArmyPreset] = []
 ## Per "unit_side" layer: MultiMeshInstance3D, then the flying figures' state.
 var _layers: Dictionary[String, MultiMeshInstance3D] = {}
 var _start: Dictionary[String, PackedVector3Array] = {}
@@ -24,8 +25,9 @@ var _age: Dictionary[String, PackedFloat64Array] = {}
 var _next: Dictionary[String, int] = {}
 
 
-func setup(state: BattleState) -> void:
+func setup(state: BattleState, armies: Array[BattleRules.ArmyPreset]) -> void:
 	_rng.seed = 1198
+	_armies = armies
 	_last_alive.resize(state.company_count())
 	for c: int in state.company_count():
 		_last_alive[c] = state.alive_figures(c)
@@ -118,7 +120,8 @@ func _layer(unit_id: String, side: int) -> String:
 	var key := unit_id if side < 0 else "%s_%d" % [unit_id, side]
 	if _layers.has(key):
 		return key
-	var mesh: Mesh = _helmet() if side < 0 else BattleModels.unit_mesh(unit_id, side)
+	var house := _armies[side].house if side >= 0 and side < _armies.size() else ""
+	var mesh: Mesh = _helmet() if side < 0 else BattleModels.unit_mesh(unit_id, house)
 	if mesh == null:
 		return ""
 	var multimesh := MultiMesh.new()
@@ -130,6 +133,8 @@ func _layer(unit_id: String, side: int) -> String:
 		multimesh.set_instance_transform(i, HIDDEN)
 	var instance := MultiMeshInstance3D.new()
 	instance.multimesh = multimesh
+	if side >= 0 and side < _armies.size():
+		BattleFigures.paint_house(instance, _armies[side])
 	add_child(instance)
 	_layers[key] = instance
 	var starts := PackedVector3Array()

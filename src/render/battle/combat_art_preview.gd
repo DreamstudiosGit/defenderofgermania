@@ -72,8 +72,7 @@ func show_landscape(variant: String) -> void:
 	var cfg := CombatConfig.load_file()
 	cfg.battle.apply_house_colors(MapData.load_file().house_colors)
 	for i: int in _shields.size():
-		_shields[i].house_color = cfg.battle.armies[i / 3].color
-		_shields[i].accent = cfg.battle.armies[i / 3].accent
+		_shields[i].house = cfg.battle.armies[i / 3].house
 	var field := BattleField.new()
 	_content.add_child(field)
 	field.build(cfg.battle, cfg.battle.armies, variant)

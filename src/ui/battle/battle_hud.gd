@@ -72,8 +72,7 @@ func setup(
 		for g: int in state.side_groups[s]:
 			var shield := GroupShield.new()
 			shield.group = g
-			shield.house_color = armies[s].color
-			shield.accent = armies[s].accent
+			shield.house = armies[s].house
 			_rows[s].add_child(shield)
 			_shields[s].append(shield)
 		_rows[s].add_child(_switch_label(device, false))

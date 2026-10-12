@@ -4,3 +4,6 @@
 
 # Build output
 /build/
+
+# Agent worktrees (Claude Code)
+.claude/worktrees/
