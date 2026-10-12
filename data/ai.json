@@ -1,29 +1,129 @@
 {
   "default_difficulty": 1,
   "personalities": {
-    "merchant": {"house": "welfen", "weights": {"economy": 1.5, "military": 0.8, "castle": 0.9, "court": 1.0, "favour": 1.0, "adventure": 0.9}},
-    "builder": {"house": "wettiner", "weights": {"economy": 1.1, "military": 0.8, "castle": 1.5, "court": 1.3, "favour": 1.0, "adventure": 0.9}},
-    "conqueror": {"house": "staufer", "weights": {"economy": 0.9, "military": 1.5, "castle": 1.0, "court": 0.9, "favour": 0.8, "adventure": 1.3}},
-    "diplomat": {"house": "wittelsbacher", "weights": {"economy": 1.0, "military": 0.8, "castle": 1.0, "court": 1.0, "favour": 1.5, "adventure": 1.0}}
+    "merchant": {
+      "house": "welfen",
+      "weights": {
+        "economy": 1.65,
+        "military": 0.8,
+        "castle": 0.9,
+        "court": 1.19,
+        "favour": 1,
+        "adventure": 0.71
+      }
+    },
+    "builder": {
+      "house": "wettiner",
+      "weights": {
+        "economy": 1.3,
+        "military": 0.8,
+        "castle": 1.5,
+        "court": 1.3,
+        "favour": 1,
+        "adventure": 0.96
+      }
+    },
+    "conqueror": {
+      "house": "staufer",
+      "weights": {
+        "economy": 0.88,
+        "military": 1.5,
+        "castle": 1,
+        "court": 0.9,
+        "favour": 0.8,
+        "adventure": 1.8
+      }
+    },
+    "diplomat": {
+      "house": "wittelsbacher",
+      "weights": {
+        "economy": 1,
+        "military": 0.8,
+        "castle": 0.79,
+        "court": 1,
+        "favour": 1.5,
+        "adventure": 1
+      }
+    }
   },
   "difficulties": [
-    {"id": "squire", "suboptimal_share": 0.3, "better_targets": false, "counters": false, "coalition": false},
-    {"id": "knight", "suboptimal_share": 0.0, "better_targets": false, "counters": false, "coalition": false},
-    {"id": "prince", "suboptimal_share": 0.0, "better_targets": true, "counters": true, "coalition": false},
-    {"id": "emperor", "suboptimal_share": 0.0, "better_targets": true, "counters": true, "coalition": true}
+    {
+      "id": "squire",
+      "suboptimal_share": 0.3,
+      "better_targets": false,
+      "counters": false,
+      "coalition": false
+    },
+    {
+      "id": "knight",
+      "suboptimal_share": 0,
+      "better_targets": false,
+      "counters": false,
+      "coalition": false
+    },
+    {
+      "id": "prince",
+      "suboptimal_share": 0,
+      "better_targets": true,
+      "counters": true,
+      "coalition": false
+    },
+    {
+      "id": "emperor",
+      "suboptimal_share": 0,
+      "better_targets": true,
+      "counters": true,
+      "coalition": true
+    }
   ],
   "values": {
-    "legitimacy": 30, "prestige": 6, "favour": 3, "satisfaction": 2, "province": 60,
-    "round": 12, "vote": 300, "pillar": 900, "pillar_urgency_rounds": 24
+    "legitimacy": 30,
+    "prestige": 4.51,
+    "favour": 2.15,
+    "satisfaction": 2,
+    "province": 60,
+    "round": 12,
+    "vote": 300,
+    "pillar": 856.92,
+    "pillar_urgency_rounds": 24
   },
   "supply": {
-    "min_satisfaction": 35, "low_satisfaction": 45, "gold_reserve": 60,
-    "grain_buffer": 1.15, "grain_surplus_years": 2.0
+    "min_satisfaction": 35,
+    "low_satisfaction": 45,
+    "gold_reserve": 60,
+    "grain_buffer": 1.15,
+    "grain_surplus_years": 2
   },
-  "security": {"home_weight": 2.0, "threat_ratio": 0.9, "defenders_per_threat": 1.2},
-  "goals": {"payback_rounds": 12, "min_utility": 0.2, "favour_reach": 30, "save_rounds": 4, "save_factor": 1.3},
-  "opportunity": {"attack_ratio": 1.4, "storm_ratio": 1.6, "raid_min_loot": 60},
-  "anti_leader": {"pillars": 2, "attack_weight": 1.6, "coalition_weight": 2.2},
-  "army": {"recruit_reserve": 120, "max_share_of_income": 0.6},
-  "adventure_success": [0.25, 0.45, 0.8, 0.95]
+  "security": {
+    "home_weight": 2.12,
+    "threat_ratio": 0.9,
+    "defenders_per_threat": 1.2
+  },
+  "goals": {
+    "payback_rounds": 12,
+    "min_utility": 0.23,
+    "favour_reach": 30,
+    "save_rounds": 4,
+    "save_factor": 1.3
+  },
+  "opportunity": {
+    "attack_ratio": 1.4,
+    "storm_ratio": 2.12,
+    "raid_min_loot": 60
+  },
+  "anti_leader": {
+    "pillars": 2,
+    "attack_weight": 1.6,
+    "coalition_weight": 2.2
+  },
+  "army": {
+    "recruit_reserve": 120,
+    "max_share_of_income": 0.6
+  },
+  "adventure_success": [
+    0.25,
+    0.45,
+    0.8,
+    0.95
+  ]
 }

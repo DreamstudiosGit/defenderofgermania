@@ -70,8 +70,10 @@ func pillar_worth() -> float:
 
 ## Runs the command if the rules accept it and logs it; true if it ran.
 func act(command: Command, label: String, utility: float) -> bool:
+	var turn := state.turn
+	var phase := state.phase
 	var error := command.execute(state)
-	log.add(state.turn, state.phase, label, utility, error.is_empty(), error)
+	log.add(turn, phase, label, utility, error.is_empty(), error)
 	return error.is_empty()
 
 

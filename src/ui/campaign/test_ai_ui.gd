@@ -87,7 +87,7 @@ func test_overlay_lists_the_last_turn_newest_first_and_toggles() -> void:
 	overlay._input(_key(KEY_F3))
 	assert_true(overlay.visible)
 	assert_eq(overlay.house, "staufer")
-	assert_eq(overlay.row_count(), 3)
+	assert_eq(overlay.row_count(), 2, "a taken option is marked, not listed twice")
 	var text := (overlay.find_child("options", true, false) as RichTextLabel).get_parsed_text()
 	assert_lt(text.find("storm KOE"), text.find("build granary"), "newest first")
 	assert_string_contains(text, "TURN_NOT_ENOUGH_GOLD")

@@ -23,6 +23,14 @@ func add(
 ) -> void:
 	if not entries.is_empty() and entries[0].turn != turn:
 		entries.clear()
+	if taken or not error.is_empty():
+		# The option was listed while weighing; mark it instead of listing it twice.
+		for i: int in range(entries.size() - 1, -1, -1):
+			var listed := entries[i]
+			if listed.label == label and listed.phase == phase and not listed.taken:
+				listed.taken = taken
+				listed.error = error
+				return
 	if entries.size() >= LIMIT:
 		return
 	var entry := Entry.new()
