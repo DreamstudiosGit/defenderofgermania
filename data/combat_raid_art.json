@@ -1,0 +1,44 @@
+{
+  "camera": {"size": 5.6, "height": 1.75, "lead": 1.2, "follow": 3.5, "pitch_deg": -6, "distance": 30},
+  "figures": {"turn_deg": 64, "guard_crest": false, "swing_ticks": 4, "strike_contact": 0.125, "parry_hold": 0.375, "down_z": -0.7},
+  "light": {
+    "background": "#06050a",
+    "ambient": "#2b3352",
+    "ambient_energy": 1.1,
+    "moon": "#7d93d6",
+    "moon_energy": 0.35,
+    "torch": "#ffb46e",
+    "torch_energy": 2.1,
+    "torch_range": 7.0,
+    "torch_spacing": 6.5,
+    "flicker": 0.22,
+    "glow_intensity": 0.7
+  },
+  "colors": {
+    "stone": "#66625b",
+    "stone_dark": "#45413c",
+    "stone_cut": "#24211f",
+    "floor": "#5c4b3a",
+    "wood": "#6b4428",
+    "wood_dark": "#3b2615",
+    "iron": "#50545a",
+    "gold": "#e0aa36",
+    "linen": "#cdb98c",
+    "hay": "#a8863c",
+    "flame": "#ffb347",
+    "glass": "#5a7fd0"
+  },
+  "rooms": {
+    "ceiling": 4.2,
+    "hall_ceiling": 5.6,
+    "floor_depth": 1.0,
+    "back_z": -2.4,
+    "front_z": 1.4,
+    "block_size": [0.7, 0.36],
+    "cellar_depth": 2.7,
+    "gallery_height": 2.9,
+    "stair_length": 2.4,
+    "stair_offset": 5.0,
+    "level_steps": [-1.0, 0.0, 1.0, 1.4, 0.0]
+  }
+}

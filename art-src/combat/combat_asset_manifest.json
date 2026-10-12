@@ -615,5 +615,93 @@
       0.079
     ],
     "animations": []
+  },
+  {
+    "file": "unit_raider.glb",
+    "triangles": 2098,
+    "dimensions_blender": [
+      0.905,
+      1.452,
+      1.955
+    ],
+    "materials": [
+      "house_primary",
+      "house_secondary",
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_mail",
+      "unit_skin"
+    ],
+    "budget": 6000,
+    "animations": [
+      "idle",
+      "walk",
+      "sneak",
+      "hit",
+      "down",
+      "cheer",
+      "guard_high",
+      "guard_low",
+      "deed",
+      "windup_high",
+      "strike_high",
+      "parry_high",
+      "windup_mid",
+      "strike_mid",
+      "parry_mid",
+      "windup_low",
+      "strike_low",
+      "parry_low"
+    ],
+    "rigs": [
+      "rig_human"
+    ],
+    "crest_anchor_height": 1.9
+  },
+  {
+    "file": "unit_guard.glb",
+    "triangles": 1824,
+    "dimensions_blender": [
+      0.986,
+      1.12,
+      1.918
+    ],
+    "materials": [
+      "house_primary",
+      "house_secondary",
+      "unit_dark",
+      "unit_gold",
+      "unit_iron",
+      "unit_leather",
+      "unit_skin",
+      "unit_wool"
+    ],
+    "budget": 3000,
+    "animations": [
+      "idle",
+      "walk",
+      "sneak",
+      "hit",
+      "down",
+      "cheer",
+      "guard_high",
+      "guard_low",
+      "deed",
+      "windup_high",
+      "strike_high",
+      "parry_high",
+      "windup_mid",
+      "strike_mid",
+      "parry_mid",
+      "windup_low",
+      "strike_low",
+      "parry_low"
+    ],
+    "rigs": [
+      "rig_human"
+    ],
+    "crest_anchor_height": 1.905
   }
 ]

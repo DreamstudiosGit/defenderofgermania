@@ -53,6 +53,19 @@ Weapons are held in the right hand (Blender −X). The spearman's grip is at Ble
 
 **Crests.** `crest_lion` (gold, Welfen), `crest_eagle` (black, Staufer), `crest_antlers` (Wettiner), `crest_wings` (blue, Wittelsbacher): 0.6–0.7 m tall, 0.55–0.85 m wide, at most 300 triangles, pivot at the mounting point (bottom centre), UV2 = (0, 0) so they bob with the torso. They mount on the Empty `crest_anchor` at the helmet top of the spearman, crossbowman, knight and leader (rest pose, static node under the scene root; follow the `head` bone when playing skeletal clips). Levy, brabanter and trebuchet have no anchor.
 
+## Raid fighters
+
+The castle raid (M6) uses two foot fighters on the same human rig, built by `build_raid_assets.py` (`raid_fighters.py`, clips in `raid_clips.py`); it updates their manifest entries in place:
+
+```powershell
+& 'C:/Program Files/Blender Foundation/Blender 5.2/blender.exe' --background --factory-startup --python art-src/combat/build_raid_assets.py
+```
+
+- `unit_raider` — the leader on foot: knight kit (tabard, mail), great helm with gold circlet and `crest_anchor`, cloak, sword in a fencing stance; budget 6000 triangles (built at 2098).
+- `unit_guard` — castle guard: gambeson in house colours, kettle hat with `crest_anchor`, sword and round shield; budget 3000 (built at 1824).
+
+Clips (24 fps): `idle`, `walk`, `sneak`, `guard_high`, `guard_low` (held stances; `idle` is the middle one), `windup_<h>` (rest → raised, 8 frames), `strike_<h>` (raised → contact at frame 4 → follow-through → rest), `parry_<h>` (pose from frame 3 to 10), `hit`, `down` (the comic tumble), `cheer`, `deed` (kneeling, working) for `<h>` = `high`, `mid`, `low`. Key poses are solved with two-bone IK from the fighter's own rest pose (fist target and blade direction), so retargeting a key means moving a fist. The game samples the clips itself (`src/render/raid/raid_animator.gd`); `data/combat_raid_art.json` → `figures` holds the contact and parry-hold times.
+
 ## Rigs and clips
 
 Rigid skinning, one bone per part. Every human uses the same armature definition (`rig_human`; trebuchet crew `rig_crew_1` … `rig_crew_4`): `root` → `pelvis` → `spine` → `chest` → `neck` → `head`; `chest` → `upper_arm.L/R` → `forearm.L/R` → `hand.L/R`; `pelvis` → `thigh.L/R` → `shin.L/R` → `foot.L/R` (`.L` is the figure's left, Blender +X). Riders keep the bones but their rest pose is seated and their `root` sits at the saddle. Knight and leader share `rig_horse`: `root` → `body` → `neck` → `head`, `body` → `tail`, `body` → `front_upper.L/R` → `front_lower.L/R`, `body` → `hind_upper.L/R` → `hind_lower.L/R`. The trebuchet frame uses `rig_trebuchet` (`root`, `axle_front`, `axle_back`, `arm` → `counterweight`, `arm` → `sling`, `stone`).

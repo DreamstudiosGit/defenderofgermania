@@ -1,0 +1,108 @@
+{
+  "tick_rate": 30,
+  "time_limit_seconds": 120,
+  "alarm_seconds": 60,
+  "parry_window_base_ms": 150,
+  "max_blade": 5,
+  "intro_seconds": 5,
+  "outro_seconds": 3,
+  "leader": {
+    "health": 100,
+    "stamina": 100,
+    "stamina_regen_per_second": 18,
+    "stamina_regen_delay_ms": 600,
+    "walk_speed": 2.8,
+    "strike_damage": 30,
+    "strike_cost": 24,
+    "parry_cost": 6,
+    "strike_windup_ms": 300,
+    "strike_recover_ms": 300,
+    "blocked_recover_ms": 400,
+    "parry_recover_ms": 300,
+    "hit_stagger_ms": 500,
+    "reach": 2.0
+  },
+  "guards": {
+    "approach_speed": 2.6,
+    "engage_distance": 5.0,
+    "fight_distance": 1.5,
+    "queue_gap": 2.2,
+    "hit_stagger_ms": 450,
+    "windup_damage_factor": 0.5,
+    "skills": [
+      {
+        "health": 90, "damage": 12, "idle_ms": 1900, "windup_ms": 850, "recover_ms": 650,
+        "open_ms": 1300, "stance_ms": 2400, "react_ms": 0, "adapts": false,
+        "attacks": ["mid", "high", "mid", "low"], "stances": ["mid", "high"], "reacts": [false]
+      },
+      {
+        "health": 120, "damage": 16, "idle_ms": 1600, "windup_ms": 750, "recover_ms": 600,
+        "open_ms": 1100, "stance_ms": 2000, "react_ms": 280, "adapts": true,
+        "attacks": ["high", "mid", "low", "mid", "high"], "stances": ["mid", "low", "high"],
+        "reacts": [false, false, true]
+      },
+      {
+        "health": 150, "damage": 20, "idle_ms": 1350, "windup_ms": 650, "recover_ms": 550,
+        "open_ms": 950, "stance_ms": 1600, "react_ms": 250, "adapts": true,
+        "attacks": ["low", "high", "mid", "high", "low", "mid"], "stances": ["high", "mid", "low", "mid"],
+        "reacts": [true, false]
+      },
+      {
+        "health": 180, "damage": 25, "idle_ms": 1100, "windup_ms": 550, "recover_ms": 500,
+        "open_ms": 800, "stance_ms": 1300, "react_ms": 220, "adapts": true,
+        "attacks": ["high", "low", "low", "mid", "high", "mid", "low"], "stances": ["mid", "high", "low"],
+        "reacts": [true, true, false]
+      }
+    ]
+  },
+  "castles": {
+    "province": {
+      "1": {"guards": 3, "sneak_paths": 1, "reinforcements": 1},
+      "2": {"guards": 4, "sneak_paths": 1, "reinforcements": 2},
+      "3": {"guards": 5, "sneak_paths": 2, "reinforcements": 2}
+    },
+    "home": {
+      "1": {"guards": 3, "sneak_paths": 1, "reinforcements": 1},
+      "2": {"guards": 4, "sneak_paths": 1, "reinforcements": 2},
+      "3": {"guards": 5, "sneak_paths": 2, "reinforcements": 2},
+      "4": {"guards": 5, "sneak_paths": 2, "reinforcements": 3},
+      "5": {"guards": 6, "sneak_paths": 2, "reinforcements": 3}
+    }
+  },
+  "layout": {
+    "entry_length": 12,
+    "post_spacing": 15,
+    "door_gap": 8,
+    "room_length": 12,
+    "deed_at": 0.6,
+    "sneak_before": 7.5,
+    "sneak_after": 4.5,
+    "sneak_seconds": 12,
+    "reinforcement_interval_seconds": 7
+  },
+  "targets": {
+    "treasury": {"deed_seconds": 4.5, "prestige": 3, "taler_share": 0.2, "taler_max": 200},
+    "dungeon": {"deed_seconds": 5.0, "prestige": 3},
+    "granary": {"deed_seconds": 4.0, "prestige": 3, "grain_loss": 0.3},
+    "regalia": {"deed_seconds": 4.5, "prestige": 10}
+  },
+  "church_ban_chance": 0.25,
+  "ai_skills": [
+    {
+      "parries": ["late", "ok", "wrong", "early", "ok", "late"], "reads_stance": false,
+      "strikes": ["mid", "high", "mid", "low"], "riposte": false, "sneaks": [true, false]
+    },
+    {
+      "parries": ["ok", "late", "ok", "wrong", "ok"], "reads_stance": false,
+      "strikes": ["high", "mid", "low"], "riposte": true, "sneaks": [false, true]
+    },
+    {
+      "parries": ["ok", "ok", "late", "ok", "ok", "wrong", "ok"], "reads_stance": true,
+      "strikes": ["low", "high", "mid"], "riposte": true, "sneaks": [true]
+    },
+    {
+      "parries": ["ok", "ok", "ok", "ok", "ok", "late", "ok", "ok", "ok", "ok"], "reads_stance": true,
+      "strikes": ["mid", "low", "high"], "riposte": true, "sneaks": [true, false]
+    }
+  ]
+}
