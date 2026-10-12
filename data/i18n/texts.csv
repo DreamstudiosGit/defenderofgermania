@@ -502,6 +502,59 @@ CAMPAIGN_REPORT_REVOLT,Aufstand in %s!,Revolt in %s!
 CAMPAIGN_REPORT_LOST,Verloren: %s,Lost: %s
 CAMPAIGN_BATTLE_TITLE,Schlacht um %s,Battle for %s
 CAMPAIGN_BATTLE_WALL,hinter Mauern der Stufe %d,behind walls of level %d
+SIEGE_TITLE,Belagerung,Siege
+SIEGE_PRACTICE,Übung: Die Blide,Practice: the trebuchet
+SIEGE_CASTLE,Burgherr: %s · Mauer %d,Lord: %s · wall %d
+SIEGE_COUNTERWEIGHT,Gegengewicht,Counterweight
+SIEGE_ANGLE,Abwurfwinkel,Release angle
+SIEGE_STONE,Stein,Stone
+SIEGE_FIRE_POT,Brandtopf,Fire pot
+SIEGE_FIRE,Loslassen!,Loose!
+SIEGE_WIND,Wind %s m/s,Wind %s m/s
+SIEGE_WIND_CALM,Windstill,No wind
+SIEGE_SHOT,Schuss %d von %d,Shot %d of %d
+SIEGE_SHOTS_LOST,%d ans Gegenfeuer verloren,%d lost to counterfire
+SIEGE_WALL,Mauer,Wall
+SIEGE_GARRISON,Besatzung,Garrison
+SIEGE_AIM_TIME,Der Hauptmann wird ungeduldig: %d,The captain grows impatient: %d
+SIEGE_AI_AIMING,Die Mannschaft zielt …,The crew takes aim …
+SIEGE_PART_GATE,Tor,Gate
+SIEGE_PART_WALL,Mauer,Wall
+SIEGE_PART_HOARDING,Wehrgang,Hoarding
+SIEGE_PART_TOWER,Turm,Tower
+SIEGE_PART_KEEP,Bergfried,Keep
+SIEGE_PART_BUILDING,Halle,Hall
+SIEGE_PART_ROOF,Turmhelm,Spire
+SIEGE_PART_MOUND,Motte,Motte
+SIEGE_SHORT,Zu kurz. Der Acker dankt.,Short. The field thanks you.
+SIEGE_LONG,Zu weit. Grüße an die Nachbarn.,Long. Regards to the neighbours.
+SIEGE_YARD,Mitten in den Burghof.,Right into the bailey.
+SIEGE_NO_EFFECT,%s: nur ein Kratzer,%s: barely a scratch
+SIEGE_GARRISON_HIT,Besatzung −%d %%,Garrison −%d %%
+SIEGE_FIRE_STARTED,Es brennt!,Fire!
+SIEGE_COLLAPSE,%s stürzt ein!,%s collapses!
+SIEGE_BURNT,%s brennt nieder.,%s burns down.
+SIEGE_BREACH,Bresche!,Breach!
+SIEGE_BREACH_SUB,Zum Sturm!,Storm the walls!
+SIEGE_COUNTERFIRE,Gegenfeuer!,Counterfire!
+SIEGE_COUNTERFIRE_SUB,Die Mannschaft geht in Deckung. Ein Schuss verloren.,The crew takes cover. One shot lost.
+SIEGE_RESULT_BREACH,Bresche: %s!,Breach: %s!
+SIEGE_RESULT_HOLDS,Die Mauer hält. Vorerst.,The wall holds. For now.
+SIEGE_RESULT_STORM,Der Sturm folgt sofort – ohne Mauerbonus an der Bresche.,The storm follows at once – no wall bonus at the breach.
+SIEGE_RESULT_NEXT_ROUND,Die Belagerung geht nächste Runde weiter.,The siege goes on next round.
+SIEGE_RESULT_WALL,Mauer zerstört: %d %%,Wall destroyed: %d %%
+SIEGE_RESULT_GARRISON,Besatzung verloren: %d %%,Garrison lost: %d %%
+SIEGE_RESULT_SHOTS,"Schüsse: %d, Treffer: %d","Shots: %d, hits: %d"
+SIEGE_RETRY,Noch einmal,Again
+SIEGE_QUIT,Beenden,Quit
+SIEGE_CONTINUE,Weiter,Continue
+SIEGE_HELP_TITLE,Die Blide,The trebuchet
+SIEGE_HELP_1,"Das Gegengewicht gibt die Wucht, der Abwurfwinkel die Höhe des Bogens. Viel Gewicht bei 45° fliegt am weitesten.","Counterweight gives the force, the release angle the height of the arc. Lots of weight at 45° flies farthest."
+SIEGE_HELP_2,Du siehst den Wind und das erste Fünftel der Flugbahn. Den Rest merkst du dir – die Marken im Gras helfen.,You see the wind and the first fifth of the flight. The rest is memory – the marks in the grass help.
+SIEGE_HELP_3,"Steine schlagen 240 aus dem Teil, das sie treffen. Brandtöpfe kosten die Besatzung 8 % und zünden alles aus Holz an.",Stones knock 240 off the part they hit. Fire pots cost the garrison 8 % and set anything wooden alight.
+SIEGE_HELP_4,"Fällt ein Tor oder Mauerstück, ist die Bresche offen. Einstürzende Teile erschlagen ihre Nachbarn. Ab Mauer 3 kostet Gegenfeuer jeden dritten Schuss.","When a gate or wall segment falls, the breach is open. Collapsing parts crush their neighbours. From wall 3 on, counterfire costs every third shot."
+SIEGE_HINT_KEYBOARD,A/D oder ←/→: Gegengewicht · W/S oder ↑/↓: Winkel · Mausrad: Gewicht (Umschalt: Winkel) · Q/E: Geschoss · Leertaste: Loslassen · C: Burg ansehen · Esc: Hilfe,A/D or ←/→: counterweight · W/S or ↑/↓: angle · wheel: weight (Shift: angle) · Q/E: projectile · Space: loose · C: look at the castle · Esc: help
+SIEGE_HINT_PAD,Linker Stick oder Steuerkreuz: Gewicht und Winkel · X/LB/RB: Geschoss · A: Loslassen · Y/LT: Burg ansehen · Start: Hilfe,Left stick or d-pad: weight and angle · X/LB/RB: projectile · A: loose · Y/LT: look at the castle · Start: help
 CAMPAIGN_BATTLE_WINTER,Winter: Angreifer mit weniger Moral,Winter: attackers with lower morale
 CAMPAIGN_BATTLE_COMPANIES,%d × %s (%s),%d × %s (%s)
 CAMPAIGN_BATTLE_LEADER,"Anführer, Führung %d","Leader, leadership %d"

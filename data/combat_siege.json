@@ -1,0 +1,129 @@
+{
+  "wall_hp_per_level": 400,
+  "shots": {"base": 3, "per_trebuchet": 2},
+  "counterfire": {"from_wall": 3, "every": 3},
+  "projectiles": {
+    "stone": {"damage": 240, "garrison_damage": 0.0, "ignites": false, "speed_factor": 1.0},
+    "fire_pot": {"damage": 0, "garrison_damage": 0.08, "ignites": true, "speed_factor": 1.06}
+  },
+  "burning": {"share_per_shot": 0.34},
+  "collapse": {"fall_damage_share": 0.75},
+  "wind": {"min": -6.0, "max": 6.0, "acceleration_per_mps": 0.2},
+  "ballistics": {
+    "gravity": 12.0,
+    "release": [1.5, 5.0],
+    "speed_min": 33.0,
+    "speed_max": 52.0,
+    "counterweight": [0, 100],
+    "angle_deg": [20, 70],
+    "start": [50, 45],
+    "step_rate": 120,
+    "max_flight_seconds": 12.0,
+    "preview_share": 0.2,
+    "castle_front": 150.0
+  },
+  "timing": {
+    "aim_limit_seconds": 20.0,
+    "typical_aim_seconds": 10.0,
+    "throw_seconds": 2.0,
+    "settle_seconds": 3.0,
+    "counterfire_seconds": 3.0
+  },
+  "practice": {
+    "attacker_house": "wittelsbacher",
+    "defender_owner": "welfen",
+    "wall_level": 2,
+    "is_home_castle": false,
+    "castle_level": 2,
+    "trebuchets": 1,
+    "garrison_health": 1.0,
+    "wall_damage": 0.0
+  },
+  "ai": {
+    "campaign_skill": 2,
+    "skills": [
+      {"aim_seconds": 6.0, "angle_deg": 52, "wind_awareness": 0.0,
+       "counterweight_errors": [9, -8, 12, -6, 7, -10], "angle_errors": [3, -2, 0, 4, -3, 2]},
+      {"aim_seconds": 8.0, "angle_deg": 48, "wind_awareness": 0.4,
+       "counterweight_errors": [7, -5, 10, -6, 3, 8], "angle_errors": [2, -1, 0, 2, -2, 1]},
+      {"aim_seconds": 9.0, "angle_deg": 45, "wind_awareness": 0.8,
+       "counterweight_errors": [5, -5, 2, 9, -3, 4], "angle_errors": [1, 0, -1, 0, 1, 0]},
+      {"aim_seconds": 10.0, "angle_deg": 45, "wind_awareness": 1.0,
+       "counterweight_errors": [1, 0, 0, -1, 0, 1], "angle_errors": [0, 0, 0, 0, 0, 0]}
+    ]
+  },
+  "layouts": {
+    "province_1": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "wood", "rect": [0.0, 0.0, 1.9, 6.9], "hp_share": 0.45},
+      {"id": "tower", "kind": "tower", "material": "wood", "rect": [8.8, 0.0, 13.2, 7.7], "hp_share": 0.25,
+       "falls_onto": ["palisade_back"]},
+      {"id": "palisade_back", "kind": "wall", "material": "wood", "rect": [21.4, 0.0, 22.0, 3.6], "hp_share": 0.30}
+    ]},
+    "province_2": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "stone", "rect": [0.0, 0.0, 5.25, 8.6], "hp_share": 0.32},
+      {"id": "hoarding", "kind": "hoarding", "material": "wood", "rect": [0.0, 8.6, 5.25, 10.8], "hp_share": 0.06,
+       "supported_by": ["gate"], "falls_onto": ["gate"]},
+      {"id": "hall", "kind": "building", "material": "wood", "rect": [8.0, 0.0, 13.0, 6.4], "hp_share": 0.10},
+      {"id": "keep", "kind": "keep", "material": "stone", "rect": [15.0, 0.0, 22.0, 17.0], "hp_share": 0.28,
+       "falls_onto": ["hall"]},
+      {"id": "wall_back", "kind": "wall", "material": "stone", "rect": [24.5, 0.0, 25.9, 6.0], "hp_share": 0.24}
+    ]},
+    "province_3": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "stone", "rect": [0.0, 0.0, 7.0, 11.5], "hp_share": 0.30},
+      {"id": "hoarding", "kind": "hoarding", "material": "wood", "rect": [0.0, 11.5, 7.0, 14.4], "hp_share": 0.07,
+       "supported_by": ["gate"], "falls_onto": ["gate"]},
+      {"id": "hall", "kind": "building", "material": "wood", "rect": [11.0, 0.0, 16.0, 6.4], "hp_share": 0.08},
+      {"id": "keep", "kind": "keep", "material": "stone", "rect": [19.0, 0.0, 26.0, 17.0], "hp_share": 0.27,
+       "falls_onto": ["hall"]},
+      {"id": "wall_back", "kind": "wall", "material": "stone", "rect": [40.2, 0.0, 42.0, 7.0], "hp_share": 0.28}
+    ]},
+    "home_1": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "wood", "rect": [0.0, 0.0, 1.9, 6.9], "hp_share": 0.40},
+      {"id": "hall", "kind": "building", "material": "wood", "rect": [12.0, 0.0, 17.0, 6.4], "hp_share": 0.15},
+      {"id": "motte", "kind": "mound", "material": "earth", "rect": [20.4, 0.0, 33.6, 4.0], "hp_share": 0.0},
+      {"id": "tower", "kind": "tower", "material": "wood", "rect": [24.8, 4.0, 29.2, 11.7], "hp_share": 0.20,
+       "falls_onto": ["hall"]},
+      {"id": "palisade_back", "kind": "wall", "material": "wood", "rect": [36.4, 0.0, 37.0, 3.6], "hp_share": 0.25}
+    ]},
+    "home_2": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "wood", "rect": [0.0, 0.0, 1.9, 6.9], "hp_share": 0.35},
+      {"id": "hall", "kind": "building", "material": "wood", "rect": [12.0, 0.0, 17.0, 6.4], "hp_share": 0.10},
+      {"id": "motte", "kind": "mound", "material": "earth", "rect": [20.4, 0.0, 33.6, 4.0], "hp_share": 0.0},
+      {"id": "keep", "kind": "keep", "material": "stone", "rect": [23.5, 4.0, 30.5, 21.0], "hp_share": 0.30,
+       "falls_onto": ["hall"]},
+      {"id": "palisade_back", "kind": "wall", "material": "wood", "rect": [36.4, 0.0, 37.0, 3.6], "hp_share": 0.25}
+    ]},
+    "home_3": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "stone", "rect": [0.0, 0.0, 7.0, 11.5], "hp_share": 0.30},
+      {"id": "hoarding", "kind": "hoarding", "material": "wood", "rect": [0.0, 11.5, 7.0, 14.4], "hp_share": 0.07,
+       "supported_by": ["gate"], "falls_onto": ["gate"]},
+      {"id": "hall", "kind": "building", "material": "wood", "rect": [11.0, 0.0, 16.0, 6.4], "hp_share": 0.08},
+      {"id": "motte", "kind": "mound", "material": "earth", "rect": [23.4, 0.0, 36.6, 4.0], "hp_share": 0.0},
+      {"id": "keep", "kind": "keep", "material": "stone", "rect": [26.5, 4.0, 33.5, 21.0], "hp_share": 0.27,
+       "falls_onto": ["hall"]},
+      {"id": "wall_back", "kind": "wall", "material": "stone", "rect": [40.2, 0.0, 42.0, 7.0], "hp_share": 0.28}
+    ]},
+    "home_4": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "stone", "rect": [0.0, 0.0, 7.0, 11.5], "hp_share": 0.28},
+      {"id": "hoarding", "kind": "hoarding", "material": "wood", "rect": [0.0, 11.5, 7.0, 14.4], "hp_share": 0.07,
+       "supported_by": ["gate"], "falls_onto": ["gate"]},
+      {"id": "palas", "kind": "building", "material": "stone", "rect": [10.0, 0.0, 18.1, 14.7], "hp_share": 0.12},
+      {"id": "motte", "kind": "mound", "material": "earth", "rect": [23.4, 0.0, 36.6, 4.0], "hp_share": 0.0},
+      {"id": "keep", "kind": "keep", "material": "stone", "rect": [26.5, 4.0, 33.5, 21.0], "hp_share": 0.27,
+       "falls_onto": ["palas"]},
+      {"id": "wall_back", "kind": "wall", "material": "stone", "rect": [40.2, 0.0, 42.0, 7.0], "hp_share": 0.26}
+    ]},
+    "home_5": {"parts": [
+      {"id": "gate", "kind": "gate", "material": "stone", "rect": [0.0, 0.0, 7.0, 11.5], "hp_share": 0.26},
+      {"id": "hoarding", "kind": "hoarding", "material": "wood", "rect": [0.0, 11.5, 7.0, 14.4], "hp_share": 0.06,
+       "supported_by": ["gate"], "falls_onto": ["gate"]},
+      {"id": "pfalz", "kind": "building", "material": "stone", "rect": [10.0, 0.0, 19.0, 15.0], "hp_share": 0.10},
+      {"id": "motte", "kind": "mound", "material": "earth", "rect": [23.4, 0.0, 36.6, 4.0], "hp_share": 0.0},
+      {"id": "keep", "kind": "keep", "material": "stone", "rect": [26.5, 4.0, 33.5, 21.0], "hp_share": 0.26,
+       "falls_onto": ["pfalz"]},
+      {"id": "spire", "kind": "roof", "material": "wood", "rect": [27.2, 21.0, 32.8, 32.9], "hp_share": 0.06,
+       "supported_by": ["keep"]},
+      {"id": "wall_back", "kind": "wall", "material": "stone", "rect": [40.2, 0.0, 42.0, 7.0], "hp_share": 0.26}
+    ]}
+  }
+}

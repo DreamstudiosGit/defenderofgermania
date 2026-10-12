@@ -1,0 +1,138 @@
+[
+  {
+    "file": "siege_fire_pot.glb",
+    "triangles": 218,
+    "budget": 3000,
+    "dimensions_blender": [
+      0.59,
+      0.6,
+      0.8
+    ],
+    "materials": [
+      "castle_linen",
+      "castle_roof_tile",
+      "castle_timber"
+    ]
+  },
+  {
+    "file": "siege_hoarding.glb",
+    "triangles": 248,
+    "budget": 3000,
+    "dimensions_blender": [
+      5.4,
+      8.4,
+      2.9
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_shingle",
+      "castle_timber",
+      "castle_wood"
+    ]
+  },
+  {
+    "file": "siege_palisade.glb",
+    "triangles": 240,
+    "budget": 3000,
+    "dimensions_blender": [
+      10.0,
+      1.84,
+      3.98
+    ],
+    "materials": [
+      "castle_timber",
+      "castle_wood"
+    ]
+  },
+  {
+    "file": "siege_palisade_gate.glb",
+    "triangles": 348,
+    "budget": 3000,
+    "dimensions_blender": [
+      7.1,
+      2.4,
+      6.9
+    ],
+    "materials": [
+      "castle_iron",
+      "castle_shingle",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "siege_rubble_stone.glb",
+    "triangles": 208,
+    "budget": 3000,
+    "dimensions_blender": [
+      7.2,
+      7.2,
+      2.0
+    ],
+    "materials": [
+      "castle_earth",
+      "castle_stone",
+      "castle_stone_light"
+    ]
+  },
+  {
+    "file": "siege_rubble_wood.glb",
+    "triangles": 148,
+    "budget": 3000,
+    "dimensions_blender": [
+      6.4,
+      6.4,
+      1.28
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_timber",
+      "castle_wood"
+    ]
+  },
+  {
+    "file": "siege_stone.glb",
+    "triangles": 20,
+    "budget": 3000,
+    "dimensions_blender": [
+      0.75,
+      0.68,
+      0.76
+    ],
+    "materials": [
+      "castle_rock"
+    ]
+  },
+  {
+    "file": "siege_wall.glb",
+    "triangles": 144,
+    "budget": 3000,
+    "dimensions_blender": [
+      10.05,
+      2.1,
+      7.9
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_stone_light"
+    ]
+  },
+  {
+    "file": "siege_wall_tower.glb",
+    "triangles": 216,
+    "budget": 3000,
+    "dimensions_blender": [
+      5.85,
+      5.85,
+      11.35
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_stone",
+      "castle_stone_light"
+    ]
+  }
+]
