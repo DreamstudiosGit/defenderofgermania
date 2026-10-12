@@ -581,6 +581,54 @@ ECONOMY_TOURNAMENT_SEASON,Turniere gibt es nur im Frühling und Sommer.,Tourname
 ECONOMY_TOURNAMENT_NO_GROUND,Für ein Turnier braucht die Stammburg einen Turnierplatz.,A tournament needs a tourney ground at the home castle.
 ECONOMY_TOURNAMENT_HOSTED,Diese Runde habt Ihr schon ein Turnier ausgerichtet.,You already hosted a tournament this round.
 EVENT_ADVENTURE_LATER,Dieses Abenteuer kommt mit den Abenteuer-Modulen.,This adventure arrives with the adventure modules.
+JOUST_PRACTICE_TITLE,Übungs-Tjost,Practice joust
+JOUST_HOWTO_RUNUP,"Anritt: Sporen im Takt der Hufe geben Tempo. Zu viel davon, und die Lanze tanzt.","Run-up: spur on the hoofbeat for speed. Too much of it, and the lance starts dancing."
+JOUST_HOWTO_AIM,Zielen: Lanzenspitze auf den Gegner – Helm 5 Punkte · Schildmitte 3 · Schildrand 1.,Aim: put the tip on the opponent – helmet 5 points · shield centre 3 · shield rim 1.
+JOUST_HOWTO_STRIKE,"Aufprall: Lanze einlegen, wenn sich der Ring schließt. Golden heißt perfekt – die Lanze bricht.","Impact: couch the lance as the ring closes. Gold means perfect – the lance breaks."
+JOUST_HOWTO_SHIELD,Schild zur feindlichen Lanze drehen halbiert den Stoß.,Turn the shield towards the enemy lance to halve the blow.
+JOUST_HOWTO_WIN,"Unter null Haltung landet man im Sand. Sonst zählen nach drei Durchgängen die Punkte.","Below zero stance you land in the sand. Otherwise points decide after three passes."
+JOUST_MENU_HOUSE,Haus,House
+JOUST_MENU_LANCE,Lanze,Lance
+JOUST_MENU_OPPONENT,Gegner,Opponent
+JOUST_MENU_CONTROL,Steuerung,Controls
+JOUST_MENU_START,Anreiten!,Ride!
+JOUST_MENU_QUIT,Beenden,Quit
+JOUST_SKILL_0,Knappe (fällt gern),Squire (falls a lot)
+JOUST_SKILL_1,Ritter,Knight
+JOUST_SKILL_2,Turnierritter,Tourney knight
+JOUST_SKILL_3,Champion (verfehlt selten),Champion (rarely misses)
+JOUST_INTRO,%s gegen %s,%s versus %s
+JOUST_PASS,Durchgang %d von %d,Pass %d of %d
+JOUST_DECIDING,Entscheidungsritt,Deciding pass
+JOUST_DRAW_DECIDING,Gleichstand – noch ein Ritt!,All square – one more pass!
+JOUST_READY,Visier runter!,Visor down!
+JOUST_RUNUP,Sporen im Takt!,Spur on the beat!
+JOUST_AIM,Lanze senken – zielen!,Lower the lance – aim!
+JOUST_HIT_HELMET,Helmtreffer!,Helmet!
+JOUST_HIT_SHIELD_CENTRE,Schildmitte!,Dead centre!
+JOUST_HIT_SHIELD_RIM,Schildrand,Shield rim
+JOUST_HIT_MISS,Daneben,Missed
+JOUST_LANCE_BREAKS,Die Lanze bricht! +1,The lance breaks! +1
+JOUST_TOO_EARLY,Zu früh eingelegt – die Lanze rutscht ab,Couched too early – the lance glances off
+JOUST_TOO_LATE,Zu spät eingelegt – die Lanze rutscht ab,Couched too late – the lance glances off
+JOUST_NOT_COUCHED,Lanze nicht eingelegt,Lance never couched
+JOUST_SHIELD_HELD,sein Schild fängt die Hälfte,his shield takes half
+JOUST_YOUR_SHIELD_HELD,Euer Schild hält!,Your shield holds!
+JOUST_UNSEATED,%s fällt aus dem Sattel!,%s leaves the saddle!
+JOUST_RESULT_WIN,Sieg!,Victory!
+JOUST_RESULT_LOSS,Niederlage,Defeat
+JOUST_RESULT_SCORE,Punkte %d : %d,Points %d : %d
+JOUST_RESULT_STANCE,Haltung %d : %d,Stance %d : %d
+JOUST_RESULT_PASSES,%d Durchgänge,%d passes
+JOUST_REASON_UNSEATED_OPPONENT,Der Gegner liegt im Sand.,The opponent is lying in the sand.
+JOUST_REASON_UNSEATED_PLAYER,Ihr liegt im Sand. Die Tribüne lacht höflich.,You are lying in the sand. The stand laughs politely.
+JOUST_REASON_POINTS,Nach Punkten.,On points.
+JOUST_REASON_STANCE,Punktgleich – die festere Haltung entscheidet.,Level on points – the firmer seat decides.
+JOUST_REASON_STATUS_QUO,Unentschieden – der Gegner behält das Feld.,A draw – the opponent keeps the field.
+JOUST_RETRY,Nochmal,Again
+JOUST_SETUP,Zur Auswahl,Back to setup
+JOUST_HINT_KEYBOARD,Leertaste: Sporen · Maus: Lanze führen · Linksklick: einlegen · WASD: Schild · Esc: Menü,Space: spur · mouse: guide the lance · left click: couch · WASD: shield · Esc: menu
+JOUST_HINT_PAD,A: Sporen · Linker Stick: Lanze · RT: einlegen · Rechter Stick: Schild · Start: Menü,A: spur · left stick: lance · RT: couch · right stick: shield · Start: menu
 EVENT_UNAVAILABLE,Das ist in diesem Spiel nicht möglich.,That is not possible in this game.
 EVENT_TARGET_GONE,Das Angebot gilt nicht mehr – die Provinz hat schon einen Herrn.,The offer has lapsed – the province already has a lord.
 EVENT_NO_UNITS,Dafür fehlen Euch die Rotten.,You lack the companies for that.
