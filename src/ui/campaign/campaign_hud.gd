@@ -1,8 +1,9 @@
 class_name CampaignHud
 extends PanelContainer
 ## Top bar of the campaign: house, date and phase; taler, grain and prestige, each with its
-## calculation as tooltip; the always visible grain forecast ("Kornvogt") and the button that
-## ends the phase. Anchor it to the top edge; refresh() after every command.
+## calculation as tooltip; the electors' votes with the three pillars as tooltip and a ban
+## marker; the always visible grain forecast ("Kornvogt") and the button that ends the phase.
+## Anchor it to the top edge; refresh() after every command.
 
 signal command_requested(command: Command)
 
@@ -15,6 +16,7 @@ var _date := CampaignStyle.label("", CampaignStyle.SMALL_SIZE, CampaignStyle.MUT
 var _gold := CampaignStyle.info(20)
 var _grain := CampaignStyle.info(20)
 var _prestige := CampaignStyle.info(20)
+var _crown := CampaignStyle.info(20)
 var _forecast := CampaignStyle.label("", CampaignStyle.SMALL_SIZE - 1, CampaignStyle.MUTED)
 var _end_phase := Button.new()
 var _rules: GameRules
@@ -38,9 +40,10 @@ func _init() -> void:
 	var values := HBoxContainer.new()
 	values.add_theme_constant_override("separation", 22)
 	numbers.add_child(values)
-	for button: Button in [_gold, _grain, _prestige]:
+	for button: Button in [_gold, _grain, _prestige, _crown]:
 		button.autowrap_mode = TextServer.AUTOWRAP_OFF
 		values.add_child(button)
+	_crown.name = "crown"
 	numbers.add_child(_forecast)
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -66,6 +69,7 @@ func refresh(state: GameState, rules: GameRules, house: String) -> void:
 	_show_gold(state, rules, owner)
 	_show_grain(state, rules, owner)
 	_show_prestige(state, rules, owner)
+	_show_crown(state, rules.map, owner)
 	var ends_campaign := state.phase == GameState.Phase.CAMPAIGN
 	_end_phase.text = tr("CAMPAIGN_END_CAMPAIGN" if ends_campaign else "CAMPAIGN_END_ADMINISTRATION")
 	var error := EndPhaseCommand.new(rules, house).validate(state)
@@ -78,9 +82,10 @@ func focus_end_phase() -> void:
 	_end_phase.grab_focus()
 
 
-## Focuses the taler, grain (1) or prestige (2) number, whose tooltip FocusTooltip shows.
+## Focuses the taler, grain (1), prestige (2) or votes (3) number, whose tooltip FocusTooltip
+## shows.
 func focus_number(index: int) -> void:
-	[_gold, _grain, _prestige][clampi(index, 0, 2)].grab_focus()
+	[_gold, _grain, _prestige, _crown][clampi(index, 0, 3)].grab_focus()
 
 
 func _show_gold(state: GameState, rules: GameRules, owner: HouseState) -> void:
@@ -127,6 +132,22 @@ func _show_prestige(state: GameState, rules: GameRules, owner: HouseState) -> vo
 		CampaignFormat.number(cfg.shortage_prestige), CampaignFormat.number(cfg.revolt_prestige)
 	]
 	_prestige.tooltip_text = "%s\n%s" % [CampaignFormat.terms_text(title, terms), note]
+
+
+## "Stimmen 2/7", red with the ban marker while the church bans the house, green once the
+## votes reach the cheapest coronation open to it.
+func _show_crown(state: GameState, map: MapData, owner: HouseState) -> void:
+	var count := CrownRules.vote_count(state, map, owner.id)
+	var needed := CrownRules.votes_needed(state, map, owner.id)
+	_crown.text = tr("CAMPAIGN_CROWN_HUD_VOTES") % [count, map.electors().size()]
+	var color := CampaignStyle.TEXT
+	if owner.is_banned:
+		_crown.text += " · " + tr("CAMPAIGN_CROWN_HUD_BAN")
+		color = CampaignStyle.BAD
+	elif needed > 0 and count >= needed:
+		color = CampaignStyle.GOOD
+	_crown.add_theme_color_override("font_color", color)
+	_crown.tooltip_text = CrownFormat.pillars(state, map, owner.id)
 
 
 func _trend_color(value: float, limit: float) -> Color:

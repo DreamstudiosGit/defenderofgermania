@@ -118,6 +118,24 @@ func _session() -> CampaignSession:
 	return _scene.get("session")
 
 
+func test_a_coronation_through_the_scene_ends_on_the_illuminated_page() -> void:
+	_dismiss_screens()
+	var session := _session()
+	var state := session.state
+	var house := session.active_house()
+	state.turn = GameState.Season.WINTER
+	for id: String in ["SPT", "AAC"]:
+		state.provinces[id].owner = house
+	for id: String in ["KOE", "TRI", "PFA", "BRB"]:
+		state.crown.set_favour(id, house, 60.0, 100.0)
+	_execute(CoronationCommand.new(session.rules.map, house))
+	assert_eq(state.winner, house)
+	var victory: VictoryScreen = _scene.get("_victory")
+	assert_true(victory.visible, "the victory screen opens")
+	var plate := victory.find_child("coronation_plate", true, false) as CoronationPlate
+	assert_true(plate.visible, "with the coronation plate")
+
+
 func test_the_province_panel_opens_the_castle_and_closing_returns_to_the_table() -> void:
 	_dismiss_screens()
 	var panel: ProvincePanel = _scene.get("_province_panel")

@@ -232,6 +232,84 @@ CAMPAIGN_TAB_GRAIN,Kornmarkt,Grain
 CAMPAIGN_TAB_BUILD,Bauen,Build
 CAMPAIGN_TAB_RECRUIT,Werben,Recruit
 CAMPAIGN_TAB_COURT,Hof,Court
+CAMPAIGN_TAB_CROWN,Reich,Realm
+CAMPAIGN_CROWN_PILLARS,Drei Säulen der Krone,The three pillars of the crown
+CAMPAIGN_CROWN_REGALIA,Insignien: %s,Regalia: %s
+CAMPAIGN_CROWN_REGALIA_TRUE,echte,true
+CAMPAIGN_CROWN_REGALIA_FORGED,nachgemachte,forged
+CAMPAIGN_CROWN_REGALIA_BOTH,echte und nachgemachte,true and forged
+CAMPAIGN_CROWN_REGALIA_NONE,keine,none
+CAMPAIGN_CROWN_REGALIA_FORGING,nachgemachte im Bau (%d Rd.),forged ones in the making (%d rd.)
+CAMPAIGN_CROWN_REGALIA_HINT,"Die echten Insignien liegen in %s, Herr dort: %s. Wer die Provinz hält, hält die Insignien. Mit nachgemachten braucht die Krönung eine Stimme mehr.","The true regalia lie in %s, held by %s. Whoever holds the province holds the regalia. With forged ones a coronation needs one more vote."
+CAMPAIGN_CROWN_SITES,Krönungsort: %s,Coronation site: %s
+CAMPAIGN_CROWN_SITE_NONE,keiner in Eurer Hand,none in your hands
+CAMPAIGN_CROWN_SITES_HINT,"Ein Krönungsort zählt nur, solange Ihr die Stadt haltet. Ein Bote mit Grüßen genügt nicht.",A coronation site only counts while you hold the city. A messenger bearing greetings will not do.
+CAMPAIGN_CROWN_ARCHBISHOPS,Erzbischöfe: %s,Archbishops: %s
+CAMPAIGN_CROWN_WILLING,%s willig,%s willing
+CAMPAIGN_CROWN_UNWILLING,%s unwillig,%s unwilling
+CAMPAIGN_CROWN_ARCHBISHOPS_HINT,Ein Erzbischof krönt ab Gunst %s oder wenn Ihr seine Provinz haltet.,An archbishop crowns from favour %s or when you hold his province.
+CAMPAIGN_CROWN_ARCHBISHOP_LINE,%s krönt in %s · Gunst %s,%s crowns at %s · favour %s
+CAMPAIGN_CROWN_VOTES,Stimmen: %d von %d · nötig %s,Votes: %d of %d · needed %s
+CAMPAIGN_CROWN_TABLE,Krönungstafel (nötige Stimmen):,Coronation table (votes needed):
+CAMPAIGN_CROWN_ROW,%s Insignien in %s: %d,%s regalia at %s: %d
+CAMPAIGN_CROWN_ROW_READY,%s · bereit bis auf die Stimmen,%s · ready but for the votes
+CAMPAIGN_CROWN_BANNED,Im Kirchenbann: Kirchen-Wahlfürsten stimmen nicht für Euch.,Under the ban: church electors will not vote for you.
+CAMPAIGN_CROWN_CORONATION,Krönung ausrufen,Call the coronation
+CAMPAIGN_CROWN_CORONATION_AT,Krönung zu %s ausrufen,Call the coronation at %s
+CAMPAIGN_CROWN_CORONATION_HINT,"Am Hoftag im Winter: mit Insignien, Krönungsort, willigem Erzbischof und genug Stimmen. Gewinnt die Partie auf der Stelle.","At the winter court: with regalia, a coronation site, a willing archbishop and enough votes. Wins the game on the spot."
+CAMPAIGN_CROWN_COURT,Hof und Kirche,Court and church
+CAMPAIGN_CROWN_FORGE,Insignien nachmachen · %s T,Forge regalia · %s T
+CAMPAIGN_CROWN_FORGING,Insignien im Bau · noch %d Rd.,Regalia in the making · %d rd. left
+CAMPAIGN_CROWN_FORGED,Nachgemachte Insignien · vorhanden,Forged regalia · ready
+CAMPAIGN_CROWN_FORGE_HINT,"Braucht Stammburg Stufe %d (Eure: %d) und %d Runden beim Goldschmied. Mit nachgemachten Insignien braucht die Krönung eine Stimme mehr – Fürsten haben ein Auge für Blattgold.","Needs home castle level %d (yours: %d) and %d rounds at the goldsmith. With forged regalia a coronation needs one more vote – princes have an eye for gold leaf."
+CAMPAIGN_CROWN_TOURNAMENT,Turnier ausrichten · %s T,Host a tournament · %s T
+CAMPAIGN_CROWN_TOURNAMENT_HINT,"Im Frühling oder Sommer, mit Turnierplatz an der Stammburg, einmal je Runde: +%s Ansehen und +%s Gunst bei jedem Wahlfürsten.","In spring or summer, with a tourney ground at the home castle, once a round: +%s prestige and +%s favour with every elector."
+CAMPAIGN_CROWN_PENANCE,Bußgang · %s T,Penance · %s T
+CAMPAIGN_CROWN_PENANCE_HINT,"Hebt den Bann. Kostet dazu %s Ansehen und %d Runde ohne Feldzug; mit Kapelle (Stammburg %d) nur die halben Taler. Barfuß ist inbegriffen.","Lifts the ban. Also costs %s prestige and %d round without campaigning; with a chapel (home castle %d) only half the taler. Bare feet included."
+CAMPAIGN_CROWN_PATRON,Gönner: %s,Patron: %s
+CAMPAIGN_CROWN_PATRON_CARDS,Karten: %d von %d · diese Runde gespielt: %d von %d,Cards: %d of %d · played this round: %d of %d
+CAMPAIGN_CROWN_PATRON_WEAK,Geschwächt: jede Karte wirkt nur zu %s.,Weakened: every card gives only %s.
+CAMPAIGN_CROWN_MERCENARIES,Söldner für die nächste Schlacht: %d Kompanien %s,Mercenaries for the next battle: %d companies of %s
+CAMPAIGN_CROWN_COMPANIES,%d Kompanien,%d companies
+CAMPAIGN_CROWN_SILVER_HINT,Der Gönner schickt Silber. Fragt besser nicht nach der Herkunft.,Your patron sends silver. Best not ask where it came from.
+CAMPAIGN_CROWN_HIRE_HINT,%d Kompanien %s kämpfen in Eurer nächsten Schlacht mit und ziehen danach heim.,%d companies of %s join your next battle and go home afterwards.
+CAMPAIGN_CROWN_EMBASSY_HINT,"Die Gesandtschaft des Gönners bringt +%s Gunst bei diesem Fürsten, kostet aber eine Gönner-Karte.","The patron's embassy brings +%s favour with this prince, but costs one patron card."
+CAMPAIGN_CROWN_EMBASSY_NOTE,Gesandtschaften (+%s Gunst) schickt Ihr unten zu einem Wahlfürsten.,Send embassies (+%s favour) to an elector below.
+CAMPAIGN_CROWN_ELECTORS,Wahlfürsten · %d von %d Stimmen für Euch,Electors · %d of %d votes for you
+CAMPAIGN_CROWN_CHURCH,Kirche,Church
+CAMPAIGN_CROWN_FAVOUR,Gunst %s,Favour %s
+CAMPAIGN_CROWN_RIVAL,Rivale: %s %s,Rival: %s %s
+CAMPAIGN_CROWN_YOU,Euch,you
+CAMPAIGN_CROWN_VOTE_FOR,Stimme für %s,Votes for %s
+CAMPAIGN_CROWN_VOTE_OCCUPIED,besetzt · Stimme für %s,occupied · votes for %s
+CAMPAIGN_CROWN_VOTE_PROMISED,zugesagt · Stimme für %s,promised · votes for %s
+CAMPAIGN_CROWN_VOTE_ABSTAINS,enthält sich,abstains
+CAMPAIGN_CROWN_VOTE_TIE,enthält sich (Gleichstand),abstains (tie)
+CAMPAIGN_CROWN_VOTE_BANNED,verweigert Gebannten die Stimme,refuses the banned
+CAMPAIGN_CROWN_FAVOUR_LIST,Gunst: %s,Favour: %s
+CAMPAIGN_CROWN_MARK_VOTE,Stimme ab %s,vote from %s
+CAMPAIGN_CROWN_MARK_CROWNS,krönt ab %s,crowns from %s
+CAMPAIGN_CROWN_MARK_HOMAGE,Huldigung ab %s,homage from %s
+CAMPAIGN_CROWN_HOMAGE_READY,bereit zur Huldigung,ready to pay homage
+CAMPAIGN_CROWN_GIFT,Geschenk · %s T · +%s,Gift · %s T · +%s
+CAMPAIGN_CROWN_GIFT_HINT,"+%s Gunst. Jedes weitere Geschenk an ihn in diesem Jahr bringt %s weniger – auch Fürsten gewöhnen sich an Gold.","+%s favour. Every further gift to him this year brings %s less – even princes get used to gold."
+CAMPAIGN_CROWN_LORDS,Neutrale Herren,Neutral lords
+CAMPAIGN_CROWN_LORDS_NOTE,Ab Gunst %s huldigen sie und schließen sich für %s T ohne Kampf an.,From favour %s they pay homage and join you for %s T without a fight.
+CAMPAIGN_CROWN_NO_LORDS,Kein neutraler Herr mehr übrig.,No neutral lord left.
+CAMPAIGN_CROWN_HOMAGE,Huldigung · %s T,Homage · %s T
+CAMPAIGN_CROWN_HOMAGE_HINT,"%s schließt sich Euch an – ohne Schwertstreich, aber nicht ohne Rechnung.","%s joins you – without a sword stroke, but not without a bill."
+CAMPAIGN_CROWN_HUD_VOTES,Stimmen %d/%d,Votes %d/%d
+CAMPAIGN_CROWN_HUD_BAN,Bann,Ban
+CAMPAIGN_CROWN_PLATE_CORONATION_SITE,Gekrönt zu %s,Crowned at %s
+CAMPAIGN_CROWN_PLATE_EMERGENCY_CORONATION_SITE,Notkrönung zu %s,Emergency coronation at %s
+CAMPAIGN_CROWN_PLATE_WELFEN_CORONATION_SITE,"Die Welfen tragen die Krone nach Aachen, wie es sich gehört. Der Löwe von Braunschweig brüllt heute ausnahmsweise nur vor Freude.","The Welfs carry the crown to Aachen, as is proper. For once the lion of Brunswick roars only for joy."
+CAMPAIGN_CROWN_PLATE_WELFEN_EMERGENCY_CORONATION_SITE,"Notkrönung in Mainz: nicht ganz Aachen, aber der Dom ist groß, und der Löwe von Braunschweig ist nicht wählerisch.","An emergency coronation in Mainz: not quite Aachen, but the cathedral is large and the lion of Brunswick is not picky."
+CAMPAIGN_CROWN_PLATE_WETTINER_CORONATION_SITE,Die Wettiner werden in Aachen gekrönt. Das Silber aus Meißen hat das Festmahl bezahlt – und ein paar Stimmen gleich mit.,The Wettins are crowned in Aachen. Silver from Meissen paid for the feast – and for a few votes as well.
+CAMPAIGN_CROWN_PLATE_WETTINER_EMERGENCY_CORONATION_SITE,"Notkrönung in Mainz. Die Wettiner nennen es Sparsamkeit: kürzere Anreise, dieselbe Krone.","An emergency coronation in Mainz. The Wettins call it thrift: a shorter journey, the same crown."
+CAMPAIGN_CROWN_PLATE_STAUFER_CORONATION_SITE,"Die Staufer werden in Aachen gekrönt. Ganz Schwaben feiert – sparsam, aber von Herzen.","The Staufers are crowned in Aachen. All Swabia celebrates – frugally, but from the heart."
+CAMPAIGN_CROWN_PLATE_STAUFER_EMERGENCY_CORONATION_SITE,Notkrönung in Mainz – für die Staufer fast schon Familientradition. Die Krone sitzt trotzdem.,An emergency coronation in Mainz – almost a family tradition for the Staufers. The crown fits all the same.
+CAMPAIGN_CROWN_PLATE_WITTELSBACHER_CORONATION_SITE,"Die Wittelsbacher werden in Aachen gekrönt. Kein Schwert wurde gezogen, nur sehr viele Geschenke überreicht.","The Wittelsbachs are crowned in Aachen. Not a sword was drawn, only a great many gifts handed over."
+CAMPAIGN_CROWN_PLATE_WITTELSBACHER_EMERGENCY_CORONATION_SITE,"Notkrönung in Mainz. Aachen wäre schöner gewesen, aber in Mainz war das Bier schon bestellt.","An emergency coronation in Mainz. Aachen would have been nicer, but the beer in Mainz had already been ordered."
 CAMPAIGN_TAX_RATE,Steuersatz,Tax rate
 CAMPAIGN_RATION,Ration (Scheffel je Volk und Jahr),Ration (bushels per people and year)
 CAMPAIGN_RATION_2,Hunger,Hungry
@@ -298,7 +376,7 @@ ECONOMY_BUILDING_MONASTERY,Kloster,Monastery
 ECONOMY_BUILDING_MINE,Bergwerk,Mine
 ECONOMY_BUILDING_TOLL,Zollstation,Toll station
 ECONOMY_BUILDING_TOURNEY_GROUND,Turnierplatz,Tourney ground
-ECONOMY_BUILDING_TOURNEY_GROUND_NOTE,Hier richtest du später Turniere aus (noch nicht im Spiel).,Hosts tournaments later (not in the game yet).
+ECONOMY_BUILDING_TOURNEY_GROUND_NOTE,Hier richtest du im Frühling und Sommer Turniere aus (Reiter Reich).,Hosts tournaments in spring and summer (Realm tab).
 ECONOMY_BUILDING_WORKSHOP,Bauhütte,Workshop
 ECONOMY_DECORATION_BANNERS,Banner und Wimpel,Banners and pennants
 ECONOMY_DECORATION_FOUNTAIN,Brunnen,Fountain
