@@ -10,7 +10,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M3 Imperial map and round flow | done; needs a hot-seat playtest (`node scripts/run.mjs --campaign`, `docs/screenshots/m3_*.png`) | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
 | M5 Electors, coronation, events | done; needs a hot-seat playtest of the realm tab and event cards with mouse and controller (`docs/screenshots/m5_*.png`) | test scenarios trigger the coronation along all four rows of the table |
-| M6 Adventures | in progress: joust, trebuchet, castle raid and merchant train built in parallel; campaign integration follows | each minigame takes 1–3 min and has a practice mode |
+| M6 Adventures | done; needs hands-on playtests of all four minigames with mouse and controller (timing feel, frame rate) (`docs/screenshots/m6_*.png`, practice: `node scripts/run.mjs --joust / --siege / --raid / --merchant`) | each minigame takes 1–3 min and has a practice mode |
 | M7 AI | open | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
 | M8 Full game | open | prologue to coronation without a crash in 60–120 min |
 
@@ -21,7 +21,6 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Event weights are not in the GDD; every deck card weighs 1.
 - "Missernte / reiche Ernte" counts as one of the 18 events: it announces the weather roll and has no effect of its own.
 - The marriage proposal needs marriages, which are out; the card stays in the data, disabled (`enabled: false`).
-- Tournament invitation, merchant train and hostage lead into the M6 minigames (joust, merchant train, castle raid).
 - Plague: the GDD has both "population −10 %" in the event and "− plague" in the spring growth formula; the data applies −10 % population and −10 Z to the province and its neighbours, each halved by a monastery.
 - Flood hits one river province of the drawing house.
 - Feud letter: the count's 4 companies have no unit type; using levy, like the robber knights.
@@ -110,7 +109,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 
 ## Design questions (M5 events; current choice)
 - The opening round (spring of year 1) has no event cards; from the second round on every house draws exactly one card per turn, as the GDD says ("Jedes Haus zieht pro Runde eine Karte") — there is no "nothing happens" card.
-- Adventure choices (tournament invitation, merchant train raid, hostage raid) are shown but refused until their minigames exist (M6).
+- The hostage is held in the home castle of the strongest rival (highest prestige); its rescue raids that dungeon.
 - Houses that do not choose (ending the event phase, passive houses until the AI) take a default per card: decline the jugglers, the Wartburg, the tournament, Bohemia, the Zähringer and the crusade; ignore the robber knights; escort the merchants; atone the feud (fight if the 80 T are missing); abandon the hostage.
 - Robber knights and feuds need an own province that is not the home and borders land of no house; a lost feud hands that province to a neutral lord. Hunting needs an army in or next to it. Both battles are auto-resolved for now and earn no battle prestige (the card's reward instead).
 - The Zähringer and the crusade are deck cards while their years last and until one house drew them; Bohemia's card goes to the first house that reaches favour 50 at the start of its turn.
@@ -135,3 +134,5 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - Trebuchet: at wall 1 one good stone breaches (240 > any part's share of 400 HP); a fire pot landing in the bailey counts as a garrison hit; the breach's segment is not modelled in the storm battle (the whole wall bonus is gone).
 - Merchant train: a captured leader loses all the loot (companies keep nothing); escort skill 1; a raider of skill 0 is captured nearly always — computer houses (M7) need a sensible skill.
 - The trebuchet is a siege option, not an adventure: it needs no leader and does not count towards the one adventure a round.
+- Castle raid: guards per castle are 2 + wall level (3–6); guard skill is the campaign's opponent skill (1) until AI difficulties; a home castle of level 5 (6 guards, 3 reinforcements) is very hard; the raid's church ban chance sits in both `combat_raid.json` and the crown data, the campaign uses the crown's.
+- A raid for the regalia by a house in exile moves them to the lost home castle's province, i.e. to whoever holds it now.

@@ -44,10 +44,7 @@ static func choice_error(
 	var error := EventEffects.choice_error(state, card, def)
 	if not error.is_empty():
 		return error
-	var adventure := EventEffects.adventure_of(def)
-	if not adventure.is_empty():
-		if not Adventures.supports(adventure):
-			return EventEffects.ERROR_ADVENTURE_LATER
+	if not EventEffects.adventure_of(def).is_empty():
 		error = Adventures.error(state, card.house)
 		if not error.is_empty():
 			return error

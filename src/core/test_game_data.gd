@@ -209,7 +209,6 @@ func test_campaign_error_keys_have_texts() -> void:
 		MoveArmyCommand.ERROR_FLOODED,
 		ChooseEventCommand.ERROR_NO_CARD,
 		ChooseEventCommand.ERROR_UNKNOWN_CHOICE,
-		EventEffects.ERROR_ADVENTURE_LATER,
 		EventEffects.ERROR_UNAVAILABLE,
 		EventEffects.ERROR_TARGET_GONE,
 		EventEffects.ERROR_NO_UNITS,

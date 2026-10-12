@@ -704,7 +704,6 @@ CROWN_PENANCE_NO_CAMPAIGN,Nach dem Bußgang ruht der Feldzug diese Runde.,After 
 ECONOMY_TOURNAMENT_SEASON,Turniere gibt es nur im Frühling und Sommer.,Tournaments are held only in spring and summer.
 ECONOMY_TOURNAMENT_NO_GROUND,Für ein Turnier braucht die Stammburg einen Turnierplatz.,A tournament needs a tourney ground at the home castle.
 ECONOMY_TOURNAMENT_HOSTED,Diese Runde habt Ihr schon ein Turnier ausgerichtet.,You already hosted a tournament this round.
-EVENT_ADVENTURE_LATER,Dieses Abenteuer kommt mit den Abenteuer-Modulen.,This adventure arrives with the adventure modules.
 JOUST_PRACTICE_TITLE,Übungs-Tjost,Practice joust
 JOUST_HOWTO_RUNUP,"Anritt: Sporen im Takt der Hufe geben Tempo. Zu viel davon, und die Lanze tanzt.","Run-up: spur on the hoofbeat for speed. Too much of it, and the lance starts dancing."
 JOUST_HOWTO_AIM,Zielen: Lanzenspitze auf den Gegner – Helm 5 Punkte · Schildmitte 3 · Schildrand 1.,Aim: put the tip on the opponent – helmet 5 points · shield centre 3 · shield rim 1.
@@ -867,3 +866,15 @@ CAMPAIGN_SIEGE_STORM_HINT,Eine Schlacht vor der Mauer: Die Verteidiger kämpfen 
 CAMPAIGN_SIEGE_BOMBARD,Beschießen (%d Bliden),Bombard (%d trebuchets)
 CAMPAIGN_SIEGE_BOMBARD_HINT,"Steine gegen die Mauer, Brandtöpfe gegen die Besatzung. Eine Bresche öffnet sofort den Sturm.","Stones against the wall, fire pots against the garrison. A breach opens the storm at once."
 CAMPAIGN_SIEGE_STARVE,"Wer nichts tut, hungert die Burg aus: Besatzung %s, Mauerschaden %s.","Doing nothing starves the castle: garrison %s, wall damage %s."
+RAID_NO_CASTLE,Euer Anführer steht nicht in oder neben dieser Burg.,Your leader is not in or next to this castle.
+RAID_NO_TARGET,Dieses Ziel gibt es in dieser Burg nicht.,This castle holds no such target.
+CAMPAIGN_RAID,Burgüberfall,Castle raid
+CAMPAIGN_RAID_TREASURY,Schatzkammer plündern,Plunder the treasury
+CAMPAIGN_RAID_TREASURY_HINT,"Ein Fünftel der Taler des Burgherrn, höchstens 200.","A fifth of the lord's taler, at most 200."
+CAMPAIGN_RAID_GRANARY,Kornspeicher anzünden,Burn the granary
+CAMPAIGN_RAID_GRANARY_HINT,Der Burgherr verliert drei Zehntel seines Korns.,The lord loses three tenths of his grain.
+CAMPAIGN_RAID_DUNGEON,Kerker öffnen,Open the dungeon
+CAMPAIGN_RAID_DUNGEON_HINT,Befreit die gefangenen Anführer in dieser Burg.,Frees the captive leaders in this castle.
+CAMPAIGN_RAID_REGALIA,Reichsinsignien stehlen,Steal the imperial regalia
+CAMPAIGN_RAID_REGALIA_HINT,Die echten Insignien wandern in Eure Stammburg – Ansehen +10.,The true regalia move to your home castle – prestige +10.
+CAMPAIGN_ADVENTURE_CASTLE_RAID_HINT,"Allein gegen die Wachen: hoch, mittel, tief schlagen, in der richtigen Höhe parieren, Schleichwege nutzen. Nach 60 Sekunden schlägt Alarm.","Alone against the guards: strike high, middle, low, parry at the right height, use the sneak paths. After 60 seconds the alarm sounds."

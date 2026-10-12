@@ -12,6 +12,7 @@ const SCENES := {
 	Adventures.MERCHANT_TRAIN: "res://src/render/merchant/merchant_main.tscn",
 	Adventures.JOUST: "res://src/render/joust/joust_main.tscn",
 	Adventures.TREBUCHET: "res://src/render/siege/trebuchet_main.tscn",
+	Adventures.CASTLE_RAID: "res://src/render/raid/raid_main.tscn",
 }
 
 var choice := AdventureChoice.new()
@@ -55,6 +56,8 @@ static func adventure_of(setup: RefCounted) -> String:
 		return Adventures.JOUST
 	if setup is TrebuchetSetup:
 		return Adventures.TREBUCHET
+	if setup is RaidSetup:
+		return Adventures.CASTLE_RAID
 	return ""
 
 

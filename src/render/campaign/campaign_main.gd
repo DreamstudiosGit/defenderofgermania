@@ -275,6 +275,7 @@ func _build_ui() -> void:
 	_actions.covering.connect(_on_covering)
 	_actions.finished.connect(_on_action_finished)
 	_army_panel.command_requested.connect(_on_command)
+	_province_panel.command_requested.connect(_on_command)
 	_events.closed.connect(_on_events_closed)
 	_report.closed.connect(_after_change)
 	_victory.new_game_requested.connect(func() -> void: _setup.open(_map, FIRST_SEED))

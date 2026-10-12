@@ -25,7 +25,8 @@ func test_the_house_answers_its_cards_then_administrates() -> void:
 func test_wrong_or_unaffordable_choices_are_refused() -> void:
 	_deal("welfen", [["hostage", ""]])
 	assert_eq(_choose("welfen", "pray"), ChooseEventCommand.ERROR_UNKNOWN_CHOICE)
-	assert_eq(_choose("welfen", "raid"), EventEffects.ERROR_ADVENTURE_LATER)
+	_state.houses["welfen"].leader_captor = "staufer"
+	assert_eq(_choose("welfen", "raid"), Adventures.ERROR_LEADER_CAPTURED)
 	_state.houses["welfen"].gold = 119.0
 	assert_eq(_choose("welfen", "ransom"), Command.ERROR_NOT_ENOUGH_GOLD)
 	assert_eq(_choose("staufer", "abandon"), Command.ERROR_NOT_ACTIVE)

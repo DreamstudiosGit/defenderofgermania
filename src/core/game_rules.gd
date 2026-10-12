@@ -9,6 +9,7 @@ var events: EventData
 var merchant: MerchantConfig
 var joust: JoustConfig
 var siege: SiegeConfig
+var raid: RaidConfig
 ## Takes a BattleSetup and returns a BattleResult; the real-time battle plugs in here.
 ## While empty, or when it returns null, battles are auto-resolved with state.rng.
 var resolver: Callable = Callable()
@@ -26,9 +27,10 @@ static func load_files() -> GameRules:
 	rules.merchant = MerchantConfig.load_file()
 	rules.joust = JoustConfig.load_file()
 	rules.siege = SiegeConfig.load_file()
+	rules.raid = RaidConfig.load_file(RaidConfig.PATH, rules.combat)
 	var parts: Array[Variant] = [
 		rules.map, rules.economy, rules.combat, rules.events, rules.merchant, rules.joust,
-		rules.siege,
+		rules.siege, rules.raid,
 	]
 	for part: Variant in parts:
 		if part == null:

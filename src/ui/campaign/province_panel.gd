@@ -6,6 +6,7 @@ extends PanelContainer
 
 signal army_selected(army_id: int)
 signal castle_requested(province_id: String)
+signal command_requested(command: Command)
 
 var _title := CampaignStyle.heading("", 22)
 var _owner := CampaignStyle.label("", CampaignStyle.SMALL_SIZE, CampaignStyle.MUTED)
@@ -17,6 +18,7 @@ var _buildings := CampaignStyle.paragraph()
 var _features := CampaignStyle.paragraph()
 var _armies := VBoxContainer.new()
 var _view_castle := Button.new()
+var _raid := RaidSection.new()
 var _province_id := ""
 
 
@@ -32,6 +34,8 @@ func _init() -> void:
 		column.add_child(child)
 	_armies.add_theme_constant_override("separation", 4)
 	column.add_child(_armies)
+	column.add_child(_raid)
+	_raid.command_requested.connect(command_requested.emit)
 	_population.name = "population"
 	_satisfaction.name = "satisfaction"
 	_yield.name = "yield"
@@ -43,10 +47,11 @@ func _init() -> void:
 	column.move_child(_view_castle, column.get_children().find(_castle) + 1)
 
 
-func refresh(state: GameState, rules: GameRules, _house: String, province_id: String) -> void:
+func refresh(state: GameState, rules: GameRules, house: String, province_id: String) -> void:
 	var province: ProvinceState = state.provinces.get(province_id)
 	_province_id = province_id
 	_view_castle.visible = province != null
+	_raid.refresh(state, rules, house, province_id)
 	for child: Control in [_owner, _population, _satisfaction, _yield, _castle, _buildings]:
 		child.visible = province != null
 	_features.visible = province != null

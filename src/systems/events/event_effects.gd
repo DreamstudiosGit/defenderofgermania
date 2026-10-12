@@ -5,7 +5,6 @@ extends RefCounted
 ## core; marriages are out of scope, so choices that need one are refused.
 
 const HALVED := 0.5
-const ERROR_ADVENTURE_LATER := "EVENT_ADVENTURE_LATER"
 const ERROR_UNAVAILABLE := "EVENT_UNAVAILABLE"
 const ERROR_TARGET_GONE := "EVENT_TARGET_GONE"
 const ERROR_NO_UNITS := "EVENT_NO_UNITS"

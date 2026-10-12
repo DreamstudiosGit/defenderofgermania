@@ -7,6 +7,7 @@ extends RefCounted
 
 const MERCHANT_TRAIN := "merchant_train"
 const JOUST := "joust"
+const CASTLE_RAID := "castle_raid"
 ## The trebuchet minigame of a siege; no adventure in the GDD's sense (no leader, not counted).
 const TREBUCHET := "trebuchet"
 ## Owner id of the champions at a tournament: an elector's court, or knights visiting the host.
@@ -26,11 +27,6 @@ static func error(state: GameState, house: String) -> String:
 	return ERROR_DONE if owner.adventure_turn == state.turn else ""
 
 
-## True for the adventures the campaign can start already.
-static func supports(adventure: String) -> bool:
-	return adventure in [MERCHANT_TRAIN, JOUST]
-
-
 ## The minigame setup an event card's adventure starts, or null.
 static func event_setup(
 	state: GameState, rules: GameRules, card: EventState.EventCard, adventure: String
@@ -41,6 +37,11 @@ static func event_setup(
 		JOUST:
 			var host := favourite_elector(state, rules, card.house)
 			return joust_setup(state, rules, card.house, host)
+		CASTLE_RAID:
+			var castle := hostage_castle(state, card.house)
+			if castle.is_empty():
+				return null
+			return CastleRaids.setup(state, rules, card.house, castle, CastleRaids.DUNGEON)
 	return null
 
 
@@ -59,7 +60,28 @@ static func play_event(
 			var joust := play_joust(state, rules, invitation)
 			apply_joust(state, rules, invitation, joust)
 			return joust.won
+		CASTLE_RAID:
+			var rescue := event_setup(state, rules, card, adventure) as RaidSetup
+			if rescue == null:
+				return false
+			var castle := hostage_castle(state, card.house)
+			var raid := CastleRaids.play(state, rules, rescue)
+			CastleRaids.apply(state, rules, rescue, castle, raid)
+			return raid.success
 	return false
+
+
+## Where the house's kinsman is held hostage: the home castle of its strongest rival (highest
+## prestige, the first in turn order on a tie); "" without one.
+static func hostage_castle(state: GameState, house: String) -> String:
+	var best: HouseState = null
+	for id: String in state.turn_order:
+		var rival := state.houses[id]
+		if id == house or rival.is_eliminated or state.home_castle_level(id) == 0:
+			continue
+		if best == null or rival.prestige > best.prestige:
+			best = rival
+	return best.home_province if best != null else ""
 
 
 ## A joust at the host's tournament against a champion of the host's court.
