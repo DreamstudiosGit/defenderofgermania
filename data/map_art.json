@@ -1,0 +1,309 @@
+{
+  "km_per_unit": 10.0,
+  "table": {
+    "margin": 9.0,
+    "thickness": 3.0,
+    "rim_width": 2.4,
+    "rim_height": 0.9,
+    "wood_light": "#7b5232",
+    "wood_dark": "#3e2414",
+    "plank_width": 7.5
+  },
+  "sheet": {
+    "margin": 5.0,
+    "height": 0.12,
+    "paper": "#d6bf93",
+    "paper_edge": "#8a6a40",
+    "sea": "#8c9e93",
+    "sea_hatch": 0.18,
+    "water_lines_km": [9.0, 20.0, 34.0],
+    "water_line_width": 0.09
+  },
+  "seas": {
+    "north_sea": [
+      [1.5, 51.1],
+      [3.9, 51.3],
+      [4.6, 52.0],
+      [5.0, 53.0],
+      [6.0, 53.5],
+      [7.0, 53.7],
+      [8.0, 53.6],
+      [8.6, 54.0],
+      [8.7, 54.6],
+      [8.4, 55.1],
+      [8.1, 55.6],
+      [8.2, 56.6],
+      [1.5, 56.6]
+    ],
+    "baltic": [
+      [9.5, 54.8],
+      [10.0, 54.5],
+      [11.0, 54.3],
+      [12.0, 54.1],
+      [13.5, 54.0],
+      [14.2, 53.6],
+      [15.0, 54.1],
+      [16.0, 54.3],
+      [17.0, 54.6],
+      [18.8, 54.8],
+      [18.8, 56.6],
+      [10.7, 56.6],
+      [10.3, 56.0],
+      [9.9, 55.4],
+      [9.6, 55.0]
+    ]
+  },
+  "rivers": {
+    "rhine": [
+      [9.6, 47.6],
+      [8.6, 47.65],
+      [7.6, 47.56],
+      [7.58, 48.0],
+      [7.78, 48.58],
+      [8.22, 49.0],
+      [8.45, 49.5],
+      [8.3, 49.95],
+      [7.9, 49.98],
+      [7.6, 50.35],
+      [7.12, 50.73],
+      [6.96, 50.94],
+      [6.77, 51.23],
+      [6.7, 51.5],
+      [6.3, 51.82],
+      [5.86, 51.86],
+      [5.0, 51.85],
+      [4.1, 51.95]
+    ],
+    "elbe": [
+      [15.55, 50.75],
+      [15.8, 50.2],
+      [15.2, 50.03],
+      [14.47, 50.35],
+      [14.04, 50.66],
+      [13.74, 51.05],
+      [13.47, 51.16],
+      [13.0, 51.56],
+      [12.65, 51.87],
+      [12.25, 51.85],
+      [11.63, 52.13],
+      [11.97, 52.54],
+      [11.75, 53.0],
+      [10.56, 53.37],
+      [9.99, 53.55],
+      [8.7, 53.87]
+    ],
+    "danube": [
+      [8.5, 47.95],
+      [9.2, 48.08],
+      [9.99, 48.4],
+      [11.42, 48.76],
+      [12.1, 49.02],
+      [12.57, 48.88],
+      [13.46, 48.57],
+      [14.29, 48.3],
+      [15.6, 48.4],
+      [16.37, 48.21],
+      [17.1, 48.1]
+    ],
+    "main": [
+      [11.6, 50.0],
+      [10.9, 49.9],
+      [10.23, 50.05],
+      [9.93, 49.8],
+      [9.5, 49.76],
+      [9.15, 49.97],
+      [8.68, 50.11],
+      [8.3, 49.95]
+    ],
+    "moselle": [
+      [6.45, 48.17],
+      [6.18, 48.69],
+      [6.18, 49.12],
+      [6.17, 49.36],
+      [6.64, 49.75],
+      [7.07, 49.92],
+      [7.17, 50.15],
+      [7.6, 50.35]
+    ],
+    "weser": [
+      [9.65, 51.42],
+      [9.36, 52.1],
+      [8.92, 52.29],
+      [9.2, 52.64],
+      [8.8, 53.08],
+      [8.58, 53.55]
+    ]
+  },
+  "river": {
+    "color": "#46677a",
+    "width": 0.32
+  },
+  "border": {
+    "wobble_amplitude_km": 5.0,
+    "wobble_wavelength_km": 95.0,
+    "wobble_step_km": 5.0,
+    "ink_width": 0.16,
+    "coast_width": 0.34
+  },
+  "ink": {
+    "color": "#2a1b11",
+    "outline_width": 0.025,
+    "edge_strength": 0.55,
+    "depth_threshold": 1.5,
+    "normal_threshold": 0.6,
+    "grain": 0.06,
+    "vignette": 1.1
+  },
+  "owners": {
+    "neutral": "#8f8866",
+    "church": "#ddd6e6",
+    "elector": "#7a4b88"
+  },
+  "field": {
+    "base_height": 0.6,
+    "paint_mix": 0.12,
+    "variation": 0.1,
+    "terrain_heights": {
+      "farmland": 0.0,
+      "marsh": -0.18,
+      "hills": 0.45,
+      "forest": 0.2,
+      "heath": 0.08,
+      "mountains": 0.9,
+      "city": 0.1
+    },
+    "glow_selected": 0.3,
+    "glow_highlight": 0.12,
+    "select_color": "#f2c94c",
+    "highlight_color": "#fff1c4b0",
+    "select_width": 0.38,
+    "highlight_width": 0.2
+  },
+  "labels": {
+    "font_names": ["Palatino Linotype", "Book Antiqua", "Georgia", "serif"],
+    "font_size": 72,
+    "pixel_size": 0.03,
+    "outline_size": 18,
+    "color": "#2a1b11",
+    "outline_color": "#ead9b4c0",
+    "offset": 4.2,
+    "max_width": 0.9
+  },
+  "pieces": {
+    "wood": "#c49563",
+    "wood_dark": "#5c3a20",
+    "stone": "#a39a8a",
+    "gold": "#d9a93c",
+    "occupied": "#5a1712",
+    "figure_scale": 4.2,
+    "figure_spacing": 2.9,
+    "banner_scale": 3.6,
+    "castle_scale": 3.4,
+    "banner_spot": [-0.75, -0.65, 5.2],
+    "castle_spot": [0.75, -0.65, 5.2],
+    "occupied_spot": [-1.0, 0.35, 6.0],
+    "lift": 0.8,
+    "ring_color": "#ffd34d",
+    "count_font_size": 44,
+    "count_pixel_size": 0.0005,
+    "count_color": "#f4e6c4",
+    "count_outline_color": "#20140c",
+    "occupied_scale": 3.4
+  },
+  "props": {
+    "forest": {
+      "per_100": 1.4,
+      "scale": 1.7,
+      "clump": 4,
+      "colors": ["#3d5a2a", "#5c3a20"]
+    },
+    "mountains": {
+      "per_100": 1.6,
+      "scale": 2.1,
+      "clump": 2,
+      "colors": ["#857a6a", "#ece6d8"]
+    },
+    "hills": {
+      "per_100": 1.0,
+      "scale": 1.6,
+      "clump": 1,
+      "colors": ["#6c7440", "#7d8748"]
+    },
+    "marsh": {
+      "per_100": 1.2,
+      "scale": 1.3,
+      "clump": 3,
+      "colors": ["#7d7a3c", "#5f7f7c"]
+    },
+    "heath": {
+      "per_100": 1.0,
+      "scale": 1.3,
+      "clump": 3,
+      "colors": ["#7a5468", "#6b7040"]
+    },
+    "city": {
+      "per_100": 1.5,
+      "scale": 1.4,
+      "clump": 4,
+      "colors": ["#d2c09a", "#8c3b26"]
+    },
+    "keep_clear": 5.6,
+    "border_gap": 1.2
+  },
+  "light": {
+    "background": "#0b0705",
+    "ambient": "#7a5434",
+    "ambient_energy": 0.3,
+    "key_color": "#ffd2a0",
+    "key_energy": 0.26,
+    "key_pitch_deg": -58.0,
+    "key_yaw_deg": 24.0,
+    "candle_color": "#ffad5c",
+    "flicker_amount": 0.14,
+    "flicker_speed": 6.0,
+    "glow": 0.45,
+    "wax_color": "#eedcb4"
+  },
+  "candles": [
+    {
+      "at": [-50.0, -46.0],
+      "height": 9.0,
+      "energy": 16.0,
+      "range": 70.0,
+      "shadow": true
+    },
+    {
+      "at": [44.0, -40.0],
+      "height": 7.5,
+      "energy": 14.0,
+      "range": 65.0,
+      "shadow": true
+    },
+    {
+      "at": [-48.0, 44.0],
+      "height": 6.5,
+      "energy": 12.0,
+      "range": 60.0,
+      "shadow": false
+    },
+    {
+      "at": [52.0, 46.0],
+      "height": 8.0,
+      "energy": 12.0,
+      "range": 60.0,
+      "shadow": false
+    }
+  ],
+  "camera": {
+    "pitch_deg": 52.0,
+    "fov": 34.0,
+    "min_distance": 24.0,
+    "max_distance": 175.0,
+    "start_distance": 165.0,
+    "pan_speed": 0.9,
+    "zoom_rate": 3.0,
+    "wheel_step": 0.87,
+    "glide_speed": 5.0,
+    "focus_distance": 55.0
+  }
+}
