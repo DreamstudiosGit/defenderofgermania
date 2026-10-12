@@ -167,7 +167,7 @@ func _open_screen(view: String) -> void:
 		"setup":
 			var setup := SetupScreen.new()
 			_add_screen(setup)
-			setup.open(_rules.map, CampaignFormat.START_YEAR)
+			setup.open(_rules, AiConfig.load_file(), CampaignFormat.START_YEAR)
 		"report":
 			var before := GameState.from_dict(_state.to_dict())
 			before.turn = GameState.Season.AUTUMN

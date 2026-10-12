@@ -2,7 +2,8 @@ extends Node
 ## Campaign scene: the war table, the campaign panels, live battles and adventures
 ## (CampaignActions) around one CampaignSession. Setup screen first; a handover screen covers
 ## the table between two human houses (hot-seat); after every settlement the report shows what
-## changed; each turn opens with the house's event cards.
+## changed; each turn opens with the house's event cards. F3 or Back+Y shows the computer
+## opponents' utilities (AiDebugOverlay).
 
 const MARGIN := 8.0
 const TOP := 80.0
@@ -25,6 +26,7 @@ var _army_panel := ArmyPanel.new()
 var _toast := ErrorToast.new()
 var _tooltip := FocusTooltip.new()
 var _setup := SetupScreen.new()
+var _ai_overlay := AiDebugOverlay.new()
 var _handover := HandoverScreen.new()
 var _report := SettlementReport.new()
 var _victory := VictoryScreen.new()
@@ -48,17 +50,21 @@ func _ready() -> void:
 	_table.province_clicked.connect(_on_province_clicked)
 	_table.army_clicked.connect(_on_army_clicked)
 	_build_ui()
-	_setup.open(_map, FIRST_SEED)
+	_open_setup()
 
 
-## Starts a new campaign with these human houses; the others pass until the AI (M7).
-func start(humans: Array[String], seed_value: int) -> void:
+## Starts a new campaign with these human houses; computers maps the others to [personality,
+## difficulty], by default the data's opponents.
+func start(
+	humans: Array[String], seed_value: int, computers: Dictionary[String, Array] = {}
+) -> void:
 	_setup.visible = false
 	_victory.visible = false
 	var rules := GameRules.load_files()
 	var config := AiConfig.load_file()
 	ai = AiPlayer.new(rules, config)
-	var computers := AiPlayer.opponents(config, rules.map.houses, humans)
+	if computers.is_empty():
+		computers = AiPlayer.opponents(config, rules.map.houses, humans)
 	session = CampaignSession.create(rules, humans, seed_value, computers, ai.play_phase)
 	_actions.session = session
 	_seen_house = ""
@@ -158,6 +164,7 @@ func _refresh() -> void:
 	_army_panel.refresh(state, session.rules, house, _army)
 	_table.update_view(state)
 	_table.set_selection(_province, _army, _reachable())
+	_ai_overlay.refresh(state, session.rules, ai)
 
 
 ## Provinces the selected army may enter now: only moves the rules accept, by adjacency.
@@ -266,9 +273,12 @@ func _build_ui() -> void:
 	side.add_child(_army_panel)
 	_province_panel.army_selected.connect(_on_army_clicked)
 	_province_panel.castle_requested.connect(_open_castle)
-	_castle.visible = false
 	_castle.closed.connect(_close_castle)
 	add_child(_castle)
+	# Hidden only once built: CastleView hides its screen layer on the visibility change.
+	_castle.visible = false
+	_root.add_child(_ai_overlay)
+	_ai_overlay.place(SIDE_WIDTH + 2.0 * MARGIN)
 	for screen: Control in [
 		_toast, _setup, _handover, _report, _events, _actions.adventures.choice,
 		_actions.battles.choice, _victory, _tooltip,
@@ -284,7 +294,11 @@ func _build_ui() -> void:
 	_province_panel.command_requested.connect(_on_command)
 	_events.closed.connect(_on_events_closed)
 	_report.closed.connect(_after_change)
-	_victory.new_game_requested.connect(func() -> void: _setup.open(_map, FIRST_SEED))
+	_victory.new_game_requested.connect(_open_setup)
+
+
+func _open_setup() -> void:
+	_setup.open(GameRules.load_files(), AiConfig.load_file(), FIRST_SEED)
 
 
 ## Commands from the panels; one that starts a battle or an adventure asks how to play it.
