@@ -60,7 +60,7 @@
   "battle": {
     "tick_rate": 30,
     "field": {"width": 300, "height": 180},
-    "deploy_seconds": 15,
+    "deploy_seconds": 20,
     "deploy_depth": 80,
     "time_limit_seconds": 240,
     "deployment": {
@@ -99,6 +99,7 @@
         {"shape": "line", "impact": 1.0, "front_half_angle_deg": 90}
       ]
     },
+    "cover": {"margin": 4, "ranged_damage": {"tree": 0.7, "rock": 0.7}},
     "obstacles": [
       {"kind": "tree", "x": 112, "y": 36, "radius": 7},
       {"kind": "tree", "x": 192, "y": 146, "radius": 7},

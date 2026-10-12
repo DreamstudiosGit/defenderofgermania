@@ -23,6 +23,19 @@ func test_damage_is_attack_minus_armor_at_least_one() -> void:
 	assert_eq(BattleDamage.hit(6.0, 6.0), 1.0)
 
 
+func test_trees_and_rocks_give_cover_against_ranged_damage() -> void:
+	var rules := _cfg.battle
+	for i: int in rules.obstacles.size():
+		var obstacle := rules.obstacles[i]
+		var center := Vector2(obstacle.x, obstacle.y)
+		var expected := rules.cover_damage[rules.obstacle_kinds[i]]
+		assert_eq(rules.cover_at(center), expected, "inside obstacle %d" % i)
+		var edge := center + Vector2(obstacle.z + rules.cover_margin - 0.01, 0)
+		assert_eq(rules.cover_at(edge), expected, "at the edge of obstacle %d" % i)
+	assert_eq(rules.cover_at(Vector2(150, 140)), 1.0, "no cover in the open")
+	assert_eq(rules.cover_damage["tree"], 0.7)
+
+
 func test_crossbows_halve_armor() -> void:
 	var crossbow := _cfg.units["crossbowmen"]
 	# 14 - 6 * 0.5 against knights, 14 - 3 * 0.5 against spearmen.

@@ -28,7 +28,8 @@ static func update(
 		var target := _target(state, rules, grid, c, rule.auto_fire)
 		if target < 0:
 			continue
-		damage[target] += BattleDamage.volley(stats, state.stats[target].armor, rule.volley)
+		var volley := BattleDamage.volley(stats, state.stats[target].armor, rule.volley)
+		damage[target] += volley * rules.cover_at(state.pos[target])
 		state.bolts[c] -= 1
 		state.volley_cooldown[c] = rules.volley_interval
 		state.fire_pending[c] = 0

@@ -44,9 +44,13 @@ var volley_interval: float
 
 ## Two per group in CombatConfig.GROUPS order; siege reuses the infantry formations.
 var formations: Array[FormationRules] = []
-## x, y = center on the field, z = radius; obstacle_kinds is parallel (presentation only).
+## x, y = center on the field, z = radius; obstacle_kinds is parallel ("tree", "rock").
 var obstacles: PackedVector3Array = []
 var obstacle_kinds: PackedStringArray = []
+## Companies whose center is within an obstacle's radius plus this margin are in its cover.
+var cover_margin: float
+## Ranged damage multiplier in the cover of each obstacle kind.
+var cover_damage: Dictionary[String, float] = {}
 ## [attacker, defender] of the prototype battle.
 var armies: Array[ArmyPreset] = []
 
@@ -88,6 +92,11 @@ static func read(r: DataReader, data: Dictionary) -> BattleRules:
 	rules._read_attacks(r, data)
 	rules._read_formations(r, r.object(data, "formations"))
 	rules._read_obstacles(r, r.list(data, "obstacles", false))
+	var cover := r.object(data, "cover")
+	rules.cover_margin = r.number(cover, "margin")
+	var cover_damage := r.object(cover, "ranged_damage")
+	for kind: String in cover_damage:
+		rules.cover_damage[kind] = r.number(cover_damage, kind)
 	rules._read_armies(r, r.list(data, "armies"))
 	r.context = ""
 	return rules
@@ -103,6 +112,17 @@ func deploy_ticks() -> int:
 
 func time_limit_ticks() -> int:
 	return roundi(time_limit_seconds * tick_rate)
+
+
+## Ranged damage multiplier for a company standing at this point: the best cover in reach.
+func cover_at(at: Vector2) -> float:
+	var factor := 1.0
+	for i: int in obstacles.size():
+		var obstacle := obstacles[i]
+		if at.distance_to(Vector2(obstacle.x, obstacle.y)) <= obstacle.z + cover_margin:
+			var kind_factor: float = cover_damage.get(obstacle_kinds[i], 1.0)
+			factor = minf(factor, kind_factor)
+	return factor
 
 
 ## Gives the default armies their house colours: house id → [field, charge].
@@ -141,6 +161,9 @@ func check(r: DataReader, units: Dictionary) -> void:
 	for key: String in deployment:
 		if deployment[key] < 0:
 			r.errors.append("battle.deployment.%s: must not be negative" % key)
+	for kind: String in obstacle_kinds:
+		if not cover_damage.has(kind):
+			r.errors.append("battle.cover.ranged_damage: no value for obstacle kind '%s'" % kind)
 
 
 func _read_core(r: DataReader, data: Dictionary) -> void:

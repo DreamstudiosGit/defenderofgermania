@@ -52,7 +52,9 @@ static func _impact(state: BattleState, rules: BattleRules, c: int, t: int) -> f
 		rule.impact,
 		rules
 	)
-	state.order[c] = BattleState.Order.HOLD
+	# After the impact the riders keep fighting the company they hit, like an infantry charge;
+	# holding would let the figures drift back into formation and out of reach.
+	state.order[c] = BattleState.Order.CHARGE
 	state.order_point[c] = state.pos[c]
 	state.order_target[c] = t
 	state.speed[c] = 0.0
