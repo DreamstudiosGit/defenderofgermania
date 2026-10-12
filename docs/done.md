@@ -34,3 +34,4 @@
 - 2026-10-12 docs(combat): M6 adventure ADR, campaign docs and design questions; minigames follow the last used device
 - 2026-10-12 feat(core): M6 castle raid in the campaign — province panel targets, hostage rescue, loot, wounds and the ban
 - 2026-10-12 feat(ai): M7 utility AI — decision levels, personalities, difficulties, home guard, balance run (save version 8)
+- 2026-10-12 feat(ai): M7 AI tuning — pillar plan, key-province guard, saving, upkeep-aware spending, balance search tooling

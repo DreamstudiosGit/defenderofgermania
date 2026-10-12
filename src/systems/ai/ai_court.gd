@@ -44,7 +44,7 @@ static func _gifts(turn: AiTurn, result: Array[AiOption]) -> void:
 		var gain := CrownRules.gift_favour(state, map, id, turn.house) * multiplier
 		if gain <= 0.0:
 			continue
-		var prize := turn.value("vote") if is_elector else turn.value("province")
+		var prize := turn.pillar_worth() / 4.0 if is_elector else turn.value("province")
 		var worth := prize * minf(gain / gap, 1.0) * turn.weight("favour")
 		var command := GiftCommand.new(map, turn.house, id)
 		result.append(AiOption.create("gift to " + id, worth / cost, command, cost))
@@ -54,7 +54,7 @@ static func _homage(turn: AiTurn, result: Array[AiOption]) -> void:
 	var map := turn.rules.map
 	for id: String in map.provinces:
 		var command := HomageCommand.new(map, turn.house, id)
-		if command.validate(turn.state).is_empty():
+		if turn.allowed(command):
 			var worth := turn.value("province") * 2.0 * turn.weight("favour")
 			var price := map.crown.homage_cost
 			result.append(AiOption.create("homage of " + id, worth / price, command, price))
@@ -84,7 +84,7 @@ static func _patron(turn: AiTurn, result: Array[AiOption]) -> void:
 
 static func _tournament(turn: AiTurn, result: Array[AiOption]) -> void:
 	var command := HostTournamentCommand.new(turn.rules, turn.house)
-	if not command.validate(turn.state).is_empty():
+	if not turn.allowed(command):
 		return
 	var cfg := turn.rules.economy
 	var crown := turn.rules.map.crown
@@ -99,11 +99,9 @@ static func _tournament(turn: AiTurn, result: Array[AiOption]) -> void:
 static func _forge(turn: AiTurn, result: Array[AiOption]) -> void:
 	var map := turn.rules.map
 	var command := ForgeRegaliaCommand.new(map, turn.house)
-	if not command.validate(turn.state).is_empty():
+	if not turn.allowed(command) or not CrownRules.regalia(turn.state, turn.house).is_empty():
 		return
-	if CrownRules.holds_true_regalia(turn.state, turn.house):
-		return
-	var worth := turn.value("legitimacy") * map.campaign.legitimacy_forged_regalia * 2.0
+	var worth := turn.pillar_worth()
 	var price := map.crown.forged_regalia_cost
 	var option := AiOption.create("forge regalia", worth / price, command, price)
 	result.append(option)
@@ -114,7 +112,7 @@ static func _forge(turn: AiTurn, result: Array[AiOption]) -> void:
 static func _penance(turn: AiTurn, result: Array[AiOption]) -> void:
 	var map := turn.rules.map
 	var command := PenanceCommand.new(map, turn.house)
-	if not command.validate(turn.state).is_empty():
+	if not turn.allowed(command):
 		return
 	var provinces := turn.state.provinces_of(turn.house).size()
 	var worth := provinces * turn.rules.economy.ban_penalty * turn.value("satisfaction") * 2.0

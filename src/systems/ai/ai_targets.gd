@@ -24,13 +24,29 @@ static func goals(turn: AiTurn, leader: String) -> Dictionary[String, float]:
 	return result
 
 
-## Pull of every province towards the goals: the best goal's value over 1 + its distance.
+## Provinces the house must not lose: the home castle, the true regalia and coronation sites
+## it holds.
+static func keys(turn: AiTurn) -> Array[String]:
+	var result: Array[String] = []
+	var state := turn.state
+	var map := turn.rules.map
+	for province: ProvinceState in state.provinces_of(turn.house):
+		var key := province.id == turn.owner().home_province
+		key = key or province.id == state.crown.regalia_province
+		for site: String in map.crown.archbishops:
+			key = key or site in map.provinces[province.id].tags
+		if key:
+			result.append(province.id)
+	return result
+
+
+## Pull of every province towards the goals: the best goal's value over the squared distance.
 static func pull(turn: AiTurn, goals: Dictionary[String, float]) -> Dictionary[String, float]:
 	var result: Dictionary[String, float] = {}
 	for goal: String in goals:
 		var steps := distances(turn.rules.map, goal)
 		for id: String in steps:
-			var value := goals[goal] / (1.0 + steps[id])
+			var value := goals[goal] / pow(1.0 + steps[id], 2.0)
 			if value > result.get(id, 0.0):
 				result[id] = value
 	return result
@@ -64,8 +80,16 @@ static func conquest_worth(turn: AiTurn, province_id: String, leader: String) ->
 	if state.crown.regalia_province == province_id:
 		var weight: float = map.campaign.legitimacy_tags.get(CrownRules.REGALIA_TAG, 0.0)
 		worth += weight * turn.value("legitimacy")
+		if CrownRules.regalia(state, turn.house).is_empty():
+			worth += turn.pillar_worth()
+	for site: String in map.crown.archbishops:
+		var holds_one := false
+		for any: String in map.crown.archbishops:
+			holds_one = holds_one or CrownRules.holds_site(state, map, turn.house, any)
+		if site in def.tags and not holds_one:
+			worth += turn.pillar_worth()
 	if province_id in map.electors():
-		worth += turn.value("vote")
+		worth += turn.pillar_worth() / 4.0
 		worth += map.crown.favour_changes["occupation_others"] * 6.0 * turn.value("favour")
 	if def.is_church:
 		worth -= map.crown.ban_attack_church_chance * turn.value("vote") * 2.0

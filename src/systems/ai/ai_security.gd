@@ -98,7 +98,9 @@ static func unit_options(
 			cfg, turn.rules.map, turn.house, province_id, unit, army_id
 		)
 		var worth := power * 100.0 / (cost + def.upkeep_gold * 8.0)
-		options.append(AiOption.create("%s: recruit %s" % [reason, unit], worth, command, cost))
+		var option := AiOption.create("%s: recruit %s" % [reason, unit], worth, command, cost)
+		option.upkeep = def.upkeep_gold
+		options.append(option)
 	return options
 
 

@@ -59,8 +59,13 @@ static func _tax(turn: AiTurn) -> void:
 	var index := rates.find(owner.tax_rate)
 	if owner.gold + change < turn.reserve() and index < rates.size() - 1:
 		var higher := rates[index + 1]
-		if _lowest_target(turn, higher) >= turn.cfg.supply["min_satisfaction"]:
+		var bankrupt := owner.gold + change < 0.0
+		if bankrupt or _lowest_target(turn, higher) >= turn.cfg.supply["min_satisfaction"]:
 			turn.act(SetTaxRateCommand.new(cfg, turn.house, higher), "raise tax", -change)
+		if bankrupt:
+			var silver := PlayPatronCommand.new(rules.map, turn.house, PlayPatronCommand.SILVER)
+			if silver.validate(turn.state).is_empty():
+				turn.act(silver, "patron silver against bankruptcy", -change)
 		return
 	var grumbling := _lowest_satisfaction(turn) < turn.cfg.supply["low_satisfaction"]
 	if grumbling and index > 0 and owner.gold + change > turn.reserve() * 3.0:

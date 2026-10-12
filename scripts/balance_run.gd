@@ -7,6 +7,7 @@ var _last_turn := -1
 ## after a settlement). scripts/balance.mjs runs it in parallel and sums up.
 ## godot --headless --script res://scripts/balance_run.gd -- --games=10 --seed=1
 ##   [--difficulty=1] [--out=user://balance.jsonl] [--trace=1: every round's houses]
+##   [--ai=<path of an alternative data/ai.json>]
 
 
 func _init() -> void:
@@ -16,7 +17,7 @@ func _init() -> void:
 	var difficulty := int(args.get("difficulty", "1"))
 	_trace = args.get("trace", "0") == "1"
 	var out := FileAccess.open(args.get("out", "user://balance.jsonl"), FileAccess.WRITE)
-	var config := AiConfig.load_file()
+	var config := AiConfig.load_file(args.get("ai", AiConfig.PATH))
 	for i: int in games:
 		var line := JSON.stringify(_play(config, first + i, difficulty))
 		print(line)
@@ -28,11 +29,18 @@ func _init() -> void:
 func _play(config: AiConfig, seed_value: int, difficulty: int) -> Dictionary:
 	var rules := GameRules.load_files()
 	var ai := AiPlayer.new(rules, config)
-	var bankrupt: Dictionary[String, bool] = {}
+	var bankrupt: Dictionary[String, Dictionary] = {}
 	var player := func(state: GameState) -> void:
 		for house: HouseState in state.houses.values():
-			if house.gold < 0.0:
-				bankrupt[house.id] = true
+			if house.gold < 0.0 and not bankrupt.has(house.id):
+				var companies := 0
+				for army: ArmyState in state.armies_of(house.id):
+					companies += army.company_count()
+				bankrupt[house.id] = {
+					"round": state.turn, "gold": roundi(house.gold),
+					"provinces": state.provinces_of(house.id).size(), "companies": companies,
+					"exile": house.exile_rounds > 0, "castle": state.home_castle_level(house.id),
+				}
 		if _trace and state.turn != _last_turn:
 			_last_turn = state.turn
 			_print_round(state, rules)
@@ -58,15 +66,31 @@ func _play(config: AiConfig, seed_value: int, difficulty: int) -> Dictionary:
 	elif state.turn < rules.map.campaign.max_rounds:
 		ending = "subjugation"
 	var legitimacy := {}
+	var finals := {}
 	for house: String in houses:
 		legitimacy[house] = snappedf(Victory.legitimacy(state, rules, house), 0.1)
+		var owner := state.houses[house]
+		finals[house] = {
+			"castle": state.home_castle_level(house),
+			"votes": CrownRules.vote_count(state, rules.map, house),
+			"regalia": CrownRules.regalia(state, house).size(),
+			"site": AiStrength.pillars(state, rules, house),
+			"provinces": state.provinces_of(house).size(),
+			"gold": roundi(owner.gold),
+			"prestige": roundi(owner.prestige),
+			"out": owner.is_eliminated,
+			"crown_error": CrownRules.coronation_error(state, rules.map, house),
+			"needed": CrownRules.votes_needed(state, rules.map, house),
+		}
 	return {
 		"seed": seed_value,
 		"winner": state.winner,
 		"ending": ending,
 		"round": state.turn + 1,
 		"bankrupt": bankrupt.keys(),
+		"bankruptcies": bankrupt,
 		"legitimacy": legitimacy,
+		"houses": finals,
 		"ms": Time.get_ticks_msec() - started,
 	}
 

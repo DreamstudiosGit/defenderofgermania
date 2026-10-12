@@ -35,6 +35,7 @@ const games = option('games', 1000);
 const jobs = Math.max(1, Math.min(option('jobs', 8), games));
 const firstSeed = option('seed', 1);
 const difficulty = option('difficulty', 1);
+const aiArg = process.argv.find((a) => a.startsWith('--ai='));
 const godot = findGodot();
 const work = mkdtempSync(join(tmpdir(), 'thronstreit-balance-'));
 
@@ -42,6 +43,7 @@ function runJob(index, count, seed) {
   const out = join(work, `games_${index}.jsonl`);
   const args = ['--headless', '--path', projectDir, '--script', 'res://scripts/balance_run.gd', '--',
     `--games=${count}`, `--seed=${seed}`, `--difficulty=${difficulty}`, `--out=${out}`];
+  if (aiArg) args.push(aiArg);
   return new Promise((resolve) => {
     const child = spawn(godot, args, { stdio: 'ignore', shell: /\.(cmd|bat)$/i.test(godot) });
     child.on('close', () => resolve(existsSync(out) ? readFileSync(out, 'utf8') : ''));

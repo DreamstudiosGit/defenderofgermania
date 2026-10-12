@@ -11,12 +11,14 @@ static func options(turn: AiTurn) -> Array[AiOption]:
 	for province: ProvinceState in state.provinces_of(turn.house):
 		for id: String in cfg.buildings:
 			var command := BuildCommand.new(cfg, turn.rules.map, turn.house, province.id, id)
-			if not command.validate(state).is_empty():
+			if not turn.allowed(command):
 				continue
 			var cost := BuildingRules.building_cost(cfg, turn.house, id)
 			var worth := _building_worth(turn, province, id)
 			var label := "build %s in %s" % [id, province.id]
-			result.append(AiOption.create(label, worth / maxf(cost, 1.0), command, cost))
+			var option := AiOption.create(label, worth / maxf(cost, 1.0), command, cost)
+			option.upkeep = cfg.buildings[id].upkeep
+			result.append(option)
 	_castle(turn, result)
 	_decorations(turn, result)
 	return result
@@ -64,16 +66,17 @@ static func _castle(turn: AiTurn, result: Array[AiOption]) -> void:
 	var cfg := turn.rules.economy
 	var home := turn.owner().home_province
 	var command := UpgradeCastleCommand.new(cfg, turn.house, home)
-	if not command.validate(state).is_empty():
+	if not turn.allowed(command):
 		return
 	var level := state.home_castle_level(turn.house) + 1
 	if not cfg.home_castle.has(level):
 		return
 	var def := cfg.home_castle[level]
 	var worth := def.prestige * turn.value("prestige") * turn.cfg.goals["payback_rounds"]
-	if level == turn.rules.map.crown.forged_regalia_home_castle:
-		if not CrownRules.holds_true_regalia(state, turn.house):
-			worth += turn.value("legitimacy") * turn.rules.map.campaign.legitimacy_forged_regalia
+	var forge_level := turn.rules.map.crown.forged_regalia_home_castle
+	if level <= forge_level and CrownRules.regalia(state, turn.house).is_empty():
+		var steps := forge_level - level + 1
+		worth += turn.pillar_worth() / (steps + 1.0)
 	worth += def.wall * turn.value("province") * 0.5
 	var campaign := turn.rules.map.campaign
 	if campaign.max_armies(level) > campaign.max_armies(level - 1):
@@ -81,6 +84,7 @@ static func _castle(turn: AiTurn, result: Array[AiOption]) -> void:
 	var cost := BuildingRules.castle_cost(state, cfg, turn.house, def)
 	var utility := worth * turn.weight("castle") / maxf(cost, 1.0)
 	var option := AiOption.create("castle level %d" % level, utility, command, cost)
+	option.upkeep = def.upkeep - cfg.home_castle[level - 1].upkeep
 	result.append(option)
 
 
@@ -88,7 +92,7 @@ static func _decorations(turn: AiTurn, result: Array[AiOption]) -> void:
 	var cfg := turn.rules.economy
 	for id: String in cfg.decorations:
 		var command := BuyDecorationCommand.new(cfg, turn.house, id)
-		if not command.validate(turn.state).is_empty():
+		if not turn.allowed(command):
 			continue
 		var def := cfg.decorations[id]
 		var per_round := def.prestige * turn.value("prestige")

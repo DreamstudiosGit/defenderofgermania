@@ -8,6 +8,8 @@ var utility: float
 var command: Command
 ## Taler the action costs; the house keeps its reserve.
 var cost: float = 0.0
+## Taler the action adds to the upkeep every round.
+var upkeep: float = 0.0
 
 
 static func create(text: String, worth: float, action: Command, price: float = 0.0) -> AiOption:

@@ -38,13 +38,34 @@ func value(key: String) -> float:
 	return cfg.values.get(key, 0.0)
 
 
-## Taler the house keeps back from spending.
+## Taler the house keeps back from spending: more when the coming settlement runs a deficit.
 func reserve() -> float:
-	return cfg.supply["gold_reserve"]
+	var change := EconomyTerm.sum(
+		EconomyBreakdown.gold_change(state, rules.map, rules.economy, house)
+	)
+	return maxf(cfg.supply["gold_reserve"], -change * 2.0)
 
 
 func spare_gold() -> float:
 	return owner().gold - reserve()
+
+
+## True if the rules would accept the command were the treasury full: the house may save for it.
+func allowed(command: Command) -> bool:
+	var house_state := owner()
+	var gold := house_state.gold
+	house_state.gold = 1.0e12
+	var ok := command.validate(state).is_empty()
+	house_state.gold = gold
+	return ok
+
+
+## Pillars of the crown the house holds; a step towards a missing one is worth more the more it
+## already holds (the last pillar decides the game) and the later it is in the game.
+func pillar_worth() -> float:
+	var held := AiStrength.pillars(state, rules, house)
+	var urgency := 1.0 + float(state.turn) / value("pillar_urgency_rounds")
+	return value("pillar") * (1.0 + held) * urgency
 
 
 ## Runs the command if the rules accept it and logs it; true if it ran.
