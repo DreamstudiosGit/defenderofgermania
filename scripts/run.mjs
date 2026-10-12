@@ -18,7 +18,17 @@ function findGodot() {
 
 const args = ['--path', projectDir];
 if (process.argv.includes('--editor')) args.push('--editor');
-// The campaign (war table) until the main menu of milestone M8 picks it; default: battle prototype.
-if (process.argv.includes('--campaign')) args.push('res://src/render/campaign/campaign_main.tscn');
+// The campaign (war table) and the adventures' practice modes until the main menu of milestone M8
+// picks them; default: battle prototype.
+const scenes = {
+  '--campaign': 'res://src/render/campaign/campaign_main.tscn',
+  '--joust': 'res://src/render/joust/joust_main.tscn',
+  '--siege': 'res://src/render/siege/trebuchet_main.tscn',
+  '--raid': 'res://src/render/raid/raid_main.tscn',
+  '--merchant': 'res://src/render/merchant/merchant_main.tscn',
+};
+for (const [flag, scene] of Object.entries(scenes)) {
+  if (process.argv.includes(flag)) args.push(scene);
+}
 
 spawn(findGodot(), args, { detached: true, stdio: 'ignore' }).unref();

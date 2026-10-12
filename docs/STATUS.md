@@ -10,7 +10,7 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 | M3 Imperial map and round flow | done; needs a hot-seat playtest (`node scripts/run.mjs --campaign`, `docs/screenshots/m3_*.png`) | two houses play 8 rounds; all numbers match the formulas; the battle is fully integrated |
 | M4 Home castle and buildings | done; needs a hands-on look with mouse and controller (`docs/screenshots/m4_*.png`) | every level looks clearly different; costs, upkeep and unlocks match the tables |
 | M5 Electors, coronation, events | done; needs a hot-seat playtest of the realm tab and event cards with mouse and controller (`docs/screenshots/m5_*.png`) | test scenarios trigger the coronation along all four rows of the table |
-| M6 Adventures | open | each minigame takes 1–3 min and has a practice mode |
+| M6 Adventures | in progress: joust, trebuchet, castle raid and merchant train built in parallel; campaign integration follows | each minigame takes 1–3 min and has a practice mode |
 | M7 AI | open | each house wins 20–30 %; coronation on average in round 25–35; bankruptcy in < 5 % |
 | M8 Full game | open | prologue to coronation without a crash in 60–120 min |
 
@@ -124,3 +124,6 @@ Milestones from the owner's brief "THRONSTREIT 1198" (2026-10-12). Each mileston
 - The best rival shown per lord is the first one found on a tie, and it shows even when every house sits at the start favour.
 - The GDD wants a blackletter heading on the coronation plate; there is no font asset yet, so it uses the default font.
 - The event dialog shows each turn's news and cards once per house; a later look back (chronicle, M8) does not exist yet.
+
+## Design questions (M6 adventures; current choice)
+- The fief joust against a neighbouring house for a border province needs both houses to agree; that is diplomacy between houses, which the owner left out, so it is not built. Jousts come from hosting a tournament and from the invitation event.
