@@ -53,6 +53,22 @@ func apply(state: GameState) -> void:
 			Conquest.conquer(state, _rules, target, house, false)
 
 
+## The first battle this move would fight, or null — so a player can fight it live before the
+## move runs. Mirrors apply(): hostile armies first, then an open-field garrison.
+func first_battle(state: GameState) -> BattleSetup:
+	if not validate(state).is_empty():
+		return null
+	var army := state.army(army_id)
+	for other: ArmyState in state.armies_in(target):
+		if other.owner != house:
+			return CampaignBattles.army_battle(state, _rules, army, other, target)
+	if state.provinces[target].owner == house or Garrisons.size(state, _rules, target) == 0:
+		return null
+	if Garrisons.wall(state, _rules, target) == 0:
+		return CampaignBattles.garrison_battle(state, _rules, army, 0, target)
+	return null
+
+
 func _check_move(state: GameState) -> String:
 	var army := state.army(army_id)
 	if army == null or army.owner != house:

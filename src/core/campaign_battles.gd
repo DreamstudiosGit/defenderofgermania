@@ -8,9 +8,7 @@ extends RefCounted
 static func fight_army(
 	state: GameState, rules: GameRules, attacker: ArmyState, defender: ArmyState, came_from: String
 ) -> bool:
-	var setup := _setup(state, rules, attacker.province)
-	setup.attacker = army_side(state, rules, attacker)
-	setup.defender = army_side(state, rules, defender)
+	var setup := army_battle(state, rules, attacker, defender, attacker.province)
 	var result := rules.resolve_battle(state, setup)
 	_apply(state, rules, attacker, result, true, defender.owner, came_from)
 	_apply(state, rules, defender, result, false, attacker.owner, "")
@@ -23,16 +21,34 @@ static func fight_garrison(
 	state: GameState, rules: GameRules, attacker: ArmyState, wall: int, came_from: String
 ) -> bool:
 	var province := state.provinces[attacker.province]
-	var setup := _setup(state, rules, province.id)
-	setup.defender_wall = wall
-	setup.attacker = army_side(state, rules, attacker)
-	setup.defender = Garrisons.side(state, rules, province.id)
+	var setup := garrison_battle(state, rules, attacker, wall, province.id)
 	var result := rules.resolve_battle(state, setup)
 	var won := result.attacker_won
 	province.garrison_health = 0.0 if won else _lowest(result.defender_health)
 	_add_prestige(state, rules, province.owner, not won)
 	_apply(state, rules, attacker, result, true, province.owner, came_from)
 	return won
+
+
+## The battle an army fights against a hostile army in the province.
+static func army_battle(
+	state: GameState, rules: GameRules, attacker: ArmyState, defender: ArmyState, province: String
+) -> BattleSetup:
+	var setup := _setup(state, rules, province)
+	setup.attacker = army_side(state, rules, attacker)
+	setup.defender = army_side(state, rules, defender)
+	return setup
+
+
+## The battle an army fights against the province's garrison behind walls of level `wall`.
+static func garrison_battle(
+	state: GameState, rules: GameRules, attacker: ArmyState, wall: int, province: String
+) -> BattleSetup:
+	var setup := _setup(state, rules, province)
+	setup.defender_wall = wall
+	setup.attacker = army_side(state, rules, attacker)
+	setup.defender = Garrisons.side(state, rules, province)
+	return setup
 
 
 static func army_side(state: GameState, rules: GameRules, army: ArmyState) -> BattleSide:
