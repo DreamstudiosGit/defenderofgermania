@@ -186,3 +186,10 @@ EVENT_CRUSADE_CALL_CHOICE_SEND,Entsenden,Send them
 EVENT_CRUSADE_CALL_CHOICE_DECLINE,Daheim bleiben,Stay at home
 EVENT_DEATH_OF_LIONHEART_TITLE,Tod des Löwenherz,Death of the Lionheart
 EVENT_DEATH_OF_LIONHEART_TEXT,Der König von England ist gefallen. Englische Gönner-Karten wirken nur noch zu drei Vierteln.,The King of England has fallen. English patron cards now work at three quarters.
+BATTLE_HOUSE_NEUTRAL,Landesherr,Local lord
+BATTLE_HOUSE_CHURCH,Kirchenmannen,Church levy
+BATTLE_HOUSE_ELECTOR,Kurfürstliche,Elector's men
+BATTLE_CRY_NEUTRAL,Für Haus und Hof!,For hearth and home!
+BATTLE_CRY_CHURCH,Kyrie eleison!,Kyrie eleison!
+BATTLE_CRY_ELECTOR,Für den Kurfürsten!,For the Elector!
+BATTLE_RESULT_CONTINUE,Weiter,Continue

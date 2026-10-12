@@ -1,14 +1,16 @@
 class_name BattleResultPanel
 extends Control
 ## End-of-battle banner: winner, why, duration, losses per company, captured leaders, and the
-## buttons to play again or go back to the setup.
+## buttons to play again or go back to the setup — or, in a campaign, to continue.
 
 signal play_again_requested
 signal setup_requested
+signal continue_requested
 
 var _column := VBoxContainer.new()
 var _again := Button.new()
 var _setup := Button.new()
+var _continue := Button.new()
 
 
 func _ready() -> void:
@@ -34,6 +36,17 @@ func _ready() -> void:
 	_setup.text = tr("BATTLE_RESULT_SETUP")
 	_setup.pressed.connect(func() -> void: setup_requested.emit())
 	buttons.add_child(_setup)
+	_continue.text = tr("BATTLE_RESULT_CONTINUE")
+	_continue.pressed.connect(func() -> void: continue_requested.emit())
+	buttons.add_child(_continue)
+	set_campaign(false)
+
+
+## A campaign battle offers only "continue"; the prototype offers again / setup.
+func set_campaign(campaign: bool) -> void:
+	_again.visible = not campaign
+	_setup.visible = not campaign
+	_continue.visible = campaign
 
 
 func show_result(sim: BattleSim, armies: Array[BattleRules.ArmyPreset]) -> void:

@@ -1,6 +1,9 @@
 extends Node3D
-## Battle prototype P1 (main scene): start menu, real-time battle between human or computer
-## sides on the simulation's fixed tick, interpolated presentation, result screen, restart.
+## Real-time battle scene. As the prototype (main scene): start menu, battle between human or
+## computer sides on the simulation's fixed tick, interpolated presentation, result screen,
+## restart. As a campaign battle (configure_campaign): the given setup, then battle_finished.
+
+signal battle_finished(result: BattleResult)
 
 const MAX_TICKS_PER_FRAME := 5
 const SLOWMO_SECONDS := 0.5
@@ -33,6 +36,7 @@ var _slowmo_cooldown: float = 0.0
 var _previous_figures := PackedVector2Array()
 var _previous_positions := PackedVector2Array()
 var _headless: bool = false
+var _campaign: BattleSetup = null
 
 
 func _ready() -> void:
@@ -41,7 +45,9 @@ func _ready() -> void:
 	if _cfg == null or map == null:
 		push_error("battle: data/combat.json or data/map.json could not be loaded")
 		return
-	_cfg.battle.apply_house_colors(map.house_colors)
+	if _campaign != null:
+		_cfg.battle.armies.assign([_preset(_campaign.attacker), _preset(_campaign.defender)])
+	_cfg.battle.apply_house_colors(map.heraldry())
 	BattleInputMap.register()
 	_headless = DisplayServer.get_name() == "headless"
 	if not _headless:
@@ -68,7 +74,13 @@ func _ready() -> void:
 	_menu.start_requested.connect(_on_start_requested)
 	_result_panel.play_again_requested.connect(_start)
 	_result_panel.setup_requested.connect(_open_menu)
-	if _headless:
+	_result_panel.continue_requested.connect(
+		func() -> void: battle_finished.emit(_sim.result())
+	)
+	_result_panel.set_campaign(_campaign != null)
+	if _campaign != null:
+		_start()
+	elif _headless:
 		_devices = PackedInt32Array([-1, -1])
 		_start()
 	else:
@@ -83,7 +95,7 @@ func _process(delta: float) -> void:
 			continue
 		reader.poll()
 		_camera.zoom(reader.take_zoom())
-		if reader.menu_pressed() and not _menu.visible:
+		if reader.menu_pressed() and not _menu.visible and _campaign == null:
 			_open_menu()
 	var tick := _sim.tick_seconds()
 	if not _sim.is_over() and not _menu.visible:
@@ -100,7 +112,9 @@ func _process(delta: float) -> void:
 	_markers.update_view(
 		_sim.state, _sim.rules, positions, _selection_sides(), _marker_colors(), _humans()
 	)
-	_camera.frame(_camera_points(positions), _camera_focus(positions), delta)
+	var middle := _cfg.battle.field_size * 0.5
+	var focus := BattleCamera.action_focus(_sim.state, positions, _selection_sides(), middle)
+	_camera.frame(BattleCamera.company_points(_sim.state, positions), focus, delta)
 	_hud.update_view(_sim, positions, delta)
 
 
@@ -162,8 +176,10 @@ func _tick() -> void:
 
 
 func _start() -> void:
-	_seed += 1
-	var setup := _cfg.battle.default_setup()
+	var setup := _campaign
+	if setup == null:
+		_seed += 1
+		setup = _cfg.battle.default_setup()
 	setup.attacker.is_human = _devices[0] >= 0
 	setup.defender.is_human = _devices[1] >= 0
 	_sim = BattleSim.new(_cfg, setup, _seed)
@@ -194,6 +210,14 @@ func _finish() -> void:
 	_result_panel.show_result(_sim, _cfg.battle.armies)
 
 
+## Plays a campaign battle instead of the prototype menu; call before adding the scene to the
+## tree. devices[s] is a BattleInputMap.Device, or -1 for a computer side.
+func configure_campaign(setup: BattleSetup, devices: PackedInt32Array, seed_value: int) -> void:
+	_campaign = setup
+	_devices = devices
+	_seed = seed_value
+
+
 func _open_menu() -> void:
 	_result_panel.visible = false
 	_menu.open(_cfg.battle.armies, _devices)
@@ -202,6 +226,15 @@ func _open_menu() -> void:
 func _on_start_requested(devices: PackedInt32Array) -> void:
 	_devices = devices
 	_start()
+
+
+static func _preset(side: BattleSide) -> BattleRules.ArmyPreset:
+	var army := BattleRules.ArmyPreset.new()
+	army.house = side.owner
+	army.has_leader = side.has_leader
+	army.leadership = side.leadership
+	army.units = side.units.duplicate()
+	return army
 
 
 func _humans() -> Array[bool]:
@@ -218,41 +251,6 @@ func _selection_sides() -> Array[bool]:
 
 func _marker_colors() -> Array[Color]:
 	return [_cfg.battle.armies[0].accent, _cfg.battle.armies[1].accent]
-
-
-## Zoom level 0 keeps every company on the field in view.
-func _camera_points(positions: PackedVector2Array) -> PackedVector2Array:
-	var state := _sim.state
-	var points := PackedVector2Array()
-	for c: int in mini(state.company_count(), positions.size()):
-		if state.is_present(c):
-			points.append(positions[c])
-	return points
-
-
-## Zoom level 1 looks at the single human's active group; with two humans or none it looks at
-## the melee (or every company), so the shared view never reveals a player's selection.
-func _camera_focus(positions: PackedVector2Array) -> Vector2:
-	var state := _sim.state
-	var selection := _selection_sides()
-	var picked := PackedVector2Array()
-	var melee := PackedVector2Array()
-	for c: int in mini(state.company_count(), positions.size()):
-		if state.status[c] != BattleState.Status.ACTIVE:
-			continue
-		var s := state.side[c]
-		if selection[s] and state.group[c] == state.active_group[s]:
-			picked.append(positions[c])
-		if state.contact[c] >= 0:
-			melee.append(positions[c])
-	if picked.is_empty():
-		picked = melee
-	if picked.is_empty():
-		picked = _camera_points(positions)
-	var sum := Vector2.ZERO
-	for point: Vector2 in picked:
-		sum += point
-	return sum / maxi(1, picked.size()) if not picked.is_empty() else _cfg.battle.field_size * 0.5
 
 
 static func _interpolated(

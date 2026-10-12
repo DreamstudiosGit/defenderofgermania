@@ -13,6 +13,8 @@ var houses: Array[String] = []
 var house_camps: Dictionary[String, String] = {}
 ## Heraldic colours of each house: field first, then charge.
 var house_colors: Dictionary[String, PackedColorArray] = {}
+## Colours of the lords who are no house (NON_HOUSE_OWNERS): field first, then charge.
+var lord_colors: Dictionary[String, PackedColorArray] = {}
 var start_army: Array[String] = []
 var campaign: CampaignRules
 var crown: CrownData
@@ -126,6 +128,13 @@ func home_province(house: String) -> String:
 	return ""
 
 
+## Field and charge colours of every owner: the houses and the other lords.
+func heraldry() -> Dictionary[String, PackedColorArray]:
+	var colors := house_colors.duplicate()
+	colors.merge(lord_colors)
+	return colors
+
+
 ## Provinces whose lord is an elector, in data order.
 func electors() -> Array[String]:
 	var ids: Array[String] = []
@@ -164,6 +173,9 @@ func _validate_crown() -> PackedStringArray:
 			errors.append("house %s: unknown camp '%s'" % [house, house_camps[house]])
 		if house_colors[house].size() != 2:
 			errors.append("house %s: needs two colors" % house)
+	for owner: String in NON_HOUSE_OWNERS:
+		if lord_colors.get(owner, PackedColorArray()).size() != 2:
+			errors.append("lords.%s: needs two colors" % owner)
 	for site: String in crown.archbishops:
 		var id: String = crown.archbishops[site]
 		if not campaign.legitimacy_tags.has(site):
@@ -197,6 +209,11 @@ func _read(reader: DataReader, data: Dictionary) -> void:
 		houses.append(id)
 		house_camps[id] = reader.text(entry, "camp")
 		house_colors[id] = _read_colors(reader, entry)
+	reader.context = ""
+	var lords := reader.object(data, "lords")
+	for id: String in lords:
+		reader.context = "lords.%s" % id
+		lord_colors[id] = _read_colors(reader, reader.object(lords, id))
 	reader.context = ""
 	start_army = reader.strings(data, "start_army")
 	var campaign_data := reader.object(data, "campaign")

@@ -57,6 +57,42 @@ func frame(points: PackedVector2Array, focus: Vector2, delta: float) -> void:
 	position = ground + Vector3(0.0, sin(pitch), cos(pitch)) * DISTANCE
 
 
+## Positions of the companies still on the field: what zoom level 0 keeps in view.
+static func company_points(
+	state: BattleState, positions: PackedVector2Array
+) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	for c: int in mini(state.company_count(), positions.size()):
+		if state.is_present(c):
+			points.append(positions[c])
+	return points
+
+
+## Where zoom level 1 looks: the single human's active group; with two humans or none the
+## melee (or every company), so the shared view never reveals a player's selection.
+static func action_focus(
+	state: BattleState, positions: PackedVector2Array, selection: Array[bool], fallback: Vector2
+) -> Vector2:
+	var picked := PackedVector2Array()
+	var melee := PackedVector2Array()
+	for c: int in mini(state.company_count(), positions.size()):
+		if state.status[c] != BattleState.Status.ACTIVE:
+			continue
+		var s := state.side[c]
+		if selection[s] and state.group[c] == state.active_group[s]:
+			picked.append(positions[c])
+		if state.contact[c] >= 0:
+			melee.append(positions[c])
+	if picked.is_empty():
+		picked = melee
+	if picked.is_empty():
+		picked = company_points(state, positions)
+	var sum := Vector2.ZERO
+	for point: Vector2 in picked:
+		sum += point
+	return sum / picked.size() if not picked.is_empty() else fallback
+
+
 ## Where the screen position hits the ground, or a non-finite vector if it misses.
 static func field_point(camera: Camera3D, screen_position: Vector2) -> Vector2:
 	var origin := camera.project_ray_origin(screen_position)

@@ -13,9 +13,11 @@ INNER = "M128 34 L206 49 C205 116 199 174 165 212 Q144 235 128 246 Q110 235 91 2
 
 
 def house_colors():
-    """House field colour from data/map.json, the single source of the heraldry."""
-    houses = json.loads((ROOT / "data" / "map.json").read_text(encoding="utf-8"))["houses"]
-    return {house: entry["colors"][0] for house, entry in houses.items()}
+    """Field colour of every house and other lord from data/map.json, the single source of the
+    heraldry."""
+    data = json.loads((ROOT / "data" / "map.json").read_text(encoding="utf-8"))
+    owners = {**data["houses"], **data["lords"]}
+    return {owner: entry["colors"][0] for owner, entry in owners.items()}
 
 
 def shade(color, factor):
