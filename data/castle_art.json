@@ -1,0 +1,290 @@
+{
+  "home_castle": {
+    "1": [
+      {"piece": "castle_motte", "at": [0, 0, -11]},
+      {"piece": "castle_wood_tower", "at": [0, 4, -11]},
+      {"piece": "castle_palisade", "at": [0, 0, 0]},
+      {"piece": "castle_wood_hall", "at": [-11, 0, 2], "yaw": 90}
+    ],
+    "2": [
+      {"piece": "castle_motte", "at": [0, 0, -11]},
+      {"piece": "castle_keep", "at": [0, 4, -11]},
+      {"piece": "castle_palisade", "at": [0, 0, 0]},
+      {"piece": "castle_wood_hall", "at": [-11, 0, 2], "yaw": 90}
+    ],
+    "3": [
+      {"piece": "castle_motte", "at": [0, 0, -11]},
+      {"piece": "castle_keep", "at": [0, 4, -11]},
+      {"piece": "castle_curtain_wall", "at": [0, 0, 0]},
+      {"piece": "castle_gatehouse", "at": [0, 0, 19.4]},
+      {"piece": "castle_wood_hall", "at": [-11, 0, 2], "yaw": 90}
+    ],
+    "4": [
+      {"piece": "castle_motte", "at": [0, 0, -11]},
+      {"piece": "castle_keep", "at": [0, 4, -11]},
+      {"piece": "castle_curtain_wall", "at": [0, 0, 0]},
+      {"piece": "castle_gatehouse", "at": [0, 0, 19.4]},
+      {"piece": "castle_palas", "at": [-14, 0, 1], "yaw": 90},
+      {"piece": "castle_chapel", "at": [13, 0, 2]}
+    ],
+    "5": [
+      {"piece": "castle_motte", "at": [0, 0, -11]},
+      {"piece": "castle_keep", "at": [0, 4, -11]},
+      {"piece": "castle_keep_spire", "at": [0, 21, -11]},
+      {"piece": "castle_curtain_wall", "at": [0, 0, 0]},
+      {"piece": "castle_tower_roof", "at": [19.4, 10.5, -8.04]},
+      {"piece": "castle_tower_roof", "at": [8.04, 10.5, -19.4]},
+      {"piece": "castle_tower_roof", "at": [-8.04, 10.5, -19.4]},
+      {"piece": "castle_tower_roof", "at": [-19.4, 10.5, -8.04]},
+      {"piece": "castle_tower_roof", "at": [-19.4, 10.5, 8.04]},
+      {"piece": "castle_tower_roof", "at": [-8.04, 10.5, 19.4]},
+      {"piece": "castle_tower_roof", "at": [8.04, 10.5, 19.4]},
+      {"piece": "castle_tower_roof", "at": [19.4, 10.5, 8.04]},
+      {"piece": "castle_tower_roof", "at": [-4.6, 13, 21.8], "scale": 0.846},
+      {"piece": "castle_tower_roof", "at": [4.6, 13, 21.8], "scale": 0.846},
+      {"piece": "castle_gatehouse", "at": [0, 0, 19.4]},
+      {"piece": "castle_pfalz", "at": [-13.5, 0, 1], "yaw": 90},
+      {"piece": "castle_chapel", "at": [13, 0, 2]}
+    ]
+  },
+  "province_castle": {
+    "0": [],
+    "1": [
+      {"piece": "castle_palisade_small", "at": [0, 0, 0]},
+      {"piece": "castle_wood_tower", "at": [0, 0, -2]}
+    ],
+    "2": [
+      {"piece": "castle_wall_small", "at": [0, 0, 0]},
+      {"piece": "castle_keep", "at": [0, 0, -3]},
+      {"piece": "castle_wood_hall", "at": [-6.5, 0, 4.5], "yaw": 90}
+    ],
+    "3": [
+      {"piece": "castle_curtain_wall", "at": [0, 0, 0]},
+      {"piece": "castle_gatehouse", "at": [0, 0, 19.4]},
+      {"piece": "castle_keep", "at": [0, 0, -6]},
+      {"piece": "castle_wood_hall", "at": [-11, 0, 2], "yaw": 90},
+      {"piece": "castle_wood_hall", "at": [11, 0, 2], "yaw": -90}
+    ]
+  },
+  "decorations": {
+    "banners": {
+      "1": [
+        {"piece": "castle_banner", "at": [-4.6, 0, 19.5]},
+        {"piece": "castle_banner", "at": [4.6, 0, 19.5]},
+        {"piece": "castle_pennant", "at": [-2.55, 6.9, 17]},
+        {"piece": "castle_pennant", "at": [2.55, 6.9, 17]},
+        {"piece": "castle_banner", "at": [-3, 4, -7]},
+        {"piece": "castle_pennant", "at": [-11, 6.3, -1.5]}
+      ],
+      "3": [
+        {"piece": "castle_banner", "at": [-4.6, 0, 26.5]},
+        {"piece": "castle_banner", "at": [4.6, 0, 26.5]},
+        {"piece": "castle_banner", "at": [-2.6, 11.5, 19.4]},
+        {"piece": "castle_banner", "at": [2.6, 11.5, 19.4]},
+        {"piece": "castle_banner", "at": [-3, 4, -7]},
+        {"piece": "castle_pennant", "at": [19.4, 10.5, -8.04]},
+        {"piece": "castle_pennant", "at": [8.04, 10.5, -19.4]},
+        {"piece": "castle_pennant", "at": [-8.04, 10.5, -19.4]},
+        {"piece": "castle_pennant", "at": [-19.4, 10.5, -8.04]},
+        {"piece": "castle_pennant", "at": [-19.4, 10.5, 8.04]},
+        {"piece": "castle_pennant", "at": [-8.04, 10.5, 19.4]},
+        {"piece": "castle_pennant", "at": [8.04, 10.5, 19.4]},
+        {"piece": "castle_pennant", "at": [19.4, 10.5, 8.04]}
+      ],
+      "5": [
+        {"piece": "castle_banner", "at": [-4.6, 0, 26.5]},
+        {"piece": "castle_banner", "at": [4.6, 0, 26.5]},
+        {"piece": "castle_banner", "at": [-2.6, 11.5, 19.4]},
+        {"piece": "castle_banner", "at": [2.6, 11.5, 19.4]},
+        {"piece": "castle_banner", "at": [-3, 4, -7]},
+        {"piece": "castle_pennant", "at": [19.4, 19.5, -8.04]},
+        {"piece": "castle_pennant", "at": [8.04, 19.5, -19.4]},
+        {"piece": "castle_pennant", "at": [-8.04, 19.5, -19.4]},
+        {"piece": "castle_pennant", "at": [-19.4, 19.5, -8.04]},
+        {"piece": "castle_pennant", "at": [-19.4, 19.5, 8.04]},
+        {"piece": "castle_pennant", "at": [-8.04, 19.5, 19.4]},
+        {"piece": "castle_pennant", "at": [8.04, 19.5, 19.4]},
+        {"piece": "castle_pennant", "at": [19.4, 19.5, 8.04]},
+        {"piece": "castle_pennant", "at": [-4.6, 20.6, 21.8]},
+        {"piece": "castle_pennant", "at": [4.6, 20.6, 21.8]}
+      ]
+    },
+    "fountain": {
+      "1": [{"piece": "castle_fountain", "at": [-4, 0, 11]}]
+    },
+    "rose_garden": {
+      "1": [{"piece": "castle_rose_garden", "at": [5, 0, 8.5]}]
+    },
+    "tapestries": {
+      "1": [
+        {"piece": "castle_tapestry", "at": [-8.45, 0.45, 3.5], "yaw": 90, "scale": 0.65},
+        {"piece": "castle_tapestry", "at": [-8.45, 0.45, 0.5], "yaw": 90, "scale": 0.65}
+      ],
+      "4": [
+        {"piece": "castle_tapestry", "at": [-10.45, 2.9, 5.6], "yaw": 90, "scale": 0.65},
+        {"piece": "castle_tapestry", "at": [-10.45, 2.9, 2.55], "yaw": 90, "scale": 0.65},
+        {"piece": "castle_tapestry", "at": [-10.45, 2.9, -0.55], "yaw": 90, "scale": 0.65},
+        {"piece": "castle_tapestry", "at": [-10.45, 2.9, -3.6], "yaw": 90, "scale": 0.65}
+      ],
+      "5": [
+        {"piece": "castle_tapestry", "at": [-9.2, 3.1, 7.2], "yaw": 90, "scale": 0.75},
+        {"piece": "castle_tapestry", "at": [-9.2, 3.1, 4.4], "yaw": 90, "scale": 0.75},
+        {"piece": "castle_tapestry", "at": [-9.2, 3.1, -2.4], "yaw": 90, "scale": 0.75},
+        {"piece": "castle_tapestry", "at": [-9.2, 3.1, -5.2], "yaw": 90, "scale": 0.75}
+      ]
+    },
+    "stained_glass": {
+      "4": [{"piece": "castle_stained_glass", "at": [13, 0, 2]}]
+    }
+  },
+  "buildings": {
+    "mill": [{"piece": "building_mill", "at": [-40, 0, 8], "yaw": 90, "clear": 9}],
+    "market_1": [{"piece": "building_market_1", "at": [17, 0, 44], "yaw": -20, "clear": 9}],
+    "market_2": [{"piece": "building_market_2", "at": [17, 0, 44], "yaw": -20, "clear": 9}],
+    "granary": [{"piece": "building_granary", "at": [33, 0, 2], "yaw": -90, "clear": 7}],
+    "monastery": [{"piece": "building_monastery", "at": [-36, 0, -34], "yaw": 35, "clear": 15}],
+    "mine": [{"piece": "building_mine", "at": [40, 0, -30], "yaw": -40, "clear": 11}],
+    "toll": [{"piece": "building_toll", "at": [0, 0, 56], "yaw": 180, "clear": 9}],
+    "tourney_ground": [{"piece": "building_tourney_ground", "at": [-34, 0, 38], "clear": 21}],
+    "workshop": [{"piece": "building_workshop", "at": [32, 0, 26], "yaw": -30, "clear": 10}]
+  },
+  "pieces": {
+    "castle_curtain_wall": {
+      "scaffold": [[21, 0, 0, 90, 3], [-21, 0, 0, -90, 3], [0, 0, -21, 180, 3], [14.9, 0, -14.9, 135, 2], [-14.9, 0, -14.9, -135, 2], [14.9, 0, 14.9, 45, 2]],
+      "site": [["castle_crane", 9, 0, 8, 30], ["castle_building_site", -6, 0, 14, 10], ["castle_site_hut", 8, 0, 27, 0]]
+    },
+    "castle_tower_roof": {"rise": "grow", "scaffold": [], "site": []},
+    "castle_keep_spire": {"rise": "grow", "scaffold": [], "site": []},
+    "castle_keep": {"site": [["castle_crane", -6, -4, 4, 90], ["castle_building_site", 4, -4, 10, -20]]},
+    "castle_palisade": {"scaffold": [], "site": [["castle_building_site", -6, 0, 12, 20]]},
+    "castle_palisade_small": {"scaffold": [], "site": [["castle_building_site", -5, 0, 15, 20]]},
+    "castle_wall_small": {
+      "scaffold": [[12.4, 0, 0, 90, 2], [-12.4, 0, 0, -90, 2], [0, 0, -12.4, 180, 2]],
+      "site": [["castle_crane", 6, 0, 6, 30], ["castle_building_site", -5, 0, 16, 10]]
+    },
+    "castle_pfalz": {
+      "scaffold": [[-5.2, 0, 5.0, 0, 2], [5.2, 0, 5.0, 0, 2], [0, 0, -5.0, 180, 5]],
+      "site": [["castle_crane", 0, 0, 12, -60], ["castle_building_site", 4, 0, 14, 0]]
+    },
+    "castle_gatehouse": {
+      "scaffold": [[0, 0, -4.2, 180, 3], [7.5, 0, 0, 90, 2], [-7.5, 0, 0, -90, 2]],
+      "site": [["castle_building_site", 7, 0, -9, 0]]
+    },
+    "castle_palas": {"site": [["castle_crane", 0, 0, 10, -60], ["castle_building_site", 4, 0, 12, 0]]},
+    "castle_chapel": {"site": [["castle_crane", -6, 0, 0, 0], ["castle_building_site", -4, 0, -12, 90]]}
+  },
+  "construction": {
+    "scaffold_piece": "castle_scaffold",
+    "bay_width": 3.0,
+    "bay_height": 3.0,
+    "bay_depth": 1.4,
+    "default_site": "castle_building_site",
+    "site_gap": 3.0
+  },
+  "settlement": {
+    "houses_per_population": 0.6,
+    "min_houses": 3,
+    "max_houses": 60,
+    "variants": ["settlement_cottage", "settlement_house", "settlement_longhouse", "settlement_townhouse"],
+    "variant_weights": [3, 4, 2, 2],
+    "inner_radius": {"home_1": 24, "home_2": 24, "home_3": 29, "home_4": 29, "home_5": 29, "province_0": 6, "province_1": 15, "province_2": 21, "province_3": 29},
+    "outer_radius": 66,
+    "spacing": 8.5,
+    "road_half_width": 5.0,
+    "road_pull": 16,
+    "candidates": 1400,
+    "seed": 1198,
+    "yaw_jitter_deg": 14,
+    "scale_min": 0.9,
+    "scale_max": 1.1
+  },
+  "ground": {
+    "radius": 500,
+    "grass": "#7f9a48",
+    "road": "#b39568",
+    "road_width": 5.0,
+    "road_length": 120,
+    "yard": "#a88a62",
+    "yard_radius": {"home_1": 14.5, "home_2": 14.5, "home_3": 18.5, "home_4": 18.5, "home_5": 18.5, "province_0": 0, "province_1": 9.5, "province_2": 9.5, "province_3": 18.5},
+    "field_colors": ["#c9ab55", "#9aa64e", "#8a6b45", "#b7a157"],
+    "fields": [[-62, -58, 26, 14, 20], [-30, -76, 22, 12, -8], [8, -82, 28, 12, 4], [52, -62, 24, 14, -30], [74, -20, 14, 26, -6], [76, 30, 16, 22, 12], [56, 70, 26, 12, 36], [-64, 64, 24, 14, -36], [-82, 18, 14, 26, 8], [-80, -24, 14, 20, -10]],
+    "trees": ["tree_oak", "tree_birch", "tree_pine", "tree_oak_autumn"],
+    "tree_count": 55,
+    "tree_inner_radius": 74,
+    "tree_outer_radius": 118,
+    "tree_scale_min": 2.2,
+    "tree_scale_max": 3.4
+  },
+  "smoke": {
+    "chimneys": {
+      "settlement_house": [[1.4, 6.8, -0.8]],
+      "settlement_townhouse": [[1.2, 9.4, -1.4]],
+      "castle_wood_hall": [[1.8, 6.2, 0]],
+      "castle_palas": [[3.4, 14.8, -1.2]],
+      "castle_pfalz": [[2.4, 18.2, -1.5]]
+    },
+    "every": 2,
+    "amount": 7,
+    "lifetime": 5.0,
+    "speed": 1.1,
+    "drift": [0.5, 0.25, 0.15],
+    "size": 1.6,
+    "color": "#ece8e0b0"
+  },
+  "colors": {
+    "neutral_primary": "#9c8f74",
+    "neutral_secondary": "#e2d4ad",
+    "glass_emission": 0.6
+  },
+  "camera": {
+    "target": [0, 6, 9],
+    "fov": 36,
+    "distance": 125,
+    "min_distance": 34,
+    "max_distance": 170,
+    "pitch_deg": 33,
+    "min_pitch_deg": 10,
+    "max_pitch_deg": 70,
+    "yaw_deg": 24,
+    "idle_speed_deg": 2.5,
+    "idle_delay": 4.0,
+    "stick_speed_deg": 80,
+    "drag_deg_per_pixel": 0.3,
+    "zoom_rate": 2.5,
+    "wheel_step": 0.88,
+    "glide_speed": 6.0
+  },
+  "light": {
+    "sun_elevation_deg": 40,
+    "sun_azimuth_deg": -38,
+    "sun_color": "#ffe4b8",
+    "sun_energy": 1.25,
+    "ambient": "#c8d2dc",
+    "ambient_energy": 0.42,
+    "sky_top": "#5f8fc8",
+    "sky_horizon": "#d8dccf",
+    "ground_horizon": "#9a9a78",
+    "shadow_distance": 320,
+    "fog_color": "#c9d3cf",
+    "fog_density": 0.7,
+    "fog_begin": 190,
+    "fog_end": 520
+  },
+  "ink": {
+    "color": "#211710",
+    "edge_strength": 0.6,
+    "depth_threshold": 2.5,
+    "normal_threshold": 0.55,
+    "grain": 0.05,
+    "vignette": 0.35
+  },
+  "timelapse": {
+    "duration": 3.5,
+    "house_interval": 0.05,
+    "house_pop": 0.35,
+    "dust_puffs": 18,
+    "dust_life": 1.6,
+    "dust_color": "#c4ad86a0",
+    "dust_size": 2.6
+  }
+}
