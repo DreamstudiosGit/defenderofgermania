@@ -11,6 +11,9 @@ const HEDGEHOG_SPEAR_TILT := 1.0
 const CAVALRY_RING_SCALE := 1.7
 const LEADER_SCALE := 1.2
 const ACTIVE_RING_SCALE := 1.15
+## The winners jump for joy once the battle is over.
+const CHEER_HOP := 0.45
+const CHEER_RATE := 7.0
 const HIDDEN := Basis(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO)
 
 var _instances: Array[MultiMeshInstance3D] = []
@@ -24,6 +27,8 @@ var _basis: Array[Basis] = []
 var _ring_basis: Array[Basis] = []
 var _ring_color := PackedColorArray()
 var _movement := PackedFloat32Array()
+var _hop := PackedFloat32Array()
+var _real_time: float = 0.0
 var _tick_seconds: float = 0.0
 var _motion_time: float = 0.0
 var _selection_sides: Array[bool] = [false, false]
@@ -101,6 +106,7 @@ func selection_visible(state: BattleState, company: int) -> bool:
 
 func update_view(state: BattleState, previous: PackedVector2Array, alpha: float) -> void:
 	_prepare(state)
+	_real_time = Time.get_ticks_msec() / 1000.0
 	_motion_time = maxf(0.0, state.tick - 1 + alpha) * _tick_seconds
 	var points := state.fig_pos
 	if previous.size() == points.size():
@@ -125,6 +131,7 @@ func _prepare(state: BattleState) -> void:
 	_ring_basis.resize(count)
 	_ring_color.resize(count)
 	_movement.resize(count)
+	_hop.resize(count)
 	for c: int in count:
 		_alive[c] = state.alive_figures(c)
 		var leader := state.is_leader(c)
@@ -139,6 +146,8 @@ func _prepare(state: BattleState) -> void:
 			house = house.lightened(SELECTION_LIGHTEN)
 		_ring_color[c] = house
 		_ring_basis[c] = Basis().scaled(Vector3(size, 0.3, size))
+		var cheering := state.phase == BattleState.Phase.OVER and state.winner == side
+		_hop[c] = CHEER_HOP if cheering and state.status[c] == BattleState.Status.ACTIVE else 0.0
 
 
 func _draw_figure(
@@ -150,17 +159,22 @@ func _draw_figure(
 		return
 	match _layers[layer]:
 		"spear":
-			_write_spear(state, buffer, i, c, at)
+			_write_spear(state, buffer, i, c, at, _jump(c, f))
 		"ring":
 			_write(buffer, i, _ring_basis[c], Vector3(at.x, 0.045, at.y), _ring_color[c])
 		_:
 			var contact := 1.0 if state.contact[c] >= 0 else 0.0
 			var animation := Color(f * 1.73, _movement[c], contact, _motion_time)
-			_write(buffer, i, _basis[c], Vector3(at.x, 0.0, at.y), Color.WHITE, animation)
+			var origin := Vector3(at.x, _jump(c, f), at.y)
+			_write(buffer, i, _basis[c], origin, Color.WHITE, animation)
+
+
+func _jump(c: int, f: int) -> float:
+	return absf(sin(_real_time * CHEER_RATE + f * 0.9)) * _hop[c]
 
 
 func _write_spear(
-	state: BattleState, buffer: PackedFloat32Array, i: int, c: int, at: Vector2
+	state: BattleState, buffer: PackedFloat32Array, i: int, c: int, at: Vector2, hop: float
 ) -> void:
 	var hedgehog := state.formation[c] == 1
 	var direction := state.facing[c]
@@ -169,7 +183,7 @@ func _write_spear(
 	var tilt := HEDGEHOG_SPEAR_TILT if hedgehog else LINE_SPEAR_TILT
 	var facing := Basis(Vector3.UP, PI / 2 - direction)
 	var basis := facing * Basis(Vector3.RIGHT, tilt)
-	var origin := Vector3(at.x, 0.95, at.y) + facing * Vector3(0.39, 0, 0.23) - basis.y * 0.95
+	var origin := Vector3(at.x, 0.95 + hop, at.y) + facing * Vector3(0.39, 0, 0.23) - basis.y * 0.95
 	_write(buffer, i, basis, origin, Color.WHITE)
 
 

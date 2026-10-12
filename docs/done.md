@@ -8,3 +8,4 @@
 - 2026-10-12 feat(combat): M1 step 2 — trebuchets: deployed/packed, target circle, flight time and area damage
 - 2026-10-12 docs(combat): M1 done — battle screenshots, status and design questions
 - 2026-10-12 feat(combat): M2 look — toon light, ink outlines and edges, grain, long shadows, dust and comic falls
+- 2026-10-12 feat(combat): M2 — winners cheer, 400-figure frame-rate benchmark
