@@ -1,0 +1,201 @@
+{
+  "light": {
+    "sun_elevation_deg": 38,
+    "sun_azimuth_deg": 20,
+    "sun_color": "#ffe4b8",
+    "sun_energy": 1.25,
+    "ambient": "#c8d2dc",
+    "ambient_energy": 0.45,
+    "sky_top": "#5f8fc8",
+    "sky_horizon": "#d8dccf",
+    "ground_horizon": "#9a9a78",
+    "shadow_distance": 360,
+    "fog_color": "#c9d3cf",
+    "fog_density": 0.7,
+    "fog_begin": 240,
+    "fog_end": 620
+  },
+  "ground": {
+    "size": 1200,
+    "grass": "#7f9a48",
+    "road_span": [-30, 150],
+    "road_color": "#b39568",
+    "road_width": 5.0,
+    "yard": "#a88a62",
+    "field_colors": ["#c9ab55", "#9aa64e", "#8a6b45", "#b7a157"],
+    "fields": [
+      [30, -42, 34, 16, -6],
+      [78, -50, 30, 14, 4],
+      [118, -64, 26, 16, -10],
+      [62, 36, 30, 14, 6],
+      [100, 44, 24, 12, -4],
+      [-6, -46, 22, 14, 0],
+      [240, -70, 34, 18, -8],
+      [250, 60, 30, 16, 10]
+    ],
+    "markers": {"piece": "rock_small", "every": 25, "from": 50, "to": 125, "side": 4.0, "scale": 1.3},
+    "tree_kinds": ["tree_oak", "tree_pine", "tree_birch"],
+    "tree_seed": 1198,
+    "tree_scale": [2.2, 3.2],
+    "tree_zones": [
+      [215, -170, 340, 140, 46],
+      [-60, -170, 215, -60, 40],
+      [-80, 95, 60, 170, 16],
+      [-60, -60, 30, -22, 6]
+    ],
+    "rocks": [
+      ["rock_boulder", 20, 14, 1.6],
+      ["rock_cluster", 92, -24, 1.8],
+      ["rock_boulder", 130, 26, 1.3],
+      ["rock_cluster", -14, -16, 1.4],
+      ["rock_small", 64, -8, 2.0]
+    ],
+    "hills": [],
+    "village": [
+      ["settlement_house", 205, -34, 90],
+      ["settlement_cottage", 214, -48, 70],
+      ["settlement_longhouse", 198, -58, 95],
+      ["settlement_cottage", 222, -22, 120],
+      ["settlement_house", 206, 40, 80]
+    ]
+  },
+  "pacing": {"ai_aim_seconds": 2.0, "ai_hold_seconds": 2.5, "headless_speed": 8.0},
+  "trebuchet": {"at": [0, 0, 0], "scale": 1.7, "yaw": 90, "release_seconds": 0.75},
+  "projectile": {
+    "scale": 2.8,
+    "trail_seconds": 1.4,
+    "trail_color": "#f6ecd2",
+    "trail_width": 0.5,
+    "flame_color": "#ff9a2a",
+    "mark_color": "#5a4632",
+    "marks": 4
+  },
+  "preview": {"dot_size": 0.8, "color": "#ffd24a", "dots": 14},
+  "camera": {
+    "fov": 32,
+    "aim": {"position": [-60, 8, 50], "target": [90, 8, -20]},
+    "castle": {"position": [104, 40, 60], "target": [161, 6, -4]},
+    "glide": 2.4,
+    "follow_pull": [0, 14, 50],
+    "follow_look": 0.35,
+    "shake": 0.5
+  },
+  "fire": {"color": "#ffa02a", "smoke": "#4a4038b0", "amount": 26, "lifetime": 1.2},
+  "dust": {"stone": "#cbbfa6c0", "wood": "#8a6a48c0", "amount": 40, "lifetime": 1.6},
+  "falling": {"seconds": 3.5, "sink_seconds": 1.2, "push": 4.0, "spin": 1.6, "rubble_scale": 1.1},
+  "rubble": {"stone": "siege_rubble_stone", "wood": "siege_rubble_wood", "earth": "siege_rubble_stone"},
+  "charred": "#1a120cb0",
+  "rings": {
+    "wood": {"segment": "siege_palisade", "scale": [1, 1, 1], "tower": "", "tower_scale": 1.0},
+    "stone": {"segment": "siege_wall", "scale": [1, 1, 1], "tower": "siege_wall_tower", "tower_scale": 1.0},
+    "stone_small": {
+      "segment": "siege_wall",
+      "scale": [1, 0.857, 0.78],
+      "tower": "siege_wall_tower",
+      "tower_scale": 0.85
+    }
+  },
+  "layouts": {
+    "province_1": {
+      "ring": {"style": "wood", "front": 0.95, "back": 21.7, "half_width": 23.0, "gate_half": 3.05},
+      "parts": {
+        "gate": {"piece": "siege_palisade_gate"},
+        "tower": {"piece": "castle_wood_tower"},
+        "palisade_back": {"piece": "siege_palisade"}
+      },
+      "decor": []
+    },
+    "province_2": {
+      "ring": {"style": "stone_small", "front": 2.625, "back": 25.2, "half_width": 17.0, "gate_half": 5.1},
+      "parts": {
+        "gate": {"piece": "castle_gatehouse", "scale": 0.75},
+        "hoarding": {"piece": "siege_hoarding", "scale": 0.75},
+        "hall": {"piece": "castle_wood_hall"},
+        "keep": {"piece": "castle_keep"},
+        "wall_back": {"piece": "siege_wall", "scale": [1, 0.857, 0.78]}
+      },
+      "decor": []
+    },
+    "province_3": {
+      "ring": {"style": "stone", "front": 3.5, "back": 41.1, "half_width": 28.0, "gate_half": 6.8},
+      "parts": {
+        "gate": {"piece": "castle_gatehouse"},
+        "hoarding": {"piece": "siege_hoarding"},
+        "hall": {"piece": "castle_wood_hall"},
+        "keep": {"piece": "castle_keep"},
+        "wall_back": {"piece": "siege_wall"}
+      },
+      "decor": [{"piece": "castle_wood_hall", "at": [13.5, 0, -16], "yaw": -90}]
+    },
+    "home_1": {
+      "ring": {"style": "wood", "front": 0.95, "back": 36.7, "half_width": 23.0, "gate_half": 3.05},
+      "parts": {
+        "gate": {"piece": "siege_palisade_gate"},
+        "hall": {"piece": "castle_wood_hall"},
+        "motte": {"piece": "castle_motte"},
+        "tower": {"piece": "castle_wood_tower"},
+        "palisade_back": {"piece": "siege_palisade"}
+      },
+      "decor": []
+    },
+    "home_2": {
+      "ring": {"style": "wood", "front": 0.95, "back": 36.7, "half_width": 23.0, "gate_half": 3.05},
+      "parts": {
+        "gate": {"piece": "siege_palisade_gate"},
+        "hall": {"piece": "castle_wood_hall"},
+        "motte": {"piece": "castle_motte"},
+        "keep": {"piece": "castle_keep"},
+        "palisade_back": {"piece": "siege_palisade"}
+      },
+      "decor": []
+    },
+    "home_3": {
+      "ring": {"style": "stone", "front": 3.5, "back": 41.1, "half_width": 28.0, "gate_half": 6.8},
+      "parts": {
+        "gate": {"piece": "castle_gatehouse"},
+        "hoarding": {"piece": "siege_hoarding"},
+        "hall": {"piece": "castle_wood_hall"},
+        "motte": {"piece": "castle_motte"},
+        "keep": {"piece": "castle_keep"},
+        "wall_back": {"piece": "siege_wall"}
+      },
+      "decor": []
+    },
+    "home_4": {
+      "ring": {"style": "stone", "front": 3.5, "back": 41.1, "half_width": 28.0, "gate_half": 6.8},
+      "parts": {
+        "gate": {"piece": "castle_gatehouse"},
+        "hoarding": {"piece": "siege_hoarding"},
+        "palas": {"piece": "castle_palas"},
+        "motte": {"piece": "castle_motte"},
+        "keep": {"piece": "castle_keep"},
+        "wall_back": {"piece": "siege_wall"}
+      },
+      "decor": [{"piece": "castle_chapel", "at": [15, 0, -17], "yaw": 0}]
+    },
+    "home_5": {
+      "ring": {
+        "style": "stone",
+        "front": 3.5,
+        "back": 41.1,
+        "half_width": 28.0,
+        "gate_half": 6.8,
+        "roofs": "castle_tower_roof"
+      },
+      "parts": {
+        "gate": {"piece": "castle_gatehouse"},
+        "hoarding": {"piece": "siege_hoarding"},
+        "pfalz": {"piece": "castle_pfalz"},
+        "motte": {"piece": "castle_motte"},
+        "keep": {"piece": "castle_keep"},
+        "spire": {"piece": "castle_keep_spire"},
+        "wall_back": {"piece": "siege_wall"}
+      },
+      "decor": [
+        {"piece": "castle_chapel", "at": [15, 0, -17], "yaw": 0},
+        {"piece": "castle_tower_roof", "at": [1.1, 13, 4.6], "scale": 0.846, "attach": "gate"},
+        {"piece": "castle_tower_roof", "at": [1.1, 13, -4.6], "scale": 0.846, "attach": "gate"}
+      ]
+    }
+  }
+}
