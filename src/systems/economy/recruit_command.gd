@@ -34,6 +34,12 @@ func _init(
 	army_id = target_army
 
 
+## Taler one company of the unit costs the house (house modifiers applied).
+static func unit_cost(cfg: EconomyConfig, house_id: String, unit_id: String) -> float:
+	var multiplier: float = cfg.houses[house_id].unit_cost.get(unit_id, 1.0)
+	return cfg.units[unit_id].cost * multiplier
+
+
 func validate(state: GameState) -> String:
 	var error := super(state)
 	if error.is_empty():
@@ -62,8 +68,7 @@ func apply(state: GameState) -> void:
 
 
 func _cost() -> float:
-	var multiplier: float = _config.houses[house].unit_cost.get(unit, 1.0)
-	return _config.units[unit].cost * multiplier
+	return unit_cost(_config, house, unit)
 
 
 func _check_unit(state: GameState) -> String:

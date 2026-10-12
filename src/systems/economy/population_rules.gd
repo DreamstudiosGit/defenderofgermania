@@ -15,19 +15,37 @@ static func target_satisfaction(
 	is_occupied: bool,
 	is_banned: bool
 ) -> float:
-	var target := (
-		cfg.satisfaction_base
-		- cfg.tax_weight * (tax_percent - cfg.tax_pivot)
-		+ cfg.ration_weight * (ration - cfg.normal_ration)
-		+ bonus
-		+ prestige / cfg.prestige_divisor
-		+ cfg.home_castle_bonus * maxi(home_castle_level - 1, 0)
+	var parts := target_satisfaction_parts(
+		cfg, tax_percent, ration, bonus, prestige, home_castle_level, is_occupied, is_banned
 	)
-	if is_occupied:
-		target -= cfg.occupation_penalty
-	if is_banned:
-		target -= cfg.ban_penalty
+	var target := 0.0
+	for part: float in parts.values():
+		target += part
 	return clampf(target, 0.0, cfg.satisfaction_max)
+
+
+## The summands of Z* before clamping, in formula order: base, tax, ration, bonus, prestige,
+## home_castle, occupation, ban.
+static func target_satisfaction_parts(
+	cfg: EconomyConfig,
+	tax_percent: int,
+	ration: int,
+	bonus: float,
+	prestige: float,
+	home_castle_level: int,
+	is_occupied: bool,
+	is_banned: bool
+) -> Dictionary[String, float]:
+	return {
+		"base": cfg.satisfaction_base,
+		"tax": -cfg.tax_weight * (tax_percent - cfg.tax_pivot),
+		"ration": cfg.ration_weight * (ration - cfg.normal_ration),
+		"bonus": bonus,
+		"prestige": prestige / cfg.prestige_divisor,
+		"home_castle": cfg.home_castle_bonus * maxi(home_castle_level - 1, 0),
+		"occupation": -cfg.occupation_penalty if is_occupied else 0.0,
+		"ban": -cfg.ban_penalty if is_banned else 0.0,
+	}
 
 
 static func next_satisfaction(cfg: EconomyConfig, current: float, target: float) -> float:

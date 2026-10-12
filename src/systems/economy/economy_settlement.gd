@@ -55,7 +55,7 @@ static func _settle_house(
 				0.0, province.satisfaction - GrainRules.shortage_satisfaction_loss(cfg, covered)
 			)
 			province.population *= GrainRules.shortage_population_factor(cfg, covered)
-	var reduction := _building_sum(cfg, owned, "spoilage_reduction")
+	var reduction := building_sum(cfg, owned, "spoilage_reduction")
 	house.grain *= 1.0 - GrainRules.spoilage_rate(cfg, reduction)
 
 	for province: ProvinceState in owned:
@@ -96,7 +96,7 @@ static func _income(
 		total += IncomeRules.market(
 			cfg,
 			province.population,
-			_market_level(cfg, province),
+			market_level(cfg, province),
 			modifiers.market_multiplier,
 			is_autumn,
 			province.satisfaction
@@ -149,7 +149,7 @@ static func _harvest(
 			province.population,
 			map.terrains[def.terrain].field_yield,
 			state.weather[def.region],
-			_building_sum(cfg, [province], "harvest_bonus"),
+			building_sum(cfg, [province], "harvest_bonus"),
 			province.occupied_rounds > 0 or province.in_revolt
 		)
 	return total
@@ -175,7 +175,7 @@ static func _target_satisfaction(
 ) -> float:
 	var def := map.provinces[province.id]
 	var is_home := province.id == house.home_province
-	var bonus := _building_sum(cfg, [province], "satisfaction") + def.satisfaction_bonus
+	var bonus := building_sum(cfg, [province], "satisfaction") + def.satisfaction_bonus
 	if is_home:
 		for id: String in house.decorations:
 			bonus += cfg.decorations[id].satisfaction
@@ -194,7 +194,7 @@ static func _target_satisfaction(
 static func _running_prestige(
 	cfg: EconomyConfig, house: HouseState, owned: Array[ProvinceState]
 ) -> float:
-	var total := _building_sum(cfg, owned, "prestige")
+	var total := building_sum(cfg, owned, "prestige")
 	var home := owned.filter(
 		func(province: ProvinceState) -> bool: return province.id == house.home_province
 	)
@@ -215,26 +215,28 @@ static func _census(
 			cfg,
 			province.satisfaction,
 			house.ration,
-			_building_sum(cfg, [province], "growth"),
+			building_sum(cfg, [province], "growth"),
 			0.0
 		)
 		var limit := PopulationRules.capacity(
 			cfg,
 			map.provinces[province.id].population,
 			province.castle_level,
-			_market_level(cfg, province)
+			market_level(cfg, province)
 		)
 		province.population = PopulationRules.next_population(province.population, growth, limit)
 
 
-static func _market_level(cfg: EconomyConfig, province: ProvinceState) -> int:
+## Highest market level among the province's finished buildings (0 without a market).
+static func market_level(cfg: EconomyConfig, province: ProvinceState) -> int:
 	var level := 0
 	for id: String in province.buildings:
 		level = maxi(level, cfg.buildings[id].market_level)
 	return level
 
 
-static func _building_sum(
+## Sum of a BuildingDef property over the finished buildings of the provinces.
+static func building_sum(
 	cfg: EconomyConfig, provinces: Array[ProvinceState], property: StringName
 ) -> float:
 	var total := 0.0
