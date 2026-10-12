@@ -7,6 +7,7 @@ Ported from the GDD sections "Reichskarte", "Armeen auf der Karte", "Belagerung"
 - Start owners: each house holds two provinces, one of them its home castle (Welfen Brunswick, Wettiner Meissen, Staufer Swabia, Wittelsbacher Bavaria); 7 provinces belong to electors, 6 to church princes, 10 to neutral lords.
 - Church lands (attacking them risks the ban): Bremen, Magdeburg, Münster, Osnabrück, Franconia, Salzburg and the elector archbishoprics Cologne, Mainz and Trier.
 - Coronation site Aachen, emergency coronation in Mainz, imperial regalia on Trifels (Speyer & Trifels) — the Rhine decides the game.
+- Each province has a rough real centre (`at`, longitude/latitude) and the realm an outline (`geography`); `MapGeography` projects them to kilometres for the map table. Tests check that neighbours lie within 300 km, that the closest province is always a neighbour and that every centre lies inside the realm.
 - Neutral provinces and electors defend with ⌈V/20⌉ companies (Bohemia 8). Rivers and passes allow toll stations.
 
 ## Terrain

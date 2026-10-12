@@ -12,3 +12,4 @@
 - 2026-10-12 docs(combat): describe the M2 battle look
 - 2026-10-12 feat(combat): M2 — house colour masks, crests per house and house shields; drop blue/red units
 - 2026-10-12 docs(combat): M2 done — screenshots, ADR 0006 house colour masks, status and design questions
+- 2026-10-12 feat(map): M3 step 1 — province centres and realm outline, checked against the adjacency list

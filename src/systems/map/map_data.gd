@@ -16,6 +16,7 @@ var house_colors: Dictionary[String, PackedColorArray] = {}
 var start_army: Array[String] = []
 var campaign: CampaignRules
 var crown: CrownData
+var geography: MapGeography
 var terrains: Dictionary[String, TerrainDef] = {}
 var provinces: Dictionary[String, ProvinceDef] = {}
 
@@ -45,6 +46,8 @@ class ProvinceDef:
 	var tax_cap: int = 100
 	var fixed_income: float = 0.0
 	var tags: Array[String] = []
+	## Rough real centre as longitude and latitude (degrees); MapGeography projects it.
+	var at := Vector2.ZERO
 	## Favour of the province's lord (elector or neutral) per house where it differs from
 	## CrownData.favour_default.
 	var start_favour: Dictionary[String, float] = {}
@@ -86,6 +89,8 @@ func validate() -> PackedStringArray:
 			errors.append("%s: unknown terrain '%s'" % [where, province.terrain])
 		if province.owner not in houses and province.owner not in NON_HOUSE_OWNERS:
 			errors.append("%s: unknown owner '%s'" % [where, province.owner])
+		if not geography.contains(province.at):
+			errors.append("%s: centre %s lies outside the realm" % [where, province.at])
 		if province.population <= 0.0:
 			errors.append("%s: population must be positive" % where)
 		if not province.home_of.is_empty():
@@ -199,6 +204,7 @@ func _read(reader: DataReader, data: Dictionary) -> void:
 	campaign = CampaignRules.read(reader, campaign_data)
 	reader.context = ""
 	crown = CrownData.read(reader, reader.object(data, "crown"))
+	geography = MapGeography.read(reader, reader.object(data, "geography"))
 	var terrain_data := reader.object(data, "terrains")
 	for id: String in terrain_data:
 		reader.context = "terrains.%s" % id
@@ -225,6 +231,7 @@ func _read_province(reader: DataReader, entry: Dictionary) -> ProvinceDef:
 	if province.id.is_empty():
 		reader.errors.append("%s: missing id" % reader.context)
 	province.region = reader.text(entry, "region")
+	province.at = MapGeography.lon_lat(reader, entry, "at")
 	province.owner = reader.text(entry, "owner")
 	province.terrain = reader.text(entry, "terrain")
 	province.population = reader.number(entry, "population")
