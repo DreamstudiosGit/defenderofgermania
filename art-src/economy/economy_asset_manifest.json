@@ -1,0 +1,681 @@
+[
+  {
+    "file": "building_granary.glb",
+    "triangles": 740,
+    "budget": 3000,
+    "dimensions_blender": [
+      9.49,
+      6.37,
+      9.23
+    ],
+    "materials": [
+      "castle_linen",
+      "castle_stone",
+      "castle_stone_light",
+      "castle_thatch",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "building_market_1.glb",
+    "triangles": 756,
+    "budget": 3000,
+    "dimensions_blender": [
+      12.0,
+      9.0,
+      3.02
+    ],
+    "materials": [
+      "castle_awning",
+      "castle_glass_gold",
+      "castle_hedge",
+      "castle_linen",
+      "castle_rose",
+      "castle_stone_light",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "building_market_2.glb",
+    "triangles": 1640,
+    "budget": 3000,
+    "dimensions_blender": [
+      12.0,
+      9.73,
+      12.16
+    ],
+    "materials": [
+      "castle_awning",
+      "castle_dark",
+      "castle_glass_gold",
+      "castle_gold",
+      "castle_hedge",
+      "castle_linen",
+      "castle_plaster",
+      "castle_roof_tile",
+      "castle_rose",
+      "castle_slate",
+      "castle_stone",
+      "castle_stone_light",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "building_mill.glb",
+    "triangles": 992,
+    "budget": 3000,
+    "dimensions_blender": [
+      8.85,
+      11.1,
+      8.43
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_linen",
+      "castle_plaster",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_thatch",
+      "castle_timber",
+      "castle_water",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "building_mine.glb",
+    "triangles": 536,
+    "budget": 3000,
+    "dimensions_blender": [
+      14.27,
+      18.5,
+      5.03
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_earth",
+      "castle_grass",
+      "castle_iron",
+      "castle_rock",
+      "castle_shingle",
+      "castle_stone_dark",
+      "castle_timber",
+      "castle_wood"
+    ]
+  },
+  {
+    "file": "building_monastery.glb",
+    "triangles": 786,
+    "budget": 3000,
+    "dimensions_blender": [
+      21.1,
+      23.2,
+      27.05
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_earth",
+      "castle_gold",
+      "castle_grass",
+      "castle_hedge",
+      "castle_plaster",
+      "castle_roof_tile",
+      "castle_slate",
+      "castle_stone",
+      "castle_stone_light",
+      "castle_timber"
+    ]
+  },
+  {
+    "file": "building_toll.glb",
+    "triangles": 552,
+    "budget": 3000,
+    "dimensions_blender": [
+      14.6,
+      6.29,
+      8.2
+    ],
+    "materials": [
+      "castle_awning",
+      "castle_dark",
+      "castle_linen",
+      "castle_plaster",
+      "castle_roof_tile",
+      "castle_shingle",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_timber",
+      "castle_wood",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "building_tourney_ground.glb",
+    "triangles": 1184,
+    "budget": 3000,
+    "dimensions_blender": [
+      44.95,
+      18.64,
+      6.66
+    ],
+    "materials": [
+      "castle_gold",
+      "castle_linen",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "building_workshop.glb",
+    "triangles": 824,
+    "budget": 3000,
+    "dimensions_blender": [
+      16.2,
+      9.2,
+      8.73
+    ],
+    "materials": [
+      "castle_linen",
+      "castle_plaster",
+      "castle_shingle",
+      "castle_stone",
+      "castle_stone_light",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_banner.glb",
+    "triangles": 120,
+    "budget": 3000,
+    "dimensions_blender": [
+      1.9,
+      0.44,
+      8.95
+    ],
+    "materials": [
+      "castle_gold",
+      "castle_timber",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "castle_building_site.glb",
+    "triangles": 356,
+    "budget": 3000,
+    "dimensions_blender": [
+      6.23,
+      4.56,
+      1.19
+    ],
+    "materials": [
+      "castle_linen",
+      "castle_stone_light",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_chapel.glb",
+    "triangles": 1042,
+    "budget": 3000,
+    "dimensions_blender": [
+      7.2,
+      17.17,
+      21.25
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_gold",
+      "castle_slate",
+      "castle_stone",
+      "castle_stone_light",
+      "castle_timber"
+    ]
+  },
+  {
+    "file": "castle_crane.glb",
+    "triangles": 516,
+    "budget": 3000,
+    "dimensions_blender": [
+      8.71,
+      4.0,
+      8.73
+    ],
+    "materials": [
+      "castle_linen",
+      "castle_stone_light",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_curtain_wall.glb",
+    "triangles": 2448,
+    "budget": 3000,
+    "dimensions_blender": [
+      44.65,
+      44.65,
+      11.35
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_stone",
+      "castle_stone_light"
+    ]
+  },
+  {
+    "file": "castle_fountain.glb",
+    "triangles": 272,
+    "budget": 3000,
+    "dimensions_blender": [
+      6.6,
+      6.6,
+      3.65
+    ],
+    "materials": [
+      "castle_gold",
+      "castle_stone",
+      "castle_stone_light",
+      "castle_water"
+    ]
+  },
+  {
+    "file": "castle_gatehouse.glb",
+    "triangles": 704,
+    "budget": 3000,
+    "dimensions_blender": [
+      14.16,
+      12.8,
+      13.95
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_iron",
+      "castle_stone",
+      "castle_stone_light",
+      "castle_wood",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "castle_keep.glb",
+    "triangles": 1080,
+    "budget": 3000,
+    "dimensions_blender": [
+      7.8,
+      8.9,
+      20.74
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_gold",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_stone_light",
+      "castle_timber",
+      "castle_wood",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "castle_keep_spire.glb",
+    "triangles": 590,
+    "budget": 3000,
+    "dimensions_blender": [
+      9.8,
+      9.8,
+      15.65
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_gold",
+      "castle_stone_light",
+      "castle_timber",
+      "house_primary"
+    ]
+  },
+  {
+    "file": "castle_motte.glb",
+    "triangles": 368,
+    "budget": 3000,
+    "dimensions_blender": [
+      17.8,
+      21.12,
+      5.23
+    ],
+    "materials": [
+      "castle_earth",
+      "castle_grass",
+      "castle_timber",
+      "castle_wood"
+    ]
+  },
+  {
+    "file": "castle_palas.glb",
+    "triangles": 456,
+    "budget": 3000,
+    "dimensions_blender": [
+      13.9,
+      8.1,
+      14.72
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_roof_tile",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_stone_light",
+      "castle_timber"
+    ]
+  },
+  {
+    "file": "castle_palisade.glb",
+    "triangles": 2116,
+    "budget": 3000,
+    "dimensions_blender": [
+      32.3,
+      38.36,
+      6.9
+    ],
+    "materials": [
+      "castle_shingle",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_palisade_small.glb",
+    "triangles": 1396,
+    "budget": 3000,
+    "dimensions_blender": [
+      22.18,
+      23.29,
+      6.9
+    ],
+    "materials": [
+      "castle_shingle",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_pennant.glb",
+    "triangles": 92,
+    "budget": 3000,
+    "dimensions_blender": [
+      3.71,
+      0.26,
+      4.65
+    ],
+    "materials": [
+      "castle_gold",
+      "castle_timber",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "castle_pfalz.glb",
+    "triangles": 1228,
+    "budget": 3000,
+    "dimensions_blender": [
+      22.8,
+      17.42,
+      21.71
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_gold",
+      "castle_slate",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_stone_light",
+      "castle_timber",
+      "house_primary"
+    ]
+  },
+  {
+    "file": "castle_rose_garden.glb",
+    "triangles": 1312,
+    "budget": 3000,
+    "dimensions_blender": [
+      8.5,
+      6.5,
+      3.2
+    ],
+    "materials": [
+      "castle_earth",
+      "castle_hedge",
+      "castle_linen",
+      "castle_rose",
+      "castle_rose_pink",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_scaffold.glb",
+    "triangles": 108,
+    "budget": 3000,
+    "dimensions_blender": [
+      3.2,
+      1.36,
+      3.2
+    ],
+    "materials": [
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_site_hut.glb",
+    "triangles": 56,
+    "budget": 3000,
+    "dimensions_blender": [
+      4.2,
+      3.0,
+      2.9
+    ],
+    "materials": [
+      "castle_shingle",
+      "castle_timber"
+    ]
+  },
+  {
+    "file": "castle_stained_glass.glb",
+    "triangles": 596,
+    "budget": 3000,
+    "dimensions_blender": [
+      6.34,
+      16.96,
+      8.36
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_glass_blue",
+      "castle_glass_gold",
+      "castle_glass_green",
+      "castle_glass_red"
+    ]
+  },
+  {
+    "file": "castle_tapestry.glb",
+    "triangles": 244,
+    "budget": 3000,
+    "dimensions_blender": [
+      2.29,
+      0.22,
+      3.96
+    ],
+    "materials": [
+      "castle_gold",
+      "castle_timber",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "castle_tower_roof.glb",
+    "triangles": 90,
+    "budget": 3000,
+    "dimensions_blender": [
+      6.37,
+      6.7,
+      9.35
+    ],
+    "materials": [
+      "castle_gold",
+      "castle_stone_light",
+      "house_primary"
+    ]
+  },
+  {
+    "file": "castle_wall_small.glb",
+    "triangles": 2100,
+    "budget": 3000,
+    "dimensions_blender": [
+      25.7,
+      25.7,
+      9.8
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_stone",
+      "castle_stone_light"
+    ]
+  },
+  {
+    "file": "castle_wood_hall.glb",
+    "triangles": 176,
+    "budget": 3000,
+    "dimensions_blender": [
+      10.0,
+      6.2,
+      6.4
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_stone_dark",
+      "castle_thatch",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "castle_wood_tower.glb",
+    "triangles": 368,
+    "budget": 3000,
+    "dimensions_blender": [
+      6.4,
+      6.4,
+      13.06
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_gold",
+      "castle_shingle",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light",
+      "house_primary",
+      "house_secondary"
+    ]
+  },
+  {
+    "file": "settlement_cottage.glb",
+    "triangles": 104,
+    "budget": 3000,
+    "dimensions_blender": [
+      5.0,
+      4.42,
+      4.9
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_plaster",
+      "castle_thatch",
+      "castle_timber",
+      "castle_wood"
+    ]
+  },
+  {
+    "file": "settlement_house.glb",
+    "triangles": 380,
+    "budget": 3000,
+    "dimensions_blender": [
+      5.8,
+      4.9,
+      6.72
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_plaster",
+      "castle_roof_tile",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_timber"
+    ]
+  },
+  {
+    "file": "settlement_longhouse.glb",
+    "triangles": 288,
+    "budget": 3000,
+    "dimensions_blender": [
+      11.2,
+      7.37,
+      5.1
+    ],
+    "materials": [
+      "castle_thatch",
+      "castle_timber",
+      "castle_wood",
+      "castle_wood_light"
+    ]
+  },
+  {
+    "file": "settlement_townhouse.glb",
+    "triangles": 488,
+    "budget": 3000,
+    "dimensions_blender": [
+      5.7,
+      6.4,
+      10.2
+    ],
+    "materials": [
+      "castle_dark",
+      "castle_gold",
+      "castle_iron",
+      "castle_plaster",
+      "castle_roof_tile",
+      "castle_stone",
+      "castle_stone_dark",
+      "castle_stone_light",
+      "castle_timber",
+      "castle_wood_light"
+    ]
+  }
+]
