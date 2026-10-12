@@ -16,6 +16,8 @@ static func update(
 		var stats := state.stats[c]
 		if stats.ranged <= 0.0 or stats.attack_range <= 0.0:
 			continue
+		if state.group[c] == BattleState.Group.SIEGE:
+			continue
 		if state.status[c] != BattleState.Status.ACTIVE:
 			continue
 		var rule := rules.formation(state.group[c], state.formation[c])

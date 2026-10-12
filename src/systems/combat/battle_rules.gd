@@ -42,7 +42,14 @@ var pick_radius: float
 var volleys: int
 var volley_interval: float
 
-## Two per group in CombatConfig.GROUPS order; siege reuses the infantry formations.
+## Seconds a trebuchet stone flies before it lands on the target circle.
+var siege_flight_seconds: float
+## Meters per second the stick moves a trebuchet's target circle.
+var siege_aim_speed: float
+## Distance ahead of a deployed engine where its target circle starts.
+var siege_start_aim: float
+
+## Two per group in CombatConfig.GROUPS order; siege reuses the infantry formations if absent.
 var formations: Array[FormationRules] = []
 ## x, y = center on the field, z = radius; obstacle_kinds is parallel ("tree", "rock").
 var obstacles: PackedVector3Array = []
@@ -62,6 +69,8 @@ class FormationRules:
 	var volley: float
 	var reload: float
 	var auto_fire: bool
+	## False for a packed siege engine, which drives but cannot shoot.
+	var can_fire: bool
 	var cavalry_damage_taken: float
 	## Attacks from further off the facing than this hit the flank or rear.
 	var front_half_angle: float
@@ -209,6 +218,10 @@ func _read_attacks(r: DataReader, data: Dictionary) -> void:
 	var volley_data := r.object(data, "volleys")
 	volleys = r.integer(volley_data, "count")
 	volley_interval = r.number(volley_data, "interval")
+	var siege := r.object(data, "siege")
+	siege_flight_seconds = r.number(siege, "flight_seconds")
+	siege_aim_speed = r.number(siege, "aim_speed")
+	siege_start_aim = r.number(siege, "start_aim_distance")
 
 
 func _read_formations(r: DataReader, data: Dictionary) -> void:
@@ -237,6 +250,7 @@ func _read_formation(r: DataReader, entry: Dictionary) -> FormationRules:
 	rule.volley = r.number(entry, "volley", 1.0)
 	rule.reload = r.number(entry, "reload", 1.0)
 	rule.auto_fire = r.flag(entry, "auto_fire")
+	rule.can_fire = not entry.has("fires") or r.flag(entry, "fires")
 	rule.cavalry_damage_taken = r.number(entry, "cavalry_damage_taken", 1.0)
 	rule.front_half_angle = deg_to_rad(r.number(entry, "front_half_angle_deg"))
 	return rule

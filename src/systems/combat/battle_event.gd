@@ -3,7 +3,9 @@ extends RefCounted
 ## Something the presentation should show (shouts, volleys, impacts); events live for one tick
 ## and are not part of the battle state.
 
-enum Kind { FIGHT_START, CHARGE, HEDGEHOG, FORMATION, ROUT, RALLY, IMPACT, VOLLEY, LEADER_CAPTURED }
+enum Kind {
+	FIGHT_START, CHARGE, HEDGEHOG, FORMATION, ROUT, RALLY, IMPACT, VOLLEY, LEADER_CAPTURED, SHOT, BLAST
+}
 
 var kind: Kind
 var side: int

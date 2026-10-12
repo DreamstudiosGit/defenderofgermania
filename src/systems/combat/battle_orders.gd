@@ -19,6 +19,8 @@ static func apply(
 	if fighting and input.rally:
 		BattleMorale.rally(state, rules, s)
 	var members := state.active_members(s, g)
+	if g == BattleState.Group.SIEGE and _siege(state, rules, s, members, input, fighting):
+		return
 	if input.command_point and input.point.is_finite():
 		var point := input.point.clamp(Vector2.ZERO, rules.field_size)
 		var target := -1
@@ -37,6 +39,34 @@ static func apply(
 	elif state.stick_held[s] != 0:
 		_release_stick(state, members)
 	state.stick_held[s] = 1 if held else 0
+
+
+## Deployed engines aim with the stick or a right-click and throw on attack. Returns false for
+## packed engines, which drive like any other company.
+static func _siege(
+	state: BattleState,
+	rules: BattleRules,
+	s: int,
+	members: PackedInt32Array,
+	input: BattleInput,
+	fighting: bool
+) -> bool:
+	var engines := PackedInt32Array()
+	for c: int in members:
+		if rules.formation(state.group[c], state.formation[c]).can_fire:
+			engines.append(c)
+	if engines.is_empty():
+		return false
+	if input.command_point and input.point.is_finite():
+		BattleSiege.aim_at(state, rules, engines, input.point)
+	var move := input.move.limit_length(1.0) if input.move.is_finite() else Vector2.ZERO
+	var held := move.length() > STICK_DEADZONE
+	if held:
+		BattleSiege.move_aim(state, rules, engines, move)
+	state.stick_held[s] = 1 if held else 0
+	if fighting and input.attack:
+		BattleSiege.fire(state, engines)
+	return true
 
 
 ## Group ids the side can still command, in shield order.
@@ -93,7 +123,8 @@ static func _attack(
 	for c: int in members:
 		# The leader moves with the cavalry but stays out of its charges: an aura and a rally
 		# point, not a battering ram (captured in 21 of 24 computer battles otherwise).
-		if rules.formation(g, state.formation[c]).speed <= 0.0 or state.is_leader(c):
+		var still := rules.formation(g, state.formation[c]).speed <= 0.0
+		if still or state.is_leader(c) or g == BattleState.Group.SIEGE:
 			continue
 		var stats := state.stats[c]
 		if stats.ranged > 0.0 and stats.attack_range > 0.0:

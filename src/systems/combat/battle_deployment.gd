@@ -27,6 +27,11 @@ static func place(
 	state.facing[company] = angle
 	state.order[company] = BattleState.Order.HOLD
 	state.order_point[company] = at
+	if state.group[company] == BattleState.Group.SIEGE:
+		var reach := minf(state.stats[company].attack_range, rules.siege_start_aim)
+		state.aim_point[company] = (at + Vector2.from_angle(angle) * reach).clamp(
+			Vector2.ZERO, rules.field_size
+		)
 	var slots := company_slots(state, rules, company)
 	for k: int in slots.size():
 		var f := state.fig_start[company] + k
@@ -109,6 +114,9 @@ static func _add_company(
 	state.reload_timer.append(0.0)
 	state.volley_cooldown.append(0.0)
 	state.fire_pending.append(0)
+	state.aim_point.append(Vector2.ZERO)
+	state.shot_point.append(Vector2.ZERO)
+	state.shot_timer.append(-1.0)
 	state.contact.append(-1)
 	state.last_contact_tick.append(BattleState.NO_TICK)
 	state.fig_start.append(0)
@@ -199,4 +207,6 @@ static func _spawn_figures(
 				Vector2(rng.randf_range(-jitter, jitter), rng.randf_range(-jitter, jitter))
 			)
 			state.fig_pos.append(state.pos[c])
-		state.bolts[c] = rules.volleys if state.stats[c].ranged > 0.0 else 0
+		# Crossbows hold rules.volleys volleys; a siege engine holds one loaded stone.
+		var loads := 1 if state.group[c] == BattleState.Group.SIEGE else rules.volleys
+		state.bolts[c] = loads if state.stats[c].ranged > 0.0 else 0

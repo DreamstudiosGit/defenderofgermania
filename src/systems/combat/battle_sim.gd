@@ -58,6 +58,7 @@ func step(attacker_input: BattleInput, defender_input: BattleInput) -> void:
 	_damage.resize(state.company_count())
 	_damage.fill(0.0)
 	BattleRanged.update(state, rules, _company_grid, _damage, dt)
+	BattleSiege.update(state, rules, _damage, dt)
 	BattleMelee.update(state, rules, _damage, dt)
 	BattleMorale.update(state, rules, _damage, dt)
 	BattleOutcome.update(state, cfg, setup)

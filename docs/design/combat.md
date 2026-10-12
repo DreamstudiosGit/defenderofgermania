@@ -22,17 +22,18 @@ Every battle can be auto-resolved; AI against AI always is.
 - An empty defender loses without a fight.
 
 ## Battle module (prototype P1)
-Real-time battle from the GDD "Schlacht-Modul": simulation in `src/systems/combat/battle_*.gd`, presentation in `src/render/battle/` (main scene `battle_main.tscn`), HUD and menus in `src/ui/battle/`. All constants and the default armies (Wittelsbacher attacking Welfen — south against north, blue against red — each 2 spearmen, 2 crossbowmen, 2 knights and a leader with leadership 3) are in the `battle` section of `data/combat.json`; their colours are the house colours from `data/map.json` (`BattleRules.apply_house_colors`). Blender models still carry blue and red team markings until house colour masks arrive (M2); scenery presets, camera framing and visual animation parameters live in `data/combat_art.json`.
+Real-time battle from the GDD "Schlacht-Modul": simulation in `src/systems/combat/battle_*.gd`, presentation in `src/render/battle/` (main scene `battle_main.tscn`), HUD and menus in `src/ui/battle/`. All constants and the default armies (Wittelsbacher attacking Welfen — south against north, blue against red — each 2 spearmen, 2 crossbowmen, 2 knights, a trebuchet and a leader with leadership 3) are in the `battle` section of `data/combat.json`; their colours are the house colours from `data/map.json` (`BattleRules.apply_house_colors`). Blender models still carry blue and red team markings until house colour masks arrive (M2); scenery presets, camera framing and visual animation parameters live in `data/combat_art.json`.
 
 ### Simulation
 - Fixed 30 Hz tick, deterministic: the state is packed arrays (`BattleState`), each side sends one `BattleInput` per tick, devices never reach the simulation. No chance in combat (pillar "skill over dice"); the seed only jitters figure positions. Same setup, seed and inputs give the same `BattleResult` and `BattleState.checksum()`.
-- Field 300 × 180 m, attacker left, defender right; 20 s deployment inside the own 80 m zone, then at most 240 s of fight. Computer battles fight 2–4 minutes (12 seeds: 126–260 s including deployment, median 157 s; the defender won 10 of 12).
+- Field 300 × 180 m, attacker left, defender right; 20 s deployment inside the own 80 m zone, then at most 240 s of fight. Computer battles fight 2–4 minutes (12 seeds: 143–205 s including deployment, median 165 s; each side won 6).
 - A company is a squad of its unit's `figures` in formation. Figures follow their formation slots, push each other apart and meet in melee through a 3 m bucket grid of figures; companies stop when they touch an enemy.
-- The player commands one group; the other groups keep their last order (a running charge or march finishes) and otherwise hold and fight back. Siege has no formations of its own yet and uses the infantry's.
+- The player commands one group; the other groups keep their last order (a running charge or march finishes) and otherwise hold and fight back.
 
 ### Attacks
 - Infantry charges the nearest enemy within ±60° of its facing (else the nearest enemy) until contact; a charge ends when the target flees or dies.
 - Archers: a company holds 3 volleys (the bolt marks) and reloads one per `reload` seconds. Line fires one full volley per attack command; staggered fires half volleys on its own, reloading in half the time. A volley hits the target within ±30° of the facing and in range: `max(1, 14 − armor × 0.5)` per company.
+- Trebuchets: a deployed engine shows a target circle (splash radius 6 m) within its 250 m range; the left stick moves it at 30 m/s, a right-click puts it on a point. Attack throws as soon as the engine is loaded (one stone, 20 s reload); the stone lands 3 s later and hits every enemy company by the share of its standing figures inside the circle: `max(1, 60 − armor) × inside / standing × cover`. Stones in flight land even if their engine falls. The computer throws at the enemy company with the most standing figures in range.
 - Cavalry charges straight ahead (or straight at a right-clicked enemy) for up to 100 m, accelerating at 4 m/s² to its charge speed. The leader moves with the cavalry but never charges; it fights only when attacked (otherwise it was captured in 21 of 24 computer battles). Impact on the first enemy touched: `max(1, melee × formation impact × charge multiplier − armor) × 3 s × min(1, run / 30 m)`; knights' charge multiplier (×2) needs at least 5 m/s. Then normal melee.
 - Melee per second: `max(1, melee − armor)`, spearmen ×2.5 against cavalry (knights and leader); hedgehogs take half damage from cavalry. After the impact the riders keep fighting the company they hit.
 - Cover: a company whose center is within 4 m of a tree stand or rock takes 70 % of ranged damage (`battle.cover`; the GDD gives no number, the forest's −30 % is borrowed).
@@ -44,6 +45,7 @@ Real-time battle from the GDD "Schlacht-Modul": simulation in `src/systems/comba
 | Infantry | Line (2 ranks) | Hedgehog: ring, cannot move, half damage from cavalry, no flank |
 | Archers | Line: full volley on command, reload per volley | Staggered: half volley, fires on its own, half reload time |
 | Cavalry | Wedge: impact ×2 | Line: impact ×1, front arc ±90° instead of ±60° |
+| Siege | Deployed: stands, throws | Packed: drives at 0.6 m/s, cannot throw |
 
 ### Morale and victory
 - Start = unit morale + 5 × leadership + the side's `morale_bonus`; current = start − 0.5 per % HP lost + shocks + leader aura (+15 within 30 m).
@@ -70,4 +72,4 @@ Camera: orthographic, tilted down 60°, not rotatable. Zoom level 0 frames every
 Every figure stands on a ring in its house colour. Larger, lighter rings and a golden group-shield border identify only the human player's active group against the computer. The shared view hides the selection rings, directional markers and active shield borders when both sides are human or both are computer-controlled (owner request, ADR 0004).
 
 ### Not in P1
-Terrain effects beyond farmland, siege weapons, light by season, dust and tumbling figures (only a 0.5 s slow motion on charge impacts), the illuminated end banner and prestige.
+Terrain effects beyond farmland, walls (×4 damage of trebuchets), light by season, dust and tumbling figures (only a 0.5 s slow motion on charge impacts), the illuminated end banner and prestige.

@@ -82,6 +82,7 @@
     "charge": {"runup_distance": 30, "impact_seconds": 3, "max_distance": 100},
     "targeting": {"attack_cone_deg": 60, "aim_cone_deg": 30, "pick_radius": 8},
     "volleys": {"count": 3, "interval": 0.8},
+    "siege": {"flight_seconds": 3.0, "aim_speed": 30.0, "start_aim_distance": 120},
     "formations": {
       "infantry": [
         {"shape": "line", "front_half_angle_deg": 60},
@@ -97,6 +98,10 @@
       "cavalry": [
         {"shape": "wedge", "impact": 2.0, "front_half_angle_deg": 60},
         {"shape": "line", "impact": 1.0, "front_half_angle_deg": 90}
+      ],
+      "siege": [
+        {"shape": "line", "speed": 0, "front_half_angle_deg": 60},
+        {"shape": "line", "fires": false, "front_half_angle_deg": 60}
       ]
     },
     "cover": {"margin": 4, "ranged_damage": {"tree": 0.7, "rock": 0.7}},
@@ -112,11 +117,11 @@
     "armies": [
       {
         "house": "wittelsbacher", "leader": true, "leadership": 3,
-        "units": ["spearmen", "spearmen", "crossbowmen", "crossbowmen", "knights", "knights"]
+        "units": ["spearmen", "spearmen", "crossbowmen", "crossbowmen", "knights", "knights", "trebuchet"]
       },
       {
         "house": "welfen", "leader": true, "leadership": 3,
-        "units": ["spearmen", "spearmen", "crossbowmen", "crossbowmen", "knights", "knights"]
+        "units": ["spearmen", "spearmen", "crossbowmen", "crossbowmen", "knights", "knights", "trebuchet"]
       }
     ]
   }

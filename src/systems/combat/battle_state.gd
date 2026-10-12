@@ -48,6 +48,10 @@ var bolts: PackedInt32Array = []
 var reload_timer: PackedFloat64Array = []
 var volley_cooldown: PackedFloat64Array = []
 var fire_pending: PackedByteArray = []
+## Siege engines: the target circle on the ground and the stone in flight (timer < 0: none).
+var aim_point: PackedVector2Array = []
+var shot_point: PackedVector2Array = []
+var shot_timer: PackedFloat64Array = []
 ## Enemy company this one fights in melee this tick, -1 for none.
 var contact: PackedInt32Array = []
 var last_contact_tick: PackedInt32Array = []
@@ -122,6 +126,6 @@ func _snapshot() -> Array:
 	return [
 		tick, phase, winner, timed_out, pos, facing, speed, radius, hp, morale, shock, status,
 		order, order_point, order_target, charge_run, formation, bolts, reload_timer,
-		volley_cooldown, fire_pending, contact, last_contact_tick, fig_pos, leader,
-		active_group, stick_held, rally_cooldown,
+		volley_cooldown, fire_pending, aim_point, shot_point, shot_timer, contact,
+		last_contact_tick, fig_pos, leader, active_group, stick_held, rally_cooldown,
 	]

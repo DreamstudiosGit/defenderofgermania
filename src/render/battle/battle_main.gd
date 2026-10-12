@@ -89,7 +89,9 @@ func _process(delta: float) -> void:
 	var alpha := 1.0 if _headless else clampf(_accumulator / tick, 0.0, 1.0)
 	var positions := _interpolated(_previous_positions, _sim.state.pos, alpha)
 	_figures.update_view(_sim.state, _previous_figures, alpha)
-	_markers.update_view(_sim.state, _sim.rules, positions, _selection_sides(), _marker_colors())
+	_markers.update_view(
+		_sim.state, _sim.rules, positions, _selection_sides(), _marker_colors(), _humans()
+	)
 	_camera.frame(_camera_points(positions), _camera_focus(positions), delta)
 	_hud.update_view(_sim, positions, delta)
 
@@ -136,6 +138,10 @@ func _tick() -> void:
 				_field.show_zones(false)
 			BattleEvent.Kind.VOLLEY:
 				_volleys.launch(state.pos[event.company], state.pos[event.target])
+			BattleEvent.Kind.SHOT:
+				var engine := event.company
+				var flight := _sim.rules.siege_flight_seconds
+				_volleys.launch_stone(state.pos[engine], state.shot_point[engine], flight)
 			BattleEvent.Kind.IMPACT:
 				if _slowmo_cooldown <= 0.0:
 					_slowmo_left = SLOWMO_SECONDS

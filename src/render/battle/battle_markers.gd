@@ -1,13 +1,14 @@
 class_name BattleMarkers
 extends MeshInstance3D
 ## Ground lines for the human players' active group: facing arrows, move targets, charge
-## lines and the archers' aim cone with its range.
+## lines, the archers' aim cone with its range and the trebuchets' target circles.
 
 const HEIGHT := 0.15
 const ARROW := 9.0
 const ARROW_HEAD := 2.5
 const CROSS := 1.5
 const CONE_STEPS := 8
+const CIRCLE_STEPS := 24
 
 var _lines := ImmediateMesh.new()
 
@@ -23,26 +24,32 @@ func _ready() -> void:
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 
-## humans[s] is true for human-controlled sides; colors are per side.
+## humans[s]: the side's active group shows facing arrows and order lines; aimers[s]: the
+## side's deployed siege engines show their target circles. Colors are per side.
 func update_view(
 	state: BattleState,
 	rules: BattleRules,
 	positions: PackedVector2Array,
 	humans: Array[bool],
-	colors: Array[Color]
+	colors: Array[Color],
+	aimers: Array[bool]
 ) -> void:
 	_lines.clear_surfaces()
-	if state.phase == BattleState.Phase.OVER or not (humans[0] or humans[1]):
+	if state.phase == BattleState.Phase.OVER or not (humans.has(true) or aimers.has(true)):
 		return
 	_lines.surface_begin(Mesh.PRIMITIVE_LINES)
 	var drawn := 0
 	for c: int in state.company_count():
 		var s := state.side[c]
-		if not humans[s] or state.status[c] != BattleState.Status.ACTIVE:
-			continue
-		if state.group[c] != state.active_group[s] or c >= positions.size():
+		if state.status[c] != BattleState.Status.ACTIVE or c >= positions.size():
 			continue
 		_lines.surface_set_color(colors[s])
+		var deployed := rules.formation(state.group[c], state.formation[c]).can_fire
+		if aimers[s] and state.group[c] == BattleState.Group.SIEGE and deployed:
+			_circle(state.aim_point[c], state.stats[c].splash_radius)
+			drawn += 1
+		if not humans[s] or state.group[c] != state.active_group[s]:
+			continue
 		_draw_company(state, rules, c, positions[c])
 		drawn += 1
 	if drawn == 0:
@@ -70,7 +77,9 @@ func _draw_company(state: BattleState, rules: BattleRules, c: int, at: Vector2) 
 			var left := rules.charge_max_distance - state.charge_run[c]
 			_line(at, at + state.order_point[c] * maxf(0.0, left))
 	var reach := state.stats[c].attack_range
-	if reach > 0.0:
+	if state.group[c] == BattleState.Group.SIEGE:
+		_line(at, state.aim_point[c])
+	elif reach > 0.0:
 		var angle := state.facing[c]
 		var previous := at + Vector2.from_angle(angle - rules.aim_cone) * reach
 		_line(at, previous)
@@ -80,6 +89,14 @@ func _draw_company(state: BattleState, rules: BattleRules, c: int, at: Vector2) 
 			_line(previous, point)
 			previous = point
 		_line(at, previous)
+
+
+func _circle(center: Vector2, radius: float) -> void:
+	var previous := center + Vector2(radius, 0.0)
+	for i: int in range(1, CIRCLE_STEPS + 1):
+		var point := center + Vector2.from_angle(TAU * i / CIRCLE_STEPS) * radius
+		_line(previous, point)
+		previous = point
 
 
 func _line(from: Vector2, to: Vector2) -> void:

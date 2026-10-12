@@ -54,6 +54,8 @@ func think(state: BattleState, rules: BattleRules) -> BattleInput:
 			_archers(state, rules, members, input)
 		BattleState.Group.CAVALRY:
 			_cavalry(state, rules, members, input)
+		BattleState.Group.SIEGE:
+			_siege(state, rules, members, input)
 		_:
 			_infantry(state, rules, members, input)
 	return input
@@ -142,6 +144,34 @@ func _cavalry(
 		_command(input, at)
 	else:
 		_command(input, at + at.direction_to(center) * CAVALRY_STANDOFF)
+
+
+## Engines stay deployed and throw at the enemy company with the most standing figures in
+## range, aiming where it stands now.
+func _siege(
+	state: BattleState, rules: BattleRules, members: PackedInt32Array, input: BattleInput
+) -> void:
+	var first := members[0]
+	if not rules.formation(state.group[first], state.formation[first]).can_fire:
+		input.formation = true
+		return
+	var center := _centroid(state, members)
+	var reach := state.stats[first].attack_range
+	var best := -1
+	var best_figures := 0
+	for e: int in state.company_count():
+		if state.side[e] == side or state.status[e] != BattleState.Status.ACTIVE:
+			continue
+		if center.distance_to(state.pos[e]) > reach:
+			continue
+		var figures := state.alive_figures(e)
+		if figures > best_figures:
+			best = e
+			best_figures = figures
+	if best < 0:
+		return
+	_command(input, state.pos[best])
+	input.attack = true
 
 
 func _wants_rally(state: BattleState, rules: BattleRules) -> bool:
