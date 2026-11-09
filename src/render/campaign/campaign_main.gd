@@ -10,6 +10,8 @@ const FIRST_SEED := 1198
 var session: CampaignSession = null
 ## The computer opponents; their logs feed the debug overlay.
 var ai: AiPlayer = null
+## Save slot to continue instead of opening the setup (SaveGames); set before entering the tree.
+var launch_slot := ""
 
 var _map: MapData
 var _table := MapTable.new()
@@ -41,14 +43,19 @@ var _seen_settlement: GameState = null
 
 func _ready() -> void:
 	_map = MapData.load_file()
-	if DisplayServer.get_name() != "headless":
-		get_viewport().msaa_3d = Viewport.MSAA_4X
+	if _map == null:
+		push_error("campaign: data/map.json could not be loaded")
+		return
 	add_child(_table)
 	_table.build(_map)
 	_table.province_clicked.connect(_on_province_clicked)
 	_table.army_clicked.connect(_on_army_clicked)
 	_build_ui()
-	_open_setup()
+	var saved := SaveGames.read(launch_slot) if not launch_slot.is_empty() else null
+	if saved != null:
+		resume(saved)
+	else:
+		_open_setup()
 
 
 ## Starts a new campaign with these human houses; computers maps the others to [personality,
@@ -160,9 +167,11 @@ func _choose_event(choice: String) -> void:
 	_actions.run(ChooseEventCommand.new(session.rules, session.active_house(), choice))
 
 
-## A battle or minigame covers the war table; the table rests meanwhile.
+## A battle or minigame covers the war table; the table rests meanwhile, so the battle's keys
+## do not pan the hidden map.
 func _on_covering(hidden: bool) -> void:
 	_table.visible = not hidden
+	_table.process_mode = Node.PROCESS_MODE_DISABLED if hidden else Node.PROCESS_MODE_INHERIT
 	_ui.visible = not hidden
 	if not hidden:
 		_table.camera.current = true

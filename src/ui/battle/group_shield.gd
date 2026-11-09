@@ -2,7 +2,7 @@ class_name GroupShield
 extends Control
 
 const SHIELD_SIZE := Vector2(144, 162)
-const GOLD := Color(1.0, 0.82, 0.30)
+const GOLD := UiPalette.GOLD
 const RIM := Color(0.18, 0.11, 0.06)
 ## Shield art per house and group: combat_group_<group>_<house>.svg (art-src/ui/combat).
 const DIRECTORY := "res://assets/ui/combat/"

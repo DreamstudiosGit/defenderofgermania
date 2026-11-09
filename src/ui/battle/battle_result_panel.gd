@@ -101,15 +101,10 @@ func _losses(sim: BattleSim, armies: Array[BattleRules.ArmyPreset], s: int) -> V
 	return column
 
 
-## Opaque parchment-brown panel with a gold rim, shared by the battle menus.
+## The modal panel of the shared look, for the menus and result screens of the battle and
+## the adventures.
 static func panel_style() -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.17, 0.12, 0.08, 0.96)
-	style.border_color = GroupShield.GOLD
-	style.set_border_width_all(3)
-	style.set_corner_radius_all(10)
-	style.set_content_margin_all(24)
-	return style
+	return GameTheme.panel(UiPalette.PANEL, 3, 24, 24)
 
 
 func _label(text: String, font_size: int) -> Label:

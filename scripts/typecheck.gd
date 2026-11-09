@@ -8,7 +8,8 @@ const SYSTEMS_DIR := "res://src/systems/"
 const FORBIDDEN_IN_SYSTEMS: Array[String] = ["res://src/render/", "res://src/ui/"]
 
 
-func _init() -> void:
+# In _initialize, not _init: the autoloads (App, Audio) are only known as globals by then.
+func _initialize() -> void:
 	var failed: Array[String] = []
 	var own_path: String = (get_script() as Script).resource_path
 	for path: String in _collect_scripts("res://"):
