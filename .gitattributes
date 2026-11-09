@@ -1,1 +1,4 @@
 * text=auto eol=lf
+# Parallel branches only append rows and lines here; keep both sides instead of conflicting.
+data/i18n/texts.csv merge=union
+assets/README.md merge=union
