@@ -42,3 +42,4 @@
 - 2026-10-12 feat(core): M8 save games — autosave every round, three slots, resume a campaign; campaign layout extracted
 - 2026-11-10 feat(core): Early Access foundation — app shell and audio autoloads, options store, shared theme with Texturina and Vollkorn, 1280x720 canvas scaling, overhaul plan
 - 2026-11-10 feat(core): menu screen seams (options, pause, save slots, controls) and union merge for texts
+- 2026-11-10 feat(core): shared confirm dialog and generic UI texts
