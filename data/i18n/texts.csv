@@ -958,3 +958,74 @@ MENU_CREDITS_TESTS,GUT (Godot Unit Test) – MIT-Lizenz,GUT (Godot Unit Test) �
 MENU_CREDITS_LICENCES,Lizenztexte,Licence texts
 MENU_CREDITS_FONT_LICENCE,Schrift %s,%s typeface
 MENU_CREDITS_COMPONENTS,Bestandteile der Godot Engine,Components of the Godot Engine
+OPTIONS_TITLE,Optionen,Options
+OPTIONS_TAB_VIDEO,Grafik,Video
+OPTIONS_TAB_AUDIO,Ton,Audio
+OPTIONS_TAB_GAME,Spiel,Game
+OPTIONS_TAB_CONTROLS,Steuerung,Controls
+OPTIONS_RESET,Reiter zurücksetzen,Reset this tab
+OPTIONS_TABS_PAD,LB / RB: Reiter wechseln,LB / RB: switch tabs
+OPTIONS_TABS_KEYS,Bild auf / Bild ab: Reiter wechseln,Page Up / Page Down: switch tabs
+OPTIONS_ON,An,On
+OPTIONS_OFF,Aus,Off
+OPTIONS_PERCENT,%d %%,%d%%
+OPTIONS_WINDOW_MODE,Fenstermodus,Window mode
+OPTIONS_WINDOW_MODE_HINT,"Randlos füllt den Bildschirm ohne Moduswechsel, Vollbild übernimmt ihn ganz.","Borderless fills the screen without a mode switch, fullscreen takes it over entirely."
+OPTIONS_WINDOW_WINDOWED,Fenster,Windowed
+OPTIONS_WINDOW_BORDERLESS,Randlos,Borderless
+OPTIONS_WINDOW_FULLSCREEN,Vollbild,Fullscreen
+OPTIONS_WINDOW_SIZE,Fenstergröße,Window size
+OPTIONS_WINDOW_SIZE_HINT,Die Größe des Fensters im Fenstermodus.,The size of the window in windowed mode.
+OPTIONS_VSYNC,Vertikale Synchronisation,Vertical sync
+OPTIONS_VSYNC_HINT,"Verhindert zerrissene Bilder, kann die Eingabe aber leicht verzögern.","Prevents tearing, but may delay input slightly."
+OPTIONS_FPS_LIMIT,Bildrate begrenzen,Frame rate limit
+OPTIONS_FPS_LIMIT_HINT,Schont Akku und Lüfter; gilt zusätzlich zur vertikalen Synchronisation.,Saves battery and fan noise; applies on top of vertical sync.
+OPTIONS_FPS_UNLIMITED,Unbegrenzt,Unlimited
+OPTIONS_FPS_VALUE,%d Bilder/s,%d FPS
+OPTIONS_QUALITY,Grafikqualität,Graphics quality
+OPTIONS_QUALITY_HINT,"Kantenglättung, Schatten und Bildeffekte der 3D-Szenen.","Anti-aliasing, shadows and image effects of the 3D scenes."
+OPTIONS_QUALITY_NOTE,Niedrig: für Steam Deck und ältere Rechner,Low: for the Steam Deck and older machines
+OPTIONS_QUALITY_LOW,Niedrig,Low
+OPTIONS_QUALITY_MEDIUM,Mittel,Medium
+OPTIONS_QUALITY_HIGH,Hoch,High
+OPTIONS_RENDER_SCALE,3D-Auflösung,3D render scale
+OPTIONS_RENDER_SCALE_HINT,Unter 100 % werden 3D-Szenen kleiner berechnet und vergrößert; die Oberfläche bleibt scharf.,Below 100% the 3D scenes render smaller and are scaled up; the interface stays sharp.
+OPTIONS_UI_SCALE,Größe der Oberfläche,Interface size
+OPTIONS_UI_SCALE_HINT,Vergrößert oder verkleinert Schrift und Bedienelemente.,Makes text and controls larger or smaller.
+OPTIONS_VOLUME_MASTER,Gesamtlautstärke,Master volume
+OPTIONS_VOLUME_MASTER_HINT,Die Lautstärke von allem zusammen.,The volume of everything together.
+OPTIONS_VOLUME_MUSIC,Musik,Music
+OPTIONS_VOLUME_MUSIC_HINT,"Die Musik auf der Karte, in Schlachten und in den Abenteuern.","The music on the map, in battles and in the adventures."
+OPTIONS_VOLUME_SFX,Effekte,Effects
+OPTIONS_VOLUME_SFX_HINT,"Schlachtlärm, Hufschlag, Bliden und alle anderen Geräusche der Welt.","The din of battle, hoofbeats, trebuchets and every other sound of the world."
+OPTIONS_VOLUME_UI,Oberfläche,Interface
+OPTIONS_VOLUME_UI_HINT,"Klicks, Reiter und Meldungen der Oberfläche.","Clicks, tabs and notices of the interface."
+OPTIONS_MUTE_UNFOCUSED,Stumm im Hintergrund,Mute in the background
+OPTIONS_MUTE_UNFOCUSED_HINT,"Schaltet den Ton ab, solange das Spielfenster nicht im Vordergrund ist.",Silences the game while its window is not in front.
+OPTIONS_LANGUAGE,Sprache,Language
+OPTIONS_LANGUAGE_HINT,Die Sprache aller Texte.,The language of all texts.
+OPTIONS_LANGUAGE_SYSTEM,Systemsprache,System language
+OPTIONS_LANGUAGE_DE,Deutsch,Deutsch
+OPTIONS_LANGUAGE_EN,English,English
+OPTIONS_LANGUAGE_LOCKED,Nur im Hauptmenü änderbar,Can only be changed in the main menu
+OPTIONS_RUMBLE,Vibration des Controllers,Controller rumble
+OPTIONS_RUMBLE_HINT,Der Controller vibriert bei Treffern und Einschlägen.,The controller rumbles on hits and impacts.
+OPTIONS_SCREEN_SHAKE,Bildschirmwackeln,Screen shake
+OPTIONS_SCREEN_SHAKE_HINT,Wie stark die Kamera bei Einschlägen wackelt; 0 % schaltet es ab.,How strongly the camera shakes on impacts; 0% turns it off.
+OPTIONS_SLOW_MOTION,Zeitlupe beim Aufprall,Slow motion on impact
+OPTIONS_SLOW_MOTION_HINT,"Kurze Zeitlupe, wenn ein Sturmangriff einschlägt.",A brief slow motion when a charge strikes home.
+OPTIONS_ADVISORS,Hinweise der Ratgeber,Advisor hints
+OPTIONS_ADVISORS_HINT,"Kämmerer, Marschall, Kanzler und Baumeister geben Rat, höchstens einmal je Runde.","Chamberlain, marshal, chancellor and master builder give advice, at most once a round."
+PAUSE_TITLE,Pause,Paused
+PAUSE_RESUME,Weiterspielen,Resume
+PAUSE_OPTIONS,Optionen,Options
+PAUSE_SAVE,Spiel speichern,Save game
+PAUSE_SAVE_BLOCKED,Speichern ist gerade nicht möglich.,Saving is not possible right now.
+PAUSE_LOAD,Spiel laden,Load game
+PAUSE_MAIN_MENU,Hauptmenü,Main menu
+PAUSE_QUIT,Spiel beenden,Quit game
+PAUSE_ASK_MAIN_MENU,Zurück zum Hauptmenü?,Return to the main menu?
+PAUSE_ASK_QUIT,Das Spiel beenden?,Quit the game?
+PAUSE_UNSAVED,Der Fortschritt seit dem letzten Speichern geht verloren.,Progress since the last save will be lost.
+PAUSE_CONFIRM_MAIN_MENU,Zum Hauptmenü,To the main menu
+PAUSE_CONFIRM_QUIT,Beenden,Quit
