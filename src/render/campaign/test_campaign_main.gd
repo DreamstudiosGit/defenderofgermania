@@ -6,14 +6,26 @@ extends GutTest
 const HUMANS: Array[String] = ["welfen", "staufer"]
 const SEED := 1198
 const ROUNDS := 8
+## The scene autosaves every round; never into the player's saves.
+const SAVES := "user://test_campaign_main_saves"
 
 var _scene: Node
+var _saves_before := ""
 
 
 func before_each() -> void:
+	_saves_before = SaveGames.folder
+	SaveGames.folder = SAVES
 	_scene = (load("res://src/render/campaign/campaign_main.tscn") as PackedScene).instantiate()
 	add_child_autofree(_scene)
 	_scene.call("start", HUMANS, SEED)
+
+
+func after_each() -> void:
+	for slot: String in [SaveGames.AUTOSAVE] + SaveGames.SLOTS:
+		SaveGames.remove(slot)
+	DirAccess.remove_absolute(SAVES)
+	SaveGames.folder = _saves_before
 
 
 func test_two_houses_play_eight_rounds_and_the_numbers_follow_the_formulas() -> void:

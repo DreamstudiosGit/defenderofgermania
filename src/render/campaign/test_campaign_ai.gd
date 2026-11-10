@@ -3,13 +3,25 @@ extends GutTest
 ## houses, and once they played the debug overlay lists what each of them weighed.
 
 const SEED := 1198
+## The scene autosaves every round; never into the player's saves.
+const SAVES := "user://test_campaign_ai_saves"
 
 var _scene: Node
+var _saves_before := ""
 
 
 func before_each() -> void:
+	_saves_before = SaveGames.folder
+	SaveGames.folder = SAVES
 	_scene = (load("res://src/render/campaign/campaign_main.tscn") as PackedScene).instantiate()
 	add_child_autofree(_scene)
+
+
+func after_each() -> void:
+	for slot: String in [SaveGames.AUTOSAVE] + SaveGames.SLOTS:
+		SaveGames.remove(slot)
+	DirAccess.remove_absolute(SAVES)
+	SaveGames.folder = _saves_before
 
 
 func test_the_setup_starts_a_game_with_the_chosen_computers() -> void:

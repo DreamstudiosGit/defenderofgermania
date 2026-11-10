@@ -5,10 +5,13 @@ extends GutTest
 ## ways out (main menu, quit) are the test's own.
 
 const PATH := "user://test_pause/settings.cfg"
+## The list of saves it opens reads this folder, never the player's.
+const SAVES := "user://test_pause/saves"
 const ALWAYS_SHOWN: Array[String] = ["resume", "options", "main_menu", "quit"]
 
 var _menu: PauseMenu
 var _real_path := ""
+var _real_saves := ""
 var _left := 0
 var _quit := 0
 
@@ -16,6 +19,8 @@ var _quit := 0
 func before_each() -> void:
 	_real_path = App.settings.path
 	App.settings.path = PATH
+	_real_saves = SaveGames.folder
+	SaveGames.folder = SAVES
 	_left = 0
 	_quit = 0
 	_menu = PauseMenu.mount(add_child_autofree(Node.new()))
@@ -26,6 +31,7 @@ func before_each() -> void:
 func after_each() -> void:
 	get_tree().paused = false
 	App.settings.path = _real_path
+	SaveGames.folder = _real_saves
 	DirAccess.remove_absolute(PATH)
 	DirAccess.remove_absolute(PATH.get_base_dir())
 
