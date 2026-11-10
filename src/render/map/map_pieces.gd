@@ -1,9 +1,15 @@
 class_name MapPieces
 extends Node3D
 ## The pieces standing on the fields: house banners, castles by level, occupation tokens and
-## one painted wooden figure per army with its company count.
+## one painted wooden figure per army with its company count. Between two views of the same
+## game the figures show what changed: an army that moved glides to its province, a new one
+## drops in, one that is gone sinks away. The state shown is final at once (figure_count,
+## army_on_ray); only the picture catches up.
 
 const NO_ARMY := -1
+
+## Glides, drops and sinks show only with a window; tests switch them on to drive them by hand.
+var animated := DisplayServer.get_name() != "headless"
 
 var _map: MapData
 var _board: MapBoard
@@ -12,6 +18,8 @@ var _castles: Dictionary[String, MeshInstance3D] = {}
 var _tokens: Dictionary[String, MeshInstance3D] = {}
 var _figures: Dictionary[int, MapFigure] = {}
 var _selected_army: int = NO_ARMY
+## Instance id of the GameState shown last; another game is set up without any motion.
+var _shown_state: int = 0
 
 
 func setup(map: MapData, board: MapBoard) -> void:
@@ -47,7 +55,9 @@ func update_view(state: GameState) -> void:
 			]
 			_paint(_castles[id], castle_paint)
 		_tokens[id].visible = province != null and province.occupied_rounds > 0
-	_update_armies(state)
+	var same_game := state.get_instance_id() == _shown_state
+	_shown_state = state.get_instance_id()
+	_update_armies(state, animated and same_game)
 
 
 func set_selected_army(army_id: int) -> void:
@@ -76,7 +86,13 @@ func figure_count() -> int:
 	return _figures.size()
 
 
-func _update_armies(state: GameState) -> void:
+## The army's figure, or null.
+func figure_of(army_id: int) -> MapFigure:
+	return _figures.get(army_id)
+
+
+## `moving`: figures glide, drop and sink to the new state instead of standing in it at once.
+func _update_armies(state: GameState, moving: bool) -> void:
 	var by_province: Dictionary[String, Array] = {}
 	var alive: Dictionary[int, bool] = {}
 	for army: ArmyState in state.armies:
@@ -86,9 +102,11 @@ func _update_armies(state: GameState) -> void:
 			by_province[army.province] = []
 		by_province[army.province].append(army)
 		alive[army.id] = true
+	var motion := MapArt.section("motion")
 	for id: int in _figures.keys():
 		if not alive.has(id):
-			_figures[id].queue_free()
+			_figures[id].animated = moving
+			_figures[id].sink_away(float(motion.get("sink_seconds", 0.3)))
 			_figures.erase(id)
 	var spacing := MapArt.number("pieces", "figure_spacing", 1.9)
 	for province_id: String in by_province:
@@ -97,15 +115,37 @@ func _update_armies(state: GameState) -> void:
 		var base := _board.world_position(province_id)
 		for i: int in group.size():
 			var army := group[i] as ArmyState
-			if not _figures.has(army.id):
-				var created := MapFigure.new()
-				created.name = "Army_%d" % army.id
-				add_child(created)
-				_figures[army.id] = created
-			var figure := _figures[army.id]
-			figure.position = base + Vector3((i - (group.size() - 1) * 0.5) * spacing, 0.0, 0.0)
-			figure.show_army(army.company_count(), _owner_paints(army.owner))
-			figure.set_selected(army.id == _selected_army)
+			var spot := base + Vector3((i - (group.size() - 1) * 0.5) * spacing, 0.0, 0.0)
+			_place_figure(army, spot, moving, motion)
+			var placed := _figures[army.id]
+			placed.show_army(army.company_count(), _owner_paints(army.owner))
+			placed.set_selected(army.id == _selected_army)
+
+
+## Puts the army's figure on its spot: at once, or by the motion that tells what happened.
+func _place_figure(army: ArmyState, spot: Vector3, moving: bool, motion: Dictionary) -> void:
+	var known: MapFigure = _figures.get(army.id)
+	var is_new := known == null
+	if is_new:
+		known = MapFigure.new()
+		known.name = "Army_%d" % army.id
+		add_child(known)
+		_figures[army.id] = known
+	known.animated = animated
+	if not moving:
+		known.stand_at(spot)
+	elif is_new:
+		known.drop_in(
+			spot, float(motion.get("drop_seconds", 0.4)), float(motion.get("drop_height", 9.0))
+		)
+	elif known.province != army.province:
+		known.glide_to(
+			spot, float(motion.get("glide_seconds", 0.35)), float(motion.get("glide_hop", 1.6))
+		)
+		Audio.play_at(&"map_army_move", to_global(spot))
+	elif not known.place.is_equal_approx(spot):
+		known.glide_to(spot, float(motion.get("shuffle_seconds", 0.2)), 0.0)
+	known.province = army.province
 
 
 ## Paint slots of a house piece (MapPieceMeshes.Slot order).

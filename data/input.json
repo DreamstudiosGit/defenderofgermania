@@ -24,6 +24,7 @@
         "orbit_down": {"keys": ["key:S", "key:Down"], "pad": ["axis:right_y+", "pad:dpad_down"], "deadzone": 0.2},
         "zoom_in": {"keys": ["key:PageUp", "key:Kp Add", "key:Equal"], "pad": ["axis:rt"], "deadzone": 0.2},
         "zoom_out": {"keys": ["key:PageDown", "key:Kp Subtract", "key:Minus"], "pad": ["axis:lt"], "deadzone": 0.2},
+        "timelapse": {"keys": ["key:R"], "pad": ["pad:y"], "deadzone": 0.5},
         "close": {"keys": ["key:Escape", "key:Backspace"], "pad": ["pad:b"], "deadzone": 0.5, "locked": true}
       },
       "fixed": {

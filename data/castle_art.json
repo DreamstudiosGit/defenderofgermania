@@ -270,6 +270,13 @@
     "fog_begin": 190,
     "fog_end": 520
   },
+  "quality": {
+    "ssao": [false, true, true],
+    "glow": [false, true, true],
+    "ink": [true, true, true],
+    "shadow_splits": [2, 4, 4],
+    "shadow_blend": [false, false, true]
+  },
   "ink": {
     "color": "#211710",
     "edge_strength": 0.6,

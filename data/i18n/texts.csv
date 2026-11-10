@@ -1101,6 +1101,7 @@ INPUT_CASTLE_ORBIT_UP,Höher blicken,Look from higher
 INPUT_CASTLE_ORBIT_DOWN,Tiefer blicken,Look from lower
 INPUT_CASTLE_ZOOM_IN,Heranzoomen,Zoom in
 INPUT_CASTLE_ZOOM_OUT,Herauszoomen,Zoom out
+INPUT_CASTLE_TIMELAPSE,Zeitraffer,Time-lapse
 INPUT_CASTLE_CLOSE,Zurück zur Karte,Back to the map
 INPUT_CASTLE_DRAG,Ansicht ziehen,Drag the view
 INPUT_CASTLE_WHEEL,Zoomen,Zoom
@@ -1190,3 +1191,7 @@ INPUT_PAD_RIGHT_STICK,R-Stick %s,R-stick %s
 INPUT_PAD_LEFT_STICK_CLICK,L-Stick drücken,L-stick click
 INPUT_PAD_RIGHT_STICK_CLICK,R-Stick drücken,R-stick click
 INPUT_PAD_DPAD,Steuerkreuz %s,D-pad %s
+CASTLE_TIMELAPSE,Zeitraffer ansehen,Watch the time-lapse
+CASTLE_TIMELAPSE_SKIP,Zeitraffer überspringen,Skip the time-lapse
+CASTLE_HINT_KEYS,Ziehen oder WASD: drehen  ·  Mausrad oder Bild auf/ab: zoomen  ·  R: Zeitraffer  ·  Esc: zurück,Drag or WASD: turn  ·  Wheel or Page Up/Down: zoom  ·  R: time-lapse  ·  Esc: back
+CASTLE_HINT_PAD,Rechter Stick: drehen  ·  LT / RT: zoomen  ·  Y: Zeitraffer  ·  B: zurück,Right stick: turn  ·  LT / RT: zoom  ·  Y: time-lapse  ·  B: back

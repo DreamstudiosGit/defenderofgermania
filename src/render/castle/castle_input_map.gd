@@ -1,8 +1,9 @@
 class_name CastleInputMap
 extends RefCounted
 ## The castle view's input actions ("castle_<action>", keyboard and every controller alike):
-## orbit_left/right/up/down, zoom_in/zoom_out and close. Their bindings are data
-## (data/input.json, InputTable). The mouse wheel and drags are read directly by CastleCamera.
+## orbit_left/right/up/down, zoom_in/zoom_out, close and timelapse (skip the time-lapse or
+## watch it again). Their bindings are data (data/input.json, InputTable). The mouse wheel and
+## drags are read directly by CastleCamera.
 
 const PREFIX := "castle_"
 

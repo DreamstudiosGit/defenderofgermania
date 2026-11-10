@@ -43,6 +43,7 @@ castle_orbit_down 0.200 key:S key:Down axis:-1:3:+1 button:-1:12
 castle_orbit_left 0.200 key:A key:Left axis:-1:2:-1 button:-1:13
 castle_orbit_right 0.200 key:D key:Right axis:-1:2:+1 button:-1:14
 castle_orbit_up 0.200 key:W key:Up axis:-1:3:-1 button:-1:11
+castle_timelapse 0.500 key:R button:-1:3
 castle_zoom_in 0.200 key:PageUp key:KpAdd key:Equal axis:-1:5:+1
 castle_zoom_out 0.200 key:PageDown key:KpSubtract key:Minus axis:-1:4:+1
 joust_kb_menu 0.500 key:Escape

@@ -15,6 +15,8 @@ static var _art: Dictionary = {}
 static var _meshes: Dictionary[String, ArrayMesh] = {}
 static var _materials: Dictionary[String, Material] = {}
 static var _puff: StandardMaterial3D
+## Stands in for a missing section; the camera asks every frame, so none is made per call.
+static var _no_section: Dictionary = {}
 
 
 static func settings() -> Dictionary:
@@ -28,12 +30,20 @@ static func settings() -> Dictionary:
 
 
 static func section(key: String) -> Dictionary:
-	var value: Variant = settings().get(key, {})
-	return value if value is Dictionary else {}
+	var value: Variant = settings().get(key)
+	return value if value is Dictionary else _no_section
 
 
 static func number(section_key: String, key: String, fallback: float) -> float:
 	return float(section(section_key).get(key, fallback))
+
+
+## A value of the "quality" section, which holds one entry per level (UserSettings.Quality).
+static func by_quality(key: String, level: int, fallback: Variant) -> Variant:
+	var levels: Variant = section("quality").get(key)
+	if levels is Array and level >= 0 and level < (levels as Array).size():
+		return (levels as Array)[level]
+	return fallback
 
 
 static func color(section_key: String, key: String, fallback: Color) -> Color:

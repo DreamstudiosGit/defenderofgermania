@@ -1,11 +1,17 @@
 class_name MapBoard
 extends Node3D
 ## The realm on the map table: one raised field per province, painted in its owner's colour,
-## with ink borders, a painted name and a glowing rim for selection and reachable provinces.
+## with ink borders, a painted name, a gold rim on the selected province and a breathing one
+## on the reachable provinces. A province that changes hands between two views of the same
+## game blends to its new colour with a pulse of its rim (MapConquest).
 
 const FIELD_SHADER := preload("res://src/render/map/map_field.gdshader")
 const INK_LIFT := 0.006
 const RIM_LIFT := 0.012
+const PAINT := &"paint"
+
+## The accent of a conquest shows only with a window; tests switch it on to drive it by hand.
+var animated := DisplayServer.get_name() != "headless"
 
 ## Province cells in table units (x east, y = world z south), wobbled like the drawn borders.
 var cells: Dictionary[String, PackedVector2Array] = {}
@@ -22,6 +28,11 @@ var _fields: Dictionary[String, MeshInstance3D] = {}
 var _select_rims: Dictionary[String, MeshInstance3D] = {}
 var _highlight_rims: Dictionary[String, MeshInstance3D] = {}
 var _paper := Color.WHITE
+var _conquest := MapConquest.new()
+## Owner each field is painted for.
+var _owners: Dictionary[String, String] = {}
+## Instance id of the GameState painted last; another game is painted without any accent.
+var _shown_state: int = 0
 
 
 func build(map: MapData) -> void:
@@ -52,6 +63,8 @@ func build(map: MapData) -> void:
 		heights[id] = sheet_top + base + float(terrain_heights.get(terrain, 0.0))
 	_build_fields()
 	_build_ink()
+	_conquest.name = "Conquest"
+	add_child(_conquest)
 
 
 func to_table(km: Vector2) -> Vector2:
@@ -95,10 +108,22 @@ func spot(province_id: String, direction: Vector2, distance: float) -> Vector3:
 
 func paint(map: MapData, state: GameState) -> void:
 	var mix := MapArt.number("field", "paint_mix", 0.12)
+	var accents := animated and state.get_instance_id() == _shown_state
+	_shown_state = state.get_instance_id()
+	var sounded := false
 	for id: String in _fields:
 		var owner := state.provinces[id].owner if state.provinces.has(id) else ""
 		var color := MapArt.owner_color(map, owner).lerp(_paper, mix)
-		_fields[id].set_instance_shader_parameter("paint", color)
+		var conquered := _owners.has(id) and _owners[id] != owner
+		_owners[id] = owner
+		if conquered and accents:
+			_conquest.start(id, _fields[id], color, _select_rims[id].mesh, world_position(id))
+			if not sounded:
+				Audio.play_at(&"map_conquest", to_global(world_position(id)))
+				sounded = true
+		elif conquered or not accents or not _conquest.is_running(id):
+			_conquest.settle(id)
+			_fields[id].set_instance_shader_parameter(PAINT, color)
 
 
 ## Gold rim and glow on the selected province, a softer one on the highlighted ones.
@@ -148,7 +173,10 @@ func _build_ink() -> void:
 	lines.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(lines)
 	var select := MapArt.flat(MapArt.color("field", "select_color", Color.GOLD))
-	var highlight := MapArt.flat(MapArt.color("field", "highlight_color", Color.WHITE))
+	var highlight := MapArt.rim(
+		MapArt.color("field", "highlight_color", Color.WHITE),
+		MapArt.number("field", "highlight_breath", 0.45)
+	)
 	for id: String in cells:
 		var select_width := MapArt.number("field", "select_width", 0.38)
 		var highlight_width := MapArt.number("field", "highlight_width", 0.2)
@@ -159,8 +187,7 @@ func _build_ink() -> void:
 
 
 func _rim(
-	node_name: String, cell: PackedVector2Array, height: float, width: float,
-	material: StandardMaterial3D
+	node_name: String, cell: PackedVector2Array, height: float, width: float, material: Material
 ) -> MeshInstance3D:
 	var tool := SurfaceTool.new()
 	tool.begin(Mesh.PRIMITIVE_TRIANGLES)

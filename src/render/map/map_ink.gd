@@ -1,7 +1,8 @@
 class_name MapInk
 extends MeshInstance3D
 ## Full-screen ink, grain and vignette pass over the map table: the battle's ink shader tuned
-## by the "ink" section of data/map_art.json.
+## by the "ink" section of data/map_art.json. It shows at the graphics quality levels that
+## "quality.ink" names.
 
 const SHADER := preload("res://src/render/battle/battle_ink.gdshader")
 
@@ -22,3 +23,14 @@ func _ready() -> void:
 		elif key != "outline_width":
 			material.set_shader_parameter(key, ink[key])
 	material_override = material
+	apply_quality(App.quality())
+	App.settings.changed.connect(_on_setting_changed)
+
+
+func apply_quality(level: int) -> void:
+	visible = bool(MapArt.by_quality("ink", level, true))
+
+
+func _on_setting_changed(key: String) -> void:
+	if key == UserSettings.QUALITY:
+		apply_quality(App.quality())

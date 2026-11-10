@@ -22,8 +22,6 @@ func _ready() -> void:
 		push_error("map preview: data/map.json or data/economy.json could not be loaded")
 		return
 	_state = GameSetup.create(_map, economy, SEED)
-	if DisplayServer.get_name() != "headless":
-		get_viewport().msaa_3d = Viewport.MSAA_4X
 	add_child(_table)
 	_table.build(_map)
 	_table.update_view(_state)

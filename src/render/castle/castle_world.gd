@@ -3,16 +3,22 @@ extends Node3D
 ## The land round the castle: warm daylight with toon light and the battle's ink and grain pass,
 ## a meadow with the road to the gate, a bare castle yard, fields and woods ("ground", "light"
 ## and "ink" in data/castle_art.json). The environment sits on the view's camera so it never
-## competes with another scene's WorldEnvironment.
+## competes with another scene's WorldEnvironment. The costly parts follow the graphics
+## quality ("quality": ambient occlusion, glow, the ink pass, the sun's shadow splits).
 
 const INK := preload("res://src/render/battle/battle_ink.gdshader")
 
 var _yard: MeshInstance3D
+var _environment: Environment
+var _sun: DirectionalLight3D
+var _ink: MeshInstance3D
 
 
 func build(camera: Camera3D) -> void:
-	camera.environment = _environment()
-	add_child(_sun())
+	_environment = _new_environment()
+	camera.environment = _environment
+	_sun = _new_sun()
+	add_child(_sun)
 	var ground := CastleArt.section("ground")
 	var radius := float(ground.get("radius", 140.0))
 	_add_disc("Meadow", radius, -0.5, 1.0, CastleArt.color("ground", "grass", Color.OLIVE_DRAB))
@@ -25,6 +31,17 @@ func build(camera: Camera3D) -> void:
 	_add_fields(ground)
 	_add_trees(ground)
 	_add_ink()
+
+
+## Switches the costly parts for a graphics quality level (UserSettings.Quality).
+func apply_quality(level: int) -> void:
+	_environment.ssao_enabled = bool(CastleArt.by_quality("ssao", level, true))
+	_environment.glow_enabled = bool(CastleArt.by_quality("glow", level, true))
+	_ink.visible = bool(CastleArt.by_quality("ink", level, true))
+	_sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
+	if int(CastleArt.by_quality("shadow_splits", level, 4)) < 4:
+		_sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+	_sun.directional_shadow_blend_splits = bool(CastleArt.by_quality("shadow_blend", level, false))
 
 
 ## Bare earth inside the castle, sized for the castle type.
@@ -96,12 +113,12 @@ func _add_trees(ground: Dictionary) -> void:
 func _add_ink() -> void:
 	var quad := QuadMesh.new()
 	quad.size = Vector2(2, 2)
-	var ink := MeshInstance3D.new()
-	ink.name = "Ink"
-	ink.mesh = quad
+	_ink = MeshInstance3D.new()
+	_ink.name = "Ink"
+	_ink.mesh = quad
 	# The vertex shader covers the screen wherever the node is, so it must never be culled.
-	ink.extra_cull_margin = 16384.0
-	ink.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_ink.extra_cull_margin = 16384.0
+	_ink.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var material := ShaderMaterial.new()
 	material.shader = INK
 	var settings := CastleArt.section("ink")
@@ -110,8 +127,8 @@ func _add_ink() -> void:
 			material.set_shader_parameter("ink", CastleArt.color("ink", "color", Color.BLACK))
 		else:
 			material.set_shader_parameter(key, settings[key])
-	ink.material_override = material
-	add_child(ink)
+	_ink.material_override = material
+	add_child(_ink)
 
 
 func _add_disc(
@@ -154,7 +171,7 @@ static func _toon(color: Color) -> StandardMaterial3D:
 	return material
 
 
-static func _sun() -> DirectionalLight3D:
+static func _new_sun() -> DirectionalLight3D:
 	var light := CastleArt.section("light")
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
@@ -171,7 +188,7 @@ static func _sun() -> DirectionalLight3D:
 	return sun
 
 
-static func _environment() -> Environment:
+static func _new_environment() -> Environment:
 	var sky_material := ProceduralSkyMaterial.new()
 	sky_material.sky_top_color = CastleArt.color("light", "sky_top", Color.SKY_BLUE)
 	sky_material.sky_horizon_color = CastleArt.color("light", "sky_horizon", Color.WHITE)
