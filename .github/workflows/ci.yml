@@ -1,0 +1,84 @@
+# Checks every push and pull request (import, lint, typecheck, tests). A version tag (v*)
+# also exports the three platforms and keeps them as artifacts.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+env:
+  GODOT_VERSION: 4.7.2
+  GDTOOLKIT_VERSION: 4.5.0
+  GODOT_RELEASES: https://github.com/godotengine/godot/releases/download
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Godot
+        run: |
+          curl -fsSL -o godot.zip "$GODOT_RELEASES/$GODOT_VERSION-stable/Godot_v$GODOT_VERSION-stable_linux.x86_64.zip"
+          unzip -q godot.zip -d "$RUNNER_TEMP/godot"
+          sudo ln -s "$RUNNER_TEMP/godot/Godot_v$GODOT_VERSION-stable_linux.x86_64" /usr/local/bin/godot
+          rm godot.zip
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install gdtoolkit
+        run: pip install "gdtoolkit==$GDTOOLKIT_VERSION"
+
+      - name: Import
+        run: godot --headless --import
+
+      - name: Lint
+        run: gdlint .
+
+      - name: Typecheck
+        run: godot --headless --script res://scripts/typecheck.gd
+
+      - name: Tests
+        run: godot --headless -s addons/gut/gut_cmdln.gd
+
+      - name: Install export templates
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          curl -fsSL -o templates.zip "$GODOT_RELEASES/$GODOT_VERSION-stable/Godot_v$GODOT_VERSION-stable_export_templates.tpz"
+          unzip -q templates.zip -d "$RUNNER_TEMP"
+          mkdir -p ~/.local/share/godot/export_templates
+          mv "$RUNNER_TEMP/templates" ~/.local/share/godot/export_templates/$GODOT_VERSION.stable
+          rm templates.zip
+
+      - uses: actions/setup-node@v4
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          node-version: 22
+
+      - name: Export
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: node scripts/build.mjs all
+
+      - name: Smoke test the Linux build
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          build/linux/thronstreit.x86_64 --headless --quit-after 600 2>&1 | tee smoke.log
+          if grep -q "ERROR" smoke.log; then exit 1; fi
+
+      # Artifacts lose file modes; a tar archive keeps the executable bit of the Linux and macOS builds.
+      - name: Pack
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          for platform in windows linux macos; do
+            tar -czf "thronstreit-$platform.tar.gz" -C build "$platform"
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          name: thronstreit-${{ github.ref_name }}
+          path: thronstreit-*.tar.gz
+          if-no-files-found: error
