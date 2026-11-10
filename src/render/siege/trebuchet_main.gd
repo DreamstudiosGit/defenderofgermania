@@ -315,9 +315,10 @@ func _retry() -> void:
 	_start()
 
 
-## Practice opened directly closes the game; opened by a menu it hands the result back.
+## Practice as the tree's scene returns to the main menu; opened by another scene it hands the
+## result back.
 func _quit() -> void:
 	if get_tree().current_scene == self:
-		get_tree().quit()
+		App.to_main_menu()
 	else:
 		_report_result()

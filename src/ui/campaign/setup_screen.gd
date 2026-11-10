@@ -3,9 +3,10 @@ extends Control
 ## New game (GDD "Partieaufbau"): who plays each house — a human, or a computer opponent with
 ## a personality (or one rolled from the seed) and a difficulty — and the seed. At least one
 ## house needs a human, since the session plays computer houses in one go until a human is to
-## move. Emits start_requested.
+## move. Emits start_requested, or back_requested (the back button, Esc / B) to leave.
 
 signal start_requested(humans: Array[String], seed: int, computers: Dictionary)
+signal back_requested
 
 const MIN_HUMANS := 1
 ## Items of the player choice.
@@ -53,10 +54,18 @@ func _init() -> void:
 	seed_row.add_child(_reroll)
 	_warning.add_theme_color_override("font_color", CampaignStyle.BAD)
 	column.add_child(_warning)
+	var buttons := HBoxContainer.new()
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	buttons.add_theme_constant_override("separation", 16)
+	column.add_child(buttons)
+	var back := CampaignStyle.modal_button(tr("UI_BACK"))
+	back.name = "back"
+	back.pressed.connect(func() -> void: back_requested.emit())
+	buttons.add_child(back)
 	_start.name = "start"
 	_start.text = tr("CAMPAIGN_SETUP_START")
 	_start.pressed.connect(_on_start_pressed)
-	column.add_child(_start)
+	buttons.add_child(_start)
 	visible = false
 
 
@@ -110,6 +119,16 @@ func computers(seed_value: int) -> Dictionary[String, Array]:
 			personality = _personality_ids[rng.randi_range(0, _personality_ids.size() - 2)]
 		result[house] = [personality, _difficulties[house].selected]
 	return result
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if is_visible_in_tree() and event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		# Esc while typing the seed only ends the typing.
+		if _seed.is_editing():
+			_seed.unedit()
+		else:
+			back_requested.emit()
 
 
 func _add_house(map: MapData, house: String) -> void:

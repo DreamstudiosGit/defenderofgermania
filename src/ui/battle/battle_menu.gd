@@ -1,9 +1,11 @@
 class_name BattleMenu
 extends Control
-## Start screen of the battle prototype: choose who commands each side (computer, keyboard and
-## mouse, controller 1 or 2), then start. Emits devices per side, -1 for the computer.
+## Start screen of the quick battle: choose who commands each side (computer, keyboard and
+## mouse, controller 1 or 2), then start or go back to the main menu. Emits devices per side,
+## -1 for the computer.
 
 signal start_requested(devices: PackedInt32Array)
+signal back_requested
 
 ## Option ids are device + 1, so the computer (-1) gets id 0.
 const CHOICES: Array[String] = [
@@ -59,6 +61,12 @@ func _ready() -> void:
 	_start.text = tr("BATTLE_MENU_START")
 	_start.pressed.connect(_on_start_pressed)
 	column.add_child(_start)
+	var back := Button.new()
+	back.name = "back"
+	back.text = tr("MENU_BACK_TO_MENU")
+	back.set_meta(UiSounds.SOUND_META, &"ui_back")
+	back.pressed.connect(func() -> void: back_requested.emit())
+	column.add_child(back)
 	for key: String in ["BATTLE_HINT_KEYBOARD", "BATTLE_HINT_PAD"]:
 		var hint := Label.new()
 		hint.text = tr(key)

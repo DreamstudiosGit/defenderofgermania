@@ -3,7 +3,8 @@ extends Node3D
 ## it is the practice mode: how-to, a default raid, retry and quit. As a campaign adventure
 ## (configure_campaign) it plays the given setup — the raider's devices steer the leader, no
 ## device lets the computer raid — and reports finished(result) when the player continues.
-## Quitting a practice run reports the last result too; with nobody listening it quits.
+## Quitting a practice run reports the last result too; as the tree's scene it then returns to
+## the main menu.
 
 signal finished(result: MerchantResult)
 
@@ -202,5 +203,5 @@ func _practice_setup(escort_skill: int, companies: int) -> MerchantSetup:
 
 func _quit() -> void:
 	finished.emit(_sim.result() if _sim != null else MerchantResult.new())
-	if finished.get_connections().is_empty():
-		get_tree().quit()
+	if get_tree().current_scene == self:
+		App.to_main_menu()

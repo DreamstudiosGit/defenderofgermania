@@ -2,9 +2,11 @@ class_name VictoryScreen
 extends Control
 ## End of the game: the winning house, why it won (subjugation or the time limit, "the Pope
 ## decides") and every house's legitimacy. A coronation shows its illuminated page
-## (CoronationPlate) in place of the house's title. Emits new_game_requested.
+## (CoronationPlate) in place of the house's title. Emits new_game_requested or
+## main_menu_requested.
 
 signal new_game_requested
+signal main_menu_requested
 
 var _plate := CoronationPlate.new()
 var _badge := HouseBadge.new(Vector2(96, 114))
@@ -27,9 +29,18 @@ func _init() -> void:
 	_table.add_theme_constant_override("h_separation", 28)
 	_table.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	column.add_child(_table)
+	var buttons := HBoxContainer.new()
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	buttons.add_theme_constant_override("separation", 16)
+	column.add_child(buttons)
+	_again.name = "new_game"
 	_again.text = tr("CAMPAIGN_NEW_GAME")
 	_again.pressed.connect(func() -> void: new_game_requested.emit())
-	column.add_child(_again)
+	buttons.add_child(_again)
+	var menu := CampaignStyle.modal_button(tr("MENU_MAIN_MENU"))
+	menu.name = "main_menu"
+	menu.pressed.connect(func() -> void: main_menu_requested.emit())
+	buttons.add_child(menu)
 	visible = false
 
 

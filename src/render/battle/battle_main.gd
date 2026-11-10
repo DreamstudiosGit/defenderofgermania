@@ -1,7 +1,8 @@
 extends Node3D
-## Real-time battle scene. As the prototype (main scene): start menu, battle between human or
-## computer sides on the simulation's fixed tick, interpolated presentation, result screen,
-## restart. As a campaign battle (configure_campaign): the given setup, then battle_finished.
+## Real-time battle scene. As the quick battle (from the main menu): start menu, battle between
+## human or computer sides on the simulation's fixed tick, interpolated presentation, result
+## screen, restart. As a campaign battle (configure_campaign): the given setup, then
+## battle_finished.
 
 signal battle_finished(result: BattleResult)
 
@@ -72,6 +73,7 @@ func _ready() -> void:
 	overlay.add_child(_result_panel)
 	_result_panel.visible = false
 	_menu.start_requested.connect(_on_start_requested)
+	_menu.back_requested.connect(App.to_main_menu)
 	_result_panel.play_again_requested.connect(_start)
 	_result_panel.setup_requested.connect(_open_menu)
 	_result_panel.continue_requested.connect(

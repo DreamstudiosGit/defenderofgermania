@@ -303,6 +303,7 @@ func _build_ui() -> void:
 	]:
 		_root.add_child(screen)
 	_setup.start_requested.connect(start)
+	_setup.back_requested.connect(App.to_main_menu)
 	_handover.confirmed.connect(_after_change)
 	_events.choice_requested.connect(_choose_event)
 	add_child(_actions)
@@ -313,6 +314,7 @@ func _build_ui() -> void:
 	_events.closed.connect(_on_events_closed)
 	_report.closed.connect(_after_change)
 	_victory.new_game_requested.connect(_open_setup)
+	_victory.main_menu_requested.connect(App.to_main_menu)
 
 
 func _open_setup() -> void:

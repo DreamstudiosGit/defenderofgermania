@@ -86,7 +86,7 @@ BATTLE_UNIT_LEADER,Anführer,Leader
 BATTLE_ROLE_ATTACKER,Angreifer,Attacker
 BATTLE_ROLE_DEFENDER,Verteidiger,Defender
 BATTLE_PHASE_DEPLOY,Aufstellung %s,Deployment %s
-BATTLE_MENU_TITLE,Schlacht-Prototyp,Battle prototype
+BATTLE_MENU_TITLE,Schnelle Schlacht,Quick battle
 BATTLE_MENU_START,Schlacht beginnen,Start battle
 BATTLE_MENU_CONFLICT,Beide Seiten nutzen dasselbe Eingabegerät.,Both sides use the same input device.
 BATTLE_CONTROL_AI,Computer,Computer
@@ -925,3 +925,36 @@ UI_BACK,Zurück,Back
 UI_OK,In Ordnung,OK
 UI_YES,Ja,Yes
 UI_NO,Nein,No
+MENU_TITLE,THRONSTREIT,THRONSTREIT
+MENU_TITLE_YEAR,1198,1198
+MENU_TAGLINE,Zwei Könige. Eine Krone. Euer Haus entscheidet.,Two kings. One crown. Your house decides.
+MENU_VERSION,Version %s · Early Access,Version %s · Early Access
+MENU_CONTINUE,Weiterspielen,Continue
+MENU_CONTINUE_NONE,Kein Spielstand,No saved game
+MENU_SAVE_INFO,Runde %d · %s,Round %d · %s
+MENU_SAVE_ROUND,Runde %d,Round %d
+MENU_SAVE_DATE,"{day}.{month}.{year}, {hour}:{minute}","{year}-{month}-{day}, {hour}:{minute}"
+MENU_NEW_CAMPAIGN,Neue Kampagne,New campaign
+MENU_LOAD,Spiel laden,Load game
+MENU_QUICK_BATTLE,Schnelle Schlacht,Quick battle
+MENU_PRACTICE,Übung,Practice
+MENU_PRACTICE_JOUST,Tjost,Joust
+MENU_PRACTICE_SIEGE,Belagerung mit der Blide,Trebuchet siege
+MENU_PRACTICE_RAID,Burgüberfall,Castle raid
+MENU_PRACTICE_MERCHANT,Kaufmannszug,Merchant train
+MENU_OPTIONS,Optionen,Options
+MENU_CREDITS,Mitwirkende,Credits
+MENU_QUIT,Spiel beenden,Quit game
+MENU_MAIN_MENU,Hauptmenü,Main menu
+MENU_BACK_TO_MENU,Zurück zum Hauptmenü,Back to main menu
+MENU_CREDITS_TITLE,Mitwirkende und Lizenzen,Credits and licences
+MENU_CREDITS_BY,Ein Spiel von,A game by
+MENU_CREDITS_STUDIO,Dreamstudios,Dreamstudios
+MENU_CREDITS_TOOLS,Gebaut mit,Built with
+MENU_CREDITS_ENGINE,Godot Engine – MIT-Lizenz,Godot Engine – MIT licence
+MENU_CREDITS_PHYSICS,Jolt Physics – MIT-Lizenz,Jolt Physics – MIT licence
+MENU_CREDITS_FONTS,Schriften Texturina und Vollkorn – SIL Open Font License 1.1,Typefaces Texturina and Vollkorn – SIL Open Font License 1.1
+MENU_CREDITS_TESTS,GUT (Godot Unit Test) – MIT-Lizenz,GUT (Godot Unit Test) – MIT licence
+MENU_CREDITS_LICENCES,Lizenztexte,Licence texts
+MENU_CREDITS_FONT_LICENCE,Schrift %s,%s typeface
+MENU_CREDITS_COMPONENTS,Bestandteile der Godot Engine,Components of the Godot Engine

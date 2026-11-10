@@ -23,10 +23,10 @@ function findGodot() {
 
 const args = ['--path', projectDir];
 if (process.argv.includes('--editor')) args.push('--editor');
-// The campaign (war table) and the adventures' practice modes until the main menu of milestone M8
-// picks them; default: battle prototype.
+// Without a flag the game starts in its main scene, the main menu; a flag opens one mode directly.
 const scenes = {
   '--campaign': 'res://src/render/campaign/campaign_main.tscn',
+  '--battle': 'res://src/render/battle/battle_main.tscn',
   '--joust': 'res://src/render/joust/joust_main.tscn',
   '--siege': 'res://src/render/siege/trebuchet_main.tscn',
   '--raid': 'res://src/render/raid/raid_main.tscn',

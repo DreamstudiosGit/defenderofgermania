@@ -299,9 +299,10 @@ func _on_flee_requested() -> void:
 	_flee = true
 
 
-## Leaving the practice: back to whoever opened it, or out of the game when it runs alone.
+## Leaving the practice: back to whoever opened it, or to the main menu when it is the tree's
+## scene.
 func _quit_practice() -> void:
 	if not finished.get_connections().is_empty():
 		finished.emit(_last_result)
-	else:
-		get_tree().quit()
+	elif get_tree().current_scene == self:
+		App.to_main_menu()

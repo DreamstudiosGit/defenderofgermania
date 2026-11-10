@@ -12,7 +12,7 @@ config_version=5
 
 config/name="THRONSTREIT 1198"
 config/version="0.8.0"
-run/main_scene="res://src/render/battle/battle_main.tscn"
+run/main_scene="res://src/render/menu/main_menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Thronstreit1198"
 config/features=PackedStringArray("4.7", "Forward Plus")

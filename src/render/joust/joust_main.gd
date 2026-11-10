@@ -5,7 +5,7 @@ extends Node3D
 ## The simulation runs on its fixed tick; the view interpolates between ticks.
 
 signal finished(result: JoustResult)
-## Practice mode's quit button; when nothing is connected the game quits.
+## Practice mode's quit button; as the tree's scene the joust then returns to the main menu.
 signal quit_requested
 
 const MAX_TICKS_PER_FRAME := 5
@@ -269,8 +269,8 @@ func _on_start_requested(setup: JoustSetup, device: int) -> void:
 
 func _quit() -> void:
 	quit_requested.emit()
-	if quit_requested.get_connections().is_empty():
-		get_tree().quit()
+	if get_tree().current_scene == self:
+		App.to_main_menu()
 
 
 func _capture_mouse(captured: bool) -> void:
