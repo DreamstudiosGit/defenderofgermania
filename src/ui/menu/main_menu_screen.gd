@@ -17,6 +17,10 @@ signal quit_requested
 
 const SIDE_MARGIN := 72.0
 const CORNER_MARGIN := 20.0
+## The title's line stands about 40 px above its capitals. The column may reach this far past
+## the top edge, so it fits a 1280x720 window at the largest UI scale (115 %) and what is seen
+## of it stands in the middle.
+const TITLE_HEADROOM := 30.0
 const TITLE_GAP := 26
 const TITLE_SLIDE := Vector2(-40.0, 0.0)
 const TITLE_SECONDS := 0.6
@@ -64,6 +68,7 @@ func _init() -> void:
 	_column.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE)
 	_column.offset_left = SIDE_MARGIN
 	_column.offset_right = SIDE_MARGIN
+	_column.offset_top = -TITLE_HEADROOM
 	_column.add_child(_title)
 	_column.add_child(_body)
 	_body.add_child(entries)
@@ -188,6 +193,9 @@ func _play_entrance() -> void:
 	var lift := create_tween()
 	lift.tween_property(_veil, "modulate:a", 0.0, VEIL_SECONDS)
 	lift.tween_callback(_veil.hide)
+	# The title slides to where the layout stood when it set off. A window that changed its
+	# shape meanwhile (fullscreen at the start) needs the column laid out once more.
+	lift.tween_callback(_column.queue_sort)
 	UiMotion.slide_in(_title, TITLE_SLIDE, TITLE_SECONDS)
 	entries.modulate.a = 1.0
 	entries.play_entrance(ENTRIES_DELAY)

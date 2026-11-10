@@ -60,6 +60,14 @@ func test_cancel_closes() -> void:
 	assert_signal_emit_count(_credits, "closed", 1, "closed credits leave the key alone")
 
 
+func test_the_credits_only_process_while_open() -> void:
+	var unopened: CreditsScreen = add_child_autofree(CreditsScreen.new())
+	assert_false(unopened.is_processing(), "credits nobody opened rest")
+	assert_true(_credits.is_processing(), "open credits read the stick")
+	_credits.close()
+	assert_false(_credits.is_processing(), "closed credits rest again")
+
+
 func test_stick_and_arrow_keys_scroll_the_text() -> void:
 	await wait_process_frames(3)
 	var bar := _text().get_v_scroll_bar()

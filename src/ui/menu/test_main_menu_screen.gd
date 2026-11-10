@@ -99,6 +99,38 @@ func test_keys_alone_walk_the_entries_and_wrap_around() -> void:
 	assert_eq(_focus(), _entry("new_campaign"), "cancel at the top changes nothing")
 
 
+func test_a_first_save_puts_continue_back_into_the_round_of_entries() -> void:
+	await wait_process_frames(2)
+	SaveGames.write(_campaign_state(), "slot_1")
+	_screen.refresh_saves()
+	assert_eq(_focus(), _entry("new_campaign"), "the focus stays where it was")
+	_press("ui_up")
+	assert_eq(_focus(), _entry("continue"), "up no longer skips to the last entry")
+	_press("ui_up")
+	assert_eq(_focus(), _entry("quit"))
+	_press("ui_down")
+	assert_eq(_focus(), _entry("continue"))
+
+
+func test_the_menu_fits_the_base_window_at_the_largest_ui_scale() -> void:
+	var largest: float = UserSettings.SPEC[UserSettings.UI_SCALE][2]
+	var frame: Control = add_child_autofree(Control.new())
+	frame.size = Vector2(
+		float(ProjectSettings.get_setting("display/window/size/viewport_width")),
+		float(ProjectSettings.get_setting("display/window/size/viewport_height"))
+	) / largest
+	var screen := MainMenuScreen.new()
+	frame.add_child(screen)
+	await wait_process_frames(2)
+	var title := screen.find_child("name", true, false) as Control
+	var last := screen.entries.find_child("quit", true, false) as Control
+	assert_gt(
+		title.get_global_rect().position.y, -MainMenuScreen.TITLE_HEADROOM,
+		"the title's capitals stay on screen"
+	)
+	assert_lt(last.get_global_rect().end.y, frame.size.y, "and so does the last entry")
+
+
 func test_practice_opens_in_place_and_cancel_returns_to_its_entry() -> void:
 	_entry("practice").grab_focus()
 	_press("ui_accept")

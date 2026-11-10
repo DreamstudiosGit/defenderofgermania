@@ -41,7 +41,11 @@ func _init() -> void:
 	_back.pressed.connect(close)
 	column.add_child(_back)
 	visible = false
-	set_process(false)
+
+
+func _ready() -> void:
+	# A node with _process starts processing when it is ready, whatever _init asked for.
+	set_process(visible)
 
 
 func open() -> void:

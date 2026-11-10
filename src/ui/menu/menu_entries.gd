@@ -52,6 +52,9 @@ func set_reachable(reachable: bool) -> void:
 	for button: Button in entries():
 		var takes_focus := reachable and not button.disabled
 		button.focus_mode = Control.FOCUS_ALL if takes_focus else Control.FOCUS_NONE
+		# The ends may be others than at the last call.
+		button.focus_neighbor_top = NodePath()
+		button.focus_neighbor_bottom = NodePath()
 		if takes_focus:
 			in_reach.append(button)
 	if in_reach.size() > 1:
