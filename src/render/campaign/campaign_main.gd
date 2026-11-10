@@ -81,7 +81,7 @@ func resume(saved: GameState) -> void:
 	var rules := GameRules.load_files()
 	ai = AiPlayer.new(rules, AiConfig.load_file())
 	session = CampaignSession.resume(rules, saved, ai.play_phase)
-	_begin()
+	_begin(saved.turn)
 
 
 ## Saves the campaign into a slot while a human house is to move; OK or the error.
@@ -91,12 +91,14 @@ func save_to(slot: String) -> Error:
 	return SaveGames.write(session.state, slot)
 
 
-func _begin() -> void:
+## autosaved_turn: the round that needs no autosave — the one a resumed save was made in, so
+## that loading an older slot does not overwrite a newer autosave before a round was played.
+func _begin(autosaved_turn: int = -1) -> void:
 	_actions.session = session
 	_seen_house = ""
 	_events_seen = ""
 	_seen_settlement = null
-	_autosaved_turn = -1
+	_autosaved_turn = autosaved_turn
 	_select_home()
 	_after_change()
 

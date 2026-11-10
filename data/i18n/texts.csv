@@ -1029,3 +1029,23 @@ PAUSE_ASK_QUIT,Das Spiel beenden?,Quit the game?
 PAUSE_UNSAVED,Der Fortschritt seit dem letzten Speichern geht verloren.,Progress since the last save will be lost.
 PAUSE_CONFIRM_MAIN_MENU,Zum Hauptmenü,To the main menu
 PAUSE_CONFIRM_QUIT,Beenden,Quit
+SAVES_TITLE_LOAD,Spiel laden,Load game
+SAVES_TITLE_SAVE,Spiel speichern,Save game
+SAVES_AUTOSAVE,Automatischer Spielstand,Autosave
+SAVES_SLOT,Spielstand %d,Slot %d
+SAVES_DATE,Runde %d · %s %d,Round %d · %s %d
+SAVES_EMPTY,Leer,Empty
+SAVES_RECOVERED,Beschädigt – die Sicherung wird geladen,Damaged – the backup will be loaded
+SAVES_BROKEN,Beschädigt – kann nicht geladen werden,Damaged – cannot be loaded
+SAVES_OTHER_VERSION,Aus einer anderen Version – kann nicht geladen werden,From another version – cannot be loaded
+SAVES_OTHER_GAME_VERSION,Aus Version %s – kann nicht geladen werden,From version %s – cannot be loaded
+SAVES_AUTOSAVE_NOTE,Der automatische Spielstand wird zu Beginn jeder Runde geschrieben.,The autosave is written at the start of every round.
+SAVES_NONE,Es gibt keinen Spielstand zum Laden.,There is no saved game to load.
+SAVES_SAVED,%s gespeichert.,%s saved.
+SAVES_DELETED,%s gelöscht.,%s deleted.
+SAVES_WRITE_FAILED,Speichern fehlgeschlagen: %s,Saving failed: %s
+SAVES_DELETE_FAILED,Löschen fehlgeschlagen: %s,Deleting failed: %s
+SAVES_ASK_OVERWRITE,%s überschreiben?,Overwrite %s?
+SAVES_OVERWRITE,Überschreiben,Overwrite
+SAVES_ASK_DELETE,%s löschen?,Delete %s?
+SAVES_DELETE,Löschen,Delete

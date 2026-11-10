@@ -7,6 +7,8 @@ extends SceneTree
 
 const SHOT_FRAMES := 30
 const COMPUTERS := 3
+## The campaign autosaves every round; never into the player's saves.
+const SAVES := "user://preview_campaign_ai_saves"
 
 
 func _initialize() -> void:
@@ -15,6 +17,7 @@ func _initialize() -> void:
 
 func _capture() -> void:
 	var args := _arguments()
+	SaveGames.folder = SAVES
 	if args.has("locale"):
 		TranslationServer.set_locale(args["locale"])
 	var scene := (load("res://src/render/campaign/campaign_main.tscn") as PackedScene).instantiate()
@@ -40,6 +43,8 @@ func _capture() -> void:
 	await RenderingServer.frame_post_draw
 	var error := root.get_texture().get_image().save_png(args.get("shot", "user://campaign_ai.png"))
 	print("campaign ai preview: %s (%s)" % [args.get("shot", ""), error_string(error)])
+	SaveGames.remove(SaveGames.AUTOSAVE)
+	DirAccess.remove_absolute(SAVES)
 	quit(0 if error == OK else 1)
 
 
