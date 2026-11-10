@@ -23,8 +23,6 @@ func _ready() -> void:
 		push_error("castle preview: unknown house %s" % house_id)
 		return
 	var province_id := _prepare(state, rules.economy, house_id, options)
-	if DisplayServer.get_name() != "headless":
-		get_viewport().msaa_3d = Viewport.MSAA_4X
 	var view := CastleView.new()
 	add_child(view)
 	view.closed.connect(get_tree().quit)

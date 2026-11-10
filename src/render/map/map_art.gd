@@ -5,10 +5,16 @@ extends RefCounted
 
 const PATH := "res://data/map_art.json"
 const OUTLINE := preload("res://src/render/map/map_outline.gdshader")
+const RIM := preload("res://src/render/map/map_rim.gdshader")
+## Rims draw before the ink pass (priority 0), so its grain and vignette lie over them as
+## over the fields; left to the depth sort, near rims would draw after it and far ones before.
+const RIM_PRIORITY := -1
 
 static var _art: Dictionary = {}
 static var _paints: Dictionary[String, StandardMaterial3D] = {}
 static var _outline: ShaderMaterial
+## Stands in for a missing section; the camera asks every frame, so none is made per call.
+static var _no_section: Dictionary = {}
 
 
 static func settings() -> Dictionary:
@@ -22,12 +28,20 @@ static func settings() -> Dictionary:
 
 
 static func section(key: String) -> Dictionary:
-	var value: Variant = settings().get(key, {})
-	return value if value is Dictionary else {}
+	var value: Variant = settings().get(key)
+	return value if value is Dictionary else _no_section
 
 
 static func number(section_key: String, key: String, fallback: float) -> float:
 	return float(section(section_key).get(key, fallback))
+
+
+## A value of the "quality" section, which holds one entry per level (UserSettings.Quality).
+static func by_quality(key: String, level: int, fallback: Variant) -> Variant:
+	var levels: Variant = section("quality").get(key)
+	if levels is Array and level >= 0 and level < (levels as Array).size():
+		return (levels as Array)[level]
+	return fallback
 
 
 static func color(section_key: String, key: String, fallback: Color) -> Color:
@@ -72,6 +86,17 @@ static func outline() -> ShaderMaterial:
 		_outline.set_shader_parameter("ink", color("ink", "color", Color.BLACK))
 		_outline.set_shader_parameter("width", number("ink", "outline_width", 0.025))
 	return _outline
+
+
+## Flat light for rims and rings (map_rim.gdshader); `breath` is the share of its strength
+## that fades out and back in slowly.
+static func rim(value: Color, breath: float = 0.0) -> ShaderMaterial:
+	var material := ShaderMaterial.new()
+	material.shader = RIM
+	material.render_priority = RIM_PRIORITY
+	material.set_shader_parameter("tint", value)
+	material.set_shader_parameter("breath", breath)
+	return material
 
 
 static func flat(value: Color) -> StandardMaterial3D:

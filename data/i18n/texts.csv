@@ -1029,3 +1029,7 @@ PAUSE_ASK_QUIT,Das Spiel beenden?,Quit the game?
 PAUSE_UNSAVED,Der Fortschritt seit dem letzten Speichern geht verloren.,Progress since the last save will be lost.
 PAUSE_CONFIRM_MAIN_MENU,Zum Hauptmenü,To the main menu
 PAUSE_CONFIRM_QUIT,Beenden,Quit
+CASTLE_TIMELAPSE,Zeitraffer ansehen,Watch the time-lapse
+CASTLE_TIMELAPSE_SKIP,Zeitraffer überspringen,Skip the time-lapse
+CASTLE_HINT_KEYS,Ziehen oder WASD: drehen  ·  Mausrad oder Bild auf/ab: zoomen  ·  R: Zeitraffer  ·  Esc: zurück,Drag or WASD: turn  ·  Wheel or Page Up/Down: zoom  ·  R: time-lapse  ·  Esc: back
+CASTLE_HINT_PAD,Rechter Stick: drehen  ·  LT / RT: zoomen  ·  Y: Zeitraffer  ·  B: zurück,Right stick: turn  ·  LT / RT: zoom  ·  Y: time-lapse  ·  B: back

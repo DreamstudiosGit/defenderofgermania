@@ -3,11 +3,17 @@ extends Node3D
 ## The "Zeitraffer" when the castle view opens ("timelapse" in data/castle_art.json): pieces
 ## under construction rise out of the ground to their progress in a cloud of dust, so do pieces
 ## finished or bought since the province was last shown, and new village houses pop up one
-## after another. What was shown is remembered per province for the rest of the session.
+## after another. What was shown is remembered per province for the rest of the session. The
+## player can watch the whole castle rise again (start with `whole`) or skip to the end (finish).
+
+## The time-lapse played to its end; `completed` pieces reached their full height in it.
+signal ended(completed: int)
 
 const RISING_KINDS: Array[CastleLayout.Kind] = [
 	CastleLayout.Kind.CASTLE, CastleLayout.Kind.BUILDING, CastleLayout.Kind.DECORATION
 ]
+## Longer than any time-lapse.
+const TO_THE_END := 1.0e6
 
 ## Province id -> {"pieces": {placement key: progress}, "houses": count} of its last showing.
 static var _memory: Dictionary[String, Dictionary] = {}
@@ -16,6 +22,7 @@ var _risers: Array[Dictionary] = []
 var _houses: Array[Dictionary] = []
 var _time: float = 0.0
 var _duration: float = 3.0
+var _completed: int = 0
 
 
 ## Forgets every province shown so far.
@@ -23,14 +30,15 @@ static func forget() -> void:
 	_memory.clear()
 
 
-## Starts the time-lapse for the layout whose placements stand as `nodes` (same order).
-func start(layout: CastleLayout, nodes: Array[MeshInstance3D]) -> void:
+## Starts the time-lapse for the layout whose placements stand as `nodes` (same order);
+## `whole` raises everything from the bare ground, whatever was shown before.
+func start(layout: CastleLayout, nodes: Array[MeshInstance3D], whole: bool = false) -> void:
 	stop()
 	var settings := CastleArt.section("timelapse")
 	_duration = float(settings.get("duration", 3.0))
-	var previous: Dictionary = _memory.get(layout.province_id, {})
+	var previous: Dictionary = {} if whole else _memory.get(layout.province_id, {})
 	var seen: Dictionary = previous.get("pieces", {})
-	var known := not previous.is_empty()
+	var known := whole or not previous.is_empty()
 	var shown: Dictionary = {}
 	var houses_before := int(previous.get("houses", 0))
 	var house_index := 0
@@ -75,10 +83,17 @@ func stop() -> void:
 	_risers.clear()
 	_houses.clear()
 	_time = 0.0
+	_completed = 0
 
 
 func is_playing() -> bool:
 	return not _risers.is_empty() or not _houses.is_empty()
+
+
+## Jumps to the end of a running time-lapse.
+func finish() -> void:
+	if is_playing():
+		advance(TO_THE_END)
 
 
 func _process(delta: float) -> void:
@@ -88,13 +103,14 @@ func _process(delta: float) -> void:
 
 ## Moves the time-lapse on by `delta` seconds.
 func advance(delta: float) -> void:
+	var was_playing := is_playing()
 	_time += delta
 	var t := clampf(_time / maxf(_duration, 0.01), 0.0, 1.0)
 	var eased := ease(t, -2.0)
 	for riser: Dictionary in _risers:
 		_advance_riser(riser, eased)
-	var finished: Array[Dictionary] = []
-	for house: Dictionary in _houses:
+	for index: int in range(_houses.size() - 1, -1, -1):
+		var house := _houses[index]
 		var local := clampf((_time - float(house["delay"])) / float(house["length"]), 0.0, 1.0)
 		var node := house["node"] as Node3D
 		var target: Transform3D = house["transform"]
@@ -102,13 +118,13 @@ func advance(delta: float) -> void:
 		var size := maxf(_pop(local), 0.001)
 		node.transform = Transform3D(target.basis.scaled(Vector3.ONE * size), target.origin)
 		if local >= 1.0:
-			finished.append(house)
-	for house: Dictionary in finished:
-		_houses.erase(house)
+			_houses.remove_at(index)
 	if t >= 1.0:
 		for riser: Dictionary in _risers:
 			(riser["dust"] as CPUParticles3D).emitting = false
 		_risers.clear()
+	if was_playing and not is_playing():
+		ended.emit(_completed)
 
 
 func _advance_riser(riser: Dictionary, eased: float) -> void:
@@ -131,6 +147,8 @@ func _add_riser(node: MeshInstance3D, placement: CastleLayout.Placement, from: f
 		"from": from, "to": placement.progress, "dust": _dust(node, placement),
 	}
 	_risers.append(riser)
+	if placement.progress >= 1.0:
+		_completed += 1
 
 
 func _add_house(node: MeshInstance3D, order: int, settings: Dictionary) -> void:

@@ -2,8 +2,9 @@ class_name CastleInputMap
 extends RefCounted
 ## Registers the castle view's input actions at runtime ("castle_<action>", every controller):
 ## orbit_left/right/up/down (WASD/arrows, right stick, d-pad), zoom_in/zoom_out (Page Up/Down,
-## +/-, triggers) and close (Esc, Backspace, controller B). The mouse wheel and drags are read
-## directly by CastleCamera.
+## +/-, triggers), close (Esc, Backspace, controller B) and timelapse (R, controller Y: skip
+## the time-lapse or watch it again). The mouse wheel and drags are read directly by
+## CastleCamera.
 
 const PREFIX := "castle_"
 const STICK_DEADZONE := 0.2
@@ -27,6 +28,7 @@ static func register() -> void:
 	_add("zoom_out", [_key(KEY_PAGEDOWN), _key(KEY_KP_SUBTRACT), _key(KEY_MINUS),
 		_axis(JOY_AXIS_TRIGGER_LEFT, 1.0)], STICK_DEADZONE)
 	_add("close", [_key(KEY_ESCAPE), _key(KEY_BACKSPACE), _button(JOY_BUTTON_B)], BUTTON_DEADZONE)
+	_add("timelapse", [_key(KEY_R), _button(JOY_BUTTON_Y)], BUTTON_DEADZONE)
 
 
 ## Orbit input, at most length 1: x turns the view, y tilts it (positive looks from higher up).

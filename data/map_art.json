@@ -154,6 +154,15 @@
     "grain": 0.06,
     "vignette": 1.1
   },
+  "quality": {
+    "ssao": [false, true, true],
+    "ssil": [false, false, true],
+    "glow": [false, true, true],
+    "ink": [true, true, true],
+    "key_shadow_splits": [2, 4, 4],
+    "candle_shadows": [0, 2, 4],
+    "candle_shadow_atlas": [1024, 4096, 4096]
+  },
   "field": {
     "base_height": 0.6,
     "paint_mix": 0.12,
@@ -172,7 +181,8 @@
     "select_color": "#f2c94c",
     "highlight_color": "#fff1c4b0",
     "select_width": 0.38,
-    "highlight_width": 0.2
+    "highlight_width": 0.2,
+    "highlight_breath": 0.45
   },
   "labels": {
     "font_names": ["Palatino Linotype", "Book Antiqua", "Georgia", "serif"],
@@ -204,6 +214,20 @@
     "count_color": "#f4e6c4",
     "count_outline_color": "#20140c",
     "occupied_scale": 3.4
+  },
+  "motion": {
+    "glide_seconds": 0.35,
+    "glide_hop": 1.6,
+    "shuffle_seconds": 0.2,
+    "drop_seconds": 0.4,
+    "drop_height": 9.0,
+    "sink_seconds": 0.3,
+    "lift_seconds": 0.12,
+    "ring_breath": 0.35,
+    "paint_seconds": 0.4,
+    "conquest_color": "#fff0b8",
+    "conquest_seconds": 0.6,
+    "conquest_growth": 0.07
   },
   "props": {
     "forest": {
