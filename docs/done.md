@@ -44,3 +44,4 @@
 - 2026-11-10 feat(core): menu screen seams (options, pause, save slots, controls) and union merge for texts
 - 2026-11-10 feat(core): shared confirm dialog and generic UI texts
 - 2026-11-10 feat(core): wave 1 merged (main menu, credits, options, pause menu, focus trap), controller confirm and cancel bound at boot, UiMotion meta fix, ADR 0010
+- 2026-11-10 feat(core): focus trap in every modal, shared pause action (Esc / Start), panel focus entry points, command-line window size wins over stored options

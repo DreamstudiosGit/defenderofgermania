@@ -14,6 +14,10 @@ const SIEGE := "res://src/render/siege/trebuchet_main.tscn"
 const RAID := "res://src/render/raid/raid_main.tscn"
 const MERCHANT := "res://src/render/merchant/merchant_main.tscn"
 
+## Opens a scene's pause menu: Esc or Start on any controller. A screen in front that closes
+## on ui_cancel takes Esc first.
+const PAUSE_ACTION := &"app_pause"
+
 const STICK_THRESHOLD := 0.5
 const MOUSE_THRESHOLD := 4.0
 
@@ -46,6 +50,11 @@ func _ready() -> void:
 	add_child(curtain)
 	_add_pad_button(&"ui_accept", JOY_BUTTON_A)
 	_add_pad_button(&"ui_cancel", JOY_BUTTON_B)
+	InputMap.add_action(PAUSE_ACTION)
+	var escape := InputEventKey.new()
+	escape.physical_keycode = KEY_ESCAPE
+	InputMap.action_add_event(PAUSE_ACTION, escape)
+	_add_pad_button(PAUSE_ACTION, JOY_BUTTON_START)
 
 
 func _notification(what: int) -> void:

@@ -20,12 +20,16 @@ const FALLBACK_LOCALE := "en"
 var _settings: UserSettings
 var _window: Window
 var _headless: bool
+## A window size given on the command line (screenshot tools, benchmarks) wins over the
+## player's stored window options.
+var _fixed_window: bool
 
 
 func _init(settings: UserSettings, window: Window) -> void:
 	_settings = settings
 	_window = window
 	_headless = DisplayServer.get_name() == "headless"
+	_fixed_window = "--resolution" in OS.get_cmdline_args()
 
 
 func apply_all() -> void:
@@ -57,7 +61,7 @@ func apply(key: String) -> void:
 
 
 func apply_window() -> void:
-	if _headless:
+	if _headless or _fixed_window:
 		return
 	match _settings.get_int(UserSettings.WINDOW_MODE):
 		UserSettings.WindowMode.FULLSCREEN:

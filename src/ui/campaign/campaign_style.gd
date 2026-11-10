@@ -47,9 +47,11 @@ static func outline(font_size: int) -> LabelSettings:
 
 ## Turns root into a full-screen modal: a backdrop that swallows clicks (opaque hides the
 ## screen below, e.g. for the hot-seat handover) and a centred panel that pops in whenever
-## the screen shows; returns the panel's column.
+## the screen shows; keyboard and controller focus stays inside while it shows (FocusTrap).
+## Returns the panel's column.
 static func modal(root: Control, backdrop: Color) -> VBoxContainer:
 	root.theme = theme()
+	root.add_child(FocusTrap.new())
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_STOP
 	var shade := ColorRect.new()

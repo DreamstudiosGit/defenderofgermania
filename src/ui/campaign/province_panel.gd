@@ -47,6 +47,12 @@ func _init() -> void:
 	column.move_child(_view_castle, column.get_children().find(_castle) + 1)
 
 
+## The way in for keys and controllers: focuses the panel's first usable control; false when
+## it has none.
+func focus_first() -> bool:
+	return is_visible_in_tree() and FocusTrap.focus_first(self)
+
+
 func refresh(state: GameState, rules: GameRules, house: String, province_id: String) -> void:
 	var province: ProvinceState = state.provinces.get(province_id)
 	_province_id = province_id

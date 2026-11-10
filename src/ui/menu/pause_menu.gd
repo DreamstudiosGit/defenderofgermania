@@ -79,7 +79,6 @@ func _init() -> void:
 	_confirm.cancelled.connect(_uncover)
 	_confirm.confirmed.connect(_on_confirmed)
 	add_child(_confirm)
-	add_child(FocusTrap.new())
 	visible = false
 
 
@@ -90,7 +89,9 @@ func _exit_tree() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not visible or not event.is_action_pressed("ui_cancel"):
+	if not visible:
+		return
+	if not (event.is_action_pressed("ui_cancel") or event.is_action_pressed(App.PAUSE_ACTION)):
 		return
 	get_viewport().set_input_as_handled()
 	# The press that opened the menu can arrive here in the same frame.

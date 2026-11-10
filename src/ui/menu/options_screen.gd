@@ -76,7 +76,6 @@ func _init() -> void:
 	FocusTrap.pin(_back, [SIDE_RIGHT, SIDE_BOTTOM])
 	FocusTrap.pin(_tabs.get_tab_bar(), [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT])
 	FocusTrap.ring(_tabs.get_tab_bar(), _back)
-	add_child(FocusTrap.new())
 	visible = false
 
 

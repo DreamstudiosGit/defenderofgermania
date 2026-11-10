@@ -44,7 +44,6 @@ func _init() -> void:
 	FocusTrap.pin(_cancel, [SIDE_LEFT, SIDE_TOP, SIDE_BOTTOM])
 	FocusTrap.pin(_confirm, [SIDE_RIGHT, SIDE_TOP, SIDE_BOTTOM])
 	FocusTrap.ring(_cancel, _confirm)
-	add_child(FocusTrap.new())
 	visible = false
 
 

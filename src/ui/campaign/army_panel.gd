@@ -47,6 +47,12 @@ func _init() -> void:
 		_siege.add_child(child)
 
 
+## The way in for keys and controllers: focuses the panel's first usable control; false when
+## it has none.
+func focus_first() -> bool:
+	return is_visible_in_tree() and FocusTrap.focus_first(self)
+
+
 func refresh(state: GameState, rules: GameRules, house: String, army_id: int) -> void:
 	_rules = rules
 	_house = house

@@ -44,6 +44,16 @@ static func focusables(node: Node) -> Array[Control]:
 	return found
 
 
+## Focuses the first control under `node` that can be used now; false when there is none.
+static func focus_first(node: Node) -> bool:
+	for control: Control in focusables(node):
+		var button := control as BaseButton
+		if control.is_visible_in_tree() and (button == null or not button.disabled):
+			control.grab_focus()
+			return true
+	return false
+
+
 ## Up and down lead along the column; its ends stay put, or lead to each other with `wrap`.
 ## A control in it that cannot take focus right now is passed over.
 static func link_column(column: Array[Control], wrap: bool = false) -> void:
