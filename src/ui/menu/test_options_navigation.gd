@@ -155,6 +155,35 @@ func test_the_focused_row_is_described() -> void:
 	assert_eq(hint.text, "")
 
 
+func test_no_description_is_cut_off_in_either_language() -> void:
+	var locale_before := TranslationServer.get_locale()
+	# Windowed, so the window size row takes focus too.
+	_settings.set_value(UserSettings.WINDOW_MODE, UserSettings.WindowMode.WINDOWED)
+	for locale: String in UserSettings.LOCALES:
+		TranslationServer.set_locale(locale)
+		_screen.open()
+		await get_tree().process_frame
+		await get_tree().process_frame
+		var hint := _screen.find_child("hint", true, false) as Label
+		var tabs := _tabs()
+		var described := 0
+		for tab: int in tabs.get_tab_count():
+			tabs.current_tab = tab
+			for row: OptionRow in tabs.get_tab_control(tab).find_children("*", "OptionRow", true, false):
+				row.control.grab_focus()
+				assert_eq(hint.text, row.hint)
+				# Counting the lines lays the new text out; the lines shown are read after it.
+				var lines := hint.get_line_count()
+				assert_eq(
+					hint.get_visible_line_count(), lines,
+					"lines shown of %s (%s)" % [row.control.name, locale]
+				)
+				described += 1
+		assert_eq(described, 17, locale)
+		_screen.close()
+	TranslationServer.set_locale(locale_before)
+
+
 ## Stands in for the screen behind the modal: wherever Godot looks for a neighbour, one is.
 func _cover_the_viewport_with_buttons() -> void:
 	var grid: GridContainer = add_child_autofree(GridContainer.new())

@@ -51,9 +51,10 @@ func test_window_size_is_offered_in_a_window_only_and_writes_width_and_height() 
 	assert_eq(size.focus_mode, Control.FOCUS_NONE, "focus skips the locked row")
 	_choose("video_window_mode", UserSettings.WindowMode.WINDOWED)
 	assert_false(size.disabled)
-	_choose("video_window_size", _item(size, "1920 × 1080"))
-	assert_eq(_settings.get_int(UserSettings.WINDOW_WIDTH), 1920)
-	assert_eq(_settings.get_int(UserSettings.WINDOW_HEIGHT), 1080)
+	# The smallest size: offered on every screen, also when the tests run in a window.
+	_choose("video_window_size", _item(size, "1280 × 720"))
+	assert_eq(_settings.get_int(UserSettings.WINDOW_WIDTH), 1280)
+	assert_eq(_settings.get_int(UserSettings.WINDOW_HEIGHT), 720)
 	_choose("video_window_mode", UserSettings.WindowMode.BORDERLESS)
 	assert_true(size.disabled)
 
@@ -140,6 +141,9 @@ func test_a_new_language_is_reported_once_the_screen_closed() -> void:
 	_settings.set_value(UserSettings.LOCALE, "de")
 	_screen.open()
 	watch_signals(_screen)
+	var order: Array[String] = []
+	_screen.closed.connect(func() -> void: order.append("closed"))
+	_screen.language_changed.connect(func() -> void: order.append("language_changed"))
 	_choose("game_locale", LANGUAGE_ITEMS.find("en"))
 	assert_signal_not_emitted(_screen, "language_changed", "not while the screen is open")
 	await get_tree().process_frame
@@ -147,6 +151,7 @@ func test_a_new_language_is_reported_once_the_screen_closed() -> void:
 	_screen.close()
 	assert_signal_emit_count(_screen, "closed", 1)
 	assert_signal_emit_count(_screen, "language_changed", 1)
+	assert_eq(order, ["closed", "language_changed"], "the caller rebuilds once the screen is gone")
 
 
 func test_the_same_language_is_not_reported() -> void:

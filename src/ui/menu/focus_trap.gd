@@ -10,11 +10,21 @@ extends Node
 ## when it lies nearer, so a modal spells out the ways between its own controls
 ## (link_column, pin, ring): a spelled-out neighbour is taken without any search.
 
-## Set while one trap takes focus back: two screens that show side by side, neither inside
-## the other, would otherwise pull it from each other without end.
+## Set while one trap takes focus back, so no trap reacts to that move itself.
 static var _returning := false
+## The traps in the tree. Where two screens show at once, neither inside the other, only the
+## one in front holds the focus: the pause menu over a scene's dialog, not the dialog.
+static var _traps: Array[FocusTrap] = []
 
 var _inside: Control = null
+
+
+func _enter_tree() -> void:
+	_traps.append(self)
+
+
+func _exit_tree() -> void:
+	_traps.erase(self)
 
 
 func _ready() -> void:
@@ -64,7 +74,29 @@ func _on_focus_changed(control: Control) -> void:
 		return
 	if screen.is_ancestor_of(control):
 		_inside = control
-	elif is_instance_valid(_inside) and _inside.is_visible_in_tree():
+	elif is_instance_valid(_inside) and _inside.is_visible_in_tree() and not _is_covered(screen):
 		_returning = true
 		_inside.grab_focus()
 		_returning = false
+
+
+## True while another trapped screen shows in front of `screen`.
+static func _is_covered(screen: Control) -> bool:
+	for trap: FocusTrap in _traps:
+		var other := trap.get_parent() as Control
+		if other == null or other == screen or screen.is_ancestor_of(other):
+			continue
+		if other.is_visible_in_tree() and _is_in_front(other, screen):
+			return true
+	return false
+
+
+## A higher canvas layer draws in front; on the same layer, what comes later in the tree.
+static func _is_in_front(one: Control, other: Control) -> bool:
+	var layers: Array[int] = []
+	for screen: Control in [one, other]:
+		var layer := screen.get_canvas_layer_node()
+		layers.append(layer.layer if layer != null else 0)
+	if layers[0] != layers[1]:
+		return layers[0] > layers[1]
+	return one.is_greater_than(other)

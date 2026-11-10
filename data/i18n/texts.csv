@@ -956,7 +956,7 @@ OPTIONS_QUALITY_LOW,Niedrig,Low
 OPTIONS_QUALITY_MEDIUM,Mittel,Medium
 OPTIONS_QUALITY_HIGH,Hoch,High
 OPTIONS_RENDER_SCALE,3D-Auflösung,3D render scale
-OPTIONS_RENDER_SCALE_HINT,Unter 100 % werden die 3D-Szenen kleiner berechnet und vergrößert; die Oberfläche bleibt scharf.,Below 100% the 3D scenes render smaller and are scaled up; the interface stays sharp.
+OPTIONS_RENDER_SCALE_HINT,Unter 100 % werden 3D-Szenen kleiner berechnet und vergrößert; die Oberfläche bleibt scharf.,Below 100% the 3D scenes render smaller and are scaled up; the interface stays sharp.
 OPTIONS_UI_SCALE,Größe der Oberfläche,Interface size
 OPTIONS_UI_SCALE_HINT,Vergrößert oder verkleinert Schrift und Bedienelemente.,Makes text and controls larger or smaller.
 OPTIONS_VOLUME_MASTER,Gesamtlautstärke,Master volume

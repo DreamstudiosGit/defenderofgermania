@@ -14,8 +14,9 @@ const PAGE_NAMES: Array[String] = ["video", "audio", "game", "controls"]
 const TAB_TEXTS: Array[String] = [
 	"OPTIONS_TAB_VIDEO", "OPTIONS_TAB_AUDIO", "OPTIONS_TAB_GAME", "OPTIONS_TAB_CONTROLS",
 ]
-## Room for a description of two lines, so the panel keeps its size.
-const HINT_HEIGHT := 40.0
+## Room for a description of two lines (21 px each, 3 px between), so the panel keeps its
+## size and the longer German texts are not cut off.
+const HINT_HEIGHT := 45.0
 ## Smaller than the other screens' titles: the panel has to fit 720 lines at the largest UI
 ## scale too.
 const TITLE_SIZE := 30

@@ -41,6 +41,9 @@ var _confirm := ConfirmDialog.new()
 ## wander to entries behind it.
 var _panel: Control
 var _focus_before: Control = null
+## A scene that hides or confines the pointer while it plays (the joust) gets it back on
+## resume; the menu itself is always usable with the mouse.
+var _mouse_mode_before := Input.MOUSE_MODE_VISIBLE
 ## The entry that opened a sub-screen; it gets focus back.
 var _origin: Button = null
 var _confirmed_action := Callable()
@@ -121,6 +124,9 @@ func open() -> void:
 	if visible:
 		return
 	_focus_before = get_viewport().gui_get_focus_owner()
+	_mouse_mode_before = Input.mouse_mode
+	if _mouse_mode_before != Input.MOUSE_MODE_VISIBLE:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_opened_frame = Engine.get_process_frames()
 	_show_entries()
 	_panel.visible = true
@@ -140,6 +146,8 @@ func close() -> void:
 	_confirm.visible = false
 	_origin = null
 	get_tree().paused = false
+	if Input.mouse_mode != _mouse_mode_before:
+		Input.mouse_mode = _mouse_mode_before
 	if is_instance_valid(_focus_before) and _focus_before.is_visible_in_tree():
 		_focus_before.grab_focus()
 	_focus_before = null
