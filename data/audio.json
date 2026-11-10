@@ -1,4 +1,467 @@
 {
-  "sounds": {},
-  "music": {}
+  "sounds": {
+    "ui_click": {
+      "files": [
+        "res://assets/ui/sfx_ui_click_1.wav",
+        "res://assets/ui/sfx_ui_click_2.wav",
+        "res://assets/ui/sfx_ui_click_3.wav"
+      ],
+      "bus": "Ui", "volume_db": -2.0, "pitch": [0.97, 1.03], "cooldown": 0.04
+    },
+    "ui_hover": {
+      "files": [
+        "res://assets/ui/sfx_ui_hover_1.wav",
+        "res://assets/ui/sfx_ui_hover_2.wav"
+      ],
+      "bus": "Ui", "volume_db": -6.0, "pitch": [0.98, 1.04], "cooldown": 0.06
+    },
+    "ui_focus": {
+      "files": [
+        "res://assets/ui/sfx_ui_focus_1.wav",
+        "res://assets/ui/sfx_ui_focus_2.wav"
+      ],
+      "bus": "Ui", "volume_db": -3.0, "pitch": [0.98, 1.03], "cooldown": 0.04
+    },
+    "ui_tab": {
+      "files": [
+        "res://assets/ui/sfx_ui_tab_1.wav",
+        "res://assets/ui/sfx_ui_tab_2.wav"
+      ],
+      "bus": "Ui", "volume_db": -2.0, "pitch": [0.96, 1.04], "cooldown": 0.08
+    },
+    "ui_slider": {
+      "files": [
+        "res://assets/ui/sfx_ui_slider_1.wav",
+        "res://assets/ui/sfx_ui_slider_2.wav"
+      ],
+      "bus": "Ui", "volume_db": -4.0, "pitch": [0.97, 1.05], "cooldown": 0.05
+    },
+    "ui_back": {
+      "files": [
+        "res://assets/ui/sfx_ui_back_1.wav",
+        "res://assets/ui/sfx_ui_back_2.wav"
+      ],
+      "bus": "Ui", "volume_db": -1.0, "pitch": [0.97, 1.03], "cooldown": 0.08
+    },
+    "ui_confirm": {
+      "files": ["res://assets/ui/sfx_ui_confirm.wav"],
+      "bus": "Ui", "volume_db": 0.0, "cooldown": 0.15
+    },
+    "ui_error": {
+      "files": ["res://assets/ui/sfx_ui_error.wav"],
+      "bus": "Ui", "volume_db": 0.0, "cooldown": 0.2
+    },
+    "ui_modal_open": {
+      "files": [
+        "res://assets/ui/sfx_ui_modal_open_1.wav",
+        "res://assets/ui/sfx_ui_modal_open_2.wav"
+      ],
+      "bus": "Ui", "volume_db": -3.0, "pitch": [0.95, 1.05], "cooldown": 0.15
+    },
+    "ui_save": {
+      "files": ["res://assets/ui/sfx_ui_save.wav"],
+      "bus": "Ui", "volume_db": 0.0, "cooldown": 0.3
+    },
+    "map_select": {
+      "files": [
+        "res://assets/map/sfx_map_select_1.wav",
+        "res://assets/map/sfx_map_select_2.wav",
+        "res://assets/map/sfx_map_select_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.96, 1.05], "cooldown": 0.05
+    },
+    "map_army_move": {
+      "files": [
+        "res://assets/map/sfx_map_army_move_1.wav",
+        "res://assets/map/sfx_map_army_move_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.95, 1.05], "cooldown": 0.1
+    },
+    "map_phase_end": {
+      "files": ["res://assets/map/sfx_map_phase_end.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "cooldown": 0.3
+    },
+    "map_turn_handover": {
+      "files": ["res://assets/map/sfx_map_turn_handover.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 0.5
+    },
+    "map_settlement": {
+      "files": ["res://assets/economy/sfx_map_settlement.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.97, 1.03], "cooldown": 0.3
+    },
+    "map_event_card": {
+      "files": ["res://assets/map/sfx_map_event_card.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 0.3
+    },
+    "map_build_order": {
+      "files": [
+        "res://assets/economy/sfx_map_build_order_1.wav",
+        "res://assets/economy/sfx_map_build_order_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.96, 1.04], "cooldown": 0.15
+    },
+    "map_build_done": {
+      "files": ["res://assets/economy/sfx_map_build_done.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 0.3
+    },
+    "map_recruit": {
+      "files": ["res://assets/map/sfx_map_recruit.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.97, 1.03], "cooldown": 0.3
+    },
+    "map_coin": {
+      "files": [
+        "res://assets/economy/sfx_map_coin_1.wav",
+        "res://assets/economy/sfx_map_coin_2.wav",
+        "res://assets/economy/sfx_map_coin_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.94, 1.08], "cooldown": 0.06
+    },
+    "map_conquest": {
+      "files": ["res://assets/map/sfx_map_conquest.wav"],
+      "bus": "Sfx", "volume_db": -1.0, "cooldown": 0.5
+    },
+    "battle_horn": {
+      "files": [
+        "res://assets/combat/sfx_battle_horn_1.wav",
+        "res://assets/combat/sfx_battle_horn_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.97, 1.03], "cooldown": 1
+    },
+    "battle_charge": {
+      "files": [
+        "res://assets/combat/sfx_battle_charge_1.wav",
+        "res://assets/combat/sfx_battle_charge_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.06], "cooldown": 0.4
+    },
+    "battle_impact": {
+      "files": [
+        "res://assets/combat/sfx_battle_impact_1.wav",
+        "res://assets/combat/sfx_battle_impact_2.wav",
+        "res://assets/combat/sfx_battle_impact_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.9, 1.1], "cooldown": 0.12
+    },
+    "battle_volley": {
+      "files": [
+        "res://assets/combat/sfx_battle_volley_1.wav",
+        "res://assets/combat/sfx_battle_volley_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.93, 1.07], "cooldown": 0.2
+    },
+    "battle_treb_shot": {
+      "files": [
+        "res://assets/combat/sfx_battle_treb_shot_1.wav",
+        "res://assets/combat/sfx_battle_treb_shot_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.05], "cooldown": 0.25
+    },
+    "battle_blast": {
+      "files": [
+        "res://assets/combat/sfx_battle_blast_1.wav",
+        "res://assets/combat/sfx_battle_blast_2.wav",
+        "res://assets/combat/sfx_battle_blast_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.9, 1.08], "cooldown": 0.15
+    },
+    "battle_formation": {
+      "files": [
+        "res://assets/combat/sfx_battle_formation_1.wav",
+        "res://assets/combat/sfx_battle_formation_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.95, 1.05], "cooldown": 0.2
+    },
+    "battle_rout": {
+      "files": ["res://assets/combat/sfx_battle_rout.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.95, 1.03], "cooldown": 1
+    },
+    "battle_rally": {
+      "files": ["res://assets/combat/sfx_battle_rally.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.98, 1.04], "cooldown": 1
+    },
+    "battle_leader_captured": {
+      "files": ["res://assets/combat/sfx_battle_leader_captured.wav"],
+      "bus": "Sfx", "volume_db": -1.0, "cooldown": 1
+    },
+    "battle_klong": {
+      "files": [
+        "res://assets/combat/sfx_battle_klong_1.wav",
+        "res://assets/combat/sfx_battle_klong_2.wav",
+        "res://assets/combat/sfx_battle_klong_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.92, 1.1], "cooldown": 0.12
+    },
+    "joust_fanfare": {
+      "files": ["res://assets/combat/sfx_joust_fanfare.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 1
+    },
+    "joust_spur": {
+      "files": [
+        "res://assets/combat/sfx_joust_spur_1.wav",
+        "res://assets/combat/sfx_joust_spur_2.wav",
+        "res://assets/combat/sfx_joust_spur_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.06], "cooldown": 0.05
+    },
+    "joust_spur_off": {
+      "files": [
+        "res://assets/combat/sfx_joust_spur_off_1.wav",
+        "res://assets/combat/sfx_joust_spur_off_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.04], "cooldown": 0.05
+    },
+    "joust_gallop": {
+      "files": [
+        "res://assets/combat/sfx_joust_gallop_1.wav",
+        "res://assets/combat/sfx_joust_gallop_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.96, 1.05], "cooldown": 0.5
+    },
+    "joust_impact": {
+      "files": [
+        "res://assets/combat/sfx_joust_impact_1.wav",
+        "res://assets/combat/sfx_joust_impact_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -1.0, "pitch": [0.94, 1.05], "cooldown": 0.2
+    },
+    "joust_lance_break": {
+      "files": [
+        "res://assets/combat/sfx_joust_lance_break_1.wav",
+        "res://assets/combat/sfx_joust_lance_break_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.93, 1.07], "cooldown": 0.2
+    },
+    "joust_shield_block": {
+      "files": [
+        "res://assets/combat/sfx_joust_shield_block_1.wav",
+        "res://assets/combat/sfx_joust_shield_block_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.94, 1.06], "cooldown": 0.15
+    },
+    "joust_unseat": {
+      "files": ["res://assets/combat/sfx_joust_unseat.wav"],
+      "bus": "Sfx", "volume_db": -1.0, "pitch": [0.96, 1.04], "cooldown": 0.5
+    },
+    "joust_crowd_cheer": {
+      "files": ["res://assets/combat/sfx_joust_crowd_cheer.wav"],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.97, 1.03], "cooldown": 1.5
+    },
+    "siege_release": {
+      "files": [
+        "res://assets/combat/sfx_siege_release_1.wav",
+        "res://assets/combat/sfx_siege_release_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.05], "cooldown": 0.3
+    },
+    "siege_whoosh": {
+      "files": ["res://assets/combat/sfx_siege_whoosh.wav"],
+      "bus": "Sfx", "volume_db": -5.0, "pitch": [0.92, 1.08], "cooldown": 0.3
+    },
+    "siege_hit_stone": {
+      "files": [
+        "res://assets/combat/sfx_siege_hit_stone_1.wav",
+        "res://assets/combat/sfx_siege_hit_stone_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.92, 1.08], "cooldown": 0.12
+    },
+    "siege_hit_wood": {
+      "files": [
+        "res://assets/combat/sfx_siege_hit_wood_1.wav",
+        "res://assets/combat/sfx_siege_hit_wood_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.92, 1.08], "cooldown": 0.12
+    },
+    "siege_miss": {
+      "files": [
+        "res://assets/combat/sfx_siege_miss_1.wav",
+        "res://assets/combat/sfx_siege_miss_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.92, 1.08], "cooldown": 0.12
+    },
+    "siege_ignite": {
+      "files": ["res://assets/combat/sfx_siege_ignite.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.06], "cooldown": 0.3
+    },
+    "siege_collapse": {
+      "files": ["res://assets/combat/sfx_siege_collapse.wav"],
+      "bus": "Sfx", "volume_db": -1.0, "pitch": [0.95, 1.04], "cooldown": 1
+    },
+    "siege_counterfire": {
+      "files": ["res://assets/combat/sfx_siege_counterfire.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.95, 1.05], "cooldown": 0.4
+    },
+    "raid_swing": {
+      "files": [
+        "res://assets/combat/sfx_raid_swing_1.wav",
+        "res://assets/combat/sfx_raid_swing_2.wav",
+        "res://assets/combat/sfx_raid_swing_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -5.0, "pitch": [0.92, 1.1], "cooldown": 0.08
+    },
+    "raid_hit": {
+      "files": [
+        "res://assets/combat/sfx_raid_hit_1.wav",
+        "res://assets/combat/sfx_raid_hit_2.wav",
+        "res://assets/combat/sfx_raid_hit_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.92, 1.08], "cooldown": 0.08
+    },
+    "raid_block": {
+      "files": [
+        "res://assets/combat/sfx_raid_block_1.wav",
+        "res://assets/combat/sfx_raid_block_2.wav",
+        "res://assets/combat/sfx_raid_block_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.94, 1.08], "cooldown": 0.1
+    },
+    "raid_parry": {
+      "files": [
+        "res://assets/combat/sfx_raid_parry_1.wav",
+        "res://assets/combat/sfx_raid_parry_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -5.0, "pitch": [0.96, 1.06], "cooldown": 0.1
+    },
+    "raid_down": {
+      "files": [
+        "res://assets/combat/sfx_raid_down_1.wav",
+        "res://assets/combat/sfx_raid_down_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.05], "cooldown": 0.15
+    },
+    "raid_alarm": {
+      "files": ["res://assets/combat/sfx_raid_alarm.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "cooldown": 2
+    },
+    "raid_door": {
+      "files": ["res://assets/combat/sfx_raid_door.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.95, 1.04], "cooldown": 0.4
+    },
+    "raid_sneak": {
+      "files": [
+        "res://assets/combat/sfx_raid_sneak_1.wav",
+        "res://assets/combat/sfx_raid_sneak_2.wav",
+        "res://assets/combat/sfx_raid_sneak_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -8.0, "pitch": [0.92, 1.1], "cooldown": 0.25
+    },
+    "raid_deed": {
+      "files": ["res://assets/combat/sfx_raid_deed.wav"],
+      "bus": "Sfx", "volume_db": -4.0, "cooldown": 0.4
+    },
+    "merchant_horn": {
+      "files": ["res://assets/combat/sfx_merchant_horn.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "pitch": [0.98, 1.02], "cooldown": 1
+    },
+    "merchant_wagon_stop": {
+      "files": ["res://assets/combat/sfx_merchant_wagon_stop.wav"],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.95, 1.05], "cooldown": 0.5
+    },
+    "merchant_crossbow": {
+      "files": [
+        "res://assets/combat/sfx_merchant_crossbow_1.wav",
+        "res://assets/combat/sfx_merchant_crossbow_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.94, 1.06], "cooldown": 0.08
+    },
+    "merchant_hit": {
+      "files": [
+        "res://assets/combat/sfx_raid_hit_1.wav",
+        "res://assets/combat/sfx_raid_hit_2.wav",
+        "res://assets/combat/sfx_raid_hit_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.88, 1], "cooldown": 0.08
+    },
+    "merchant_block": {
+      "files": [
+        "res://assets/combat/sfx_raid_block_1.wav",
+        "res://assets/combat/sfx_raid_block_2.wav",
+        "res://assets/combat/sfx_raid_block_3.wav"
+      ],
+      "bus": "Sfx", "volume_db": -4.0, "pitch": [0.9, 1.02], "cooldown": 0.1
+    },
+    "merchant_down": {
+      "files": [
+        "res://assets/combat/sfx_raid_down_1.wav",
+        "res://assets/combat/sfx_raid_down_2.wav"
+      ],
+      "bus": "Sfx", "volume_db": -3.0, "pitch": [0.9, 1], "cooldown": 0.15
+    },
+    "sting_battle_won": {
+      "files": ["res://assets/ui/sfx_sting_battle_won.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 2
+    },
+    "sting_battle_lost": {
+      "files": ["res://assets/ui/sfx_sting_battle_lost.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 2
+    },
+    "sting_success": {
+      "files": ["res://assets/ui/sfx_sting_success.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 2
+    },
+    "sting_fail": {
+      "files": ["res://assets/ui/sfx_sting_fail.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 2
+    },
+    "sting_coronation": {
+      "files": ["res://assets/ui/sfx_sting_coronation.wav"],
+      "bus": "Sfx", "volume_db": -1.0, "cooldown": 2
+    },
+    "sting_victory": {
+      "files": ["res://assets/ui/sfx_sting_victory.wav"],
+      "bus": "Sfx", "volume_db": -1.0, "cooldown": 2
+    },
+    "sting_defeat": {
+      "files": ["res://assets/ui/sfx_sting_defeat.wav"],
+      "bus": "Sfx", "volume_db": -2.0, "cooldown": 2
+    }
+  },
+  "music": {
+    "menu": {
+      "layers": ["res://assets/ui/music_menu_main.wav"],
+      "volume_db": -5.0
+    },
+    "map": {
+      "layers": [
+        "res://assets/ui/music_map_lute.wav",
+        "res://assets/ui/music_map_melody.wav"
+      ],
+      "volume_db": -7.0
+    },
+    "battle": {
+      "layers": [
+        "res://assets/combat/music_battle_drums.wav",
+        "res://assets/combat/music_battle_lead.wav",
+        "res://assets/combat/music_battle_clash.wav"
+      ],
+      "volume_db": -6.0
+    },
+    "joust": {
+      "layers": [
+        "res://assets/combat/music_joust_pipes.wav",
+        "res://assets/combat/music_joust_crowd.wav"
+      ],
+      "volume_db": -6.0
+    },
+    "siege": {
+      "layers": [
+        "res://assets/combat/music_siege_drums.wav",
+        "res://assets/combat/music_siege_tension.wav"
+      ],
+      "volume_db": -6.0
+    },
+    "raid": {
+      "layers": [
+        "res://assets/combat/music_raid_stealth.wav",
+        "res://assets/combat/music_raid_alarm.wav"
+      ],
+      "volume_db": -7.0
+    },
+    "merchant": {
+      "layers": [
+        "res://assets/combat/music_merchant_road.wav",
+        "res://assets/combat/music_merchant_ambush.wav"
+      ],
+      "volume_db": -7.0
+    }
+  }
 }

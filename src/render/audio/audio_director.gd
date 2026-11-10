@@ -6,6 +6,9 @@ extends Node
 
 const VOICES := 14
 const VOICES_3D := 12
+## Milliseconds the audio thread gets to let go of what still played when the game ends;
+## without them Godot reports those streams as resources still in use at exit.
+const RELEASE_MSEC := 150
 
 var bank: AudioBank
 var music_player := MusicPlayer.new()
@@ -36,6 +39,17 @@ func _ready() -> void:
 		add_child(voice)
 		_voices_3d.append(voice)
 	add_child(_ui_sounds)
+
+
+func _exit_tree() -> void:
+	var stopped := false
+	for player: Node in find_children("*", "", true, false):
+		# Not `playing`: a player that has left the tree is paused, yet still holds its voice.
+		if player.has_method("has_stream_playback") and player.call("has_stream_playback"):
+			player.call("stop")
+			stopped = true
+	if stopped:
+		OS.delay_msec(RELEASE_MSEC)
 
 
 ## Plays a sound; volume_db and pitch add to the bank's values.
