@@ -1,0 +1,13 @@
+// Linux depot (x86_64), also the Steam Deck's build: everything in build/linux/.
+"DepotBuild"
+{
+	"DepotID" "REPLACE_WITH_LINUX_DEPOT_ID"
+
+	"FileMapping"
+	{
+		// Relative to the ContentRoot of app_build.vdf.
+		"LocalPath" "linux/*"
+		"DepotPath" "."
+		"Recursive" "1"
+	}
+}

@@ -1,0 +1,24 @@
+// SteamPipe build script for THRONSTREIT 1198. A template: replace every REPLACE_WITH_...
+// placeholder (here and in the three depot scripts) with the ids from Steamworks before the
+// first upload. See README.md.
+"AppBuild"
+{
+	"AppID" "REPLACE_WITH_APP_ID"
+
+	// Shown only on the builds page of Steamworks; add the version from build/<platform>/version.txt.
+	"Desc" "THRONSTREIT 1198"
+
+	// Both relative to this file: the folders scripts/build.mjs fills, and steamcmd's logs and cache.
+	"ContentRoot" "../build/"
+	"BuildOutput" "../build/steam_output/"
+
+	// "1" builds the manifests without uploading anything: a dry run.
+	"Preview" "0"
+
+	"Depots"
+	{
+		"REPLACE_WITH_WINDOWS_DEPOT_ID" "depot_build_windows.vdf"
+		"REPLACE_WITH_LINUX_DEPOT_ID" "depot_build_linux.vdf"
+		"REPLACE_WITH_MACOS_DEPOT_ID" "depot_build_macos.vdf"
+	}
+}

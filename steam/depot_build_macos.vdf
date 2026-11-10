@@ -1,0 +1,16 @@
+// macOS depot (universal): the app bundle unpacked from build/macos/thronstreit.zip into
+// build/macos/ (README.md, "Upload"). The zip itself stays out of the depot.
+"DepotBuild"
+{
+	"DepotID" "REPLACE_WITH_MACOS_DEPOT_ID"
+
+	"FileMapping"
+	{
+		// Relative to the ContentRoot of app_build.vdf.
+		"LocalPath" "macos/*"
+		"DepotPath" "."
+		"Recursive" "1"
+	}
+
+	"FileExclusion" "*.zip"
+}

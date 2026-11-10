@@ -24,6 +24,7 @@
 - `assets/ui/font_vollkorn*.ttf` — Vollkorn (variable, upright and italic), Friedrich Althausen via Google Fonts — SIL Open Font License 1.1 (`font_vollkorn_license.txt`).
 - `assets/*/sfx_*.wav`, `assets/*/music_*.wav` — synthesised by `scripts/make_audio.mjs` (own work: oscillators, filtered noise, plucked-string and FM models; no third-party samples or recordings); placeholders until recorded audio exists. Named `sfx_<id>[_<n>].wav` and `music_<track>_<layer>.wav`; `data/audio.json` says which id plays which file, so a recording replaces a file without a code change.
 - Music ships as `.wav` (24 kHz mono, QOA-compressed on import: `compress/mode=2` in the `.import` file) until composed `.ogg` pieces exist; effects are 44.1 kHz mono and imported uncompressed (`compress/mode=0`). `scripts/make_audio.mjs` sets both when it finds the `.import` file.
+- `assets/ui/icon_app.png`, `assets/ui/splash_boot.png` — app icon and boot splash, rendered by `scripts/make_app_art.gd` from the original master `art-src/ui/icon_app.svg`; no third-party art.
 
 ## After adding or renaming
 - Run `godot --headless --import` (or open the editor) and commit the generated `.import`/`.uid` files with the asset.

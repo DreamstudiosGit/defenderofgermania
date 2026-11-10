@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- App icon master: a heater shield with a gold rim, a crown as its charge. Shapes stay
+       bold enough for 16 px; scripts/make_app_art.gd renders the runtime files from it. -->
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe391"/>
+      <stop offset="0.45" stop-color="#ffd14d"/>
+      <stop offset="1" stop-color="#d79a26"/>
+    </linearGradient>
+    <radialGradient id="field" cx="0.5" cy="0.38" r="0.72">
+      <stop offset="0" stop-color="#3b2816"/>
+      <stop offset="1" stop-color="#130c08"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#gold)" d="M24 8H232Q242 8 242 18V116C242 188 194 230 128 252C62 230 14 188 14 116V18Q14 8 24 8Z"/>
+  <path fill="url(#field)" d="M36 30H220V116C220 178 181 211 128 229C75 211 36 178 36 116Z"/>
+  <g fill="url(#gold)">
+    <path d="M70 146L58 80L93 120L128 62L163 120L198 80L186 146Z"/>
+    <rect x="70" y="154" width="116" height="24" rx="4"/>
+    <circle cx="58" cy="76" r="10"/>
+    <circle cx="128" cy="56" r="11"/>
+    <circle cx="198" cy="76" r="10"/>
+  </g>
+  <g fill="#1a120d">
+    <circle cx="98" cy="166" r="5.5"/>
+    <circle cx="128" cy="166" r="5.5"/>
+    <circle cx="158" cy="166" r="5.5"/>
+  </g>
+</svg>

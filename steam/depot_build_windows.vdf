@@ -1,0 +1,13 @@
+// Windows depot (x86_64): everything in build/windows/.
+"DepotBuild"
+{
+	"DepotID" "REPLACE_WITH_WINDOWS_DEPOT_ID"
+
+	"FileMapping"
+	{
+		// Relative to the ContentRoot of app_build.vdf.
+		"LocalPath" "windows/*"
+		"DepotPath" "."
+		"Recursive" "1"
+	}
+}
