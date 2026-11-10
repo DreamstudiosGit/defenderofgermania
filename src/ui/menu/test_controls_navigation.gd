@@ -78,7 +78,12 @@ func test_down_walks_every_line_to_the_back_button_and_never_leaves_the_screen()
 		_press("ui_down")
 		steps += 1
 		assert_true(_screen.is_ancestor_of(_focused()), "down led to %s" % _focused().name)
-	assert_eq(steps, 64, "every line that takes focus, then the button below the list")
+	var lines := 0
+	for scene: String in InputTable.scenes():
+		lines += 1
+		for action: String in InputTable.actions(scene):
+			lines += int(not InputTable.is_locked(scene, action))
+	assert_eq(steps, lines, "every action the player can rebind and each scene's reset button")
 	_press("ui_left")
 	_press("ui_right")
 	assert_eq(_focused(), _button("reset_all"))

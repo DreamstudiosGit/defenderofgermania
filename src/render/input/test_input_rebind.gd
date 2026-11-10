@@ -85,7 +85,7 @@ func test_a_controller_swap_reaches_both_joypads() -> void:
 func test_the_same_event_may_serve_another_scene_and_the_other_family() -> void:
 	assert_eq(InputRebind.assign("raid", "act", KEYS, "key:F").result, BOUND)
 	assert_eq(InputTable.tokens("battle", "formation", KEYS), PackedStringArray(["key:F"]))
-	assert_eq(InputRebind.assign("castle", "zoom_in", PAD, "pad:y").result, BOUND)
+	assert_eq(InputRebind.assign("castle", "zoom_in", PAD, "pad:x").result, BOUND)
 	assert_eq(InputTable.tokens("castle", "zoom_in", KEYS).size(), 3, "its keys stay")
 
 

@@ -62,22 +62,22 @@ Full audit notes (UI inventory, architecture and save robustness) are folded int
 - [x] Options screen: video, audio, game (the controls tab is filled by the input package)
 - [~] Pause menu: the component is built (`PauseMenu.mount`, resume, options, save / load, the scene's own entry, main menu, quit); wave 2 mounts it in every scene
 - [~] `FocusTrap` keeps focus inside the modal in front (options, pause, confirm); wave 2 brings it to the campaign's modals
-- [ ] Save and load screen: autosave and three slots with round, date and houses; overwrite and delete with confirmation
-- [ ] Save robustness: atomic writes, a backup of the previous file, readable errors for broken or outdated saves
+- [x] Save and load screen: autosave and three slots with round, date and houses; overwrite and delete with confirmation
+- [x] Save robustness: atomic writes (temporary file, read-back, rename), a backup of the previous file, checksum, a status per slot for broken or outdated saves
 - [x] Credits and licences screen (engine and third-party notices, fonts)
 - [x] Headless smoke test still reaches a computer-vs-computer battle through the menu
 
 ### 2 Audio content
-- [ ] `scripts/make_audio.mjs`: synthesised UI, map, battle, joust, siege, raid, merchant sounds and stings
-- [ ] Music: menu, map (calm), battle (layers by intensity), tournament, siege, raid (stealth → alarm), victory, defeat
-- [ ] `data/audio.json` filled; levels checked (peak, RMS, no clipping, clean loops)
+- [x] `scripts/make_audio.mjs`: synthesised UI, map, battle, joust, siege, raid, merchant sounds and stings
+- [x] Music: menu, map (calm), battle (layers by intensity), tournament, siege, raid (stealth → alarm), merchant train; victory and defeat as stings
+- [x] `data/audio.json` filled (71 sounds, 7 tracks); levels measured (peak, RMS, DC, loop seams); a test scans the code for unknown ids. Nobody has listened to it yet
 
 ### 3 Controller and input
-- [ ] One input table in data, registered at boot; the seven `*_input_map.gd` reduced to thin readers
-- [ ] Rebinding with persistence; controls tab in the options
+- [x] One input table in data (`data/input.json`), registered at boot; the seven `*_input_map.gd` reduced to thin readers; a golden list guards the defaults
+- [x] Rebinding with persistence (`user://input.cfg`); controls tab in the options
 - [ ] Campaign map on a controller: province cursor, army selection, move, confirm / cancel, shoulder buttons for tabs
 - [ ] Focus management: every screen grabs and restores focus; no dead ends
-- [ ] Device-aware prompts (keyboard glyphs vs. controller buttons by last-used device)
+- [~] Device-aware prompts: `InputPrompt` and `InputGlyphs` are built (keyboard layout labels, Xbox naming); the scenes switch their hint texts over in a later pass
 - [ ] Campaign battles: the attacker plays on the device in use; second player on the next free one
 - [ ] Map camera ignores input while a modal, battle or minigame covers it
 
@@ -89,9 +89,17 @@ Full audit notes (UI inventory, architecture and save robustness) are folded int
 - [ ] AI turns and settlement no longer freeze the screen silently
 
 ### 5 Rendering and performance
-- [ ] Quality levels (low for the Steam Deck, medium, high) drive MSAA, shadows, SSAO / SSIL, render scale
+- [~] Quality levels (low for the Steam Deck, medium, high) drive MSAA, shadows, SSAO / SSIL, render scale: done for menu, war table and castle view, the playable scenes follow; a Deck's first start defaults to low
 - [ ] Scenes stop forcing MSAA; `WorldEnvironment` conflict between map and covered scenes verified and fixed
-- [ ] Benchmark at 1280×800, numbers recorded here
+- [~] Benchmark at 1280×800 (`scripts/benchmark_scenes.gd`): menu, table and castle recorded below; battle and minigames follow
+
+Benchmark, 1280×800, RTX 5060 Ti, vsync and frame limit off (2026-11-10; the graphics-card column is the one to compare, the machine was shared with other runs):
+
+| Scene | Quality | Average frame | 1 % low | Graphics card |
+|---|---|---|---|---|
+| menu | low / medium / high | 0.78 / 1.16 / 1.59 ms | 1.79 / 2.95 / 2.84 ms | 0.41 / 0.78 / 1.26 ms |
+| table | low / medium / high | 0.77 / 1.27 / 1.37 ms | 1.63 / 5.18 / 1.92 ms | 0.34 / 0.69 / 1.06 ms |
+| castle | low / medium / high | 1.10 / 1.28 / 1.78 ms | 2.13 / 2.21 / 2.63 ms | 0.47 / 0.82 / 1.44 ms |
 
 ### 6 Onboarding
 - [ ] Advisors (chamberlain, marshal, chancellor, master builder): at most one hint each per round, switchable in the options
@@ -99,16 +107,16 @@ Full audit notes (UI inventory, architecture and save robustness) are folded int
 - [ ] First-turn guidance for a new campaign
 
 ### 7 Packaging and Steam
-- [ ] `export_presets.cfg` for Windows, Linux (Steam Deck) and macOS, including `data/*.json`
-- [ ] `scripts/build.mjs`: versioned release builds into `build/`
-- [ ] App icon, boot splash
-- [ ] Steam depot build files (`steam/`), Steam Deck notes, Auto-Cloud paths
-- [ ] CI workflow: lint, typecheck, tests, exports
-- [ ] Exported Windows build starts and passes the smoke test
+- [x] `export_presets.cfg` for Windows, Linux (Steam Deck) and macOS, including `data/*.json`
+- [x] `scripts/build.mjs`: versioned release builds into `build/`; fails on export errors and on a pack that lacks data files or holds tests
+- [x] App icon, boot splash
+- [x] Steam depot build files (`steam/`), Steam Deck notes, Auto-Cloud paths (templates; ids are the owner's)
+- [~] CI workflow: lint, typecheck, tests, exports on version tags (written; its first run on GitHub is unverified)
+- [x] Exported Windows build starts and passes the smoke test (headless: menu, then a whole computer battle; Linux and macOS export but were never started)
 
 ### 8 Verification
 - [ ] Full suite green after every package; smoke test green
-- [ ] Soak: computer-played campaigns to the end without errors
+- [x] Soak: 16 computer-played campaigns to the end without an error line (2026-11-10, `scripts/balance_run.gd --games=16`)
 - [ ] Screenshots of every screen at 1280×800 and 1920×1080 reviewed
 - [ ] `docs/architecture.md`, `docs/tasks.md`, `docs/STATUS.md`, `assets/README.md` match the code
 
@@ -122,3 +130,4 @@ Full audit notes (UI inventory, architecture and save robustness) are folded int
 ## Log
 - 2026-11-09 Audit, plan, foundation (fonts, canvas scaling, options store, app shell, audio engine).
 - 2026-11-10 Wave 1, first half merged: main menu with credits and ways back, options screen, pause menu, focus trap; each built in its own worktree and reviewed by a second agent. Verified by screenshot: a battle launched from the campaign inherits the map's candle-lit `WorldEnvironment` (fix planned with the scene packages). The other four wave-1 packages (saves, audio content, packaging, input) did not start — git failed while creating their worktrees inside the synced project folder — and run again with worktrees outside it, together with wave 2.
+- 2026-11-10 Wave 2, first half merged: saves (atomic writes, backup, slot status, save and load screen), synthesised audio (129 files), packaging (presets, build script, icon, splash, depot templates, CI), input table with rebinding and prompts, castle view and war table (sharp castle at every resolution, quality levels, gliding figures, conquest blend, benchmark tool). The run stopped at a usage limit: these five were merged without their independent review, the other five (campaign on a controller, campaign screens, battle, joust and siege, raid and merchant train) were cut off mid-work and continue from a checkpoint commit. Integration fixes: tool runs keep their window (the engine hides `--resolution` from the game), `castle_timelapse` ported into the input table. Full suite, smoke test and the exported Windows build (headless, a whole battle) pass.

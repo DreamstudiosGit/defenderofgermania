@@ -39,6 +39,9 @@ func _ready() -> void:
 	if first_start and OS.has_feature("editor"):
 		# Development runs start in a window; a shipped game starts borderless fullscreen.
 		settings.set_value(UserSettings.WINDOW_MODE, UserSettings.WindowMode.WINDOWED)
+	if first_start and OS.get_environment("SteamDeck") == "1":
+		# SteamOS names the Deck this way; its first start gets the level tuned for it.
+		settings.set_value(UserSettings.QUALITY, UserSettings.Quality.LOW)
 	var window := get_tree().root
 	ThemeDB.fallback_font = UiFonts.body()
 	ThemeDB.fallback_font_size = CampaignStyle.FONT_SIZE

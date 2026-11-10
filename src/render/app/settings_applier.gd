@@ -20,8 +20,9 @@ const FALLBACK_LOCALE := "en"
 var _settings: UserSettings
 var _window: Window
 var _headless: bool
-## A window size given on the command line (screenshot tools, benchmarks) wins over the
-## player's stored window options.
+## Tool runs (screenshot tools, benchmarks, windowed tests) keep the window they were started
+## with instead of the player's stored window options. The engine consumes --resolution
+## before the game sees its arguments, so the --script argument is what gives a tool away.
 var _fixed_window: bool
 
 
@@ -29,7 +30,8 @@ func _init(settings: UserSettings, window: Window) -> void:
 	_settings = settings
 	_window = window
 	_headless = DisplayServer.get_name() == "headless"
-	_fixed_window = "--resolution" in OS.get_cmdline_args()
+	var arguments := OS.get_cmdline_args()
+	_fixed_window = "--script" in arguments or "-s" in arguments
 
 
 func apply_all() -> void:
