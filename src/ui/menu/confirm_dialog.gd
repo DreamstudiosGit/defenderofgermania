@@ -37,6 +37,14 @@ func _init() -> void:
 	_confirm.set_meta(UiSounds.SOUND_META, &"ui_confirm")
 	_confirm.pressed.connect(_close.bind(true))
 	buttons.add_child(_confirm)
+	# Godot looks for the next control across the whole window and finds the screen behind
+	# the dialog first when it lies nearer; the ways between the two buttons are spelled out.
+	_cancel.focus_neighbor_right = _cancel.get_path_to(_confirm)
+	_confirm.focus_neighbor_left = _confirm.get_path_to(_cancel)
+	FocusTrap.pin(_cancel, [SIDE_LEFT, SIDE_TOP, SIDE_BOTTOM])
+	FocusTrap.pin(_confirm, [SIDE_RIGHT, SIDE_TOP, SIDE_BOTTOM])
+	FocusTrap.ring(_cancel, _confirm)
+	add_child(FocusTrap.new())
 	visible = false
 
 
