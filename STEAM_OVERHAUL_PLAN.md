@@ -53,17 +53,19 @@ Full audit notes (UI inventory, architecture and save robustness) are folded int
 - [x] `App`: scene changes behind `SceneCurtain`, controller-in-use tracking, rumble, mute when unfocused
 - [x] `Audio`: `AudioBank` (`data/audio.json`), voice pools (2D and positional), `MusicPlayer` with crossfade and intensity layers, `UiSounds` (every button, tab and slider gets a sound without per-screen code)
 - [x] `CameraShake` helper (trauma-based, respects the screen-shake option)
-- [ ] Theme polish: panel shadows, popup menus, scroll bars, check boxes, sliders
-- [ ] `UiMotion`: shared open/close animation for modals and panels
+- [x] Theme polish: panel shadows, popup menus, scroll bars, check boxes, sliders (`GameTheme`)
+- [x] `UiMotion`: shared pop, slide, pulse and count animations for modals and panels
+- [x] Controller A / B bound to `ui_accept` / `ui_cancel` at boot (the engine binds only keys)
 
 ### 1 Shell
-- [ ] Main menu as main scene: war table backdrop, continue / new campaign / load / quick battle / practice / options / credits / quit
-- [ ] Options screen: video, audio, game and accessibility, controls
-- [ ] Pause menu in every scene: resume, options, save / load (campaign), back to menu, quit; pauses the scene
+- [x] Main menu as main scene: war table backdrop, continue / new campaign / load / quick battle / practice / options / credits / quit; every mode leads back to it
+- [x] Options screen: video, audio, game (the controls tab is filled by the input package)
+- [~] Pause menu: the component is built (`PauseMenu.mount`, resume, options, save / load, the scene's own entry, main menu, quit); wave 2 mounts it in every scene
+- [~] `FocusTrap` keeps focus inside the modal in front (options, pause, confirm); wave 2 brings it to the campaign's modals
 - [ ] Save and load screen: autosave and three slots with round, date and houses; overwrite and delete with confirmation
 - [ ] Save robustness: atomic writes, a backup of the previous file, readable errors for broken or outdated saves
-- [ ] Credits and licences screen (fonts, engine, GUT)
-- [ ] Headless smoke test still reaches a computer-vs-computer battle through the menu
+- [x] Credits and licences screen (engine and third-party notices, fonts)
+- [x] Headless smoke test still reaches a computer-vs-computer battle through the menu
 
 ### 2 Audio content
 - [ ] `scripts/make_audio.mjs`: synthesised UI, map, battle, joust, siege, raid, merchant sounds and stings
@@ -119,3 +121,4 @@ Full audit notes (UI inventory, architecture and save robustness) are folded int
 
 ## Log
 - 2026-11-09 Audit, plan, foundation (fonts, canvas scaling, options store, app shell, audio engine).
+- 2026-11-10 Wave 1, first half merged: main menu with credits and ways back, options screen, pause menu, focus trap; each built in its own worktree and reviewed by a second agent. Verified by screenshot: a battle launched from the campaign inherits the map's candle-lit `WorldEnvironment` (fix planned with the scene packages). The other four wave-1 packages (saves, audio content, packaging, input) did not start — git failed while creating their worktrees inside the synced project folder — and run again with worktrees outside it, together with wave 2.

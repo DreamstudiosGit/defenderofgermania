@@ -73,9 +73,10 @@ static func _still() -> bool:
 
 ## One running animation per control: a new one replaces the old.
 static func _fresh_tween(control: Control) -> Tween:
-	var old: Variant = control.get_meta(TWEEN_META, null)
-	if old is Tween and (old as Tween).is_valid():
-		(old as Tween).kill()
+	if control.has_meta(TWEEN_META):
+		var old: Variant = control.get_meta(TWEEN_META)
+		if old is Tween and (old as Tween).is_valid():
+			(old as Tween).kill()
 	var tween := control.create_tween()
 	control.set_meta(TWEEN_META, tween)
 	return tween

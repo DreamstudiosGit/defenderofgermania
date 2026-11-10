@@ -44,6 +44,8 @@ func _ready() -> void:
 	applier.apply_all()
 	settings.changed.connect(applier.apply)
 	add_child(curtain)
+	_add_pad_button(&"ui_accept", JOY_BUTTON_A)
+	_add_pad_button(&"ui_cancel", JOY_BUTTON_B)
 
 
 func _notification(what: int) -> void:
@@ -150,6 +152,15 @@ func _on_node_added(node: Node) -> void:
 	var parent := control.get_parent()
 	if not (parent is Control or parent is Window):
 		control.theme = CampaignStyle.theme()
+
+
+## The engine binds only keys to confirm and cancel; every screen needs both on a controller.
+func _add_pad_button(action: StringName, button: JoyButton) -> void:
+	var event := InputEventJoypadButton.new()
+	event.device = -1
+	event.button_index = button
+	if not InputMap.action_has_event(action, event):
+		InputMap.action_add_event(action, event)
 
 
 func _mute(muted: bool) -> void:

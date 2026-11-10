@@ -1,0 +1,11 @@
+# 0010 — App shell, options and audio as presentation autoloads
+
+- Context: every scene started on its own (the main scene was the battle prototype), nothing held the player's options, the UI was fixed pixels and the game was silent. An Early Access build needs one shell around all scenes.
+- Decision: two autoloads in `src/render/`, never referenced from `src/core/` or `src/systems/`: `App` (options, shared theme, scene changes behind a curtain, controller-in-use, rumble, quit) and `Audio` (sound bank, voice pools, layered music). `scripts/typecheck.gd` runs in `_initialize` so both are known as globals.
+- Decision: the player's options are plain data in `src/core/user_settings.gd` (`user://settings.cfg`, every key with a default and a range); `SettingsApplier` in `src/render/app/` turns them into engine state. Scenes no longer set MSAA or window state themselves; they read `App.quality()` for their own extras.
+- Decision: the canvas is 1280×720 with stretch mode `canvas_items` and aspect `expand`, so the Steam Deck renders 1:1 and larger screens scale up; a UI-scale option (75–115 %) sits on top. Every screen must fit 1280×720.
+- Decision: one theme (`GameTheme`, `UiPalette`, `UiFonts` in `src/ui/shared/`) with Texturina for headings and Vollkorn for text (both SIL OFL). A theme only passes from Control to Control, and the screens hang under CanvasLayers, so `App` sets it on every topmost Control as it enters the tree.
+- Decision: sounds and music are data: `data/audio.json` maps an id to files, bus, loudness, pitch range and cooldown; code only names what happened (`Audio.play(&"battle_impact")`). An unknown id is silent. Music tracks are stems of equal length; `Audio.set_intensity` fades the upper stems in and out. Buttons, tabs and sliders get their sounds from one listener (`UiSounds`), not from each screen.
+- Decision: user data lives in the fixed folder `Thronstreit1198` (`config/use_custom_user_dir`), so Steam Auto-Cloud paths do not depend on the project name.
+- Consequences: tests and tools run with both autoloads present; headless runs skip window, renderer and animation work. A language change rebuilds the current scene, because screens set their texts when they are built.
+- Consequences: all audio files are synthesised placeholders (`scripts/make_audio.mjs`); replacing one needs no code change.

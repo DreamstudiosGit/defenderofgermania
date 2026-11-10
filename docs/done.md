@@ -43,3 +43,4 @@
 - 2026-11-10 feat(core): Early Access foundation — app shell and audio autoloads, options store, shared theme with Texturina and Vollkorn, 1280x720 canvas scaling, overhaul plan
 - 2026-11-10 feat(core): menu screen seams (options, pause, save slots, controls) and union merge for texts
 - 2026-11-10 feat(core): shared confirm dialog and generic UI texts
+- 2026-11-10 feat(core): wave 1 merged (main menu, credits, options, pause menu, focus trap), controller confirm and cancel bound at boot, UiMotion meta fix, ADR 0010
