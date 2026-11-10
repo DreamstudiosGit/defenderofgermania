@@ -1,0 +1,163 @@
+battle_kb_attack 0.500 key:Space
+battle_kb_down 0.250 key:S key:Down
+battle_kb_formation 0.500 key:F
+battle_kb_group_next 0.500 key:E
+battle_kb_group_prev 0.500 key:Q
+battle_kb_left 0.250 key:A key:Left
+battle_kb_menu 0.500 key:Escape
+battle_kb_rally 0.500 key:R
+battle_kb_right 0.250 key:D key:Right
+battle_kb_slot_1 0.500 key:1
+battle_kb_slot_2 0.500 key:2
+battle_kb_slot_3 0.500 key:3
+battle_kb_slot_4 0.500 key:4
+battle_kb_up 0.250 key:W key:Up
+battle_kb_zoom_in 0.500 key:PageUp
+battle_kb_zoom_out 0.500 key:PageDown
+battle_pad0_attack 0.500 button:0:0
+battle_pad0_down 0.250 axis:0:1:+1 button:0:12
+battle_pad0_formation 0.500 button:0:1
+battle_pad0_group_next 0.500 axis:0:5:+1 button:0:10
+battle_pad0_group_prev 0.500 axis:0:4:+1 button:0:9
+battle_pad0_left 0.250 axis:0:0:-1 button:0:13
+battle_pad0_menu 0.500 button:0:6
+battle_pad0_rally 0.500 button:0:3
+battle_pad0_right 0.250 axis:0:0:+1 button:0:14
+battle_pad0_up 0.250 axis:0:1:-1 button:0:11
+battle_pad0_zoom_in 0.500 axis:0:3:-1
+battle_pad0_zoom_out 0.500 axis:0:3:+1
+battle_pad1_attack 0.500 button:1:0
+battle_pad1_down 0.250 axis:1:1:+1 button:1:12
+battle_pad1_formation 0.500 button:1:1
+battle_pad1_group_next 0.500 axis:1:5:+1 button:1:10
+battle_pad1_group_prev 0.500 axis:1:4:+1 button:1:9
+battle_pad1_left 0.250 axis:1:0:-1 button:1:13
+battle_pad1_menu 0.500 button:1:6
+battle_pad1_rally 0.500 button:1:3
+battle_pad1_right 0.250 axis:1:0:+1 button:1:14
+battle_pad1_up 0.250 axis:1:1:-1 button:1:11
+battle_pad1_zoom_in 0.500 axis:1:3:-1
+battle_pad1_zoom_out 0.500 axis:1:3:+1
+castle_close 0.500 key:Escape key:Backspace button:-1:1
+castle_orbit_down 0.200 key:S key:Down axis:-1:3:+1 button:-1:12
+castle_orbit_left 0.200 key:A key:Left axis:-1:2:-1 button:-1:13
+castle_orbit_right 0.200 key:D key:Right axis:-1:2:+1 button:-1:14
+castle_orbit_up 0.200 key:W key:Up axis:-1:3:-1 button:-1:11
+castle_zoom_in 0.200 key:PageUp key:KpAdd key:Equal axis:-1:5:+1
+castle_zoom_out 0.200 key:PageDown key:KpSubtract key:Minus axis:-1:4:+1
+joust_kb_menu 0.500 key:Escape
+joust_kb_shield_down 0.200 key:S key:Down
+joust_kb_shield_left 0.200 key:A key:Left
+joust_kb_shield_right 0.200 key:D key:Right
+joust_kb_shield_up 0.200 key:W key:Up
+joust_kb_spur 0.500 key:Space
+joust_kb_strike 0.500 mouse:1 key:Enter
+joust_pad0_aim_down 0.200 axis:0:1:+1
+joust_pad0_aim_left 0.200 axis:0:0:-1
+joust_pad0_aim_right 0.200 axis:0:0:+1
+joust_pad0_aim_up 0.200 axis:0:1:-1
+joust_pad0_menu 0.500 button:0:6
+joust_pad0_shield_down 0.200 axis:0:3:+1
+joust_pad0_shield_left 0.200 axis:0:2:-1
+joust_pad0_shield_right 0.200 axis:0:2:+1
+joust_pad0_shield_up 0.200 axis:0:3:-1
+joust_pad0_spur 0.500 button:0:0
+joust_pad0_strike 0.500 axis:0:5:+1 button:0:10
+joust_pad1_aim_down 0.200 axis:1:1:+1
+joust_pad1_aim_left 0.200 axis:1:0:-1
+joust_pad1_aim_right 0.200 axis:1:0:+1
+joust_pad1_aim_up 0.200 axis:1:1:-1
+joust_pad1_menu 0.500 button:1:6
+joust_pad1_shield_down 0.200 axis:1:3:+1
+joust_pad1_shield_left 0.200 axis:1:2:-1
+joust_pad1_shield_right 0.200 axis:1:2:+1
+joust_pad1_shield_up 0.200 axis:1:3:-1
+joust_pad1_spur 0.500 button:1:0
+joust_pad1_strike 0.500 axis:1:5:+1 button:1:10
+map_kb_down 0.500 key:S key:Down
+map_kb_left 0.500 key:A key:Left
+map_kb_right 0.500 key:D key:Right
+map_kb_up 0.500 key:W key:Up
+map_kb_zoom_in 0.500 key:PageUp
+map_kb_zoom_out 0.500 key:PageDown
+map_pad0_down 0.200 axis:0:1:+1
+map_pad0_left 0.200 axis:0:0:-1
+map_pad0_right 0.200 axis:0:0:+1
+map_pad0_up 0.200 axis:0:1:-1
+map_pad0_zoom_in 0.200 axis:0:3:-1
+map_pad0_zoom_out 0.200 axis:0:3:+1
+map_pad1_down 0.200 axis:1:1:+1
+map_pad1_left 0.200 axis:1:0:-1
+map_pad1_right 0.200 axis:1:0:+1
+map_pad1_up 0.200 axis:1:1:-1
+map_pad1_zoom_in 0.200 axis:1:3:-1
+map_pad1_zoom_out 0.200 axis:1:3:+1
+merchant_kb_left 0.250 key:A key:Left
+merchant_kb_menu 0.500 key:Escape
+merchant_kb_parry 0.500 key:S key:Down key:K mouse:2
+merchant_kb_pull 0.500 key:W key:Up key:E
+merchant_kb_right 0.250 key:D key:Right
+merchant_kb_shoot 0.500 key:F key:L
+merchant_kb_strike 0.500 key:Space key:J mouse:1
+merchant_pad0_left 0.250 axis:0:0:-1 button:0:13
+merchant_pad0_menu 0.500 button:0:6
+merchant_pad0_parry 0.500 button:0:1 button:0:9
+merchant_pad0_pull 0.500 button:0:0
+merchant_pad0_right 0.250 axis:0:0:+1 button:0:14
+merchant_pad0_shoot 0.500 button:0:3 axis:0:5:+1
+merchant_pad0_strike 0.500 button:0:2
+merchant_pad1_left 0.250 axis:1:0:-1 button:1:13
+merchant_pad1_menu 0.500 button:1:6
+merchant_pad1_parry 0.500 button:1:1 button:1:9
+merchant_pad1_pull 0.500 button:1:0
+merchant_pad1_right 0.250 axis:1:0:+1 button:1:14
+merchant_pad1_shoot 0.500 button:1:3 axis:1:5:+1
+merchant_pad1_strike 0.500 button:1:2
+raid_kb_act 0.500 key:E
+raid_kb_high 0.350 key:W key:Up
+raid_kb_left 0.350 key:A key:Left
+raid_kb_low 0.350 key:S key:Down
+raid_kb_menu 0.500 key:Escape
+raid_kb_parry 0.500 key:K key:Shift
+raid_kb_right 0.350 key:D key:Right
+raid_kb_strike 0.500 key:J key:Space
+raid_pad0_act 0.500 button:0:0
+raid_pad0_high 0.350 axis:0:3:-1 axis:0:1:-1 button:0:11
+raid_pad0_left 0.350 axis:0:0:-1 button:0:13
+raid_pad0_low 0.350 axis:0:3:+1 axis:0:1:+1 button:0:12
+raid_pad0_menu 0.500 button:0:6
+raid_pad0_parry 0.500 button:0:1 button:0:9 axis:0:4:+1
+raid_pad0_right 0.350 axis:0:0:+1 button:0:14
+raid_pad0_strike 0.500 button:0:2 button:0:10 axis:0:5:+1
+raid_pad1_act 0.500 button:1:0
+raid_pad1_high 0.350 axis:1:3:-1 axis:1:1:-1 button:1:11
+raid_pad1_left 0.350 axis:1:0:-1 button:1:13
+raid_pad1_low 0.350 axis:1:3:+1 axis:1:1:+1 button:1:12
+raid_pad1_menu 0.500 button:1:6
+raid_pad1_parry 0.500 button:1:1 button:1:9 axis:1:4:+1
+raid_pad1_right 0.350 axis:1:0:+1 button:1:14
+raid_pad1_strike 0.500 button:1:2 button:1:10 axis:1:5:+1
+siege_kb_angle_down 0.300 key:S key:Down
+siege_kb_angle_up 0.300 key:W key:Up
+siege_kb_fire 0.500 key:Space key:Enter
+siege_kb_look 0.500 key:C
+siege_kb_menu 0.500 key:Escape key:H key:F1
+siege_kb_projectile 0.500 key:Q key:E key:Tab
+siege_kb_weight_down 0.300 key:A key:Left
+siege_kb_weight_up 0.300 key:D key:Right
+siege_pad0_angle_down 0.300 axis:0:1:+1 button:0:12
+siege_pad0_angle_up 0.300 axis:0:1:-1 button:0:11
+siege_pad0_fire 0.500 button:0:0
+siege_pad0_look 0.500 button:0:3 axis:0:4:+1
+siege_pad0_menu 0.500 button:0:6 button:0:4
+siege_pad0_projectile 0.500 button:0:2 button:0:9 button:0:10
+siege_pad0_weight_down 0.300 axis:0:0:-1 button:0:13
+siege_pad0_weight_up 0.300 axis:0:0:+1 button:0:14
+siege_pad1_angle_down 0.300 axis:1:1:+1 button:1:12
+siege_pad1_angle_up 0.300 axis:1:1:-1 button:1:11
+siege_pad1_fire 0.500 button:1:0
+siege_pad1_look 0.500 button:1:3 axis:1:4:+1
+siege_pad1_menu 0.500 button:1:6 button:1:4
+siege_pad1_projectile 0.500 button:1:2 button:1:9 button:1:10
+siege_pad1_weight_down 0.300 axis:1:0:-1 button:1:13
+siege_pad1_weight_up 0.300 axis:1:0:+1 button:1:14

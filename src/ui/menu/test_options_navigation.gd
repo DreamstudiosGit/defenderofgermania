@@ -126,9 +126,10 @@ func test_keys_never_lead_out_of_the_screen() -> void:
 	assert_eq(_focused(), _control("video_ui_scale"))
 	_press("ui_page_up")
 	_press("ui_up")
+	assert_eq(_focused(), _tabs().get_tab_bar(), "also on the controls tab")
+	_button("reset_all").grab_focus()
 	_press("ui_down")
-	_press("ui_down")
-	assert_eq(_focused(), _button("back"), "also on the controls tab")
+	assert_eq(_focused(), _button("back"))
 
 
 func test_a_locked_row_is_passed_over() -> void:

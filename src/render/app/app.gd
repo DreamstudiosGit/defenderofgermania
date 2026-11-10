@@ -55,6 +55,7 @@ func _ready() -> void:
 	escape.physical_keycode = KEY_ESCAPE
 	InputMap.action_add_event(PAUSE_ACTION, escape)
 	_add_pad_button(PAUSE_ACTION, JOY_BUTTON_START)
+	InputOverrides.load_file()
 
 
 func _notification(what: int) -> void:

@@ -1,0 +1,120 @@
+{
+  "scenes": {
+    "map": {
+      "actions": {
+        "up": {"keys": ["key:W", "key:Up"], "pad": ["axis:left_y-"], "deadzone": 0.5, "pad_deadzone": 0.2},
+        "down": {"keys": ["key:S", "key:Down"], "pad": ["axis:left_y+"], "deadzone": 0.5, "pad_deadzone": 0.2},
+        "left": {"keys": ["key:A", "key:Left"], "pad": ["axis:left_x-"], "deadzone": 0.5, "pad_deadzone": 0.2},
+        "right": {"keys": ["key:D", "key:Right"], "pad": ["axis:left_x+"], "deadzone": 0.5, "pad_deadzone": 0.2},
+        "zoom_in": {"keys": ["key:PageUp"], "pad": ["axis:right_y-"], "deadzone": 0.5, "pad_deadzone": 0.2},
+        "zoom_out": {"keys": ["key:PageDown"], "pad": ["axis:right_y+"], "deadzone": 0.5, "pad_deadzone": 0.2}
+      },
+      "fixed": {
+        "select": ["mouse:left"],
+        "drag": ["mouse:middle", "mouse:right"],
+        "wheel": ["mouse:wheel"]
+      }
+    },
+    "castle": {
+      "shared": true,
+      "actions": {
+        "orbit_left": {"keys": ["key:A", "key:Left"], "pad": ["axis:right_x-", "pad:dpad_left"], "deadzone": 0.2},
+        "orbit_right": {"keys": ["key:D", "key:Right"], "pad": ["axis:right_x+", "pad:dpad_right"], "deadzone": 0.2},
+        "orbit_up": {"keys": ["key:W", "key:Up"], "pad": ["axis:right_y-", "pad:dpad_up"], "deadzone": 0.2},
+        "orbit_down": {"keys": ["key:S", "key:Down"], "pad": ["axis:right_y+", "pad:dpad_down"], "deadzone": 0.2},
+        "zoom_in": {"keys": ["key:PageUp", "key:Kp Add", "key:Equal"], "pad": ["axis:rt"], "deadzone": 0.2},
+        "zoom_out": {"keys": ["key:PageDown", "key:Kp Subtract", "key:Minus"], "pad": ["axis:lt"], "deadzone": 0.2},
+        "close": {"keys": ["key:Escape", "key:Backspace"], "pad": ["pad:b"], "deadzone": 0.5, "locked": true}
+      },
+      "fixed": {
+        "drag": ["mouse:left", "mouse:right", "mouse:middle"],
+        "wheel": ["mouse:wheel"]
+      }
+    },
+    "battle": {
+      "actions": {
+        "up": {"keys": ["key:W", "key:Up"], "pad": ["axis:left_y-", "pad:dpad_up"], "deadzone": 0.25},
+        "down": {"keys": ["key:S", "key:Down"], "pad": ["axis:left_y+", "pad:dpad_down"], "deadzone": 0.25},
+        "left": {"keys": ["key:A", "key:Left"], "pad": ["axis:left_x-", "pad:dpad_left"], "deadzone": 0.25},
+        "right": {"keys": ["key:D", "key:Right"], "pad": ["axis:left_x+", "pad:dpad_right"], "deadzone": 0.25},
+        "group_prev": {"keys": ["key:Q"], "pad": ["axis:lt", "pad:lb"], "deadzone": 0.5},
+        "group_next": {"keys": ["key:E"], "pad": ["axis:rt", "pad:rb"], "deadzone": 0.5},
+        "slot_1": {"keys": ["key:1"], "deadzone": 0.5},
+        "slot_2": {"keys": ["key:2"], "deadzone": 0.5},
+        "slot_3": {"keys": ["key:3"], "deadzone": 0.5},
+        "slot_4": {"keys": ["key:4"], "deadzone": 0.5},
+        "attack": {"keys": ["key:Space"], "pad": ["pad:a"], "deadzone": 0.5},
+        "formation": {"keys": ["key:F"], "pad": ["pad:b"], "deadzone": 0.5},
+        "rally": {"keys": ["key:R"], "pad": ["pad:y"], "deadzone": 0.5},
+        "zoom_in": {"keys": ["key:PageUp"], "pad": ["axis:right_y-"], "deadzone": 0.5},
+        "zoom_out": {"keys": ["key:PageDown"], "pad": ["axis:right_y+"], "deadzone": 0.5},
+        "menu": {"keys": ["key:Escape"], "pad": ["pad:start"], "deadzone": 0.5, "locked": true}
+      },
+      "fixed": {
+        "order": ["mouse:right"],
+        "wheel": ["mouse:wheel"]
+      }
+    },
+    "joust": {
+      "actions": {
+        "spur": {"keys": ["key:Space"], "pad": ["pad:a"], "deadzone": 0.5},
+        "strike": {"keys": ["mouse:left", "key:Enter"], "pad": ["axis:rt", "pad:rb"], "deadzone": 0.5},
+        "aim_up": {"pad": ["axis:left_y-"], "deadzone": 0.2},
+        "aim_down": {"pad": ["axis:left_y+"], "deadzone": 0.2},
+        "aim_left": {"pad": ["axis:left_x-"], "deadzone": 0.2},
+        "aim_right": {"pad": ["axis:left_x+"], "deadzone": 0.2},
+        "shield_up": {"keys": ["key:W", "key:Up"], "pad": ["axis:right_y-"], "deadzone": 0.2},
+        "shield_down": {"keys": ["key:S", "key:Down"], "pad": ["axis:right_y+"], "deadzone": 0.2},
+        "shield_left": {"keys": ["key:A", "key:Left"], "pad": ["axis:right_x-"], "deadzone": 0.2},
+        "shield_right": {"keys": ["key:D", "key:Right"], "pad": ["axis:right_x+"], "deadzone": 0.2},
+        "menu": {"keys": ["key:Escape"], "pad": ["pad:start"], "deadzone": 0.5, "locked": true}
+      },
+      "fixed": {
+        "pointer": ["mouse:pointer"]
+      }
+    },
+    "siege": {
+      "actions": {
+        "angle_up": {"keys": ["key:W", "key:Up"], "pad": ["axis:left_y-", "pad:dpad_up"], "deadzone": 0.3},
+        "angle_down": {"keys": ["key:S", "key:Down"], "pad": ["axis:left_y+", "pad:dpad_down"], "deadzone": 0.3},
+        "weight_down": {"keys": ["key:A", "key:Left"], "pad": ["axis:left_x-", "pad:dpad_left"], "deadzone": 0.3},
+        "weight_up": {"keys": ["key:D", "key:Right"], "pad": ["axis:left_x+", "pad:dpad_right"], "deadzone": 0.3},
+        "projectile": {"keys": ["key:Q", "key:E", "key:Tab"], "pad": ["pad:x", "pad:lb", "pad:rb"], "deadzone": 0.5},
+        "fire": {"keys": ["key:Space", "key:Enter"], "pad": ["pad:a"], "deadzone": 0.5},
+        "look": {"keys": ["key:C"], "pad": ["pad:y", "axis:lt"], "deadzone": 0.5},
+        "menu": {"keys": ["key:Escape", "key:H", "key:F1"], "pad": ["pad:start", "pad:back"], "deadzone": 0.5, "locked": true}
+      },
+      "fixed": {
+        "wheel_weight": ["mouse:wheel"],
+        "wheel_angle": ["mouse:shift_wheel"]
+      }
+    },
+    "raid": {
+      "actions": {
+        "left": {"keys": ["key:A", "key:Left"], "pad": ["axis:left_x-", "pad:dpad_left"], "deadzone": 0.35},
+        "right": {"keys": ["key:D", "key:Right"], "pad": ["axis:left_x+", "pad:dpad_right"], "deadzone": 0.35},
+        "high": {"keys": ["key:W", "key:Up"], "pad": ["axis:right_y-", "axis:left_y-", "pad:dpad_up"], "deadzone": 0.35},
+        "low": {"keys": ["key:S", "key:Down"], "pad": ["axis:right_y+", "axis:left_y+", "pad:dpad_down"], "deadzone": 0.35},
+        "strike": {"keys": ["key:J", "key:Space"], "pad": ["pad:x", "pad:rb", "axis:rt"], "deadzone": 0.5},
+        "parry": {"keys": ["key:K", "key:Shift"], "pad": ["pad:b", "pad:lb", "axis:lt"], "deadzone": 0.5},
+        "act": {"keys": ["key:E"], "pad": ["pad:a"], "deadzone": 0.5},
+        "menu": {"keys": ["key:Escape"], "pad": ["pad:start"], "deadzone": 0.5, "locked": true}
+      },
+      "fixed": {
+        "pointer_strike": ["mouse:left"],
+        "pointer_parry": ["mouse:right"]
+      }
+    },
+    "merchant": {
+      "actions": {
+        "left": {"keys": ["key:A", "key:Left"], "pad": ["axis:left_x-", "pad:dpad_left"], "deadzone": 0.25},
+        "right": {"keys": ["key:D", "key:Right"], "pad": ["axis:left_x+", "pad:dpad_right"], "deadzone": 0.25},
+        "pull": {"keys": ["key:W", "key:Up", "key:E"], "pad": ["pad:a"], "deadzone": 0.5},
+        "strike": {"keys": ["key:Space", "key:J", "mouse:left"], "pad": ["pad:x"], "deadzone": 0.5},
+        "parry": {"keys": ["key:S", "key:Down", "key:K", "mouse:right"], "pad": ["pad:b", "pad:lb"], "deadzone": 0.5},
+        "shoot": {"keys": ["key:F", "key:L"], "pad": ["pad:y", "axis:rt"], "deadzone": 0.5},
+        "menu": {"keys": ["key:Escape"], "pad": ["pad:start"], "deadzone": 0.5, "locked": true}
+      }
+    }
+  }
+}
