@@ -1029,3 +1029,144 @@ PAUSE_ASK_QUIT,Das Spiel beenden?,Quit the game?
 PAUSE_UNSAVED,Der Fortschritt seit dem letzten Speichern geht verloren.,Progress since the last save will be lost.
 PAUSE_CONFIRM_MAIN_MENU,Zum Hauptmenü,To the main menu
 PAUSE_CONFIRM_QUIT,Beenden,Quit
+INPUT_COLUMN_ACTION,Aktion,Action
+INPUT_COLUMN_KEYS,Tastatur und Maus,Keyboard and mouse
+INPUT_COLUMN_PAD,Controller,Controller
+INPUT_UNBOUND,–,–
+INPUT_FIXED_HINT,Fest belegt,Cannot be changed
+INPUT_REBIND_HINT,Auswählen und neu belegen,Select to bind anew
+INPUT_RESET_SCENE,Zurücksetzen: %s,Reset: %s
+INPUT_RESET_ALL,Alles zurücksetzen,Reset everything
+INPUT_ASK_RESET_SCENE,%s: Steuerung auf die Vorgaben zurücksetzen?,%s: reset the controls to the defaults?
+INPUT_ASK_RESET_ALL,Die gesamte Steuerung auf die Vorgaben zurücksetzen?,Reset all controls to the defaults?
+INPUT_CONFIRM_RESET,Zurücksetzen,Reset
+INPUT_CAPTURE_TITLE,Neue Belegung,New binding
+INPUT_CAPTURE_ACTION,%s · %s,%s · %s
+INPUT_CAPTURE_KEYS,Drücke eine Taste oder Maustaste.,Press a key or a mouse button.
+INPUT_CAPTURE_PAD,Drücke einen Knopf oder bewege einen Stick oder Trigger.,Press a button or move a stick or trigger.
+INPUT_CAPTURE_CURRENT,Bisher: %s,So far: %s
+INPUT_CAPTURE_CANCEL_KEYS,Esc oder Warten bricht ab (%d s),Esc or waiting cancels (%d s)
+INPUT_CAPTURE_CANCEL_PAD,"Esc, ein Mausklick oder Warten bricht ab (%d s)","Esc, a mouse click or waiting cancels (%d s)"
+INPUT_NOTICE_BOUND,%s: jetzt %s.,%s: now %s.
+INPUT_NOTICE_SWAPPED,%s: jetzt %s. %s: dafür %s.,%s: now %s. %s: %s instead.
+INPUT_NOTICE_TAKEN,%s: jetzt %s. %s: nur noch %s.,%s: now %s. %s: only %s left.
+INPUT_NOTICE_REFUSED,%s ist fest belegt (%s).,%s is fixed (%s).
+INPUT_NOTICE_INVALID,Das lässt sich hier nicht belegen.,That cannot be bound here.
+INPUT_NOTICE_RESET_SCENE,%s: Vorgaben wiederhergestellt.,%s: defaults restored.
+INPUT_NOTICE_RESET_ALL,Alle Vorgaben wiederhergestellt.,All defaults restored.
+INPUT_NOTICE_NOT_SAVED,Die Belegung konnte nicht gespeichert werden.,The bindings could not be saved.
+INPUT_SCENE_GENERAL,Allgemein,General
+INPUT_SCENE_MAP,Karte,Campaign map
+INPUT_SCENE_CASTLE,Burgansicht,Castle view
+INPUT_SCENE_BATTLE,Schlacht,Battle
+INPUT_SCENE_JOUST,Tjost,Joust
+INPUT_SCENE_SIEGE,Belagerung,Trebuchet siege
+INPUT_SCENE_RAID,Burgüberfall,Castle raid
+INPUT_SCENE_MERCHANT,Kaufmannszug,Merchant train
+INPUT_GENERAL_ACCEPT,Bestätigen,Confirm
+INPUT_GENERAL_CANCEL,Zurück oder abbrechen,Back or cancel
+INPUT_GENERAL_PAUSE,Pausenmenü,Pause menu
+INPUT_MAP_UP,Karte nach oben,Pan up
+INPUT_MAP_DOWN,Karte nach unten,Pan down
+INPUT_MAP_LEFT,Karte nach links,Pan left
+INPUT_MAP_RIGHT,Karte nach rechts,Pan right
+INPUT_MAP_ZOOM_IN,Heranzoomen,Zoom in
+INPUT_MAP_ZOOM_OUT,Herauszoomen,Zoom out
+INPUT_MAP_SELECT,Auswählen,Select
+INPUT_MAP_DRAG,Karte ziehen,Drag the map
+INPUT_MAP_WHEEL,Zoomen,Zoom
+INPUT_CASTLE_ORBIT_LEFT,Nach links drehen,Turn left
+INPUT_CASTLE_ORBIT_RIGHT,Nach rechts drehen,Turn right
+INPUT_CASTLE_ORBIT_UP,Höher blicken,Look from higher
+INPUT_CASTLE_ORBIT_DOWN,Tiefer blicken,Look from lower
+INPUT_CASTLE_ZOOM_IN,Heranzoomen,Zoom in
+INPUT_CASTLE_ZOOM_OUT,Herauszoomen,Zoom out
+INPUT_CASTLE_CLOSE,Zurück zur Karte,Back to the map
+INPUT_CASTLE_DRAG,Ansicht ziehen,Drag the view
+INPUT_CASTLE_WHEEL,Zoomen,Zoom
+INPUT_BATTLE_UP,Nach oben bewegen,Move up
+INPUT_BATTLE_DOWN,Nach unten bewegen,Move down
+INPUT_BATTLE_LEFT,Nach links bewegen,Move left
+INPUT_BATTLE_RIGHT,Nach rechts bewegen,Move right
+INPUT_BATTLE_GROUP_PREV,Vorherige Gruppe,Previous group
+INPUT_BATTLE_GROUP_NEXT,Nächste Gruppe,Next group
+INPUT_BATTLE_SLOT_1,Gruppe 1,Group 1
+INPUT_BATTLE_SLOT_2,Gruppe 2,Group 2
+INPUT_BATTLE_SLOT_3,Gruppe 3,Group 3
+INPUT_BATTLE_SLOT_4,Gruppe 4,Group 4
+INPUT_BATTLE_ATTACK,Angriff,Attack
+INPUT_BATTLE_FORMATION,Formation,Formation
+INPUT_BATTLE_RALLY,Sammeln,Rally
+INPUT_BATTLE_ZOOM_IN,Heranzoomen,Zoom in
+INPUT_BATTLE_ZOOM_OUT,Herauszoomen,Zoom out
+INPUT_BATTLE_MENU,Menü,Menu
+INPUT_BATTLE_ORDER,Bewegen oder angreifen,Move or attack
+INPUT_BATTLE_WHEEL,Zoomen,Zoom
+INPUT_JOUST_SPUR,Sporen geben,Spur
+INPUT_JOUST_STRIKE,Lanze einlegen,Couch the lance
+INPUT_JOUST_AIM_UP,Lanze nach oben,Lance up
+INPUT_JOUST_AIM_DOWN,Lanze nach unten,Lance down
+INPUT_JOUST_AIM_LEFT,Lanze nach links,Lance left
+INPUT_JOUST_AIM_RIGHT,Lanze nach rechts,Lance right
+INPUT_JOUST_SHIELD_UP,Schild nach oben,Shield up
+INPUT_JOUST_SHIELD_DOWN,Schild nach unten,Shield down
+INPUT_JOUST_SHIELD_LEFT,Schild nach links,Shield left
+INPUT_JOUST_SHIELD_RIGHT,Schild nach rechts,Shield right
+INPUT_JOUST_MENU,Menü,Menu
+INPUT_JOUST_POINTER,Lanze führen,Guide the lance
+INPUT_SIEGE_ANGLE_UP,Winkel steiler,Steeper angle
+INPUT_SIEGE_ANGLE_DOWN,Winkel flacher,Flatter angle
+INPUT_SIEGE_WEIGHT_DOWN,Weniger Gegengewicht,Less counterweight
+INPUT_SIEGE_WEIGHT_UP,Mehr Gegengewicht,More counterweight
+INPUT_SIEGE_PROJECTILE,Geschoss wechseln,Switch projectile
+INPUT_SIEGE_FIRE,Loslassen,Loose
+INPUT_SIEGE_LOOK,Burg ansehen,Look at the castle
+INPUT_SIEGE_MENU,Hilfe,Help
+INPUT_SIEGE_WHEEL_WEIGHT,Gegengewicht,Counterweight
+INPUT_SIEGE_WHEEL_ANGLE,Winkel,Angle
+INPUT_RAID_LEFT,Nach links gehen,Walk left
+INPUT_RAID_RIGHT,Nach rechts gehen,Walk right
+INPUT_RAID_HIGH,Hoch (halten),High (hold)
+INPUT_RAID_LOW,Tief (halten),Low (hold)
+INPUT_RAID_STRIKE,Hieb,Strike
+INPUT_RAID_PARRY,Parade,Parry
+INPUT_RAID_ACT,Schleichweg und Tat,Sneak path and deed
+INPUT_RAID_MENU,Menü,Menu
+INPUT_RAID_POINTER_STRIKE,Hieb auf Zeigerhöhe,Strike at pointer height
+INPUT_RAID_POINTER_PARRY,Parade auf Zeigerhöhe,Parry at pointer height
+INPUT_MERCHANT_LEFT,Nach links reiten,Ride left
+INPUT_MERCHANT_RIGHT,Nach rechts reiten,Ride right
+INPUT_MERCHANT_PULL,Kutscher packen (halten),Grab the driver (hold)
+INPUT_MERCHANT_STRIKE,Hieb,Strike
+INPUT_MERCHANT_PARRY,Parade,Parry
+INPUT_MERCHANT_SHOOT,Armbrust,Crossbow
+INPUT_MERCHANT_MENU,Menü,Menu
+INPUT_KEY_SPACE,Leertaste,Space
+INPUT_KEY_ENTER,Eingabe,Enter
+INPUT_KEY_ESCAPE,Esc,Esc
+INPUT_KEY_TAB,Tab,Tab
+INPUT_KEY_BACKSPACE,Rücktaste,Backspace
+INPUT_KEY_SHIFT,Umschalt,Shift
+INPUT_KEY_CTRL,Strg,Ctrl
+INPUT_KEY_ALT,Alt,Alt
+INPUT_KEY_CAPSLOCK,Feststelltaste,Caps Lock
+INPUT_KEY_PAGEUP,Bild auf,Page Up
+INPUT_KEY_PAGEDOWN,Bild ab,Page Down
+INPUT_KEY_HOME,Pos1,Home
+INPUT_KEY_END,Ende,End
+INPUT_KEY_INSERT,Einfg,Insert
+INPUT_KEY_DELETE,Entf,Delete
+INPUT_KEY_KEYPAD,Num %s,Num %s
+INPUT_MOUSE_LEFT,Maus links,Left mouse
+INPUT_MOUSE_RIGHT,Maus rechts,Right mouse
+INPUT_MOUSE_MIDDLE,Maus Mitte,Middle mouse
+INPUT_MOUSE_BACK,Maus 4,Mouse 4
+INPUT_MOUSE_FORWARD,Maus 5,Mouse 5
+INPUT_MOUSE_WHEEL,Mausrad,Mouse wheel
+INPUT_MOUSE_SHIFT_WHEEL,Umschalt + Mausrad,Shift + mouse wheel
+INPUT_MOUSE_POINTER,Mauszeiger,Mouse pointer
+INPUT_PAD_LEFT_STICK,L-Stick %s,L-stick %s
+INPUT_PAD_RIGHT_STICK,R-Stick %s,R-stick %s
+INPUT_PAD_LEFT_STICK_CLICK,L-Stick drücken,L-stick click
+INPUT_PAD_RIGHT_STICK_CLICK,R-Stick drücken,R-stick click
+INPUT_PAD_DPAD,Steuerkreuz %s,D-pad %s
